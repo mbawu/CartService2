@@ -39,6 +39,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		registerBtn.setOnClickListener(this);
 	}
 
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
