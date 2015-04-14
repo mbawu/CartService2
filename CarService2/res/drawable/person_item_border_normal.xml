@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 填充色 --> 
+    <solid android:color="@color/main_bg_color"/>
+    <!-- 圆角：android:radius角的弧度,值越大角越圆 -->
+    <corners android:radius="4dp" />
+
+    <!-- 内边距 -->
+    <padding android:left="0dp" android:top="0dp" android:right="42dp" android:bottom="0dp" />
+    
+    <!-- 设置渐变使用gradient属性。android:startColor和android:endColor分别为起始和结束颜色，ndroid:angle是渐变角度，必须为45的整数倍。
+另外渐变默认的模式为android:type="linear"，即线性渐变，可以指定渐变为径向渐变，android:type="radial"，径向渐变需要指定半径android:gradientRadius="50"。
+     -->
+</shape>

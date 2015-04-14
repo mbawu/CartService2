@@ -5,6 +5,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -27,6 +28,15 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		viewPager = (ViewPager) findViewById(R.id.viewpager);
+		initCarouselViewPager(imgUrls);
+	}
+
+	public void btnOnClick(View view) {
+		if (view.getId() == R.id.imageTopBack) {
+
+		} else if (view.getId() == R.id.textTopRightBtn) {
+			startActivity(new Intent(this, PersonCentreActivity.class));
+		}
 	}
 
 	private void initCarouselViewPager(String[] imgUrls) {
@@ -60,4 +70,10 @@ public class MainActivity extends Activity {
 			}, 5000, 5000);
 		}
 	}
+
+	private String[] imgUrls = new String[] {
+			"http://imgstatic.baidu.com/img/image/shouye/fanbingbing.jpg",
+			"http://imgstatic.baidu.com/img/image/shouye/wanglihong.jpg",
+			"http://imgstatic.baidu.com/img/image/shouye/gaoyuanyuan.jpg",
+			"http://imgstatic.baidu.com/img/image/shouye/yaodi.jpg" };
 }
