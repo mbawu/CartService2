@@ -11,9 +11,10 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int more_gray=0x7f040002;
-        public static final int style_color=0x7f040000;
-        public static final int wihte=0x7f040001;
+        public static final int main_bg_color=0x7f040000;
+        public static final int more_gray=0x7f040003;
+        public static final int style_color=0x7f040001;
+        public static final int wihte=0x7f040002;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -31,40 +32,59 @@ public final class R {
         public static final int box_normal=0x7f020002;
         public static final int edit_text_selector=0x7f020003;
         public static final int finish=0x7f020004;
-        public static final int ic_launcher=0x7f020005;
-        public static final int index_1=0x7f020006;
-        public static final int index_2=0x7f020007;
-        public static final int index_3=0x7f020008;
-        public static final int login_btn=0x7f020009;
-        public static final int login_register=0x7f02000a;
-        public static final int logo=0x7f02000b;
-        public static final int password_ico=0x7f02000c;
-        public static final int radio_noselect=0x7f02000d;
-        public static final int radio_select=0x7f02000e;
-        public static final int radio_selector=0x7f02000f;
-        public static final int username_ico=0x7f020010;
+        public static final int homepage_category_img=0x7f020005;
+        public static final int homepage_person_img=0x7f020006;
+        public static final int ic_launcher=0x7f020007;
+        public static final int image_back=0x7f020008;
+        public static final int index_1=0x7f020009;
+        public static final int index_2=0x7f02000a;
+        public static final int index_3=0x7f02000b;
+        public static final int login_btn=0x7f02000c;
+        public static final int login_register=0x7f02000d;
+        public static final int logo=0x7f02000e;
+        public static final int password_ico=0x7f02000f;
+        public static final int person_item_border_normal=0x7f020010;
+        public static final int person_order=0x7f020011;
+        public static final int radio_noselect=0x7f020012;
+        public static final int radio_select=0x7f020013;
+        public static final int radio_selector=0x7f020014;
+        public static final int username_ico=0x7f020015;
     }
     public static final class id {
-        public static final int action_settings=0x7f09000b;
-        public static final int login_btn=0x7f090005;
-        public static final int login_finish=0x7f090002;
-        public static final int login_forgot=0x7f090006;
-        public static final int login_pwd=0x7f090004;
-        public static final int login_register=0x7f090007;
-        public static final int login_username=0x7f090003;
-        public static final int name=0x7f090008;
-        public static final int rst_lady=0x7f09000a;
-        public static final int rst_man=0x7f090009;
-        public static final int viewPager=0x7f090001;
-        public static final int viewpager=0x7f090000;
+        public static final int action_settings=0x7f090017;
+        public static final int imagePersonCenterHeader=0x7f090005;
+        public static final int imageTopBack=0x7f090000;
+        public static final int login_btn=0x7f090011;
+        public static final int login_finish=0x7f09000e;
+        public static final int login_forgot=0x7f090012;
+        public static final int login_pwd=0x7f090010;
+        public static final int login_register=0x7f090013;
+        public static final int login_username=0x7f09000f;
+        public static final int name=0x7f090014;
+        public static final int personCenterItemAddress=0x7f09000b;
+        public static final int personCenterItemCoupon=0x7f090009;
+        public static final int personCenterItemMessage=0x7f09000c;
+        public static final int personCenterItemOrder=0x7f090008;
+        public static final int personCenterItemOther=0x7f09000d;
+        public static final int personCenterItemStoredcard=0x7f09000a;
+        public static final int rst_lady=0x7f090016;
+        public static final int rst_man=0x7f090015;
+        public static final int textPersonCenterCredits=0x7f090007;
+        public static final int textPersonCenterSex=0x7f090006;
+        public static final int textTopRightBtn=0x7f090002;
+        public static final int textTopTitle=0x7f090001;
+        public static final int viewPager=0x7f090004;
+        public static final int viewpager=0x7f090003;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int guide_layout=0x7f030001;
         public static final int image_view_fitxy=0x7f030002;
         public static final int index_last_layout=0x7f030003;
-        public static final int person_login=0x7f030004;
-        public static final int person_register=0x7f030005;
+        public static final int person_centre_layout=0x7f030004;
+        public static final int person_login=0x7f030005;
+        public static final int person_register=0x7f030006;
+        public static final int top_title_layout=0x7f030007;
     }
     public static final class menu {
         public static final int main=0x7f080000;
@@ -78,11 +98,13 @@ public final class R {
         /** 
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+
     
 
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
+
         
 
         Base application theme for API 11+. This theme completely replaces
@@ -103,5 +125,6 @@ public final class R {
         public static final int AppTheme=0x7f070001;
         public static final int MyTheme_Basic=0x7f070002;
         public static final int editStyle=0x7f070003;
+        public static final int personCenterItemStyle=0x7f070004;
     }
 }
