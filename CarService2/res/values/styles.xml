@@ -16,6 +16,11 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+        <style name="MyTheme.Basic" parent="@android:style/Theme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:screenOrientation">portrait</item>
+    </style>
 
     <style name="editStyle">
          <item name="android:background">@drawable/edit_text_selector</item>
