@@ -30,10 +30,11 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <application
+        android:name="com.xqxy.baseclass.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.NoTitleBar">
+        android:theme="@style/MyTheme.Basic" >
         <activity
             android:name="com.xqxy.person.RegisterActivity"
             android:label="@string/app_name" >
