@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/imageTopBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
@@ -33,8 +33,8 @@
 
         <ImageView
             android:id="@+id/textTopRightBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
@@ -42,10 +42,26 @@
             android:src="@drawable/homepage_person_img" />
     </RelativeLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="fill_parent"
-        android:layout_height="150dp" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp" >
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent" />
+
+        <RadioGroup
+            android:id="@+id/viewpager_radiogroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_gravity="bottom|right"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+        </RadioGroup>
+    </FrameLayout>
 
     <TextView
         android:layout_width="fill_parent"
