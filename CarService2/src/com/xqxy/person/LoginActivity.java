@@ -1,5 +1,6 @@
 package com.xqxy.person;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -47,6 +48,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	
 	@Override
 	public void onClick(View v) {
+		Intent intent=null;
 		RequestWrapper wrapper=new RequestWrapper();
 		switch (v.getId()) {
 		// 登录按钮
@@ -64,17 +66,19 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			break;
 		// 忘记密码按钮
 		case R.id.login_forgot:
-
+			intent=new Intent().setClass(this, ForgotActivity.class);
 			break;
 		// 注册按钮
 		case R.id.login_register:
-
+			intent=new Intent().setClass(this, RegisterActivity.class);
 			break;
 		// 关闭按钮
 		case R.id.login_finish:
 			finish();
 			break;
 		}
+		if(intent!=null)
+			startActivity(intent);
 
 	}
 }

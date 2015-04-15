@@ -15,5 +15,5 @@ public class Cst {
 	public static final String taoKePid="mm_41847425_0_0";//淘客中该程序的ID
 	
 
-	public static final String HOST="http://www.car.com/api/user/";
+	public static final String HOST="http://car.xinlingmingdeng.com/api.php/user/";
 }

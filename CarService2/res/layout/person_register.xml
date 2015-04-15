@@ -107,13 +107,32 @@
                 android:textColor="@color/wihte" />
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/rst_pwd"
-            style="@style/editStyle"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:hint="输入新密码"
-            android:inputType="textPassword" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <EditText
+                android:id="@+id/rst_pwd"
+                style="@style/editStyle"
+                android:gravity="center"
+                android:hint="输入新密码"
+                android:inputType="textPassword" />
+
+            <FrameLayout
+                android:id="@+id/rst_openpwd"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingRight="10dp"
+                android:layout_gravity="right|center_vertical" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/open_pwd" />
+            </FrameLayout>
+        </FrameLayout>
 
         <TextView
             android:id="@+id/rst_error"

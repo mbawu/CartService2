@@ -157,7 +157,7 @@ public class BaseActivity extends Activity {
 						String msg = "";
 						try {
 							done = response.getBoolean("done");
-							msg = response.getString("message");
+							msg = response.getString("msg");
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -177,6 +177,7 @@ public class BaseActivity extends Activity {
 						else {
 							// 提示网络异常
 //							DialogUtil.showToast(BaseActivity.this, msg);
+							Log.i(Cst.TAG,msg );
 							Toast.makeText(BaseActivity.this,msg , Toast.LENGTH_SHORT).show();
 //							if (progressDialog != null)
 //								progressDialog.dismiss();

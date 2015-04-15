@@ -1,12 +1,14 @@
 package com.xqxy.person;
 
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -18,7 +20,7 @@ import com.xqxy.carservice.R;
 public class RegisterActivity extends BaseActivity implements OnClickListener,
 		OnCheckedChangeListener {
 
-	private ImageView finish;//后退
+	private ImageView finish;// 后退
 	private EditText name;// 姓名
 	private RadioButton rbMan;// 先生
 	private RadioButton rbLady;// 女士
@@ -30,6 +32,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 	private TextView error;// 错误提示
 	private TextView register;// 注册
 	private RadioButton contract;// 同意条款
+	private FrameLayout openPwdBtn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +54,14 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 		error = (TextView) findViewById(R.id.rst_error);
 		register = (TextView) findViewById(R.id.rst_register);
 		contract = (RadioButton) findViewById(R.id.rst_contract);
+		openPwdBtn = (FrameLayout) findViewById(R.id.rst_openpwd);
 		finish.setOnClickListener(this);
 		getCode.setOnClickListener(this);
 		register.setOnClickListener(this);
 		rbMan.setOnCheckedChangeListener(this);
 		rbLady.setOnCheckedChangeListener(this);
 		contract.setOnCheckedChangeListener(this);
+		openPwdBtn.setOnClickListener(this);
 	}
 
 	@Override
@@ -73,6 +78,10 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 		// 注册
 		case R.id.rst_register:
 
+			break;
+		// 显示密码
+		case R.id.rst_openpwd:
+			pwd.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
 			break;
 		}
 
