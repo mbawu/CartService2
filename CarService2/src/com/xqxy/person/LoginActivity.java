@@ -6,8 +6,12 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xqxy.baseclass.BaseActivity;
+import com.xqxy.baseclass.Cst;
+import com.xqxy.baseclass.NetworkAction;
+import com.xqxy.baseclass.RequestWrapper;
 import com.xqxy.carservice.R;
 
 public class LoginActivity extends BaseActivity implements OnClickListener {
@@ -40,12 +44,23 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	}
 
 
+	
 	@Override
 	public void onClick(View v) {
+		RequestWrapper wrapper=new RequestWrapper();
 		switch (v.getId()) {
 		// 登录按钮
 		case R.id.login_btn:
-
+			String userName=userNameTxt.getText().toString();
+			String password=pwdTxt.getText().toString();
+			if(userName.equals("") || password.equals(""))
+			{
+				Toast.makeText(this, "用户名或密码不能为空！", Toast.LENGTH_SHORT).show();
+				return;
+			}
+			wrapper.setUserName(userName);
+			wrapper.setPassword(password);
+			sendData(wrapper,NetworkAction.login);
 			break;
 		// 忘记密码按钮
 		case R.id.login_forgot:

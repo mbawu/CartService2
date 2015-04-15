@@ -3,6 +3,7 @@ package com.xqxy.baseclass;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -135,10 +136,10 @@ public class MyHttpClient extends Object {
 	 * @param listener
 	 * @param errorListener
 	 */
-	public void postWithURL(RequestWrapper request, NetworkAction requestType,
+	public void postWithURL(HashMap< String, String>paramMap,NetworkAction requestType,
 			Response.Listener<JSONObject> listener,
 			Response.ErrorListener errorListener) {
-		Hashtable<String, String> paramMap = new Hashtable<String, String>();
+//		Hashtable<String, String> paramMap = new Hashtable<String, String>();
 //		//终端固定信息
 //		paramMap.put("appKey", Cst.appkey);
 //		paramMap.put("method", requestType.toString());
@@ -160,7 +161,8 @@ public class MyHttpClient extends Object {
 //		paramMap.put("sign", sign);
 //		Log.i(Cst.TAG, "Method->"+MyApplication.getUrl(paramMap, Cst.testurl));
 		//向服务器发数据
-		MyRequest jsObjRequest = new MyRequest(Request.Method.POST, Cst.testurl,
+		Log.i(Cst.TAG,MyApplication.getUrl(paramMap, Cst.HOST+requestType.toString()));
+		MyRequest jsObjRequest = new MyRequest(Request.Method.POST,Cst.HOST+requestType.toString(),
 				paramMap, requestType, listener, errorListener);
 		jsObjRequest.setTag(requestType);
 		this.addRequest(jsObjRequest);

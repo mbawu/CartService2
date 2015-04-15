@@ -68,7 +68,7 @@ public class MyApplication extends Application {
 //	}
 
 	// 获取拼接出来的请求字符串
-	public static String getUrl(Hashtable<String, String> paramter, String url) {
+	public static String getUrl(HashMap<String, String> paramter, String url) {
 		Iterator iter = paramter.entrySet().iterator();
 		int count = 0;
 		while (iter.hasNext()) {

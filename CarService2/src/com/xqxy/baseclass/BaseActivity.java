@@ -1,6 +1,7 @@
 package com.xqxy.baseclass;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 import org.json.JSONException;
@@ -25,6 +26,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class BaseActivity extends Activity {
 	private ArrayList<NetworkAction> requesType;// 记录当前页面所有的网络请求类型
@@ -139,37 +141,43 @@ public class BaseActivity extends Activity {
 	 */
 	public void sendData(RequestWrapper requestWrapper,
 			final NetworkAction requestType) {
-		MyApplication.client.postWithURL(requestWrapper, requestType,
+		HashMap<String, String> paramMap=new HashMap<String, String>();
+		if(requestType.equals(NetworkAction.login))
+		{
+			paramMap.put("phone",requestWrapper.getUserName() );
+			paramMap.put("password",requestWrapper.getPassword() );
+		}
+		MyApplication.client.postWithURL(paramMap, requestType,
 				new Listener<JSONObject>() {
 					public void onResponse(JSONObject response) {
 						// 重置返回结果值
 						getResualt = false;
 						// 先分析返回code值，正确执行showResualt，错误直接输出结果
-						int code = 0;
+						boolean done = false;
 						String msg = "";
 						try {
-							code = response.getInt("code");
+							done = response.getBoolean("done");
 							msg = response.getString("message");
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						Log.i(Cst.TAG, "code->" + code);
-						Log.i(Cst.TAG, "msg->" + msg);
+
 						// 如果数据返回正确的时候正常执行showResualt
-						if (code == 1000) {
+						if (done) {
 							if (!requesType.contains(requestType))
 								requesType.add(requestType);
 //							Log.i(Cst.TAG,
 //									"" + requestType + response.toString());
-							ResponseWrapper responseWrapper = jsonToClass(response
-									.toString());
-							showResualt(responseWrapper, requestType);
+//							ResponseWrapper responseWrapper = jsonToClass(response
+//									.toString());
+							showResualt(msg, requestType);
 						}
 						// 否则输出错误信息
 						else {
 							// 提示网络异常
 //							DialogUtil.showToast(BaseActivity.this, msg);
+							Toast.makeText(BaseActivity.this,msg , Toast.LENGTH_SHORT).show();
 //							if (progressDialog != null)
 //								progressDialog.dismiss();
 //							else if (progressDialog == null)
@@ -195,7 +203,7 @@ public class BaseActivity extends Activity {
 	 * @param requestType
 	 *            网络请求类型
 	 */
-	public void showResualt(ResponseWrapper responseWrapper,
+	public void showResualt(String msg,
 			NetworkAction requestType) {
 		// 重置获取到数据状态的值
 		getResualt = true;

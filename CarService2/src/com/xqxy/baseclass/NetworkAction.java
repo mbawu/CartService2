@@ -5,7 +5,7 @@ package com.xqxy.baseclass;
  * 网络请求枚举类型
  */
 public enum NetworkAction {
-	ch_gmall_index_get ,	//首页推荐面板接口
+	login ,	//登录接口
 	ch_gmall_catgory_get, //品类接口
 	ch_gmall_subject_get, //专题接口
 	ch_gmall_item_list, //商品列表接口

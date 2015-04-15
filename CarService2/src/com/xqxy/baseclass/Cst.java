@@ -13,4 +13,7 @@ public class Cst {
 	public static boolean EXITE=false;
 	public static boolean lunchIsTop=false;//启动页面是否完全关闭，当启动也面的焦点关闭后才能使首页的焦点移动
 	public static final String taoKePid="mm_41847425_0_0";//淘客中该程序的ID
+	
+
+	public static final String HOST="http://www.car.com/api/user/";
 }
