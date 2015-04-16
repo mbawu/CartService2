@@ -13,6 +13,7 @@
         android:orientation="horizontal" >
 
         <ImageView
+            android:id="@+id/img_service_photo"
             android:layout_width="120dp"
             android:layout_height="120dp" />
 
@@ -22,6 +23,7 @@
             android:orientation="vertical" >
 
             <TextView
+                android:id="@+id/text_service_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="外观清洗" />
@@ -37,11 +39,13 @@
                     android:text="价格：" />
 
                 <TextView
+                    android:id="@+id/text_service_price_new"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="￥80" />
 
                 <TextView
+                    android:id="@+id/text_service_price_old"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="￥120" />
@@ -57,26 +61,36 @@
                     android:text="时长：" />
 
                 <TextView
+                    android:id="@+id/text_service_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="约60分钟" />
             </LinearLayout>
 
-            <LinearLayout
+            <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
 
-                <TextView
+                <RadioButton
+                    android:id="@+id/radio_service_cartype_four"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="五座以下车厢" />
+                    android:button="@drawable/radio_selector"
+                    android:checked="true"
+                    android:paddingLeft="22dp"
+                    android:text="五座以下车厢"
+                    android:textColor="#000000" />
 
-                <TextView
+                <RadioButton
+                    android:id="@+id/radio_service_cartype_five"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="五座以上车厢" />
-            </LinearLayout>
+                    android:button="@drawable/radio_selector"
+                    android:paddingLeft="22dp"
+                    android:text="五座以上车厢"
+                    android:textColor="#000000" />
+            </RadioGroup>
         </LinearLayout>
     </LinearLayout>
 
@@ -86,22 +100,26 @@
         android:orientation="horizontal" >
 
         <Button
+            android:id="@+id/btn_service_go_pay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="去购物车结算" />
 
         <Button
+            android:id="@+id/btn_service_add_car"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="加入购物车" />
 
         <Button
+            android:id="@+id/btn_service_go_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="立即预约" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layout_service_evaluate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
@@ -112,9 +130,17 @@
             android:text="服务评价" />
 
         <TextView
+            android:id="@+id/text_service_evaluate_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="(50)" />
     </LinearLayout>
+
+    <include layout="@layout/evaluate_item" />
+
+    <WebView
+        android:id="@+id/webviw"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

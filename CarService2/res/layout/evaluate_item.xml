@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/text_evaluate_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="好评" />
+
+    <TextView
+        android:id="@+id/text_evaluate_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="135****1111" />
+
+    <TextView
+        android:id="@+id/text_evaluate_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_evaluate_level"
+        android:text="好评好评好评好评好评好评好评好评好评好评好评好评好评好评好评好评好评好评好评" />
+
+    <TextView
+        android:id="@+id/text_evaluate_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_evaluate_content"
+        android:gravity="left|center_vertical"
+        android:text="2015-02-11 14:15:20" />
+
+</RelativeLayout>

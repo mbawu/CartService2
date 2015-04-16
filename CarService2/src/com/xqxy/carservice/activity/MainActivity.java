@@ -1,6 +1,7 @@
 package com.xqxy.carservice.activity;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -10,13 +11,19 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.xqxy.carservice.R;
+import com.xqxy.carservice.adapter.CarBaseAdapter;
 import com.xqxy.carservice.adapter.CarouselAdapter;
 import com.xqxy.carservice.view.CarImageView;
 
@@ -26,6 +33,8 @@ public class MainActivity extends Activity {
 	private ViewPager viewPager;
 	private ArrayList<View> carouseImageViews = new ArrayList<View>();
 	private Timer timer;
+	private ListView listView;
+	private ServiceAdapter serviceAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +42,20 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		viewPager = (ViewPager) findViewById(R.id.viewpager);
 		radioGroup = (RadioGroup) findViewById(R.id.viewpager_radiogroup);
+		listView = (ListView) findViewById(R.id.listview);
+		serviceAdapter = new ServiceAdapter(this);
+		listView.setAdapter(serviceAdapter);
 		initCarouselViewPager(imgUrls);
-
+		List<CarService> carServiceList = new ArrayList<CarService>();
+		for (int i = 0; i < 10; i++) {
+			carServiceList.add(new CarService());
+		}
+		serviceAdapter.setDataList(carServiceList);
 	}
 
 	public void btnOnClick(View view) {
 		if (view.getId() == R.id.imageTopBack) {
-
+			startActivity(new Intent(this, CategoryActivity.class));
 		} else if (view.getId() == R.id.textTopRightBtn) {
 			startActivity(new Intent(this, PersonCentreActivity.class));
 		}
@@ -101,6 +117,60 @@ public class MainActivity extends Activity {
 
 			}
 		});
+	}
+
+	class ServiceAdapter extends CarBaseAdapter<CarService> {
+
+		public ServiceAdapter(Activity activity) {
+			super(activity);
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			ViewHolder viewHolder;
+			if (convertView == null) {
+				convertView = inflater.inflate(R.layout.homepager_service_item,
+						null);
+				viewHolder = new ViewHolder();
+				viewHolder.imgServicePhoto = (ImageView) convertView
+						.findViewById(R.id.img_service_photo);
+				viewHolder.textServiceName = (TextView) convertView
+						.findViewById(R.id.text_service_name);
+				viewHolder.textServiceDis = (TextView) convertView
+						.findViewById(R.id.text_service_dis);
+				viewHolder.textServicePriceNew = (TextView) convertView
+						.findViewById(R.id.text_service_price_new);
+				viewHolder.textServicePriceOld = (TextView) convertView
+						.findViewById(R.id.text_service_price_old);
+				convertView.setTag(viewHolder);
+			}
+			viewHolder = (ViewHolder) convertView.getTag();
+
+			convertView.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(activity,
+							ServiceDetailActivity.class);
+					activity.startActivity(intent);
+
+				}
+			});
+
+			return convertView;
+		}
+	}
+
+	class ViewHolder {
+		ImageView imgServicePhoto;
+		TextView textServiceName;
+		TextView textServiceDis;
+		TextView textServicePriceNew;
+		TextView textServicePriceOld;
+	}
+
+	class CarService {
+
 	}
 
 	private String[] imgUrls = new String[] {
