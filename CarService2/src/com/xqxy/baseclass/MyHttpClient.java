@@ -107,7 +107,7 @@ public class MyHttpClient extends Object {
 	}
 
 	/**
-	 * 向服务器发送数据使用get方式，暂时还未使用到
+	 * 向服务器发送数据使用get方式
 	 * @param url
 	 * @param params
 	 * @param listener
@@ -124,7 +124,8 @@ public class MyHttpClient extends Object {
 				url = url + "?" + encodeParameters(params, "UTF-8");
 			}
 		}
-		MyRequest jsObjRequest = new MyRequest(Request.Method.GET, url, params,
+		Log.i(Cst.TAG, "Url-->"+url+requestType);
+		MyRequest jsObjRequest = new MyRequest(Request.Method.GET, url+requestType, params,
 				requestType, listener, errorListener);
 		this.addRequest(jsObjRequest);
 	}
@@ -136,8 +137,8 @@ public class MyHttpClient extends Object {
 	 * @param listener
 	 * @param errorListener
 	 */
-	public void postWithURL(HashMap< String, String>paramMap,NetworkAction requestType,
-			Response.Listener<JSONObject> listener,
+	public void postWithURL(String url,HashMap< String, String>paramMap,NetworkAction requestType,
+			Response.Listener<JSONObject> listener, 
 			Response.ErrorListener errorListener) {
 //		Hashtable<String, String> paramMap = new Hashtable<String, String>();
 //		//终端固定信息
@@ -161,8 +162,8 @@ public class MyHttpClient extends Object {
 //		paramMap.put("sign", sign);
 //		Log.i(Cst.TAG, "Method->"+MyApplication.getUrl(paramMap, Cst.testurl));
 		//向服务器发数据
-		Log.i(Cst.TAG,MyApplication.getUrl(paramMap, Cst.HOST+requestType.toString()));
-		MyRequest jsObjRequest = new MyRequest(Request.Method.POST,Cst.HOST+requestType.toString(),
+		Log.i(Cst.TAG,MyApplication.getUrl(paramMap, url+requestType.toString()));
+		MyRequest jsObjRequest = new MyRequest(Request.Method.POST,url+requestType.toString(),
 				paramMap, requestType, listener, errorListener);
 		jsObjRequest.setTag(requestType);
 		this.addRequest(jsObjRequest);

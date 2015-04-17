@@ -14,7 +14,7 @@
             android:id="@+id/textView"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:gravity="center_vertical|left"
+            android:gravity="center"
             android:padding="5dip"
             android:singleLine="true"
             android:textColor="#656565"

@@ -12,10 +12,13 @@ import java.util.ArrayList;
 import com.xqxy.baseclass.NetworkAction;
 import com.xqxy.carservice.R;
 import com.xqxy.model.Brand;
+import com.xqxy.model.Model;
+import com.xqxy.model.Series;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,32 +28,40 @@ import android.widget.TextView;
 
 public class CarInfoAdapter extends BaseAdapter {
 	private Context context;
-	private ArrayList<Object> data;
+	private ArrayList<Brand> brands;
+	private ArrayList<Series> series;
+	private ArrayList<Model> model;
 	private NetworkAction type;
 	private LayoutInflater inflater;
 	private ViewHolder holder;
 
-	public CarInfoAdapter(Context context,NetworkAction type,ArrayList<Object> data) {
+	@SuppressWarnings("unchecked")
+	public <T> CarInfoAdapter(Context context,NetworkAction type,ArrayList<T> data) {
 		this.context = context;
 		this.type=type;
-		this.data=data;
+		if(type.equals(NetworkAction.car_brand))
+			brands=(ArrayList<Brand>) data;
+		else if(type.equals(NetworkAction.car_series))
+			series=(ArrayList<Series>) data;
+		else if(type.equals(NetworkAction.car_model))
+			model=(ArrayList<Model>) data;
 		this.inflater = LayoutInflater.from(context);
 	}
 
 	@Override
 	public int getCount() {
-		return data.size();
+		if(type.equals(NetworkAction.car_brand))
+			return brands.size();
+		else if(type.equals(NetworkAction.car_series))
+			return series.size();
+		else if(type.equals(NetworkAction.car_model))
+			return model.size();
+		return 0;
 	}
 
 
 
-	public ArrayList<Object> getArrayList() {
-		return data;
-	}
 
-	public void setArrayList(ArrayList<Object> arrayList) {
-		this.data = arrayList;
-	}
 
 	
 
@@ -64,14 +75,18 @@ public class CarInfoAdapter extends BaseAdapter {
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
-		return data.get(position);
+		if(type.equals(NetworkAction.car_brand))
+			return brands.get(position);
+		else if(type.equals(NetworkAction.car_series))
+			return series.get(position);
+		else if(type.equals(NetworkAction.car_model))
+			return model.get(position);
+		return "";
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
-		return 0;
+		return position;
 	}
 
 	@Override
@@ -79,7 +94,7 @@ public class CarInfoAdapter extends BaseAdapter {
 		if(convertView==null)
 		{
 			holder = new ViewHolder();
-			convertView = inflater.inflate(R.layout.listivew_voucher_item, null);
+			convertView = inflater.inflate(R.layout.car_info_adapter, null);
 			holder.name = (TextView) convertView.findViewById(R.id.textView);
 			convertView.setTag(holder);
 		}
@@ -87,10 +102,20 @@ public class CarInfoAdapter extends BaseAdapter {
 			 holder = (ViewHolder) convertView.getTag();
 			}
 		
-		if(type.equals(NetworkAction.brand))
+		if(type.equals(NetworkAction.car_brand))
 		{
-			Brand brand=(Brand) data.get(position);
+			Brand brand=(Brand) brands.get(position);
 			holder.name.setText(brand.getName());
+		}
+		else if(type.equals(NetworkAction.car_series))
+		{
+			Series brand=(Series) series.get(position);
+			holder.name.setText(brand.getSname());
+		}
+		else if(type.equals(NetworkAction.car_model))
+		{
+			Model brand=(Model) model.get(position);
+			holder.name.setText(brand.getMname());
 		}
 	
 		return convertView;
