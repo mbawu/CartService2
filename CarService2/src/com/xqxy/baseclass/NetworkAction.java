@@ -6,6 +6,7 @@ package com.xqxy.baseclass;
  */
 public enum NetworkAction {
 	login ,	//登录接口
+	brand,
 	ch_gmall_catgory_get, //品类接口
 	ch_gmall_subject_get, //专题接口
 	ch_gmall_item_list, //商品列表接口

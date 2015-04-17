@@ -1,5 +1,7 @@
 package com.xqxy.person;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -15,7 +17,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.xqxy.baseclass.BaseActivity;
+import com.xqxy.baseclass.NetworkAction;
 import com.xqxy.carservice.R;
+import com.xqxy.carservice.adapter.CarInfoAdapter;
+import com.xqxy.model.Brand;
 
 public class RegisterActivity extends BaseActivity implements OnClickListener,
 		OnCheckedChangeListener {
@@ -33,6 +38,9 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 	private TextView register;// 注册
 	private RadioButton contract;// 同意条款
 	private FrameLayout openPwdBtn;
+	
+	private Spinner brandSpinner;
+	private CarInfoAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +63,20 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 		register = (TextView) findViewById(R.id.rst_register);
 		contract = (RadioButton) findViewById(R.id.rst_contract);
 		openPwdBtn = (FrameLayout) findViewById(R.id.rst_openpwd);
+		brandSpinner=(Spinner) findViewById(R.id.rst_brand);
+		
+		ArrayList<Object> brands=new ArrayList<Object>();
+		Brand b1=new Brand();
+		b1.setBid("1");
+		b1.setName("11");
+		Brand b2=new Brand();
+		b2.setBid("2");
+		b2.setName("22");
+		brands.add(b1);
+		brands.add(b2);
+		adapter=new CarInfoAdapter(this, NetworkAction.brand, brands);
+		brandSpinner.setAdapter(adapter);
+		adapter.notifyDataSetChanged();
 		finish.setOnClickListener(this);
 		getCode.setOnClickListener(this);
 		register.setOnClickListener(this);

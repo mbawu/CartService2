@@ -45,7 +45,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	}
 
 
-	
+	@Override
+	public void showResualt(String msg, NetworkAction requestType) {
+		// TODO Auto-generated method stub
+		super.showResualt(msg, requestType);
+	}
 	@Override
 	public void onClick(View v) {
 		Intent intent=null;
