@@ -16,8 +16,11 @@ import android.widget.TextView;
 import com.xqxy.baseclass.BaseActivity;
 import com.xqxy.carservice.R;
 import com.xqxy.carservice.adapter.CarBaseAdapter;
+import com.xqxy.carservice.view.TopTitleView;
 
 public class ServiceEvaluateActivity extends BaseActivity {
+	private TopTitleView topTitleView;
+	
 	private ListView listView;
 	private RadioGroup radioGroupType;
 	private RadioButton radioBtnAll;
@@ -30,6 +33,8 @@ public class ServiceEvaluateActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.service_evaluate_layout);
+		topTitleView = new TopTitleView(this);
+		topTitleView.setTitle("服务评价");
 		listView = (ListView) findViewById(R.id.listview);
 		radioBtnAll = (RadioButton) findViewById(R.id.eva_list_all_radiobtn);
 		radioBtnGood = (RadioButton) findViewById(R.id.eva_list_good_radiobtn);

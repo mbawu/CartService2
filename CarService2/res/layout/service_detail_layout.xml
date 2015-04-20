@@ -7,48 +7,70 @@
 
     <include layout="@layout/top_title_layout" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="7dp"
+        android:background="@color/line_bg_color" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:paddingBottom="7dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="7dp" >
 
-        <ImageView
+        <com.xqxy.carservice.view.CarImageView
             android:id="@+id/img_service_photo"
-            android:layout_width="120dp"
-            android:layout_height="120dp" />
+            android:layout_width="110dp"
+            android:layout_height="110dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
             android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/text_service_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="外观清洗" />
+                android:text="外观清洗"
+                android:textColor="#323232"
+                android:textSize="@dimen/font_size_30px" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:layout_marginTop="4dp"
                 android:orientation="horizontal" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="价格：" />
+                    android:padding="0dp"
+                    android:text="价格:"
+                    android:textColor="#323232"
+                    android:textSize="@dimen/font_size_26px" />
 
                 <TextView
                     android:id="@+id/text_service_price_new"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="￥80" />
+                    android:padding="0dp"
+                    android:text="￥80"
+                    android:textColor="#E94F3A"
+                    android:textSize="@dimen/font_size_26px" />
 
                 <TextView
                     android:id="@+id/text_service_price_old"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="￥120" />
+                    android:text="￥120"
+                    android:textColor="#969696"
+                    android:textSize="@dimen/font_size_18px" />
 
                 <View
                     android:layout_width="0dp"
@@ -58,13 +80,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="时长：" />
+                    android:text="时长:"
+                    android:textColor="#323232"
+                    android:textSize="@dimen/font_size_26px" />
 
                 <TextView
                     android:id="@+id/text_service_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="约60分钟" />
+                    android:layout_weight="1"
+                    android:text="约60分钟"
+                    android:textColor="#E94F3A"
+                    android:textSize="@dimen/font_size_26px" />
             </LinearLayout>
 
             <RadioGroup
@@ -76,11 +103,13 @@
                     android:id="@+id/radio_service_cartype_four"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
                     android:button="@drawable/radio_selector"
                     android:checked="true"
                     android:paddingLeft="22dp"
-                    android:text="五座以下车厢"
-                    android:textColor="#000000" />
+                    android:text="五座以下"
+                    android:textColor="#323232"
+                    android:textSize="@dimen/font_size_26px" />
 
                 <RadioButton
                     android:id="@+id/radio_service_cartype_five"
@@ -88,55 +117,149 @@
                     android:layout_height="wrap_content"
                     android:button="@drawable/radio_selector"
                     android:paddingLeft="22dp"
-                    android:text="五座以上车厢"
-                    android:textColor="#000000" />
+                    android:text="五座以上"
+                    android:textColor="#323232"
+                    android:textSize="@dimen/font_size_26px" />
             </RadioGroup>
         </LinearLayout>
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_bg_color" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:gravity="center_vertical|right"
+        android:orientation="horizontal"
+        android:paddingBottom="7dp"
+        android:paddingTop="7dp" >
 
         <Button
             android:id="@+id/btn_service_go_pay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="去购物车结算" />
+            android:background="@drawable/go_pay_bg"
+            android:text="去购物车结算"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/font_size_26px" />
 
         <Button
             android:id="@+id/btn_service_add_car"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="加入购物车" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/add_car_bg"
+            android:text="加入购物车"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/font_size_26px" />
 
         <Button
             android:id="@+id/btn_service_go_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="立即预约" />
+            android:layout_marginRight="5dp"
+            android:background="@drawable/go_order_bg"
+            android:text="立即预约"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/font_size_26px" />
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_bg_color" />
 
     <LinearLayout
         android:id="@+id/layout_service_evaluate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:paddingBottom="7dp"
+        android:paddingLeft="8dp"
+        android:paddingTop="7dp" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="服务评价" />
+            android:text="服务评价"
+            android:textColor="#323232"
+            android:textSize="@dimen/font_size_30px" />
 
         <TextView
             android:id="@+id/text_service_evaluate_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="(50)" />
+            android:text="(50)"
+            android:textColor="#3AB5E9"
+            android:textSize="@dimen/font_size_30px" />
     </LinearLayout>
 
-    <include layout="@layout/evaluate_item" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_bg_color" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/text_evaluate_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="好评"
+            android:textColor="#e94f3a"
+            android:textSize="@dimen/font_size_26px" />
+
+        <TextView
+            android:id="@+id/text_evaluate_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="135****1111"
+            android:textColor="#646464"
+            android:textSize="@dimen/font_size_26px" />
+
+        <TextView
+            android:id="@+id/text_evaluate_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_evaluate_level"
+            android:layout_marginBottom="3dp"
+            android:layout_marginTop="3dp"
+            android:text="好评好评好评好评好评好评好评好评好评好评好评好评好评好评好评好评好评好评好评"
+            android:textColor="#646464"
+            android:textSize="@dimen/font_size_26px" />
+
+        <TextView
+            android:id="@+id/text_evaluate_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_evaluate_content"
+            android:gravity="left|center_vertical"
+            android:text="2015-02-11"
+            android:textColor="#646464"
+            android:textSize="@dimen/font_size_26px" />
+
+        <TextView
+            android:id="@+id/text_evaluate_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/text_evaluate_content"
+            android:gravity="left|center_vertical"
+            android:text="14:15:20"
+            android:textColor="#646464"
+            android:textSize="@dimen/font_size_26px" />
+    </RelativeLayout>
 
     <WebView
         android:id="@+id/webviw"

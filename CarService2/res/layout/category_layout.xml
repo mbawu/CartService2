@@ -29,10 +29,18 @@
                 android:text="分类儿" />
         </RadioGroup>
 
-        <TextView
+       <!--  <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FF0000" />
+            android:background="#FF0000" /> -->
+             <com.xqxy.carservice.widget.WheelView
+            android:id="@+id/id_province"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#FFFFFF" >
+        </com.xqxy.carservice.widget.WheelView>
+        
     </LinearLayout>
 
 </LinearLayout>

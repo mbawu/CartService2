@@ -34,6 +34,7 @@ public class MainActivity extends Activity {
 	private ArrayList<View> carouseImageViews = new ArrayList<View>();
 	private Timer timer;
 	private ListView listView;
+	private ImageView imgBottomCar;
 	private ServiceAdapter serviceAdapter;
 
 	@Override
@@ -43,6 +44,7 @@ public class MainActivity extends Activity {
 		viewPager = (ViewPager) findViewById(R.id.viewpager);
 		radioGroup = (RadioGroup) findViewById(R.id.viewpager_radiogroup);
 		listView = (ListView) findViewById(R.id.listview);
+		imgBottomCar=(ImageView) findViewById(R.id.img_homepager_car);
 		serviceAdapter = new ServiceAdapter(this);
 		listView.setAdapter(serviceAdapter);
 		initCarouselViewPager(imgUrls);
@@ -132,7 +134,7 @@ public class MainActivity extends Activity {
 				convertView = inflater.inflate(R.layout.homepager_service_item,
 						null);
 				viewHolder = new ViewHolder();
-				viewHolder.imgServicePhoto = (ImageView) convertView
+				viewHolder.imgServicePhoto = (CarImageView) convertView
 						.findViewById(R.id.img_service_photo);
 				viewHolder.textServiceName = (TextView) convertView
 						.findViewById(R.id.text_service_name);
@@ -145,7 +147,7 @@ public class MainActivity extends Activity {
 				convertView.setTag(viewHolder);
 			}
 			viewHolder = (ViewHolder) convertView.getTag();
-
+			viewHolder.imgServicePhoto.loadImage("http://imgstatic.baidu.com/img/image/shouye/fanbingbing.jpg");
 			convertView.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -162,7 +164,7 @@ public class MainActivity extends Activity {
 	}
 
 	class ViewHolder {
-		ImageView imgServicePhoto;
+		CarImageView imgServicePhoto;
 		TextView textServiceName;
 		TextView textServiceDis;
 		TextView textServicePriceNew;

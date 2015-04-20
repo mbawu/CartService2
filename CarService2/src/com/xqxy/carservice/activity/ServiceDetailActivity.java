@@ -6,20 +6,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.xqxy.carservice.R;
+import com.xqxy.carservice.view.CarImageView;
+import com.xqxy.carservice.view.TopTitleView;
 
 public class ServiceDetailActivity extends Activity implements OnClickListener {
+	
+	private TopTitleView topTitleView;
 
-	private ImageView backImageView;
-	private TextView titleTextView;
-	private TextView rightBtnTextView;
-
-	private ImageView imgServicePhoto;
+	private CarImageView imgServicePhoto;
 	private TextView textServiceName;
 	private TextView textServiceTime;
 	private TextView textServicePriceNew;
@@ -33,12 +32,11 @@ public class ServiceDetailActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.service_detail_layout);
 
-		backImageView = (ImageView) findViewById(R.id.imageTopBack);
-		titleTextView = (TextView) findViewById(R.id.textTopTitle);
-		rightBtnTextView = (TextView) findViewById(R.id.textTopRightBtn);
-		titleTextView.setText("服务详情");
-
-		imgServicePhoto = (ImageView) findViewById(R.id.img_service_photo);
+		topTitleView = new TopTitleView(this);
+		topTitleView.setTitle("服务详情");
+		topTitleView.setRightBtnText("分享", null);
+	
+		imgServicePhoto = (CarImageView) findViewById(R.id.img_service_photo);
 		textServiceName = (TextView) findViewById(R.id.text_service_name);
 		textServiceTime = (TextView) findViewById(R.id.text_service_time);
 		textServicePriceNew = (TextView) findViewById(R.id.text_service_price_new);
@@ -52,7 +50,7 @@ public class ServiceDetailActivity extends Activity implements OnClickListener {
 		webview = (WebView) findViewById(R.id.webviw);
 
 		webview.loadUrl("http://sina.cn/?vm=4007");
-
+		imgServicePhoto.loadImage("http://imgstatic.baidu.com/img/image/shouye/fanbingbing.jpg");
 	}
 
 	@Override
