@@ -1,8 +1,8 @@
 package com.xqxy.baseclass;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import com.xqxy.model.Banner;
 import com.xqxy.model.Brand;
 import com.xqxy.model.Model;
 import com.xqxy.model.Series;
@@ -45,6 +45,8 @@ public class ResponseWrapper {
 	 * 汽车类型数据
 	 */
 	private ArrayList<Model> model;
+	
+	private ArrayList<Banner> banner;
 	public String getDone() {
 		return done;
 	}

@@ -208,6 +208,7 @@ public class BaseActivity extends Activity {
 		// 先分析返回code值，正确执行showResualt，错误直接输出结果
 		boolean done = false;
 		String msg = "";
+		Log.i("response", response.toString());
 		try {
 			done = response.getBoolean("done");
 			msg = response.getString("msg");

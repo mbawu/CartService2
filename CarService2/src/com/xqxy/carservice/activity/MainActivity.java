@@ -22,12 +22,16 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.xqxy.baseclass.BaseActivity;
+import com.xqxy.baseclass.NetworkAction;
+import com.xqxy.baseclass.RequestWrapper;
+import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
 import com.xqxy.carservice.adapter.CarBaseAdapter;
 import com.xqxy.carservice.adapter.CarouselAdapter;
 import com.xqxy.carservice.view.CarImageView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
 
 	private RadioGroup radioGroup;
 	private ViewPager viewPager;
@@ -44,7 +48,7 @@ public class MainActivity extends Activity {
 		viewPager = (ViewPager) findViewById(R.id.viewpager);
 		radioGroup = (RadioGroup) findViewById(R.id.viewpager_radiogroup);
 		listView = (ListView) findViewById(R.id.listview);
-		imgBottomCar=(ImageView) findViewById(R.id.img_homepager_car);
+		imgBottomCar = (ImageView) findViewById(R.id.img_homepager_car);
 		serviceAdapter = new ServiceAdapter(this);
 		listView.setAdapter(serviceAdapter);
 		initCarouselViewPager(imgUrls);
@@ -53,7 +57,22 @@ public class MainActivity extends Activity {
 			carServiceList.add(new CarService());
 		}
 		serviceAdapter.setDataList(carServiceList);
+		
+		sendBannerRequest();
 	}
+
+	public void sendBannerRequest() {
+
+		sendData(new RequestWrapper(), NetworkAction.index_banner);
+		// 忘记密码按钮
+	}
+	
+	@Override
+	public void showResualt(ResponseWrapper responseWrapper,
+			NetworkAction requestType) {
+		super.showResualt(responseWrapper, requestType);
+	}
+	
 
 	public void btnOnClick(View view) {
 		if (view.getId() == R.id.imageTopBack) {
@@ -147,7 +166,8 @@ public class MainActivity extends Activity {
 				convertView.setTag(viewHolder);
 			}
 			viewHolder = (ViewHolder) convertView.getTag();
-			viewHolder.imgServicePhoto.loadImage("http://imgstatic.baidu.com/img/image/shouye/fanbingbing.jpg");
+			viewHolder.imgServicePhoto
+					.loadImage("http://imgstatic.baidu.com/img/image/shouye/fanbingbing.jpg");
 			convertView.setOnClickListener(new OnClickListener() {
 
 				@Override

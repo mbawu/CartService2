@@ -12,7 +12,9 @@ public enum NetworkAction {
 	user_login ,	//登录
 	car_brand, //品牌
 	car_series, //车系
-	car_model //类型
+	car_model, //类型
+	
+	index_banner //轮播
 	;
 	@Override
 	public String toString() {
