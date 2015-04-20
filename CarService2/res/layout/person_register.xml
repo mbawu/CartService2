@@ -73,13 +73,49 @@
             android:hint="请输入手机号"
             android:inputType="phone" />
 
-        <Spinner
-            android:id="@+id/rst_brand"
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/box_normal"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
+
+            <Spinner
+                android:id="@+id/rst_brand"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:animationCache="true"
+                android:background="@drawable/spinner_selector"
+                android:drawSelectorOnTop="true"
+                android:padding="0dip"
+                android:textColor="#6d6d6d"
+                android:textSize="12sp" />
+
+            <Spinner
+                android:id="@+id/rst_series"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:animationCache="true"
+                android:background="@drawable/spinner_selector"
+                android:drawSelectorOnTop="true"
+                android:padding="0dip"
+                android:textColor="#6d6d6d"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <Spinner
+            android:id="@+id/rst_model"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animationCache="true"
+            android:background="@drawable/spinner_selector"
             android:drawSelectorOnTop="true"
-            android:paddingTop="10dp" />
+            android:padding="0dip"
+            android:textColor="#6d6d6d"
+            android:textSize="12sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -123,8 +159,8 @@
                 android:id="@+id/rst_openpwd"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:paddingRight="10dp"
-                android:layout_gravity="right|center_vertical" >
+                android:layout_gravity="right|center_vertical"
+                android:paddingRight="10dp" >
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -134,16 +170,24 @@
             </FrameLayout>
         </FrameLayout>
 
-        <TextView
-            android:id="@+id/rst_error"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="10dp"
-            android:drawableLeft="@drawable/error_ico"
-            android:text="错误提示"
-            android:textColor="@color/more_gray"
-            android:textSize="13sp" />
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/rst_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/error_ico"
+                android:gravity="center"
+                android:text="错误提示"
+                android:textColor="@color/red"
+                android:textSize="14sp"
+                android:visibility="gone" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/rst_register"
@@ -160,7 +204,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp" >
 
-            <RadioButton
+            <CheckBox
                 android:id="@+id/rst_contract"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

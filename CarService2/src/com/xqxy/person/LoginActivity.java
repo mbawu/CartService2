@@ -45,7 +45,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	}
 
 
-	
+//	@Override
+//	public void showResualt(String msg, NetworkAction requestType) {
+//		// TODO Auto-generated method stub
+//		super.showResualt(msg, requestType);
+//	}
 	@Override
 	public void onClick(View v) {
 		Intent intent=null;
@@ -62,7 +66,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			}
 			wrapper.setUserName(userName);
 			wrapper.setPassword(password);
-			sendData(wrapper,NetworkAction.login);
+			sendData(wrapper,NetworkAction.user_login);
 			break;
 		// 忘记密码按钮
 		case R.id.login_forgot:
