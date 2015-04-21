@@ -77,6 +77,12 @@ public class ResponseWrapper {
 	public void setModel(ArrayList<Model> model) {
 		this.model = model;
 	}
+	public ArrayList<Banner> getBanner() {
+		return banner;
+	}
+	public void setBanner(ArrayList<Banner> banner) {
+		this.banner = banner;
+	}
 
 	
 

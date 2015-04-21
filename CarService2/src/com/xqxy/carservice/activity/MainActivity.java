@@ -7,6 +7,7 @@ import java.util.TimerTask;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -30,6 +31,7 @@ import com.xqxy.carservice.R;
 import com.xqxy.carservice.adapter.CarBaseAdapter;
 import com.xqxy.carservice.adapter.CarouselAdapter;
 import com.xqxy.carservice.view.CarImageView;
+import com.xqxy.model.Banner;
 
 public class MainActivity extends BaseActivity {
 
@@ -40,6 +42,7 @@ public class MainActivity extends BaseActivity {
 	private ListView listView;
 	private ImageView imgBottomCar;
 	private ServiceAdapter serviceAdapter;
+	private List<Banner> banners;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,28 +54,32 @@ public class MainActivity extends BaseActivity {
 		imgBottomCar = (ImageView) findViewById(R.id.img_homepager_car);
 		serviceAdapter = new ServiceAdapter(this);
 		listView.setAdapter(serviceAdapter);
-		initCarouselViewPager(imgUrls);
+		//initCarouselViewPager(imgUrls);
 		List<CarService> carServiceList = new ArrayList<CarService>();
 		for (int i = 0; i < 10; i++) {
 			carServiceList.add(new CarService());
 		}
 		serviceAdapter.setDataList(carServiceList);
-		
+
 		sendBannerRequest();
 	}
 
 	public void sendBannerRequest() {
 
 		sendData(new RequestWrapper(), NetworkAction.index_banner);
-		// 忘记密码按钮
 	}
-	
+
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
 		super.showResualt(responseWrapper, requestType);
+		if (requestType == NetworkAction.index_banner) {
+			banners = responseWrapper.getBanner();
+			if(banners != null && banners.size()>0){
+				initCarouselViewPager();
+			}
+		}
 	}
-	
 
 	public void btnOnClick(View view) {
 		if (view.getId() == R.id.imageTopBack) {
@@ -82,14 +89,24 @@ public class MainActivity extends BaseActivity {
 		}
 	}
 
-	private void initCarouselViewPager(String[] imgUrls) {
+	private void initCarouselViewPager() {
 
-		for (int i = 0; i < imgUrls.length; i++) {
+		for (int i = 0; i < banners.size(); i++) {
 			CarImageView imageView = new CarImageView(this);
+			final String url = banners.get(i).getUrl();
 			imageView.setLayoutParams(new LinearLayout.LayoutParams(
 					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 			imageView.setScaleType(ScaleType.FIT_XY);
-			imageView.loadImage(imgUrls[i]);
+			imageView.loadImage(banners.get(i).getPath());
+			imageView.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(Intent.ACTION_VIEW);
+					intent.setData(Uri.parse(url));
+					startActivity(intent);
+				}
+			});
 			carouseImageViews.add(imageView);
 		}
 		CarouselAdapter homeAdapter = new CarouselAdapter(this);
@@ -113,7 +130,7 @@ public class MainActivity extends BaseActivity {
 			}, 5000, 5000);
 		}
 
-		for (int i = 0; i < imgUrls.length; i++) {
+		for (int i = 0; i < banners.size(); i++) {
 			RadioButton rb = (RadioButton) getLayoutInflater().inflate(
 					R.layout.homepage_radio_item, radioGroup, false);
 			rb.setId(i);
@@ -138,6 +155,7 @@ public class MainActivity extends BaseActivity {
 
 			}
 		});
+		
 	}
 
 	class ServiceAdapter extends CarBaseAdapter<CarService> {
@@ -194,10 +212,4 @@ public class MainActivity extends BaseActivity {
 	class CarService {
 
 	}
-
-	private String[] imgUrls = new String[] {
-			"http://imgstatic.baidu.com/img/image/shouye/fanbingbing.jpg",
-			"http://imgstatic.baidu.com/img/image/shouye/wanglihong.jpg",
-			"http://imgstatic.baidu.com/img/image/shouye/gaoyuanyuan.jpg",
-			"http://imgstatic.baidu.com/img/image/shouye/yaodi.jpg" };
 }
