@@ -64,7 +64,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				Toast.makeText(this, "用户名或密码不能为空！", Toast.LENGTH_SHORT).show();
 				return;
 			}
-			wrapper.setUserName(userName);
+			wrapper.setPhone(userName);
 			wrapper.setPassword(password);
 			sendData(wrapper,NetworkAction.userF_login);
 			break;

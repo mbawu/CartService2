@@ -186,8 +186,9 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 			wrapper.setSid(sid);
 			wrapper.setMid(mid);
 			wrapper.setCode(code);
-			wrapper.setLat("1");
-			wrapper.setLng("2");
+			wrapper.setLat("39.0100");
+			wrapper.setLng("116.0400");
+			wrapper.setPassword(pwd);
 			sendData(wrapper,NetworkAction.userF_register);
 			break;
 		// 显示密码
