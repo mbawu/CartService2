@@ -2,6 +2,7 @@ package com.xqxy.baseclass;
 
 import java.util.ArrayList;
 
+import com.xqxy.model.Address;
 import com.xqxy.model.Banner;
 import com.xqxy.model.Brand;
 import com.xqxy.model.Model;
@@ -54,7 +55,20 @@ public class ResponseWrapper {
 	
 	private ArrayList<Banner> banner;
 	
+	/**
+	 * 用户常用地址
+	 * @return
+	 */
+	private ArrayList<Address> address;
 	
+	
+	
+	public ArrayList<Address> getAddress() {
+		return address;
+	}
+	public void setAddress(ArrayList<Address> address) {
+		this.address = address;
+	}
 	public ArrayList<UserInfo> getIdentity() {
 		return identity;
 	}

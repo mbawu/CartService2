@@ -151,6 +151,9 @@ public class BaseActivity extends Activity {
 ////			paramMap.put("password", requestWrapper.getPassword());
 //			url += "/user/";
 //		}
+//		Log.i("test", "identity-->"+MyApplication.identity);
+//		if(MyApplication.identity!=null)
+//			paramMap.put("identity", MyApplication.identity);
 		MyApplication.client.postWithURL(url, getMap(requestWrapper), requestType,
 				new Listener<JSONObject>() {
 

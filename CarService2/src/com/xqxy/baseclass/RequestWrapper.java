@@ -21,9 +21,54 @@ public class RequestWrapper {
 	private String lng;
 	private String lat;
 
+	//用户标识
+	private String identity;
+	
+	//地址
+	private String aid;
+	private String name;
+	private String car_num;
+	private String address;
+	private String detailed;
 	
 	
 	
+	public String getAid() {
+		return aid;
+	}
+	public void setAid(String aid) {
+		this.aid = aid;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getCar_num() {
+		return car_num;
+	}
+	public void setCar_num(String car_num) {
+		this.car_num = car_num;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getDetailed() {
+		return detailed;
+	}
+	public void setDetailed(String detailed) {
+		this.detailed = detailed;
+	}
+	public String getIdentity() {
+		return identity;
+	}
+	public void setIdentity(String identity) {
+		this.identity = identity;
+	}
 	public String getSurname() {
 		return surname;
 	}

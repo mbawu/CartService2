@@ -101,7 +101,7 @@
             android:textColor="@color/litill_gray" />
 
         <TextView
-            android:id="@+id/address_location"
+            android:id="@+id/address_location_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"

@@ -38,7 +38,7 @@
         android:label="@string/app_name"
         android:theme="@style/MyTheme.Basic" >
         <activity
-            android:name="com.xqxy.person.ForgotActivity"
+            android:name="com.xqxy.person.AddressAddActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
