@@ -10,5 +10,6 @@
     <color name="line_bg_color">#EAEAEA</color>
     <color name="province_line_border">#C7C7C7</color>
     <color name="red">#ffff0000</color>
+    <color name="blue">#3AB5E9</color>
 
 </resources>
