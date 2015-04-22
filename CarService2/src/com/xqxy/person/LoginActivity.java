@@ -66,7 +66,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			}
 			wrapper.setUserName(userName);
 			wrapper.setPassword(password);
-			sendData(wrapper,NetworkAction.user_login);
+			sendData(wrapper,NetworkAction.userF_login);
 			break;
 		// 忘记密码按钮
 		case R.id.login_forgot:

@@ -66,14 +66,14 @@ public class MainActivity extends BaseActivity {
 
 	public void sendBannerRequest() {
 
-		sendData(new RequestWrapper(), NetworkAction.index_banner);
+		sendData(new RequestWrapper(), NetworkAction.indexF_banner);
 	}
 
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
 		super.showResualt(responseWrapper, requestType);
-		if (requestType == NetworkAction.index_banner) {
+		if (requestType == NetworkAction.indexF_banner) {
 			banners = responseWrapper.getBanner();
 			if(banners != null && banners.size()>0){
 				initCarouselViewPager();

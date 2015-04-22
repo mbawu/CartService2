@@ -101,9 +101,9 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 	}
 
 	public void getCarInfo() {
-		sendDataByGet(new RequestWrapper(), NetworkAction.car_brand);
-		sendDataByGet(new RequestWrapper(), NetworkAction.car_series);
-		sendDataByGet(new RequestWrapper(), NetworkAction.car_model);
+		sendDataByGet(new RequestWrapper(), NetworkAction.carF_brand);
+		sendDataByGet(new RequestWrapper(), NetworkAction.carF_series);
+		sendDataByGet(new RequestWrapper(), NetworkAction.carF_model);
 	}
 
 	@Override
@@ -111,29 +111,36 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 			NetworkAction requestType) {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
-		if (requestType.equals(NetworkAction.car_brand)) {
-			brandAdapter = new CarInfoAdapter(this, NetworkAction.car_brand,
+		if (requestType.equals(NetworkAction.carF_brand)) {
+			brandAdapter = new CarInfoAdapter(this, NetworkAction.carF_brand,
 					responseWrapper.getBrand());
 			brandSpinner.setAdapter(brandAdapter);
 			brandAdapter.notifyDataSetChanged();
 			count++;
-		} else if (requestType.equals(NetworkAction.car_series)) {
-			seriesAdapter = new CarInfoAdapter(this, NetworkAction.car_series,
+		} else if (requestType.equals(NetworkAction.carF_series)) {
+			seriesAdapter = new CarInfoAdapter(this, NetworkAction.carF_series,
 					responseWrapper.getSeries());
 			seriesSpinner.setAdapter(seriesAdapter);
 			seriesAdapter.notifyDataSetChanged();
 			count++;
-		} else if (requestType.equals(NetworkAction.car_model)) {
-			modelAdapter = new CarInfoAdapter(this, NetworkAction.car_model,
+		} else if (requestType.equals(NetworkAction.carF_model)) {
+			modelAdapter = new CarInfoAdapter(this, NetworkAction.carF_model,
 					responseWrapper.getModel());
 			modelSpinner.setAdapter(modelAdapter);
 			modelAdapter.notifyDataSetChanged();
 			count++;
+		}else if(requestType.equals(NetworkAction.userF_send_phone))
+		{
+			Toast.makeText(this, "验证码已发送到手机", Toast.LENGTH_SHORT).show();
 		}
 	}
 
+	
+	
 	@Override
 	public void onClick(View v) {
+		RequestWrapper wrapper=new RequestWrapper();
+		String phone = phoneTxt.getText().toString();
 		switch (v.getId()) {
 		// 后退按钮
 		case R.id.rst_finish:
@@ -141,12 +148,18 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 			break;
 		// 获取验证码
 		case R.id.rst_getcode:
-
+			if(phone.equals(""))
+			{
+				Toast.makeText(this, "手机号不能为空", Toast.LENGTH_SHORT).show();
+				return;
+			}
+			wrapper.setPhone(phone);
+			sendData(wrapper, NetworkAction.userF_send_phone);
 			break;
 		// 注册
 		case R.id.rst_register:
 			String name = nameTxt.getText().toString();
-			String phone = phoneTxt.getText().toString();
+			
 			String code = codetTxt.getText().toString();
 			String pwd = pwdTxt.getText().toString();
 			if (count != 3) {
@@ -165,6 +178,17 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 				error.setText( "请填写完整的数据");
 				return;
 			}
+			
+			wrapper.setSurname(name);
+			wrapper.setSex(sex);
+			wrapper.setPhone(phone);
+			wrapper.setBid(bid);
+			wrapper.setSid(sid);
+			wrapper.setMid(mid);
+			wrapper.setCode(code);
+			wrapper.setLat("1");
+			wrapper.setLng("2");
+			sendData(wrapper,NetworkAction.userF_register);
 			break;
 		// 显示密码
 		case R.id.rst_openpwd:

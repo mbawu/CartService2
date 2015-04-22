@@ -39,22 +39,22 @@ public class CarInfoAdapter extends BaseAdapter {
 	public <T> CarInfoAdapter(Context context,NetworkAction type,ArrayList<T> data) {
 		this.context = context;
 		this.type=type;
-		if(type.equals(NetworkAction.car_brand))
+		if(type.equals(NetworkAction.carF_brand))
 			brands=(ArrayList<Brand>) data;
-		else if(type.equals(NetworkAction.car_series))
+		else if(type.equals(NetworkAction.carF_series))
 			series=(ArrayList<Series>) data;
-		else if(type.equals(NetworkAction.car_model))
+		else if(type.equals(NetworkAction.carF_model))
 			model=(ArrayList<Model>) data;
 		this.inflater = LayoutInflater.from(context);
 	}
 
 	@Override
 	public int getCount() {
-		if(type.equals(NetworkAction.car_brand))
+		if(type.equals(NetworkAction.carF_brand))
 			return brands.size();
-		else if(type.equals(NetworkAction.car_series))
+		else if(type.equals(NetworkAction.carF_series))
 			return series.size();
-		else if(type.equals(NetworkAction.car_model))
+		else if(type.equals(NetworkAction.carF_model))
 			return model.size();
 		return 0;
 	}
@@ -75,11 +75,11 @@ public class CarInfoAdapter extends BaseAdapter {
 
 	@Override
 	public Object getItem(int position) {
-		if(type.equals(NetworkAction.car_brand))
+		if(type.equals(NetworkAction.carF_brand))
 			return brands.get(position);
-		else if(type.equals(NetworkAction.car_series))
+		else if(type.equals(NetworkAction.carF_series))
 			return series.get(position);
-		else if(type.equals(NetworkAction.car_model))
+		else if(type.equals(NetworkAction.carF_model))
 			return model.get(position);
 		return "";
 	}
@@ -102,17 +102,17 @@ public class CarInfoAdapter extends BaseAdapter {
 			 holder = (ViewHolder) convertView.getTag();
 			}
 		
-		if(type.equals(NetworkAction.car_brand))
+		if(type.equals(NetworkAction.carF_brand))
 		{
 			Brand brand=(Brand) brands.get(position);
 			holder.name.setText(brand.getName());
 		}
-		else if(type.equals(NetworkAction.car_series))
+		else if(type.equals(NetworkAction.carF_series))
 		{
 			Series brand=(Series) series.get(position);
 			holder.name.setText(brand.getSname());
 		}
-		else if(type.equals(NetworkAction.car_model))
+		else if(type.equals(NetworkAction.carF_model))
 		{
 			Model brand=(Model) model.get(position);
 			holder.name.setText(brand.getMname());
