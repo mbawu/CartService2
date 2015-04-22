@@ -11,8 +11,11 @@ import android.widget.Toast;
 
 import com.xqxy.baseclass.BaseActivity;
 import com.xqxy.baseclass.Cst;
+import com.xqxy.baseclass.DataFormatCheck;
+import com.xqxy.baseclass.MyApplication;
 import com.xqxy.baseclass.NetworkAction;
 import com.xqxy.baseclass.RequestWrapper;
+import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
 
 public class LoginActivity extends BaseActivity implements OnClickListener {
@@ -45,11 +48,17 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	}
 
 
-//	@Override
-//	public void showResualt(String msg, NetworkAction requestType) {
-//		// TODO Auto-generated method stub
-//		super.showResualt(msg, requestType);
-//	}
+	@Override
+	public void showResualt(ResponseWrapper responseWrapper,
+			NetworkAction requestType) {
+		// TODO Auto-generated method stub
+		super.showResualt(responseWrapper, requestType);
+		if(requestType.equals(NetworkAction.userF_login))
+		{
+			Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
+			MyApplication.identity=responseWrapper.getIdentity().get(0).getIdentity();
+		}
+	}
 	@Override
 	public void onClick(View v) {
 		Intent intent=null;
@@ -59,6 +68,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		case R.id.login_btn:
 			String userName=userNameTxt.getText().toString();
 			String password=pwdTxt.getText().toString();
+			if(!DataFormatCheck.isMobile(userName))
+			{
+				Toast.makeText(this, "请输入正确的手机号码！", Toast.LENGTH_SHORT).show();
+				return;
+			}
 			if(userName.equals("") || password.equals(""))
 			{
 				Toast.makeText(this, "用户名或密码不能为空！", Toast.LENGTH_SHORT).show();

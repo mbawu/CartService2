@@ -6,6 +6,7 @@ import com.xqxy.model.Banner;
 import com.xqxy.model.Brand;
 import com.xqxy.model.Model;
 import com.xqxy.model.Series;
+import com.xqxy.model.UserInfo;
 
 
 
@@ -46,7 +47,20 @@ public class ResponseWrapper {
 	 */
 	private ArrayList<Model> model;
 	
+	/**
+	 * 用户标识
+	 */
+	private ArrayList<UserInfo> identity;
+	
 	private ArrayList<Banner> banner;
+	
+	
+	public ArrayList<UserInfo> getIdentity() {
+		return identity;
+	}
+	public void setIdentity(ArrayList<UserInfo> identity) {
+		this.identity = identity;
+	}
 	public String getDone() {
 		return done;
 	}
