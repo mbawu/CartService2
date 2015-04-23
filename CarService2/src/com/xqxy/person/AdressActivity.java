@@ -34,7 +34,7 @@ public class AdressActivity extends BaseActivity {
 		listView.setAdapter(adapter);
 		RequestWrapper wrapper=new RequestWrapper();
 		wrapper.setIdentity(MyApplication.identity);
-		sendData(wrapper, NetworkAction.carF_brand);
+		sendData(wrapper, NetworkAction.centerF_user_address);
 	}
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,

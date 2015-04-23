@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.xqxy.baseclass.BaseActivity;
 import com.xqxy.baseclass.Cst;
 import com.xqxy.baseclass.DataFormatCheck;
+import com.xqxy.baseclass.MyApplication;
 import com.xqxy.baseclass.NetworkAction;
 import com.xqxy.baseclass.RequestWrapper;
 import com.xqxy.baseclass.ResponseWrapper;
@@ -149,6 +150,11 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 							Toast.LENGTH_SHORT).show();
 				}
 			});
+		}
+		else if(requestType.equals(NetworkAction.userF_register))
+		{
+			Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
+			MyApplication.identity=responseWrapper.getIdentity().get(0).getIdentity();
 		}
 	}
 

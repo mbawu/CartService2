@@ -1,5 +1,6 @@
 package com.xqxy.person;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -50,6 +51,10 @@ public class AddressAddActivity extends BaseActivity {
 			
 			@Override
 			public void onClick(View v) {
+				Intent intent=new Intent();
+				intent.setClass(AddressAddActivity.this, AdressActivity.class);
+				AddressAddActivity.this.startActivity(intent);
+				
 				String name=nameTxt.getText().toString();
 				String phone=phoneTxt.getText().toString();
 				String carNum=carNumTxt.getText().toString();
@@ -76,8 +81,9 @@ public class AddressAddActivity extends BaseActivity {
 				wrapper.setLng("110");
 				wrapper.setLat("110");
 				wrapper.setIdentity(MyApplication.identity);
-				sendData(wrapper, NetworkAction.centerF_add_address);
+//				sendData(wrapper, NetworkAction.centerF_add_address);
 				
+			
 			}
 		});
 	}
