@@ -38,7 +38,7 @@
         android:label="@string/app_name"
         android:theme="@style/MyTheme.Basic" >
         <activity
-            android:name="com.xqxy.person.CreditActivity"
+            android:name="com.xqxy.carservice.activity.PersonCentreActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,11 +51,13 @@
         <activity android:name="com.xqxy.person.RegisterActivity" />
         <activity android:name="com.xqxy.person.ForgotActivity" />
         <activity android:name="com.xqxy.person.AddressAddActivity" />
-         <!-- <activity android:name="com.xqxy.person.AdressActivity" /> -->
+         <activity android:name="com.xqxy.person.AdressActivity" /> 
+         <activity android:name="com.xqxy.person.CreditActivity" /> 
+          <activity android:name="com.xqxy.person.MessageActivity" /> 
         
         <activity android:name="com.xqxy.carservice.activity.GuideActivity" />
         <activity android:name="com.xqxy.carservice.activity.CategoryActivity" />
-        <activity android:name="com.xqxy.carservice.activity.PersonCentreActivity" />
+        <!-- <activity android:name="com.xqxy.carservice.activity.PersonCentreActivity" /> -->
         <activity android:name="com.xqxy.carservice.activity.ServiceDetailActivity" />
         <activity android:name="com.xqxy.carservice.activity.ServiceEvaluateActivity" />
     </application>

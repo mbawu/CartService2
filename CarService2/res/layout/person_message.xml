@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
+
+    <include layout="@layout/top_title_layout" />
+
+  
+<TextView 
+        android:id="@+id/nodataTxt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="暂无记录"
+        android:textSize="22sp"
+        android:gravity="center"
+        android:visibility="visible"/>
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="10dp"
+        android:divider="@null"
+        android:visibility="gone">
+    </ListView>
+</LinearLayout>

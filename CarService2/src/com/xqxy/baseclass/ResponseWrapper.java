@@ -6,6 +6,7 @@ import com.xqxy.model.Address;
 import com.xqxy.model.Banner;
 import com.xqxy.model.Brand;
 import com.xqxy.model.Credit;
+import com.xqxy.model.Message;
 import com.xqxy.model.Model;
 import com.xqxy.model.Series;
 import com.xqxy.model.UserInfo;
@@ -65,7 +66,19 @@ public class ResponseWrapper {
 	
 	private ArrayList<Credit> integral;
 	
+	private ArrayList<Message> info;
 	
+	
+	/**
+	 * 我的消息
+	 * @return
+	 */
+	public ArrayList<Message> getInfo() {
+		return info;
+	}
+	public void setInfo(ArrayList<Message> info) {
+		this.info = info;
+	}
 	/**
 	 * 积分记录
 	 * @return

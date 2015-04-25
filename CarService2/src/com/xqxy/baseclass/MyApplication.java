@@ -23,6 +23,7 @@ public class MyApplication extends Application {
 	public static SharedPreferences sp; // 本地存储SharedPreferences
 	public static Editor ed; // 本地存储编辑器Editor
 	public static String identity; 
+	public static boolean loginStat=true;
 
 	@Override
 	public void onCreate() {

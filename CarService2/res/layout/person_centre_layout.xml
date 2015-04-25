@@ -60,11 +60,35 @@
         android:drawableLeft="@drawable/person_order"
         android:text="常用地址" />
 
-    <TextView
+    <FrameLayout
         android:id="@+id/personCenterItemMessage"
-        style="@style/personCenterItemStyle"
-        android:drawableLeft="@drawable/person_order"
-        android:text="我的消息" />
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:background="@drawable/person_item_border_normal"
+         android:layout_marginLeft="50dp"
+         android:layout_marginRight="50dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/person_order"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:text="我的消息"
+            android:textColor="#FFFFFF" />
+        
+        <TextView
+             android:id="@+id/msgNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="right|center"
+            android:text="0"
+            android:layout_marginRight="10dp"
+            android:textSize="13sp"
+            android:background="@drawable/msg_ico"
+            android:textColor="#FFFFFF" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/personCenterItemOther"
