@@ -154,7 +154,9 @@ public class BaseActivity extends Activity {
 //		Log.i("test", "identity-->"+MyApplication.identity);
 //		if(MyApplication.identity!=null)
 //			paramMap.put("identity", MyApplication.identity);
-		MyApplication.client.postWithURL(url, getMap(requestWrapper), requestType,
+		paramMap=getMap(requestWrapper);
+		Log.i("test", MyApplication.getUrl(paramMap, Cst.HOST+requestType.toString()));
+		MyApplication.client.postWithURL(url, paramMap, requestType,
 				new Listener<JSONObject>() {
 
 					@Override
@@ -187,7 +189,7 @@ public class BaseActivity extends Activity {
 //				|| requestType.equals(NetworkAction.car_model)) {
 //			url += "car/";
 //		}
-
+		Log.i("test", MyApplication.getUrl(paramMap, Cst.HOST+requestType.toString()));
 		MyApplication.client.getWithURL(url, paramMap,
 				new Listener<JSONObject>() {
 

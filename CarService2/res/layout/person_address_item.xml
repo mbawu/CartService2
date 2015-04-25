@@ -2,118 +2,138 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-  	android:background="@color/wihte"
+    android:background="@color/wihte"
     android:orientation="vertical" >
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         style="@style/linearLayout_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-    android:orientation="vertical"  >
-      
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp" >
+        android:orientation="horizontal" >
 
-        <TextView
-            android:id="@+id/address_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/address_name"
-            android:drawablePadding="5dp"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="9"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp" 
             android:gravity="center"
-            android:text="姓名"
-            android:textColor="@color/litill_gray" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/address_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:drawableLeft="@drawable/address_phone"
-            android:drawablePadding="5dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp" >
+
+                <TextView
+                    android:id="@+id/address_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/address_name"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:text="姓名"
+                    android:textColor="@color/litill_gray" />
+
+                <TextView
+                    android:id="@+id/address_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:drawableLeft="@drawable/address_phone"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:text="15928071696"
+                    android:textColor="@color/litill_gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/address_car_num"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:text="车牌号码："
+                    android:textColor="@color/litill_gray" />
+
+                <TextView
+                    android:id="@+id/address_car_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="15928071696"
+                    android:textColor="@color/nomarl_gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/address_location"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:text="停车地址："
+                    android:textColor="@color/litill_gray" />
+
+                <TextView
+                    android:id="@+id/address_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="15928071696"
+                    android:textColor="@color/nomarl_gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:gravity="center"
+                    android:text="详细地址："
+                    android:textColor="@color/litill_gray" />
+
+                <TextView
+                    android:id="@+id/address_location_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="15928071696"
+                    android:textColor="@color/nomarl_gray" />
+            </LinearLayout>
+        </LinearLayout>
+        <TextView 
+            android:id="@+id/address_delete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="15928071696"
-            android:textColor="@color/litill_gray" />
+            android:layout_marginRight="5dp"
+            android:textColor="@color/wihte"
+            android:background="@drawable/style_btn_bg"
+            android:text="删      除"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp" 
-        android:layout_marginTop="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/address_car_num"
-            android:drawablePadding="5dp"
-            android:gravity="center"
-            android:text="车牌号码："
-            android:textColor="@color/litill_gray" />
-
-        <TextView
-            android:id="@+id/address_car_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:gravity="center"
-            android:text="15928071696"
-            android:textColor="@color/nomarl_gray" />
-    </LinearLayout>
-    
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp" 
-        android:layout_marginTop="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/address_location"
-            android:drawablePadding="5dp"
-            android:gravity="center"
-            android:text="停车地址："
-            android:textColor="@color/litill_gray" />
-
-        <TextView
-            android:id="@+id/address_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:gravity="center"
-            android:text="15928071696"
-            android:textColor="@color/nomarl_gray" />
-    </LinearLayout>
-    
-     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="详细地址："
-            android:layout_marginLeft="25dp"
-            android:textColor="@color/litill_gray" />
-
-        <TextView
-            android:id="@+id/address_location_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:gravity="center"
-            android:text="15928071696"
-            android:textColor="@color/nomarl_gray" />
-    </LinearLayout>
-  </LinearLayout>
 </LinearLayout>
