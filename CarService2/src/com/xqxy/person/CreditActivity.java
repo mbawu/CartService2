@@ -35,7 +35,6 @@ public class CreditActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.person_credit);
-		Log.i(Cst.TAG, "onCreate");
 		init();
 	}
 

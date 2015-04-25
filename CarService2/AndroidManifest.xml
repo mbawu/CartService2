@@ -37,25 +37,23 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/MyTheme.Basic" >
-        <activity
-            android:name="com.xqxy.carservice.activity.PersonInfoActivity"
-            android:label="@string/app_name" >
+        <activity android:name="com.xqxy.carservice.activity.PersonCentreActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name="com.xqxy.person.LoginActivity" />
         <activity android:name="com.xqxy.person.RegisterActivity" />
         <activity android:name="com.xqxy.person.ForgotActivity" />
         <activity android:name="com.xqxy.person.AddressAddActivity" />
-         <!-- <activity android:name="com.xqxy.person.AdressActivity" /> -->
-        
+        <activity android:name="com.xqxy.person.AdressActivity" />
+        <activity android:name="com.xqxy.person.CreditActivity" />
+        <activity android:name="com.xqxy.person.MessageActivity" />
         <activity android:name="com.xqxy.carservice.activity.GuideActivity" />
         <activity android:name="com.xqxy.carservice.activity.CategoryActivity" />
-        <activity android:name="com.xqxy.carservice.activity.PersonCentreActivity" />
+        <!-- <activity android:name="com.xqxy.carservice.activity.PersonCentreActivity" /> -->
         <activity android:name="com.xqxy.carservice.activity.ServiceDetailActivity" />
         <activity android:name="com.xqxy.carservice.activity.ServiceEvaluateActivity" />
     </application>
