@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal" >
 
-        <RadioGroup
+<!--         <RadioGroup
             android:layout_width="120dp"
             android:layout_height="match_parent" >
 
@@ -22,25 +22,33 @@
                 android:text="分类一" />
 
             <RadioButton
-                 android:id="@+id/ddfdd"
+                android:id="@+id/ddfdd"
                 style="@style/categoryRadioBtnStyle"
                 android:checked="true"
                 android:drawableLeft="@drawable/image_back"
                 android:text="分类儿" />
-        </RadioGroup>
+        </RadioGroup> -->
 
-       <!--  <TextView
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="120dp"
+            android:layout_height="match_parent" >
+        </ListView>
+
+        <!--
+             <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FF0000" /> -->
-             <com.xqxy.carservice.widget.WheelView
+            android:background="#FF0000" />
+        -->
+
+        <com.xqxy.carservice.widget.WheelView
             android:id="@+id/id_province"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#FFFFFF" >
         </com.xqxy.carservice.widget.WheelView>
-        
     </LinearLayout>
 
 </LinearLayout>

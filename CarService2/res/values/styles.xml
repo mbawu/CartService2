@@ -108,4 +108,14 @@
         <item name="android:background">@drawable/edit_text_selector</item>
         <item name="android:singleLine">true</item>
     </style>
+ <style name="MyProgressDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@color/style_color</item>
+        <item name="android:windowBackground">@color/red</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.05</item>
+    </style>
 </resources>
