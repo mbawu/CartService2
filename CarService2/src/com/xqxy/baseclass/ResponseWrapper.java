@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.xqxy.model.Address;
 import com.xqxy.model.Banner;
 import com.xqxy.model.Brand;
+import com.xqxy.model.Credit;
 import com.xqxy.model.Model;
 import com.xqxy.model.Series;
 import com.xqxy.model.UserInfo;
@@ -62,7 +63,19 @@ public class ResponseWrapper {
 	private ArrayList<Address> address;
 	
 	
+	private ArrayList<Credit> integral;
 	
+	
+	/**
+	 * 积分记录
+	 * @return
+	 */
+	public ArrayList<Credit> getIntegral() {
+		return integral;
+	}
+	public void setIntegral(ArrayList<Credit> integral) {
+		this.integral = integral;
+	}
 	public ArrayList<Address> getAddress() {
 		return address;
 	}

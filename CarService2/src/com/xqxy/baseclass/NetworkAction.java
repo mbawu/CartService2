@@ -8,6 +8,7 @@ public enum NetworkAction {
 	userF_register,//注册
 	userF_resetpwd,//忘记密码
 	userF_send_phone,//获取验证码
+	centerF_user_integral,//积分记录
 	centerF_user_address,//用户常用地址
 	centerF_add_address,//添加修改地址
 	centerF_del_address,//删除地址

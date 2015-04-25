@@ -31,8 +31,16 @@ public class RequestWrapper {
 	private String address;
 	private String detailed;
 	
+	private String page;
 	
 	
+	
+	public String getPage() {
+		return page;
+	}
+	public void setPage(String page) {
+		this.page = page;
+	}
 	public String getAid() {
 		return aid;
 	}

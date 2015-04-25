@@ -42,23 +42,22 @@ public class AdressActivity extends BaseActivity {
 	}
 
 	private void init() {
-		Log.i(Cst.TAG, "init");
-		// 登录
-		RequestWrapper wrapper = new RequestWrapper();
-		wrapper.setPhone("13466899985");
-		wrapper.setPassword("1");
-		sendData(wrapper, NetworkAction.userF_login);
+		// Log.i(Cst.TAG, "init");
+		// // 登录
+		// RequestWrapper wrapper = new RequestWrapper();
+		// wrapper.setPhone("13466899985");
+		// wrapper.setPassword("1");
+		// sendData(wrapper, NetworkAction.userF_login);
 
-		
-		
-		addBtn=(TextView) findViewById(R.id.address_add);
+		addBtn = (TextView) findViewById(R.id.address_add);
 		addBtn.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				Intent intent=new Intent().setClass(AdressActivity.this, AddressAddActivity.class);
+				Intent intent = new Intent().setClass(AdressActivity.this,
+						AddressAddActivity.class);
 				AdressActivity.this.startActivity(intent);
-				
+
 			}
 		});
 		listView = (ListView) findViewById(R.id.listview);
@@ -79,9 +78,9 @@ public class AdressActivity extends BaseActivity {
 		});
 		adapter = new AddressAdapter(this);
 		listView.setAdapter(adapter);
-//		 RequestWrapper wrapper = new RequestWrapper();
-//		 wrapper.setIdentity(MyApplication.identity);
-//		 sendData(wrapper, NetworkAction.centerF_user_address);
+		RequestWrapper wrapper = new RequestWrapper();
+		wrapper.setIdentity(MyApplication.identity);
+		sendData(wrapper, NetworkAction.centerF_user_address);
 	}
 
 	@Override
@@ -91,25 +90,23 @@ public class AdressActivity extends BaseActivity {
 		super.showResualt(responseWrapper, requestType);
 		if (requestType.equals(NetworkAction.centerF_user_address)) {
 			datas = responseWrapper.getAddress();
-			if(datas.size()>0)
-			{
+			if (datas.size() > 0) {
 				listView.setVisibility(View.VISIBLE);
 				adapter.setDataList(datas);
 				adapter.notifyDataSetChanged();
-			}
-			else
-			{
+			} else {
 				listView.setVisibility(View.GONE);
 			}
-		} else if (requestType.equals(NetworkAction.userF_login)) {
-			
-			MyApplication.identity = responseWrapper.getIdentity().get(0)
-					.getIdentity();
-			RequestWrapper wrapper = new RequestWrapper();
-			wrapper.setIdentity(responseWrapper.getIdentity().get(0)
-					.getIdentity());
-			sendData(wrapper, NetworkAction.centerF_user_address);
 		}
+		// else if (requestType.equals(NetworkAction.userF_login)) {
+		//
+		// MyApplication.identity = responseWrapper.getIdentity().get(0)
+		// .getIdentity();
+		// RequestWrapper wrapper = new RequestWrapper();
+		// wrapper.setIdentity(responseWrapper.getIdentity().get(0)
+		// .getIdentity());
+		// sendData(wrapper, NetworkAction.centerF_user_address);
+		// }
 		else if (requestType.equals(NetworkAction.centerF_del_address)) {
 			Toast.makeText(this, "删除成功", Toast.LENGTH_SHORT).show();
 			RequestWrapper wrapper = new RequestWrapper();
@@ -159,7 +156,7 @@ public class AdressActivity extends BaseActivity {
 			viewHolder.locationTxt.setText(address.getAddress());
 			viewHolder.locationDelTxt.setText(address.getDetailed());
 			viewHolder.deleteBtn.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					RequestWrapper wrapper = new RequestWrapper();
