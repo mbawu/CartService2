@@ -15,31 +15,27 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.xqxy.baseclass.BaseActivity;
-import com.xqxy.baseclass.MyApplication;
-import com.xqxy.baseclass.NetworkAction;
-import com.xqxy.baseclass.RequestWrapper;
-import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
-import com.xqxy.carservice.activity.PersonCentreActivity;
 import com.xqxy.carservice.adapter.CarBaseAdapter;
+import com.xqxy.model.Coupon;
 import com.xqxy.model.Credit;
 import com.xqxy.model.Message;
 import com.xqxy.person.CreditActivity.CreditAdapter;
 import com.xqxy.person.CreditActivity.ViewHolder;
 
-public class MessageActivity extends BaseActivity {
+public class CouponActivity extends BaseActivity {
 	private ImageView backImageView;
 	private TextView titleTextView;
 	private TextView rightBtnTextView;
 	private ListView listView;
-	private MessageAdapter adapter;
-	private ArrayList<Message> datas;
+	private CouponAdapter adapter;
+	private ArrayList<Coupon> datas;
 	private TextView nodata;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.person_message);
+		setContentView(R.layout.person_coupon);
 		init();
 	}
 	
@@ -51,52 +47,33 @@ public class MessageActivity extends BaseActivity {
 			
 			@Override
 			public void onClick(View v) {
-				MessageActivity.this.finish();
+				CouponActivity.this.finish();
 				
 			}
 		});
 		nodata=(TextView) findViewById(R.id.nodataTxt);
 		listView = (ListView) findViewById(R.id.listview);
-		adapter = new MessageAdapter(this);
+		adapter = new CouponAdapter(this);
 		listView.setAdapter(adapter);
-		getMsg();
-//		Intent intent=getIntent();
-//		datas=(ArrayList<Message>) intent.getSerializableExtra("datas");
-		
+
+		if(datas.size()>0)
+		{
+			nodata.setVisibility(View.GONE);
+			listView.setVisibility(View.VISIBLE);
+			adapter.setDataList(datas);
+			adapter.notifyDataSetChanged();
+		}
+		else
+		{
+			nodata.setVisibility(View.VISIBLE);
+			listView.setVisibility(View.GONE);
+		}
 	}
 	
-	@Override
-	public void showResualt(ResponseWrapper responseWrapper,
-			NetworkAction requestType) {
-		// TODO Auto-generated method stub
-		super.showResualt(responseWrapper, requestType);
-		 if (requestType.equals(NetworkAction.centerF_user_msg)) {
-				datas = responseWrapper.getInfo();
-				if(datas.size()>0)
-				{
-					nodata.setVisibility(View.GONE);
-					listView.setVisibility(View.VISIBLE);
-					adapter.setDataList(datas);
-					adapter.notifyDataSetChanged();
-				}
-				else
-				{
-					nodata.setVisibility(View.VISIBLE);
-					listView.setVisibility(View.GONE);
-				}
-
-			}
-	}
-	public void getMsg()
-	{
-		RequestWrapper requestWrapper = new RequestWrapper();
-		requestWrapper.setIdentity(MyApplication.identity);
-		sendData(requestWrapper, NetworkAction.centerF_user_msg);
-	}
 	
-	class MessageAdapter extends CarBaseAdapter<Message> {
+	class CouponAdapter extends CarBaseAdapter<Coupon> {
 
-		public MessageAdapter(Activity activity) {
+		public CouponAdapter(Activity activity) {
 			super(activity);
 		}
 
@@ -119,14 +96,14 @@ public class MessageActivity extends BaseActivity {
 				viewHolder = (ViewHolder) convertView.getTag();
 			}
 
-			final Message msg = getItem(position);
-			viewHolder.msg_content.setText(msg.getContent());
-			viewHolder.msg_date.setText(msg.getCreate_time());
-			//未读
-			if(msg.getStatus().equals("1"))
-				viewHolder.msg_layout.setBackground(getResources().getDrawable(R.drawable.edit_text_selector));
-			else
-				viewHolder.msg_layout.setBackground(getResources().getDrawable(R.drawable.style_text_selector));
+			final Coupon coupon = getItem(position);
+//			viewHolder.msg_content.setText(coupon.getContent());
+//			viewHolder.msg_date.setText(coupon.getCreate_time());
+//			//未读
+//			if(coupon.getStatus().equals("1"))
+//				viewHolder.msg_layout.setBackground(getResources().getDrawable(R.drawable.edit_text_selector));
+//			else
+//				viewHolder.msg_layout.setBackground(getResources().getDrawable(R.drawable.style_text_selector));
 //			viewHolder.credit_integral.setText(msg.getIntegral());
 			
 			return convertView;

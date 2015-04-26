@@ -9,6 +9,8 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import cn.jpush.android.api.JPushInterface;
+
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
@@ -56,23 +58,26 @@ public class BaseActivity extends Activity {
 	}
 
 	//
-	// @Override
-	// protected void onResume() {
-	// if(Cst.EXITE)
-	// {
-	// finish();
-	// System.exit(0);
-	// }else{
-	// MobclickAgent.onResume(this);
-	// }
-	// super.onResume();
-	// }
-	// @Override
-	// protected void onPause() {
-	// if(!Cst.EXITE)
-	// MobclickAgent.onResume(this);
-	// super.onPause();
-	// }
+	@Override
+	protected void onResume() {
+		// if(Cst.EXITE)
+		// {
+		// finish();
+		// System.exit(0);
+		// }else{
+		// MobclickAgent.onResume(this);
+		// }
+		super.onResume();
+		JPushInterface.onResume(this);
+	}
+
+	 @Override
+	 protected void onPause() {
+//	 if(!Cst.EXITE)
+//	 MobclickAgent.onResume(this);
+	 super.onPause();
+	 JPushInterface.onPause(this);
+	 }
 	// /**
 	// * 显示一个加载中的整个页面的进度条
 	// */
@@ -146,16 +151,18 @@ public class BaseActivity extends Activity {
 			final NetworkAction requestType) {
 		String url = Cst.HOST;
 		HashMap<String, String> paramMap = new HashMap<String, String>();
-//		if (requestType.equals(NetworkAction.user_login)) {
-////			paramMap.put("phone", requestWrapper.getUserName());
-////			paramMap.put("password", requestWrapper.getPassword());
-//			url += "/user/";
-//		}
-//		Log.i("test", "identity-->"+MyApplication.identity);
-//		if(MyApplication.identity!=null)
-//			paramMap.put("identity", MyApplication.identity);
-		paramMap=getMap(requestWrapper);
-		Log.i("test", MyApplication.getUrl(paramMap, Cst.HOST+requestType.toString()));
+		// if (requestType.equals(NetworkAction.user_login)) {
+		// // paramMap.put("phone", requestWrapper.getUserName());
+		// // paramMap.put("password", requestWrapper.getPassword());
+		// url += "/user/";
+		// }
+		// Log.i("test", "identity-->"+MyApplication.identity);
+		// if(MyApplication.identity!=null)
+		// paramMap.put("identity", MyApplication.identity);
+		paramMap = getMap(requestWrapper);
+		Log.i("test",
+				MyApplication.getUrl(paramMap,
+						Cst.HOST + requestType.toString()));
 		MyApplication.client.postWithURL(url, paramMap, requestType,
 				new Listener<JSONObject>() {
 
@@ -184,12 +191,14 @@ public class BaseActivity extends Activity {
 			final NetworkAction requestType) {
 		String url = Cst.HOST;
 		HashMap<String, String> paramMap = new HashMap<String, String>();
-//		if (requestType.equals(NetworkAction.car_brand)
-//				|| requestType.equals(NetworkAction.car_series)
-//				|| requestType.equals(NetworkAction.car_model)) {
-//			url += "car/";
-//		}
-		Log.i("test", MyApplication.getUrl(paramMap, Cst.HOST+requestType.toString()));
+		// if (requestType.equals(NetworkAction.car_brand)
+		// || requestType.equals(NetworkAction.car_series)
+		// || requestType.equals(NetworkAction.car_model)) {
+		// url += "car/";
+		// }
+		Log.i("test",
+				MyApplication.getUrl(paramMap,
+						Cst.HOST + requestType.toString()));
 		MyApplication.client.getWithURL(url, paramMap,
 				new Listener<JSONObject>() {
 
@@ -331,6 +340,7 @@ public class BaseActivity extends Activity {
 		}
 		requesType.clear();
 	}
+
 	//
 	// /**
 	// * 用户相关页面的跳转
@@ -419,45 +429,38 @@ public class BaseActivity extends Activity {
 	//
 	// }
 	// }
-	
-	
-	public static HashMap<String,String> getMap(Object thisObj)
-	  {
-	    HashMap<String,String> map = new HashMap<String,String>();
-	    Class c;
-	    try
-	    {
-	      c = Class.forName(thisObj.getClass().getName());
-	      Method[] m = c.getMethods();
-	      Field[] fileds=c.getFields();
-	      for (int i = 0; i < m.length; i++)
-	      {
-	        String method = m[i].getName();
-	        if (method.startsWith("get"))
-	        {
-	          try{
-	          Object value = m[i].invoke(thisObj);
-	          if (value != null )
-	          {
-	            String key=method.substring(3);
-	            key=key.substring(0,1).toLowerCase()+key.substring(1);
-	            if(key.equals("class"))
-	            	continue;
-	            map.put(key,  value.toString());
-	          }
-	          }catch (Exception e) {
-	            // TODO: handle exception
-	            System.out.println("error:"+method);
-	          }
-	        }
-	      }
-	    }
-	    catch (Exception e)
-	    {
-	      // TODO: handle exception
-	      e.printStackTrace();
-	    }
-	    return map;
-	  }
+
+	public static HashMap<String, String> getMap(Object thisObj) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		Class c;
+		try {
+			c = Class.forName(thisObj.getClass().getName());
+			Method[] m = c.getMethods();
+			Field[] fileds = c.getFields();
+			for (int i = 0; i < m.length; i++) {
+				String method = m[i].getName();
+				if (method.startsWith("get")) {
+					try {
+						Object value = m[i].invoke(thisObj);
+						if (value != null) {
+							String key = method.substring(3);
+							key = key.substring(0, 1).toLowerCase()
+									+ key.substring(1);
+							if (key.equals("class"))
+								continue;
+							map.put(key, value.toString());
+						}
+					} catch (Exception e) {
+						// TODO: handle exception
+						System.out.println("error:" + method);
+					}
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return map;
+	}
 
 }

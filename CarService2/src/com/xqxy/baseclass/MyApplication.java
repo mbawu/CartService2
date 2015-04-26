@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 
+import cn.jpush.android.api.JPushInterface;
+
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -45,28 +47,12 @@ public class MyApplication extends Application {
 		// 初始化SharedPreferences
 		sp = getSharedPreferences("CarService", MODE_PRIVATE);
 		ed = sp.edit();
+		
+		//初始化JPUSH
+		 JPushInterface.init(getApplicationContext());
 	}
 
-	// // 初始化TaeSDK
-	// public void initTaeSDK() {
-	// // TaeSDK.setEnvIndex(3); // 1或者不设置代表生产环境，3代表沙箱环境，在TaeSDK.asyncInit前调用
-	// TaeSDK.asyncInit(this, new InitResultCallback() {
-	// @Override
-	// public void onSuccess() {
-	// Log.i(Cst.TAG, "TaeSDK初始化成功！");
-	// String internalSessionJson = SecurityGuardManager
-	// .getInstance(getApplicationContext())
-	// .getDynamicDataStoreComp()
-	// .getString("internal_session");
-	// System.out.println("获取SID：" + internalSessionJson);
-	// }
-	//
-	// @Override
-	// public void onFailure(int code, String msg) {
-	// Log.i(Cst.TAG, "TaeSDK初始化失败！" + msg);
-	// }
-	// });
-	// }
+	
 
 	// 获取拼接出来的请求字符串
 	public static String getUrl(HashMap<String, String> paramter, String url) {

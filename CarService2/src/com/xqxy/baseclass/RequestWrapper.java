@@ -32,9 +32,15 @@ public class RequestWrapper {
 	private String detailed;
 	
 	private String page;
+	private String status;
 	
 	
-	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public String getPage() {
 		return page;
 	}
