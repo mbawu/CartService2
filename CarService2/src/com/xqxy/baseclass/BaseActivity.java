@@ -160,9 +160,9 @@ public class BaseActivity extends Activity {
 		// if(MyApplication.identity!=null)
 		// paramMap.put("identity", MyApplication.identity);
 		paramMap = getMap(requestWrapper);
-		Log.i("test",
-				MyApplication.getUrl(paramMap,
-						Cst.HOST + requestType.toString()));
+//		Log.i("test",
+//				MyApplication.getUrl(paramMap,
+//						Cst.HOST + requestType.toString()));
 		MyApplication.client.postWithURL(url, paramMap, requestType,
 				new Listener<JSONObject>() {
 
@@ -196,10 +196,10 @@ public class BaseActivity extends Activity {
 		// || requestType.equals(NetworkAction.car_model)) {
 		// url += "car/";
 		// }
-		Log.i("test",
-				MyApplication.getUrl(paramMap,
-						Cst.HOST + requestType.toString()));
-		MyApplication.client.getWithURL(url, paramMap,
+//		Log.i("test",
+//				MyApplication.getUrl(paramMap,
+//						Cst.HOST + requestType.toString()));
+		MyApplication.client.getWithURL(url, getMap(requestWrapper),
 				new Listener<JSONObject>() {
 
 					@Override
@@ -230,6 +230,7 @@ public class BaseActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		Log.i(Cst.TAG, response.toString());
 		// 如果数据返回正确的时候正常执行showResualt
 		if (done) {

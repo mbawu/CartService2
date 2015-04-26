@@ -25,6 +25,7 @@ import com.xqxy.carservice.R;
 import com.xqxy.model.Message;
 import com.xqxy.person.AddressAddActivity;
 import com.xqxy.person.AdressActivity;
+import com.xqxy.person.CouponActivity;
 import com.xqxy.person.CreditActivity;
 import com.xqxy.person.LoginActivity;
 import com.xqxy.person.MessageActivity;
@@ -157,7 +158,10 @@ public class PersonCentreActivity extends BaseActivity implements
 			break;
 		// 优惠券
 		case R.id.personCenterItemCoupon:
-
+			if (MyApplication.loginStat)
+				intent = new Intent().setClass(this, CouponActivity.class);
+			else
+				intent = new Intent().setClass(this, LoginActivity.class);
 			break;
 		// 充值卡
 		case R.id.personCenterItemStoredcard:

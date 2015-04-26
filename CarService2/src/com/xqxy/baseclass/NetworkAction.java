@@ -10,6 +10,7 @@ public enum NetworkAction {
 	userF_send_phone,//获取验证码
 	centerF_user_msg,//我的消息
 	centerF_user_integral,//积分记录
+	centerF_user_coupon,//用户优惠券
 	centerF_user_address,//用户常用地址
 	centerF_add_address,//添加修改地址
 	centerF_del_address,//删除地址
