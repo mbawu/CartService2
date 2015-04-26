@@ -21,6 +21,8 @@ public enum NetworkAction {
 	carF_series, //车系
 	carF_model, //类型
 	indexF_banner,
+	indexF_product,
+	indexF_product_details,
 	;
 	@Override
 	public String toString() {

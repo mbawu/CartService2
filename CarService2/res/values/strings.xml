@@ -4,5 +4,6 @@
     <string name="app_name">CarService</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="product_price">￥%1$s</string>
 
 </resources>

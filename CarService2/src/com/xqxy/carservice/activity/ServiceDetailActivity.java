@@ -9,13 +9,19 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.xqxy.baseclass.BaseActivity;
+import com.xqxy.baseclass.NetworkAction;
+import com.xqxy.baseclass.RequestWrapper;
+import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
 import com.xqxy.carservice.view.CarImageView;
 import com.xqxy.carservice.view.TopTitleView;
 
-public class ServiceDetailActivity extends Activity implements OnClickListener {
-	
+public class ServiceDetailActivity extends BaseActivity implements
+		OnClickListener {
+
 	private TopTitleView topTitleView;
 
 	private CarImageView imgServicePhoto;
@@ -26,16 +32,17 @@ public class ServiceDetailActivity extends Activity implements OnClickListener {
 	private RadioButton radioBtnCarType;
 	private TextView textEvaluateNum;
 	private WebView webview;
+	private int pid;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.service_detail_layout);
-
+		pid = getIntent().getIntExtra("pid", 0);
 		topTitleView = new TopTitleView(this);
 		topTitleView.setTitle("服务详情");
 		topTitleView.setRightBtnText("分享", null);
-	
+
 		imgServicePhoto = (CarImageView) findViewById(R.id.img_service_photo);
 		textServiceName = (TextView) findViewById(R.id.text_service_name);
 		textServiceTime = (TextView) findViewById(R.id.text_service_time);
@@ -48,9 +55,27 @@ public class ServiceDetailActivity extends Activity implements OnClickListener {
 		findViewById(R.id.layout_service_evaluate).setOnClickListener(this);
 		textEvaluateNum = (TextView) findViewById(R.id.text_service_evaluate_num);
 		webview = (WebView) findViewById(R.id.webviw);
+		if (pid > 0) {
+			RequestWrapper request = new RequestWrapper();
+			request.setPid(pid + "");
+			sendDataByGet(request, NetworkAction.indexF_product_details);
+		} else {
+			Toast.makeText(this, "服务项目不存在", Toast.LENGTH_SHORT).show();
+			finish();
+		}
 
 		webview.loadUrl("http://sina.cn/?vm=4007");
-		imgServicePhoto.loadImage("http://imgstatic.baidu.com/img/image/shouye/fanbingbing.jpg");
+		imgServicePhoto
+				.loadImage("http://imgstatic.baidu.com/img/image/shouye/fanbingbing.jpg");
+	}
+
+	@Override
+	public void showResualt(ResponseWrapper responseWrapper,
+			NetworkAction requestType) {
+		super.showResualt(responseWrapper, requestType);
+		if (requestType == NetworkAction.indexF_product_details) {
+
+		}
 	}
 
 	@Override

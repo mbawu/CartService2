@@ -9,6 +9,7 @@ import com.xqxy.model.Coupon;
 import com.xqxy.model.Credit;
 import com.xqxy.model.Message;
 import com.xqxy.model.Model;
+import com.xqxy.model.Product;
 import com.xqxy.model.Series;
 import com.xqxy.model.UserInfo;
 
@@ -57,6 +58,8 @@ public class ResponseWrapper {
 	private ArrayList<UserInfo> identity;
 	
 	private ArrayList<Banner> banner;
+	
+	private ArrayList<Product> product;
 	
 	/**
 	 * 用户常用地址
@@ -149,6 +152,12 @@ public class ResponseWrapper {
 	}
 	public void setBanner(ArrayList<Banner> banner) {
 		this.banner = banner;
+	}
+	public ArrayList<Product> getProduct() {
+		return product;
+	}
+	public void setProduct(ArrayList<Product> product) {
+		this.product = product;
 	}
 
 	
