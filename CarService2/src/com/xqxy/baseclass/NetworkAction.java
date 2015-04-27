@@ -23,6 +23,7 @@ public enum NetworkAction {
 	indexF_banner,
 	indexF_product,
 	indexF_product_details,
+	indexF_column,
 	;
 	@Override
 	public String toString() {
