@@ -3,7 +3,10 @@ package com.xqxy.carservice.activity;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xqxy.baseclass.BaseActivity;
+import com.xqxy.baseclass.Cst;
 import com.xqxy.baseclass.MyApplication;
 import com.xqxy.baseclass.NetworkAction;
 import com.xqxy.baseclass.RequestWrapper;
@@ -21,6 +25,7 @@ import com.xqxy.carservice.R;
 import com.xqxy.model.Message;
 import com.xqxy.person.AddressAddActivity;
 import com.xqxy.person.AdressActivity;
+import com.xqxy.person.CouponActivity;
 import com.xqxy.person.CreditActivity;
 import com.xqxy.person.LoginActivity;
 import com.xqxy.person.MessageActivity;
@@ -76,6 +81,9 @@ public class PersonCentreActivity extends BaseActivity implements
 		message.setOnClickListener(this);
 		other.setOnClickListener(this);
 		credit.setOnClickListener(this);
+		
+		//注册广播
+		registerBoradcastReceiver();
 	}
 
 	@Override
@@ -84,14 +92,9 @@ public class PersonCentreActivity extends BaseActivity implements
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
 		if (requestType.equals(NetworkAction.userF_login)) {
-
 			MyApplication.identity = responseWrapper.getIdentity().get(0)
 					.getIdentity();
-			RequestWrapper requestWrapper = new RequestWrapper();
-			requestWrapper.setIdentity(responseWrapper.getIdentity().get(0)
-					.getIdentity());
-
-			sendData(requestWrapper, NetworkAction.centerF_user_msg);
+			getMsg();
 		} else if (requestType.equals(NetworkAction.centerF_user_msg)) {
 			data = responseWrapper.getInfo();
 			int count=0;
@@ -103,12 +106,44 @@ public class PersonCentreActivity extends BaseActivity implements
 			msgNum.setText(count+ "");
 			msgIntent = new Intent();
 			msgIntent.setClass(PersonCentreActivity.this, MessageActivity.class);
-			Bundle bundle = new Bundle();
-			bundle.putSerializable("datas", data);
-			msgIntent.putExtras(bundle);
+//			Bundle bundle = new Bundle();
+//			bundle.putSerializable("datas", data);
+//			msgIntent.putExtras(bundle);
 		}
 	}
 
+	private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver(){
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String action = intent.getAction();
+			if(action.equals(Cst.GET_RECEIVE)){
+				getMsg();
+			}
+		}
+		
+	};
+
+	public void registerBoradcastReceiver(){
+		IntentFilter myIntentFilter = new IntentFilter();
+		myIntentFilter.addAction(Cst.GET_RECEIVE);
+		//注册广播      
+		registerReceiver(mBroadcastReceiver, myIntentFilter);
+	}
+
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		unregisterReceiver(mBroadcastReceiver);
+	}
+	public void getMsg()
+	{
+		RequestWrapper requestWrapper = new RequestWrapper();
+		requestWrapper.setIdentity(MyApplication.identity);
+		sendData(requestWrapper, NetworkAction.centerF_user_msg);
+	}
+	
 	@Override
 	public void onClick(View v) {
 		Intent intent = null;
@@ -123,7 +158,10 @@ public class PersonCentreActivity extends BaseActivity implements
 			break;
 		// 优惠券
 		case R.id.personCenterItemCoupon:
-
+			if (MyApplication.loginStat)
+				intent = new Intent().setClass(this, CouponActivity.class);
+			else
+				intent = new Intent().setClass(this, LoginActivity.class);
 			break;
 		// 充值卡
 		case R.id.personCenterItemStoredcard:

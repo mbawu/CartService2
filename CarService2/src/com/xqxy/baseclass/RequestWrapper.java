@@ -32,9 +32,17 @@ public class RequestWrapper {
 	private String detailed;
 	
 	private String page;
+	private String status;
+	
+	private String pid;
 	
 	
-	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public String getPage() {
 		return page;
 	}
@@ -142,6 +150,12 @@ public class RequestWrapper {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getPid() {
+		return pid;
+	}
+	public void setPid(String pid) {
+		this.pid = pid;
 	}
 	
 	

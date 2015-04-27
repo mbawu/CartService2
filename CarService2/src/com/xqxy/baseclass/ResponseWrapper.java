@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import com.xqxy.model.Address;
 import com.xqxy.model.Banner;
 import com.xqxy.model.Brand;
+import com.xqxy.model.Coupon;
 import com.xqxy.model.Credit;
 import com.xqxy.model.Message;
 import com.xqxy.model.Model;
+import com.xqxy.model.Product;
 import com.xqxy.model.Series;
 import com.xqxy.model.UserInfo;
 
@@ -57,6 +59,8 @@ public class ResponseWrapper {
 	
 	private ArrayList<Banner> banner;
 	
+	private ArrayList<Product> product;
+	
 	/**
 	 * 用户常用地址
 	 * @return
@@ -68,7 +72,19 @@ public class ResponseWrapper {
 	
 	private ArrayList<Message> info;
 	
+	private ArrayList<Coupon> coupon;
 	
+	
+	/**
+	 * 我的优惠券
+	 * @return
+	 */
+	public ArrayList<Coupon> getCoupon() {
+		return coupon;
+	}
+	public void setCoupon(ArrayList<Coupon> coupon) {
+		this.coupon = coupon;
+	}
 	/**
 	 * 我的消息
 	 * @return
@@ -136,6 +152,12 @@ public class ResponseWrapper {
 	}
 	public void setBanner(ArrayList<Banner> banner) {
 		this.banner = banner;
+	}
+	public ArrayList<Product> getProduct() {
+		return product;
+	}
+	public void setProduct(ArrayList<Product> product) {
+		this.product = product;
 	}
 
 	

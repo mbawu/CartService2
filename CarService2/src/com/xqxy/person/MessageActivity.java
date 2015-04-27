@@ -15,7 +15,12 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.xqxy.baseclass.BaseActivity;
+import com.xqxy.baseclass.MyApplication;
+import com.xqxy.baseclass.NetworkAction;
+import com.xqxy.baseclass.RequestWrapper;
+import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
+import com.xqxy.carservice.activity.PersonCentreActivity;
 import com.xqxy.carservice.adapter.CarBaseAdapter;
 import com.xqxy.model.Credit;
 import com.xqxy.model.Message;
@@ -54,23 +59,40 @@ public class MessageActivity extends BaseActivity {
 		listView = (ListView) findViewById(R.id.listview);
 		adapter = new MessageAdapter(this);
 		listView.setAdapter(adapter);
+		getMsg();
+//		Intent intent=getIntent();
+//		datas=(ArrayList<Message>) intent.getSerializableExtra("datas");
 		
-		Intent intent=getIntent();
-		datas=(ArrayList<Message>) intent.getSerializableExtra("datas");
-		if(datas.size()>0)
-		{
-			nodata.setVisibility(View.GONE);
-			listView.setVisibility(View.VISIBLE);
-			adapter.setDataList(datas);
-			adapter.notifyDataSetChanged();
-		}
-		else
-		{
-			nodata.setVisibility(View.VISIBLE);
-			listView.setVisibility(View.GONE);
-		}
 	}
 	
+	@Override
+	public void showResualt(ResponseWrapper responseWrapper,
+			NetworkAction requestType) {
+		// TODO Auto-generated method stub
+		super.showResualt(responseWrapper, requestType);
+		 if (requestType.equals(NetworkAction.centerF_user_msg)) {
+				datas = responseWrapper.getInfo();
+				if(datas.size()>0)
+				{
+					nodata.setVisibility(View.GONE);
+					listView.setVisibility(View.VISIBLE);
+					adapter.setDataList(datas);
+					adapter.notifyDataSetChanged();
+				}
+				else
+				{
+					nodata.setVisibility(View.VISIBLE);
+					listView.setVisibility(View.GONE);
+				}
+
+			}
+	}
+	public void getMsg()
+	{
+		RequestWrapper requestWrapper = new RequestWrapper();
+		requestWrapper.setIdentity(MyApplication.identity);
+		sendData(requestWrapper, NetworkAction.centerF_user_msg);
+	}
 	
 	class MessageAdapter extends CarBaseAdapter<Message> {
 

@@ -32,6 +32,7 @@ import com.xqxy.carservice.adapter.CarBaseAdapter;
 import com.xqxy.carservice.adapter.CarouselAdapter;
 import com.xqxy.carservice.view.CarImageView;
 import com.xqxy.model.Banner;
+import com.xqxy.model.Product;
 
 public class MainActivity extends BaseActivity {
 
@@ -41,8 +42,9 @@ public class MainActivity extends BaseActivity {
 	private Timer timer;
 	private ListView listView;
 	private ImageView imgBottomCar;
-	private ServiceAdapter serviceAdapter;
+	private ProductAdapter productAdapter;
 	private List<Banner> banners;
+	private List<Product> products;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,21 +54,14 @@ public class MainActivity extends BaseActivity {
 		radioGroup = (RadioGroup) findViewById(R.id.viewpager_radiogroup);
 		listView = (ListView) findViewById(R.id.listview);
 		imgBottomCar = (ImageView) findViewById(R.id.img_homepager_car);
-		serviceAdapter = new ServiceAdapter(this);
-		listView.setAdapter(serviceAdapter);
-		//initCarouselViewPager(imgUrls);
-		List<CarService> carServiceList = new ArrayList<CarService>();
-		for (int i = 0; i < 10; i++) {
-			carServiceList.add(new CarService());
-		}
-		serviceAdapter.setDataList(carServiceList);
-
-		sendBannerRequest();
+		productAdapter = new ProductAdapter(this);
+		listView.setAdapter(productAdapter);
+		sendRequest();
 	}
 
-	public void sendBannerRequest() {
-
+	public void sendRequest() {
 		sendData(new RequestWrapper(), NetworkAction.indexF_banner);
+		sendData(new RequestWrapper(), NetworkAction.indexF_product);
 	}
 
 	@Override
@@ -75,8 +70,14 @@ public class MainActivity extends BaseActivity {
 		super.showResualt(responseWrapper, requestType);
 		if (requestType == NetworkAction.indexF_banner) {
 			banners = responseWrapper.getBanner();
-			if(banners != null && banners.size()>0){
+			if (banners != null && banners.size() > 0) {
 				initCarouselViewPager();
+			}
+		} else if (requestType == NetworkAction.indexF_product) {
+			products = responseWrapper.getProduct();
+			if (products != null && products.size() > 0) {
+				productAdapter.setDataList(products);
+				productAdapter.notifyDataSetChanged();
 			}
 		}
 	}
@@ -99,7 +100,7 @@ public class MainActivity extends BaseActivity {
 			imageView.setScaleType(ScaleType.FIT_XY);
 			imageView.loadImage(banners.get(i).getPath());
 			imageView.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -155,12 +156,12 @@ public class MainActivity extends BaseActivity {
 
 			}
 		});
-		
+
 	}
 
-	class ServiceAdapter extends CarBaseAdapter<CarService> {
+	class ProductAdapter extends CarBaseAdapter<Product> {
 
-		public ServiceAdapter(Activity activity) {
+		public ProductAdapter(Activity activity) {
 			super(activity);
 		}
 
@@ -184,16 +185,25 @@ public class MainActivity extends BaseActivity {
 				convertView.setTag(viewHolder);
 			}
 			viewHolder = (ViewHolder) convertView.getTag();
-			viewHolder.imgServicePhoto
-					.loadImage("http://imgstatic.baidu.com/img/image/shouye/fanbingbing.jpg");
+
+			final Product product = products.get(position);
+
+			viewHolder.imgServicePhoto.loadImage(product.getPic());
+			viewHolder.textServiceName.setText(product.getName());
+			viewHolder.textServiceDis.setText(product.getContent()
+					.replace("\r", "").replace("\n", "").replace("\t", ""));
+			viewHolder.textServicePriceNew.setText(getString(
+					R.string.product_price, product.getNew_price() + ""));
+			viewHolder.textServicePriceOld.setText(getString(
+					R.string.product_price, product.getOld_price() + ""));
 			convertView.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
 					Intent intent = new Intent(activity,
 							ServiceDetailActivity.class);
+					intent.putExtra("pid", product.getPid());
 					activity.startActivity(intent);
-
 				}
 			});
 
@@ -207,9 +217,5 @@ public class MainActivity extends BaseActivity {
 		TextView textServiceDis;
 		TextView textServicePriceNew;
 		TextView textServicePriceOld;
-	}
-
-	class CarService {
-
 	}
 }

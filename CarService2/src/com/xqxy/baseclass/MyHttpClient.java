@@ -117,6 +117,7 @@ public class MyHttpClient extends Object {
 	public void getWithURL(String url, Map<String, String> params,
 			Response.Listener<JSONObject> listener, NetworkAction requestType,
 			Response.ErrorListener errorListener) {
+		url+=requestType;
 		if (params != null && params.size() > 0) {
 			if (url.contains("?")) {
 				url = url + "&" + encodeParameters(params, "UTF-8");
@@ -124,8 +125,8 @@ public class MyHttpClient extends Object {
 				url = url + "?" + encodeParameters(params, "UTF-8");
 			}
 		}
-		Log.i(Cst.TAG, "Url-->"+url+requestType);
-		MyRequest jsObjRequest = new MyRequest(Request.Method.GET, url+requestType, params,
+		Log.i(Cst.TAG, "Url-->"+url);
+		MyRequest jsObjRequest = new MyRequest(Request.Method.GET, url, params,
 				requestType, listener, errorListener);
 		this.addRequest(jsObjRequest);
 	}

@@ -19,6 +19,7 @@
 
         <com.xqxy.carservice.view.CarImageView
             android:id="@+id/img_service_photo"
+            android:scaleType="fitXY"
             android:layout_width="110dp"
             android:layout_height="110dp" />
 
@@ -32,7 +33,6 @@
                 android:id="@+id/text_service_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="洗车打蜡"
                 android:textColor="#323232"
                 android:textSize="@dimen/font_size_30px" />
 
@@ -44,7 +44,7 @@
                 android:ellipsize="end"
                 android:lineSpacingExtra="4dp"
                 android:maxLines="2"
-                android:text="服务描述服务描述服务描述服务描述服务描述服务描述服务描述服务描述服务描述服务描述服务描述服务描述服务描述服务描述服务描述服务描述服务描述服务描述服务描述服务描述"
+              	android:gravity="top|left"
                 android:textColor="#646464"
                 android:textSize="@dimen/font_size_26px" />
 
@@ -64,7 +64,6 @@
                     android:id="@+id/text_service_price_new"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="￥80"
                     android:textColor="#E94F3A"
                     android:textSize="@dimen/font_size_26px" />
 
@@ -73,9 +72,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
-                    android:text="￥120"
                     android:textColor="#969696"
-                    android:textSize="@dimen/font_size_18px" />
+                    android:textSize="@dimen/font_size_18px"
+                    android:textStyle="bold" />
+
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

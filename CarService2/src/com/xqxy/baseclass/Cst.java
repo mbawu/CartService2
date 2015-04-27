@@ -16,4 +16,5 @@ public class Cst {
 	
 
 	public static final String HOST="http://car.xinlingmingdeng.com/api.php/";
+	public static final String GET_RECEIVE="get_receive"; //消息推送
 }
