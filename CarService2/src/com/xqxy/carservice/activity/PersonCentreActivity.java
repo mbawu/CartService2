@@ -29,6 +29,7 @@ import com.xqxy.person.CouponActivity;
 import com.xqxy.person.CreditActivity;
 import com.xqxy.person.LoginActivity;
 import com.xqxy.person.MessageActivity;
+import com.xqxy.person.OtherActivity;
 
 public class PersonCentreActivity extends BaseActivity implements
 		OnClickListener {
@@ -81,8 +82,8 @@ public class PersonCentreActivity extends BaseActivity implements
 		message.setOnClickListener(this);
 		other.setOnClickListener(this);
 		credit.setOnClickListener(this);
-		
-		//注册广播
+
+		// 注册广播
 		registerBoradcastReceiver();
 	}
 
@@ -97,56 +98,63 @@ public class PersonCentreActivity extends BaseActivity implements
 			getMsg();
 		} else if (requestType.equals(NetworkAction.centerF_user_msg)) {
 			data = responseWrapper.getInfo();
-			int count=0;
+			int count = 0;
 			for (int i = 0; i < data.size(); i++) {
-				Message msg=data.get(i);
-				if(msg.getStatus().equals("1"))
+				Message msg = data.get(i);
+				if (msg.getStatus().equals("1"))
 					count++;
 			}
-			msgNum.setText(count+ "");
+			msgNum.setText(count + "");
 			msgIntent = new Intent();
-			msgIntent.setClass(PersonCentreActivity.this, MessageActivity.class);
-//			Bundle bundle = new Bundle();
-//			bundle.putSerializable("datas", data);
-//			msgIntent.putExtras(bundle);
+			msgIntent
+					.setClass(PersonCentreActivity.this, MessageActivity.class);
+			// Bundle bundle = new Bundle();
+			// bundle.putSerializable("datas", data);
+			// msgIntent.putExtras(bundle);
 		}
 	}
 
-	private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver(){
+	private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
-			if(action.equals(Cst.GET_RECEIVE)){
+			if (action.equals(Cst.GET_RECEIVE)) {
 				getMsg();
 			}
 		}
-		
+
 	};
 
-	public void registerBoradcastReceiver(){
+	public void registerBoradcastReceiver() {
 		IntentFilter myIntentFilter = new IntentFilter();
 		myIntentFilter.addAction(Cst.GET_RECEIVE);
-		//注册广播      
+		// 注册广播
 		registerReceiver(mBroadcastReceiver, myIntentFilter);
 	}
 
-	
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		unregisterReceiver(mBroadcastReceiver);
 	}
-	public void getMsg()
-	{
+
+	public void getMsg() {
 		RequestWrapper requestWrapper = new RequestWrapper();
 		requestWrapper.setIdentity(MyApplication.identity);
 		sendData(requestWrapper, NetworkAction.centerF_user_msg);
 	}
-	
+
 	@Override
 	public void onClick(View v) {
 		Intent intent = null;
+		if(v.getId()!= R.id.personCenterItemOther && !MyApplication.loginStat)
+		{
+			intent = new Intent().setClass(this, LoginActivity.class);
+			startActivity(intent);
+			return;
+		}
+			
 		switch (v.getId()) {
 		// 后退按钮
 		case R.id.imageTopBack:
@@ -158,14 +166,12 @@ public class PersonCentreActivity extends BaseActivity implements
 			break;
 		// 优惠券
 		case R.id.personCenterItemCoupon:
-			if (MyApplication.loginStat)
 				intent = new Intent().setClass(this, CouponActivity.class);
-			else
-				intent = new Intent().setClass(this, LoginActivity.class);
 			break;
 		// 充值卡
 		case R.id.personCenterItemStoredcard:
 
+			
 			break;
 		// 常用地址
 		case R.id.personCenterItemAddress:
@@ -173,28 +179,20 @@ public class PersonCentreActivity extends BaseActivity implements
 			break;
 		// 消息
 		case R.id.personCenterItemMessage:
-			if (MyApplication.loginStat)
-			{
-				if(msgIntent==null)
-				{
-					Toast.makeText(this, "还未获取到消息记录，请稍等。", Toast.LENGTH_SHORT).show();
+				if (msgIntent == null) {
+					Toast.makeText(this, "还未获取到消息记录，请稍等。", Toast.LENGTH_SHORT)
+							.show();
 					return;
 				}
-					
 				startActivity(msgIntent);
-			}
-			else
-			{
-				intent = new Intent().setClass(this, LoginActivity.class);
-			}
-				break;
-			// 其他
+			break;
+		// 其他
 		case R.id.personCenterItemOther:
-
+			intent = new Intent().setClass(this, OtherActivity.class);
 			break;
 		// 积分
 		case R.id.textPersonCenterCredits:
-			intent = new Intent().setClass(this, CreditActivity.class);
+				intent = new Intent().setClass(this, CreditActivity.class);
 			break;
 		}
 
@@ -202,6 +200,5 @@ public class PersonCentreActivity extends BaseActivity implements
 			startActivity(intent);
 
 	}
-	
 
 }

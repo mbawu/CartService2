@@ -24,6 +24,7 @@ public enum NetworkAction {
 	indexF_product,
 	indexF_product_details,
 	indexF_column,
+	indexF_suggest,//投诉建议
 	;
 	@Override
 	public String toString() {

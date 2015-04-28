@@ -56,6 +56,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		if(requestType.equals(NetworkAction.userF_login))
 		{
 			Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
+			MyApplication.loginStat=true;
 			MyApplication.identity=responseWrapper.getIdentity().get(0).getIdentity();
 		}
 	}

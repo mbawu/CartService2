@@ -56,6 +56,8 @@
         <activity android:name="com.xqxy.person.CreditActivity" />
         <activity android:name="com.xqxy.person.MessageActivity" />
         <activity android:name="com.xqxy.person.CouponActivity" />
+        <activity android:name="com.xqxy.person.OtherActivity" />
+        <activity android:name="com.xqxy.person.FeedBackActivity" />
         <activity android:name="com.xqxy.carservice.activity.GuideActivity" />
         <activity android:name="com.xqxy.carservice.activity.CategoryActivity" />
         <activity android:name="com.xqxy.carservice.activity.PersonCentreActivity" /> 

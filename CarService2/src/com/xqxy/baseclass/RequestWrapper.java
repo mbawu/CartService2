@@ -36,7 +36,16 @@ public class RequestWrapper {
 	
 	private String pid;
 	
+	//投诉建议
+	private String content;
 	
+	
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
 	public String getStatus() {
 		return status;
 	}
