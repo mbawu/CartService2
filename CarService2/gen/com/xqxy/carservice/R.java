@@ -107,13 +107,15 @@ public final class R {
         public static final int spinner_normal=0x7f02003d;
         public static final int spinner_pressed=0x7f02003e;
         public static final int spinner_selector=0x7f02003f;
-        public static final int style_btn_bg=0x7f020040;
-        public static final int style_text_selector=0x7f020041;
-        public static final int text_checked_style=0x7f020042;
-        public static final int username_ico=0x7f020043;
-        public static final int wheel_bg=0x7f020044;
-        public static final int wheel_val=0x7f020045;
-        public static final int white_btn_bg=0x7f020046;
+        public static final int storecard_green_bg=0x7f020040;
+        public static final int storecard_yellow_bg=0x7f020041;
+        public static final int style_btn_bg=0x7f020042;
+        public static final int style_text_selector=0x7f020043;
+        public static final int text_checked_style=0x7f020044;
+        public static final int username_ico=0x7f020045;
+        public static final int wheel_bg=0x7f020046;
+        public static final int wheel_val=0x7f020047;
+        public static final int white_btn_bg=0x7f020048;
     }
     public static final class id {
         public static final int action_settings=0x7f0a007a;
@@ -269,10 +271,12 @@ public final class R {
         public static final int person_message_item=0x7f030019;
         public static final int person_other=0x7f03001a;
         public static final int person_register=0x7f03001b;
-        public static final int photo_select_layout=0x7f03001c;
-        public static final int service_detail_layout=0x7f03001d;
-        public static final int service_evaluate_layout=0x7f03001e;
-        public static final int top_title_layout=0x7f03001f;
+        public static final int person_storecard=0x7f03001c;
+        public static final int person_storecard_item=0x7f03001d;
+        public static final int photo_select_layout=0x7f03001e;
+        public static final int service_detail_layout=0x7f03001f;
+        public static final int service_evaluate_layout=0x7f030020;
+        public static final int top_title_layout=0x7f030021;
     }
     public static final class menu {
         public static final int main=0x7f090000;

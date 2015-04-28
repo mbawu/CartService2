@@ -12,6 +12,7 @@ import com.xqxy.model.Message;
 import com.xqxy.model.Model;
 import com.xqxy.model.Product;
 import com.xqxy.model.Series;
+import com.xqxy.model.StoreCard;
 import com.xqxy.model.UserInfo;
 
 /**
@@ -74,6 +75,23 @@ public class ResponseWrapper {
 	private ArrayList<Message> info;
 
 	private ArrayList<Coupon> coupon;
+
+	
+	private ArrayList<StoreCard> card;
+	
+
+	/**
+	 * 我的储值卡
+	 * 
+	 * @return
+	 */
+	public ArrayList<StoreCard> getCard() {
+		return card;
+	}
+
+	public void setCard(ArrayList<StoreCard> card) {
+		this.card = card;
+	}
 
 	/**
 	 * 我的优惠券

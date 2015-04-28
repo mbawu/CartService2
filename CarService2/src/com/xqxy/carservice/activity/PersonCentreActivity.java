@@ -30,6 +30,7 @@ import com.xqxy.person.CreditActivity;
 import com.xqxy.person.LoginActivity;
 import com.xqxy.person.MessageActivity;
 import com.xqxy.person.OtherActivity;
+import com.xqxy.person.StoreCardActivity;
 
 public class PersonCentreActivity extends BaseActivity implements
 		OnClickListener {
@@ -170,7 +171,7 @@ public class PersonCentreActivity extends BaseActivity implements
 			break;
 		// 充值卡
 		case R.id.personCenterItemStoredcard:
-
+			intent = new Intent().setClass(this, StoreCardActivity.class);
 			
 			break;
 		// 常用地址
