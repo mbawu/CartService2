@@ -21,7 +21,7 @@
             android:choiceMode="singleChoice"
             android:divider="#FFFFFF"
             android:dividerHeight="8dp"
-            android:listSelector="@drawable/category_item_bg" >
+            android:listSelector="@drawable/category_item_border_selected" >
         </ListView>
 
 
