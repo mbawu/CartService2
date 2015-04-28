@@ -5,5 +5,11 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="product_price">￥%1$s</string>
+    <string name="car_item_pp">品牌：%1$s</string>
+    <string name="car_item_year">年份：%1$s</string>
+    <string name="car_item_lc">已驾公里：%1$s</string>
+    <string name="car_item_xl">系列：%1$s</string>
+    <string name="car_item_pl">排量：%1$s</string>
+    <string name="car_item_bypl">保养频率：%1$s</string>
 
 </resources>

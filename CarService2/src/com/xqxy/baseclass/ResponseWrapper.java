@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.xqxy.model.Address;
 import com.xqxy.model.Banner;
 import com.xqxy.model.Brand;
+import com.xqxy.model.Car;
 import com.xqxy.model.Category;
 import com.xqxy.model.Coupon;
 import com.xqxy.model.Credit;
@@ -61,6 +62,8 @@ public class ResponseWrapper {
 	private ArrayList<Product> product;
 
 	private ArrayList<Category> column;
+	
+	private ArrayList<Car> car;
 
 	/**
 	 * 用户常用地址
@@ -192,6 +195,14 @@ public class ResponseWrapper {
 
 	public void setColumn(ArrayList<Category> column) {
 		this.column = column;
+	}
+
+	public ArrayList<Car> getCar() {
+		return car;
+	}
+
+	public void setCar(ArrayList<Car> car) {
+		this.car = car;
 	}
 
 	

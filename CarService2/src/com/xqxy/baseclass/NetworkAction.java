@@ -24,6 +24,7 @@ public enum NetworkAction {
 	indexF_product,
 	indexF_product_details,
 	indexF_column,
+	centerF_user_car,
 	;
 	@Override
 	public String toString() {

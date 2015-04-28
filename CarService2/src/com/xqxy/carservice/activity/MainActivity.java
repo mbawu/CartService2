@@ -183,9 +183,9 @@ public class MainActivity extends BaseActivity {
 				viewHolder.textServicePriceOld = (TextView) convertView
 						.findViewById(R.id.text_service_price_old);
 				convertView.setTag(viewHolder);
+			} else {
+				viewHolder = (ViewHolder) convertView.getTag();
 			}
-			viewHolder = (ViewHolder) convertView.getTag();
-
 			final Product product = products.get(position);
 
 			viewHolder.imgServicePhoto.loadImage(product.getPic());
