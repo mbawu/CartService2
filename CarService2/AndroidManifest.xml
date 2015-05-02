@@ -41,7 +41,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/MyTheme.Basic" >
-        <activity android:name="com.xqxy.carservice.activity.MainActivity" >
+        <activity android:name="com.xqxy.carservice.activity.PersonCentreActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -59,9 +59,11 @@
         <activity android:name="com.xqxy.person.OtherActivity" />
         <activity android:name="com.xqxy.person.FeedBackActivity" />
          <activity android:name="com.xqxy.person.StoreCardActivity" />
+         <activity android:name="com.xqxy.person.BuyStoreCardActivity" />
+         <activity android:name="com.xqxy.person.StoreCardDetailActivity" />
         <activity android:name="com.xqxy.carservice.activity.GuideActivity" />
         <activity android:name="com.xqxy.carservice.activity.CategoryActivity" />
-        <activity android:name="com.xqxy.carservice.activity.PersonCentreActivity" /> 
+        <!-- <activity android:name="com.xqxy.carservice.activity.PersonCentreActivity" />  -->
         <activity android:name="com.xqxy.carservice.activity.ServiceDetailActivity" />
         <activity android:name="com.xqxy.carservice.activity.ServiceEvaluateActivity" />
         

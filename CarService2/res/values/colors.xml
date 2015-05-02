@@ -6,7 +6,7 @@
     <color name="wihte">#ffffff</color>
     <color name="more_gray">#C8C8C8</color>
     <color name="nomarl_gray">#969696</color>
-    <color name="litill_gray">#646464</color>
+    <color name="blank">#646464</color>
     <color name="line_bg_color">#EAEAEA</color>
     <color name="province_line_border">#C7C7C7</color>
     <color name="red">#ffff0000</color>
