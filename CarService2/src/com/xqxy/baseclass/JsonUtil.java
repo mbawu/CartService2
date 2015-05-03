@@ -48,6 +48,7 @@ public class JsonUtil {
 		try {
 			return getInstance().create().fromJson(json, clazz);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}

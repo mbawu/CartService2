@@ -2,22 +2,16 @@ package com.xqxy.model;
 
 public class Car {
 
-	private int id;
+	private String id;
 	private String year;
-	private int journey;
-	private int upkeep;
+	private String journey;
+	private String upkeep;
 	private String create_time;
 	private String name;
 	private String sname;
 	private String mname;
 
-	public int getId() {
-		return id;
-	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getYear() {
 		return year;
@@ -27,19 +21,30 @@ public class Car {
 		this.year = year;
 	}
 
-	public int getJourney() {
+
+
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getJourney() {
 		return journey;
 	}
 
-	public void setJourney(int journey) {
+	public void setJourney(String journey) {
 		this.journey = journey;
 	}
 
-	public int getUpkeep() {
+	public String getUpkeep() {
 		return upkeep;
 	}
 
-	public void setUpkeep(int upkeep) {
+	public void setUpkeep(String upkeep) {
 		this.upkeep = upkeep;
 	}
 

@@ -200,10 +200,13 @@ public class MainActivity extends BaseActivity {
 
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(activity,
-							ServiceDetailActivity.class);
-					intent.putExtra("pid", product.getPid());
-					activity.startActivity(intent);
+					if("2".equals(product.getFlag())){//其他类，直接打开
+						Intent intent = new Intent(activity,
+								ServiceDetailActivity.class);
+						intent.putExtra("pid", product.getPid());
+						activity.startActivity(intent);
+					}
+					
 				}
 			});
 

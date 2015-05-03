@@ -36,6 +36,9 @@ public class RequestWrapper {
 	
 	private String pid;
 	
+	private String journey;
+	private String upkeep;
+	
 	//投诉建议
 	private String content;
 	
@@ -165,6 +168,18 @@ public class RequestWrapper {
 	}
 	public void setPid(String pid) {
 		this.pid = pid;
+	}
+	public String getJourney() {
+		return journey;
+	}
+	public void setJourney(String journey) {
+		this.journey = journey;
+	}
+	public String getUpkeep() {
+		return upkeep;
+	}
+	public void setUpkeep(String upkeep) {
+		this.upkeep = upkeep;
 	}
 	
 	

@@ -46,6 +46,7 @@ public class PersonCentreActivity extends BaseActivity implements
 	private TextView other;
 	private TextView credit;
 	private TextView msgNum;
+	private ImageView headImg;
 	private ArrayList<Message> data;
 	private Intent msgIntent;
 
@@ -75,6 +76,8 @@ public class PersonCentreActivity extends BaseActivity implements
 		other = (TextView) findViewById(R.id.personCenterItemOther);
 		credit = (TextView) findViewById(R.id.textPersonCenterCredits);
 		msgNum = (TextView) findViewById(R.id.msgNum);
+		headImg = (ImageView) findViewById(R.id.imagePersonCenterHeader);
+		headImg.setOnClickListener(this);
 		backImageView.setOnClickListener(this);
 		order.setOnClickListener(this);
 		coupon.setOnClickListener(this);
@@ -149,13 +152,12 @@ public class PersonCentreActivity extends BaseActivity implements
 	@Override
 	public void onClick(View v) {
 		Intent intent = null;
-		if(v.getId()!= R.id.personCenterItemOther && !MyApplication.loginStat)
-		{
+		if (v.getId() != R.id.personCenterItemOther && !MyApplication.loginStat) {
 			intent = new Intent().setClass(this, LoginActivity.class);
 			startActivity(intent);
 			return;
 		}
-			
+
 		switch (v.getId()) {
 		// 后退按钮
 		case R.id.imageTopBack:
@@ -163,16 +165,16 @@ public class PersonCentreActivity extends BaseActivity implements
 			break;
 		// 订单
 		case R.id.personCenterItemOrder:
-
+			intent = new Intent(this, OrderListActivity.class);
 			break;
 		// 优惠券
 		case R.id.personCenterItemCoupon:
-				intent = new Intent().setClass(this, CouponActivity.class);
+			intent = new Intent().setClass(this, CouponActivity.class);
 			break;
 		// 充值卡
 		case R.id.personCenterItemStoredcard:
 			intent = new Intent().setClass(this, StoreCardActivity.class);
-			
+
 			break;
 		// 常用地址
 		case R.id.personCenterItemAddress:
@@ -180,12 +182,12 @@ public class PersonCentreActivity extends BaseActivity implements
 			break;
 		// 消息
 		case R.id.personCenterItemMessage:
-				if (msgIntent == null) {
-					Toast.makeText(this, "还未获取到消息记录，请稍等。", Toast.LENGTH_SHORT)
-							.show();
-					return;
-				}
-				startActivity(msgIntent);
+			if (msgIntent == null) {
+				Toast.makeText(this, "还未获取到消息记录，请稍等。", Toast.LENGTH_SHORT)
+						.show();
+				return;
+			}
+			startActivity(msgIntent);
 			break;
 		// 其他
 		case R.id.personCenterItemOther:
@@ -193,7 +195,10 @@ public class PersonCentreActivity extends BaseActivity implements
 			break;
 		// 积分
 		case R.id.textPersonCenterCredits:
-				intent = new Intent().setClass(this, CreditActivity.class);
+			intent = new Intent().setClass(this, CreditActivity.class);
+			break;
+		case R.id.imagePersonCenterHeader:
+			intent = new Intent().setClass(this, PersonInfoActivity.class);
 			break;
 		}
 

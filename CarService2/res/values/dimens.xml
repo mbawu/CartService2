@@ -6,7 +6,9 @@
     <dimen name="font_size_36px">26sp</dimen>
     <dimen name="font_size_32px">24sp</dimen>
     <dimen name="font_size_30px">22sp</dimen>
+    <dimen name="font_size_28px">20sp</dimen>
     <dimen name="font_size_26px">18sp</dimen>
     <dimen name="font_size_18px">15sp</dimen>
+    <dimen name="order_item_pading">10dp</dimen>
 
 </resources>

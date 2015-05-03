@@ -1,37 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp" >
 
-    <TextView
-        android:id="@+id/text_evaluate_level"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="好评" />
-
-    <TextView
-        android:id="@+id/text_evaluate_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="135****1111" />
-
-    <TextView
-        android:id="@+id/text_evaluate_content"
+    <LinearLayout
+        style="@style/linearLayout_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/text_evaluate_level"
-        android:text="好评好评好评好评好评好评好评好评好评好评好评好评好评好评好评好评好评好评好评" />
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
 
-    <TextView
-        android:id="@+id/text_evaluate_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/text_evaluate_content"
-        android:gravity="left|center_vertical"
-        android:text="2015-02-11 14:15:20" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/order_item_pading"
+            android:layout_marginRight="@dimen/order_item_pading" >
 
-</RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="订单编号："
+                android:textColor="#323232"
+                android:textSize="@dimen/font_size_28px" />
+
+            <TextView
+                android:id="@+id/text_order_sn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="10101010"
+                android:textColor="#323232"
+                android:textSize="@dimen/font_size_28px" />
+
+            <TextView
+                android:id="@+id/text_order_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已完成"
+                android:textColor="#dcba79"
+                android:textSize="@dimen/font_size_26px" />
+        </LinearLayout>
+
+        <com.xqxy.carservice.view.MyListView
+            android:id="@+id/listview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="@dimen/order_item_pading"
+            android:layout_marginRight="@dimen/order_item_pading"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:cacheColorHint="#ffffff"
+            android:divider="@null"
+            android:fadingEdge="none"
+            android:listSelector="#ffffff" />
+
+        <TextView
+            android:id="@+id/text_order_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/order_item_pading"
+            android:layout_marginRight="@dimen/order_item_pading"
+            android:gravity="right"
+            android:text="时间"
+            android:textColor="#646464"
+            android:textSize="@dimen/font_size_26px" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/province_line_border" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/order_item_pading"
+            android:layout_marginRight="@dimen/order_item_pading"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
+                android:text="实付："
+                android:textColor="#646464"
+                android:textSize="@dimen/font_size_26px" />
+
+            <TextView
+                android:id="@+id/text_order_pay_money"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_weight="1"
+                android:text="￥123"
+                android:textColor="@color/red"
+                android:textSize="@dimen/font_size_26px" />
+
+            <TextView
+                android:id="@+id/text_order_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#D8D8D8"
+                android:padding="5dp"
+                android:text="取消预约"
+                android:textColor="@color/wihte"
+                android:textSize="@dimen/font_size_18px" />
+
+            <TextView
+                android:id="@+id/text_order_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:background="@drawable/ok_btn_bg"
+                android:padding="5dp"
+                android:text="确定完成"
+                android:textColor="@color/wihte"
+                android:textSize="@dimen/font_size_18px" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

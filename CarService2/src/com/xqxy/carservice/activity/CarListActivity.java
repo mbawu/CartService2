@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xqxy.baseclass.BaseActivity;
+import com.xqxy.baseclass.MyApplication;
 import com.xqxy.baseclass.NetworkAction;
 import com.xqxy.baseclass.RequestWrapper;
 import com.xqxy.baseclass.ResponseWrapper;
@@ -41,7 +42,9 @@ public class CarListActivity extends BaseActivity {
 						CarActivity.class));
 			}
 		});
-		sendData(new RequestWrapper(), NetworkAction.centerF_user_car);
+		RequestWrapper request = new RequestWrapper();
+		request.setIdentity(MyApplication.identity);
+		sendData(request, NetworkAction.centerF_user_car);
 	}
 
 	@Override

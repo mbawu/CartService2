@@ -11,6 +11,7 @@ import com.xqxy.model.Coupon;
 import com.xqxy.model.Credit;
 import com.xqxy.model.Message;
 import com.xqxy.model.Model;
+import com.xqxy.model.Order;
 import com.xqxy.model.Product;
 import com.xqxy.model.Series;
 import com.xqxy.model.StoreCard;
@@ -40,6 +41,8 @@ public class ResponseWrapper {
 	 * 返回信息
 	 */
 	private String msg;
+	
+	private String src;
 	/**
 	 * 汽车品牌
 	 */
@@ -65,6 +68,8 @@ public class ResponseWrapper {
 	private ArrayList<Category> column;
 	
 	private ArrayList<Car> car;
+	
+	private ArrayList<Order> order;
 
 	/**
 	 * 用户常用地址
@@ -221,6 +226,22 @@ public class ResponseWrapper {
 
 	public void setCar(ArrayList<Car> car) {
 		this.car = car;
+	}
+
+	public ArrayList<Order> getOrder() {
+		return order;
+	}
+
+	public void setOrder(ArrayList<Order> order) {
+		this.order = order;
+	}
+
+	public String getSrc() {
+		return src;
+	}
+
+	public void setSrc(String src) {
+		this.src = src;
 	}
 
 	
