@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="预约顾客"
-                android:textColor="@color/litill_gray" />
+                android:textColor="@color/blank" />
 
             <EditText
                 android:id="@+id/add_name"
@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="手机号码"
-                android:textColor="@color/litill_gray" />
+                android:textColor="@color/blank" />
 
             <EditText
                 android:id="@+id/add_phone"
@@ -72,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="车牌号码"
-                android:textColor="@color/litill_gray" />
+                android:textColor="@color/blank" />
 
             <EditText
                 android:id="@+id/add_car_num"
@@ -89,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="停车地址"
-                android:textColor="@color/litill_gray" />
+                android:textColor="@color/blank" />
 
             <EditText
                 android:id="@+id/add_location"
@@ -106,7 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="车牌号码"
-                android:textColor="@color/litill_gray"
+                android:textColor="@color/blank"
                 android:visibility="invisible" />
 
             <EditText

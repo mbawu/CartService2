@@ -22,4 +22,10 @@
     <string name="order_btn_delete">删除订单</string>
     <string name="order_btn_cancel">取消订单</string>
 
+    <!-- 储值卡 -->
+    <string name="storecard_cash">可用金额：￥%1$s</string>
+    <string name="storecard_num">卡片编号：%1$s</string>
+    <string name="storecard_date">有效期：%1$s</string>
+    <string name="storecard_price">价格：￥%1$s</string>
+	<string name="storecard_worth">价值：￥%1$s</string>
 </resources>

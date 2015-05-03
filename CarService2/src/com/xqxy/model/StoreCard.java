@@ -1,6 +1,8 @@
 package com.xqxy.model;
 
-public class StoreCard {
+import java.io.Serializable;
+
+public class StoreCard implements Serializable {
 
 	private String cid;
 	private String ucid;

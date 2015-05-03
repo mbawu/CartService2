@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xqxy.baseclass.BaseActivity;
@@ -25,7 +25,7 @@ import com.xqxy.carservice.adapter.CarBaseAdapter;
 
 import com.xqxy.model.StoreCard;
 
-public class StoreCardActivity extends BaseActivity {
+public class BuyStoreCardActivity extends BaseActivity {
 	private ImageView backImageView;
 	private TextView titleTextView;
 	private TextView rightBtnTextView;
@@ -54,36 +54,11 @@ public class StoreCardActivity extends BaseActivity {
 		});
 		titleTextView = (TextView) findViewById(R.id.textTopTitle);
 		rightBtnTextView = (TextView) findViewById(R.id.textTopRightBtn);
-		rightBtnTextView.setText("购买储值卡");
-		rightBtnTextView.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent intent=new Intent();
-				intent.setClass(StoreCardActivity.this, BuyStoreCardActivity.class);
-				StoreCardActivity.this.startActivity(intent);
-			}
-		});
 		nodata=(TextView) findViewById(R.id.nodataTxt);
 		listView = (ListView) findViewById(R.id.listview);
 		adapter = new StoreCardAdapter(this);
 		listView.setAdapter(adapter);
-		listView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-					long arg3) {
-				
-				Intent intent=new Intent();
-				intent.setClass(StoreCardActivity.this, StoreCardDetailActivity.class);
-				Bundle mBundle = new Bundle();     
-				StoreCard card=datas.get(position);
-		        mBundle.putSerializable(StoreCardDetailActivity.DATA,  card);     
-//		        intent.putExtra(StoreCardDetailActivity.BUY_ACTION, "buy");
-		        intent.putExtras(mBundle);     
-		        StoreCardActivity.this.startActivity(intent);
-			}
-		});
+		
 		getCard();
 	}
 	
@@ -92,7 +67,7 @@ public class StoreCardActivity extends BaseActivity {
 			NetworkAction requestType) {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
-		 if (requestType.equals(NetworkAction.centerF_user_card)) {
+		 if (requestType.equals(NetworkAction.indexF_card)) {
 				datas = responseWrapper.getCard();
 				if(datas.size()>0)
 				{
@@ -114,7 +89,7 @@ public class StoreCardActivity extends BaseActivity {
 	{
 		RequestWrapper requestWrapper = new RequestWrapper();
 		requestWrapper.setIdentity(MyApplication.identity);
-		sendDataByGet(requestWrapper, NetworkAction.centerF_user_card);
+		sendDataByGet(requestWrapper, NetworkAction.indexF_card);
 	}
 	
 	
@@ -133,35 +108,72 @@ public class StoreCardActivity extends BaseActivity {
 				viewHolder = new ViewHolder();
 				viewHolder.scard_name = (TextView) convertView
 						.findViewById(R.id.scard_name);
-				viewHolder.scard_date = (TextView) convertView
-						.findViewById(R.id.scard_date);
-				viewHolder.scard_num = (TextView) convertView
-						.findViewById(R.id.scard_num);
-				viewHolder.scard_cash = (TextView) convertView
-						.findViewById(R.id.scard_cash);
+				viewHolder.scard_datelong = (TextView) convertView
+						.findViewById(R.id.scard_datelong);
+				viewHolder.scard_price = (TextView) convertView
+						.findViewById(R.id.scard_price);
+				viewHolder.scard_worth = (TextView) convertView
+						.findViewById(R.id.scard_worth);
+				viewHolder.scard_buynow = (TextView) convertView
+						.findViewById(R.id.scard_buynow);
+//				viewHolder.scard_num = (TextView) convertView
+//						.findViewById(R.id.scard_num);
+//				viewHolder.scard_cash = (TextView) convertView
+//						.findViewById(R.id.scard_cash);
 				viewHolder.scard_top_layout = (LinearLayout) convertView
 						.findViewById(R.id.scard_top_layout);
 				viewHolder.scard_btm_layout = (LinearLayout) convertView
 						.findViewById(R.id.scard_btm_layout);
+				viewHolder.scard_price_layout = (LinearLayout) convertView
+						.findViewById(R.id.scard_price_layout);
+				viewHolder.scard_buy_layout = (RelativeLayout) convertView
+						.findViewById(R.id.scard_buy_layout);
 				convertView.setTag(viewHolder);
 
 			} else {
 				viewHolder = (ViewHolder) convertView.getTag();
 			}
-
 			final StoreCard card = getItem(position);
+			viewHolder.scard_buynow.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent intent=new Intent();
+					intent.setClass(BuyStoreCardActivity.this, StoreCardDetailActivity.class);
+					Bundle mBundle = new Bundle();     
+			        mBundle.putSerializable(StoreCardDetailActivity.DATA,  card);     
+			        intent.putExtra(StoreCardDetailActivity.BUY_ACTION, "buy");
+			        intent.putExtras(mBundle);     
+			        BuyStoreCardActivity.this.startActivity(intent);
+				}
+			});
+			
+		
 			viewHolder.scard_name.setText(card.getName());
-			viewHolder.scard_date.setVisibility(View.VISIBLE);
-			viewHolder.scard_date.setText(getString(R.string.storecard_date,card.getEnd_time()));
-			viewHolder.scard_num.setVisibility(View.VISIBLE);
-			viewHolder.scard_num.setText(getString(R.string.storecard_num,card.getCid()));
+			viewHolder.scard_price_layout.setVisibility(View.VISIBLE);
+			viewHolder.scard_price.setText(getString(R.string.storecard_price,card.getPrice()));
+			viewHolder.scard_worth.setText(getString(R.string.storecard_worth,card.getWorth()));
+			//购买
+			viewHolder.scard_buy_layout.setVisibility(View.VISIBLE);
+			if(card.getOver_time().equals("0"))
+				viewHolder.scard_datelong.setText(getString(R.string.storecard_date,"永久"));
+			else
+				viewHolder.scard_datelong.setText(getString(R.string.storecard_date,card.getOver_time())+"年");
+//			viewHolder.scard_date.setText(getString(R.string.storecard_date,card.getEnd_time()));
+//			viewHolder.scard_num.setText(getString(R.string.storecard_num,card.getCid()));
 			//1 储值卡 2 增值卡
 //			if(card.getFlag().equals("2"))
 //			{
-				viewHolder.scard_cash.setVisibility(View.VISIBLE);
-				viewHolder.scard_cash.setText(getString(R.string.storecard_cash,card.getBalance()));
+//				viewHolder.scard_cash.setVisibility(View.VISIBLE);
+//				viewHolder.scard_cash.setText(getString(R.string.storecard_cash,card.getBalance()));
 //			}
 		
+			if(position==0)
+			{
+				viewHolder.scard_top_layout.setBackgroundResource(R.drawable.storecard_yellow_top);
+				viewHolder.scard_btm_layout.setBackgroundResource(R.drawable.storecard_yellow_btm);
+			}
+			
 			if(position==1 || (position>1 && position%2!=0))
 			{
 				viewHolder.scard_top_layout.setBackgroundResource(R.drawable.storecard_green_top);
@@ -173,11 +185,18 @@ public class StoreCardActivity extends BaseActivity {
 
 	class ViewHolder {
 		TextView scard_name;
-		TextView scard_date;
-		TextView scard_num;
-		TextView scard_cash;
+//		TextView scard_date;
+//		TextView scard_num;
+//		TextView scard_cash;
+		TextView scard_price;
+		TextView scard_worth;
+		TextView scard_datelong;
+		TextView scard_buynow;
+		
 		LinearLayout scard_top_layout;
 		LinearLayout scard_btm_layout;
+		LinearLayout scard_price_layout;
+		RelativeLayout scard_buy_layout;
 	}
 
 }
