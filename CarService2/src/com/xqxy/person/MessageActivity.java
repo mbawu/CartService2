@@ -85,13 +85,14 @@ public class MessageActivity extends BaseActivity {
 					listView.setVisibility(View.GONE);
 				}
 
+				
 			}
 	}
 	public void getMsg()
 	{
 		RequestWrapper requestWrapper = new RequestWrapper();
 		requestWrapper.setIdentity(MyApplication.identity);
-		sendData(requestWrapper, NetworkAction.centerF_user_msg);
+		sendDataByGet(requestWrapper, NetworkAction.centerF_user_msg);
 	}
 	
 	class MessageAdapter extends CarBaseAdapter<Message> {
