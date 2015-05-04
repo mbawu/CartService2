@@ -14,6 +14,7 @@ import cn.jpush.android.api.JPushInterface;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
+import com.xqxy.carservice.R;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -34,7 +35,7 @@ import android.widget.Toast;
 
 public class BaseActivity extends Activity {
 	private ArrayList<NetworkAction> requesType;// 记录当前页面所有的网络请求类型
-	// private Dialog progressDialog; // 整个页面的进度条对话框
+	private Dialog progressDialog; // 整个页面的进度条对话框
 	// private User.LoginCallbackCH loginCallbackCH;
 	private boolean getResualt = false;// 判断是否获取到了返回的结果
 	// private NetStatus netStatus;// 网络监听对象
@@ -71,75 +72,29 @@ public class BaseActivity extends Activity {
 		JPushInterface.onResume(this);
 	}
 
-	 @Override
-	 protected void onPause() {
-//	 if(!Cst.EXITE)
-//	 MobclickAgent.onResume(this);
-	 super.onPause();
-	 JPushInterface.onPause(this);
-	 }
-	// /**
-	// * 显示一个加载中的整个页面的进度条
-	// */
-	// public void showProgressDialog() {
-	// LayoutInflater inflater = LayoutInflater.from(this);
-	// View v = inflater.inflate(com.ch.chtvshop.R.layout.progress_dialog,
-	// null);// 得到加载view
-	// LinearLayout layout = (LinearLayout) v
-	// .findViewById(com.ch.chtvshop.R.id.dialog_view);// 加载布局
-	// ImageView spaceshipImage = (ImageView) v
-	// .findViewById(com.ch.chtvshop.R.id.img);
-	// // 加载动画
-	// Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(this,
-	// com.ch.chtvshop.R.anim.load_animation);
-	// // 使用ImageView显示动画
-	// spaceshipImage.startAnimation(hyperspaceJumpAnimation);
-	// progressDialog = new Dialog(this,
-	// com.ch.chtvshop.R.style.loading_dialog);
-	// progressDialog.setContentView(layout, new LinearLayout.LayoutParams(
-	// LinearLayout.LayoutParams.FILL_PARENT,
-	// LinearLayout.LayoutParams.FILL_PARENT));// 设置布局
-	// progressDialog.setCancelable(true);
-	//
-	// // 取消进度条的时候取消网络请求
-	// progressDialog.setOnCancelListener(new OnCancelListener() {
-	//
-	// @Override
-	// public void onCancel(DialogInterface dialog) {
-	// cancelNetRequest();
-	// progressDialog.dismiss();
-	// }
-	// });
-	// // 进度条关闭事件
-	// progressDialog.setOnDismissListener(new OnDismissListener() {
-	//
-	// @Override
-	// public void onDismiss(DialogInterface dialog) {
-	// // 如果有网络请求并且还没有拿到结果的时候
-	// if (!getResualt)
-	// setOnDialogDismissListener();
-	// }
-	// });
-	// // 让ProgressDialog显示
-	// progressDialog.show();
-	// }
-	//
-	// /**
-	// * 进度条的关闭事件,前提是在数据未获取到之前用户点击了返回按钮而关闭进度条的时候响应的事件,默认为关闭当前页
-	// *
-	// * @param dismissListener
-	// */
-	// public void setOnDialogDismissListener() {
-	// finish();
-	// }
-	//
-	// /**
-	// * 关闭整个页面的进度条
-	// */
-	// public void closeProgressDialog() {
-	// progressDialog.dismiss();
-	// }
-	//
+	@Override
+	protected void onPause() {
+		// if(!Cst.EXITE)
+		// MobclickAgent.onResume(this);
+		super.onPause();
+		JPushInterface.onPause(this);
+	}
+
+	/**
+	 * 创建全局进度条
+	 */
+	public Dialog createDialog() {
+		Dialog dialog = new Dialog(BaseActivity.this,
+				R.style.waiting_progress_dialog);
+		dialog.setContentView(R.layout.waiting_process_dialog);
+		dialog.setCancelable(false);
+		// dialog.setMessage("加载中...");
+		dialog.setTitle(null);
+		dialog.getWindow().setBackgroundDrawableResource(
+				android.R.color.transparent);
+		return dialog;
+	}
+
 	/**
 	 * 向服务器发起网络请求的方法，发送成功执行showResualt方法则可根据网络请求类型解析结果
 	 * 发送失败，例如访问目标服务器出错等提示"访问服务器出错!"。
@@ -151,6 +106,12 @@ public class BaseActivity extends Activity {
 			final NetworkAction requestType) {
 		String url = Cst.HOST;
 		HashMap<String, String> paramMap = new HashMap<String, String>();
+		if (requestWrapper.isShowDialog()) {
+			if (progressDialog == null)
+				progressDialog = createDialog();
+			progressDialog.show();
+		}
+
 		// if (requestType.equals(NetworkAction.user_login)) {
 		// // paramMap.put("phone", requestWrapper.getUserName());
 		// // paramMap.put("password", requestWrapper.getPassword());
@@ -160,9 +121,9 @@ public class BaseActivity extends Activity {
 		// if(MyApplication.identity!=null)
 		// paramMap.put("identity", MyApplication.identity);
 		paramMap = getMap(requestWrapper);
-//		Log.i("test",
-//				MyApplication.getUrl(paramMap,
-//						Cst.HOST + requestType.toString()));
+		// Log.i("test",
+		// MyApplication.getUrl(paramMap,
+		// Cst.HOST + requestType.toString()));
 		MyApplication.client.postWithURL(url, paramMap, requestType,
 				new Listener<JSONObject>() {
 
@@ -190,15 +151,20 @@ public class BaseActivity extends Activity {
 	public void sendDataByGet(RequestWrapper requestWrapper,
 			final NetworkAction requestType) {
 		String url = Cst.HOST;
+		if (requestWrapper.isShowDialog()) {
+			if (progressDialog == null)
+				progressDialog = createDialog();
+			progressDialog.show();
+		}
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		// if (requestType.equals(NetworkAction.car_brand)
 		// || requestType.equals(NetworkAction.car_series)
 		// || requestType.equals(NetworkAction.car_model)) {
 		// url += "car/";
 		// }
-//		Log.i("test",
-//				MyApplication.getUrl(paramMap,
-//						Cst.HOST + requestType.toString()));
+		// Log.i("test",
+		// MyApplication.getUrl(paramMap,
+		// Cst.HOST + requestType.toString()));
 		MyApplication.client.getWithURL(url, getMap(requestWrapper),
 				new Listener<JSONObject>() {
 
@@ -217,6 +183,9 @@ public class BaseActivity extends Activity {
 	}
 
 	public void onResponseEvent(JSONObject response, NetworkAction requestType) {
+		if (progressDialog != null) {
+			progressDialog.dismiss();
+		}
 		// 重置返回结果值
 		getResualt = false;
 		// 先分析返回code值，正确执行showResualt，错误直接输出结果
@@ -229,8 +198,11 @@ public class BaseActivity extends Activity {
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			if (progressDialog != null) {
+				progressDialog.dismiss();
+			}
 		}
-		
+
 		Log.i(Cst.TAG, response.toString());
 		// 如果数据返回正确的时候正常执行showResualt
 		if (done) {
@@ -252,6 +224,7 @@ public class BaseActivity extends Activity {
 			// DialogUtil.showToast(BaseActivity.this, msg);
 			Log.i(Cst.TAG, msg);
 			Toast.makeText(BaseActivity.this, msg, Toast.LENGTH_SHORT).show();
+
 			// if (progressDialog != null)
 			// progressDialog.dismiss();
 			// else if (progressDialog == null)
@@ -298,12 +271,10 @@ public class BaseActivity extends Activity {
 	 * 当Volley访问服务器出错时执行的方法
 	 */
 	public void sendDataErrorResponse(NetworkAction requestType) {
-		// if (progressDialog != null)
-		// progressDialog.dismiss();
-		// DialogUtil.showToast(
-		// BaseActivity.this,
-		// getResources().getString(
-		// com.ch.chtvshop.R.string.error_code_msg));
+		if (progressDialog != null) {
+			progressDialog.dismiss();
+		}
+		Toast.makeText(this, "访问服务器失败，请重试", Toast.LENGTH_SHORT).show();
 	}
 
 	//

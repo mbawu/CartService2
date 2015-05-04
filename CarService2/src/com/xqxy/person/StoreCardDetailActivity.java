@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alipay.sdk.pay.Pay;
 import com.xqxy.baseclass.BaseActivity;
 import com.xqxy.baseclass.MyApplication;
 import com.xqxy.baseclass.NetworkAction;
@@ -60,6 +61,14 @@ public class StoreCardDetailActivity extends BaseActivity {
 		});
 		titleTextView = (TextView) findViewById(R.id.textTopTitle);
 		rightBtnTextView = (TextView) findViewById(R.id.textTopRightBtn);
+		rightBtnTextView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Pay pay=new Pay(StoreCardDetailActivity.this);
+				pay.alipay("储值卡", "100元的储值卡", "0.01");
+			}
+		});
 		nodata=(TextView) findViewById(R.id.nodataTxt);
 		listView = (ListView) findViewById(R.id.listview);
 		adapter = new StoreCardAdapter(this);

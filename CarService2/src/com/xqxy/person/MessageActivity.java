@@ -92,6 +92,7 @@ public class MessageActivity extends BaseActivity {
 	{
 		RequestWrapper requestWrapper = new RequestWrapper();
 		requestWrapper.setIdentity(MyApplication.identity);
+		requestWrapper.setShowDialog(true);
 		sendDataByGet(requestWrapper, NetworkAction.centerF_user_msg);
 	}
 	

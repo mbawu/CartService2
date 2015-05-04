@@ -89,6 +89,7 @@ public class BuyStoreCardActivity extends BaseActivity {
 	{
 		RequestWrapper requestWrapper = new RequestWrapper();
 		requestWrapper.setIdentity(MyApplication.identity);
+		requestWrapper.setShowDialog(true);
 		sendDataByGet(requestWrapper, NetworkAction.indexF_card);
 	}
 	

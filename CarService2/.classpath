@@ -8,6 +8,9 @@
 	<classpathentry kind="lib" path="libs/gson-2.1.jar"/>
 	<classpathentry kind="lib" path="libs/universal-image-loader-1.8.4.jar"/>
 	<classpathentry kind="lib" path="libs/volley.jar"/>
+	<classpathentry kind="lib" path="libs/alipaysdk.jar"/>
+	<classpathentry kind="lib" path="libs/alipaysecsdk.jar"/>
+	<classpathentry kind="lib" path="libs/alipayutdid.jar"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

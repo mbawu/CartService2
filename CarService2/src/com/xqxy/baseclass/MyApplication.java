@@ -22,8 +22,11 @@ public class MyApplication extends Application {
 	public static ArrayList<BaseActivity> list;// 记录所有存在的activity
 	public static SharedPreferences sp; // 本地存储SharedPreferences
 	public static Editor ed; // 本地存储编辑器Editor
-	public static String identity;
-	public static boolean loginStat = false;
+
+	public static String identity; 
+	public static boolean loginStat=false;
+	public static boolean refresh=false; //是否需要刷新
+
 
 	@Override
 	public void onCreate() {

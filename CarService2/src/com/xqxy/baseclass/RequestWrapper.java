@@ -43,7 +43,16 @@ public class RequestWrapper {
 	//投诉建议
 	private String content;
 	
+	private boolean showDialog=false;
 	
+	
+	
+	public boolean isShowDialog() {
+		return showDialog;
+	}
+	public void setShowDialog(boolean showDialog) {
+		this.showDialog = showDialog;
+	}
 	public String getContent() {
 		return content;
 	}
