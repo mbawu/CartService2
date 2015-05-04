@@ -77,6 +77,16 @@
         <activity android:name="com.xqxy.carservice.activity.ServiceDetailActivity" />
         <activity android:name="com.xqxy.carservice.activity.ServiceEvaluateActivity" />
 
+        
+          
+
+         <!-- pay activity -->
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" >
+        </activity>
         <!-- Jpush -->
         <!-- Required -->
         <service
