@@ -31,7 +31,7 @@ public class AdressActivity extends BaseActivity {
 	private AddressAdapter adapter;
 	private ArrayList<Address> datas;
 	private TextView addBtn;
-
+	private RequestWrapper wrapper;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -78,8 +78,9 @@ public class AdressActivity extends BaseActivity {
 		});
 		adapter = new AddressAdapter(this);
 		listView.setAdapter(adapter);
-		RequestWrapper wrapper = new RequestWrapper();
+		wrapper = new RequestWrapper();
 		wrapper.setIdentity(MyApplication.identity);
+		wrapper.setShowDialog(true);
 		sendData(wrapper, NetworkAction.centerF_user_address);
 	}
 
@@ -115,6 +116,16 @@ public class AdressActivity extends BaseActivity {
 		}
 	}
 
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		if(MyApplication.refresh)
+		{
+			sendData(wrapper, NetworkAction.centerF_user_address);
+			MyApplication.refresh=false;
+		}
+	}
 	public void btnOnClick(View view) {
 		finish();
 	}
@@ -162,6 +173,7 @@ public class AdressActivity extends BaseActivity {
 					RequestWrapper wrapper = new RequestWrapper();
 					wrapper.setIdentity(MyApplication.identity);
 					wrapper.setAid(address.getAid());
+					wrapper.setShowDialog(true);
 					sendData(wrapper, NetworkAction.centerF_del_address);
 				}
 			});

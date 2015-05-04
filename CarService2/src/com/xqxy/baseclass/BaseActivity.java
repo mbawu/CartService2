@@ -35,12 +35,11 @@ import android.widget.Toast;
 
 public class BaseActivity extends Activity {
 	private ArrayList<NetworkAction> requesType;// 记录当前页面所有的网络请求类型
-	 private Dialog progressDialog; // 整个页面的进度条对话框
+	private Dialog progressDialog; // 整个页面的进度条对话框
 	// private User.LoginCallbackCH loginCallbackCH;
 	private boolean getResualt = false;// 判断是否获取到了返回的结果
 	// private NetStatus netStatus;// 网络监听对象
 	private long exitTime = 0;// 记录点击退出的时间间隔
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,26 +72,29 @@ public class BaseActivity extends Activity {
 		JPushInterface.onResume(this);
 	}
 
-	 @Override
-	 protected void onPause() {
-//	 if(!Cst.EXITE)
-//	 MobclickAgent.onResume(this);
-	 super.onPause();
-	 JPushInterface.onPause(this);
-	 }
-	
-	 /**
-		 * 创建全局进度条
-		 */
-		public Dialog createDialog() {
-			Dialog dialog =  new Dialog(BaseActivity.this, R.style.waiting_progress_dialog);
-			dialog.setContentView(R.layout.waiting_process_dialog);
-			dialog.setCancelable(false);
-//			dialog.setMessage("加载中...");
-			dialog.setTitle( null );
-			dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-			return dialog;
-		}
+	@Override
+	protected void onPause() {
+		// if(!Cst.EXITE)
+		// MobclickAgent.onResume(this);
+		super.onPause();
+		JPushInterface.onPause(this);
+	}
+
+	/**
+	 * 创建全局进度条
+	 */
+	public Dialog createDialog() {
+		Dialog dialog = new Dialog(BaseActivity.this,
+				R.style.waiting_progress_dialog);
+		dialog.setContentView(R.layout.waiting_process_dialog);
+		dialog.setCancelable(false);
+		// dialog.setMessage("加载中...");
+		dialog.setTitle(null);
+		dialog.getWindow().setBackgroundDrawableResource(
+				android.R.color.transparent);
+		return dialog;
+	}
+
 	/**
 	 * 向服务器发起网络请求的方法，发送成功执行showResualt方法则可根据网络请求类型解析结果
 	 * 发送失败，例如访问目标服务器出错等提示"访问服务器出错!"。
@@ -104,14 +106,12 @@ public class BaseActivity extends Activity {
 			final NetworkAction requestType) {
 		String url = Cst.HOST;
 		HashMap<String, String> paramMap = new HashMap<String, String>();
-		if(requestWrapper.isShowDialog())
-		{
-			if(progressDialog!=null)
-				progressDialog.show();
-			else
-				progressDialog=createDialog();
+		if (requestWrapper.isShowDialog()) {
+			if (progressDialog == null)
+				progressDialog = createDialog();
+			progressDialog.show();
 		}
-			
+
 		// if (requestType.equals(NetworkAction.user_login)) {
 		// // paramMap.put("phone", requestWrapper.getUserName());
 		// // paramMap.put("password", requestWrapper.getPassword());
@@ -121,9 +121,9 @@ public class BaseActivity extends Activity {
 		// if(MyApplication.identity!=null)
 		// paramMap.put("identity", MyApplication.identity);
 		paramMap = getMap(requestWrapper);
-//		Log.i("test",
-//				MyApplication.getUrl(paramMap,
-//						Cst.HOST + requestType.toString()));
+		// Log.i("test",
+		// MyApplication.getUrl(paramMap,
+		// Cst.HOST + requestType.toString()));
 		MyApplication.client.postWithURL(url, paramMap, requestType,
 				new Listener<JSONObject>() {
 
@@ -151,12 +151,10 @@ public class BaseActivity extends Activity {
 	public void sendDataByGet(RequestWrapper requestWrapper,
 			final NetworkAction requestType) {
 		String url = Cst.HOST;
-		if(requestWrapper.isShowDialog())
-		{
-			if(progressDialog!=null)
-				progressDialog.show();
-			else
-				progressDialog=createDialog();
+		if (requestWrapper.isShowDialog()) {
+			if (progressDialog == null)
+				progressDialog = createDialog();
+			progressDialog.show();
 		}
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		// if (requestType.equals(NetworkAction.car_brand)
@@ -164,9 +162,9 @@ public class BaseActivity extends Activity {
 		// || requestType.equals(NetworkAction.car_model)) {
 		// url += "car/";
 		// }
-//		Log.i("test",
-//				MyApplication.getUrl(paramMap,
-//						Cst.HOST + requestType.toString()));
+		// Log.i("test",
+		// MyApplication.getUrl(paramMap,
+		// Cst.HOST + requestType.toString()));
 		MyApplication.client.getWithURL(url, getMap(requestWrapper),
 				new Listener<JSONObject>() {
 
@@ -185,8 +183,7 @@ public class BaseActivity extends Activity {
 	}
 
 	public void onResponseEvent(JSONObject response, NetworkAction requestType) {
-		if(progressDialog!=null)
-		{
+		if (progressDialog != null) {
 			progressDialog.dismiss();
 		}
 		// 重置返回结果值
@@ -201,12 +198,11 @@ public class BaseActivity extends Activity {
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			if(progressDialog!=null)
-			{
+			if (progressDialog != null) {
 				progressDialog.dismiss();
 			}
 		}
-		
+
 		Log.i(Cst.TAG, response.toString());
 		// 如果数据返回正确的时候正常执行showResualt
 		if (done) {
@@ -228,7 +224,7 @@ public class BaseActivity extends Activity {
 			// DialogUtil.showToast(BaseActivity.this, msg);
 			Log.i(Cst.TAG, msg);
 			Toast.makeText(BaseActivity.this, msg, Toast.LENGTH_SHORT).show();
-			
+
 			// if (progressDialog != null)
 			// progressDialog.dismiss();
 			// else if (progressDialog == null)
@@ -275,16 +271,10 @@ public class BaseActivity extends Activity {
 	 * 当Volley访问服务器出错时执行的方法
 	 */
 	public void sendDataErrorResponse(NetworkAction requestType) {
-		if(progressDialog!=null)
-		{
+		if (progressDialog != null) {
 			progressDialog.dismiss();
 		}
-		// if (progressDialog != null)
-		// progressDialog.dismiss();
-		// DialogUtil.showToast(
-		// BaseActivity.this,
-		// getResources().getString(
-		// com.ch.chtvshop.R.string.error_code_msg));
+		Toast.makeText(this, "访问服务器失败，请重试", Toast.LENGTH_SHORT).show();
 	}
 
 	//

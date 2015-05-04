@@ -53,10 +53,6 @@ public class AddressAddActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent();
-				intent.setClass(AddressAddActivity.this, AdressActivity.class);
-				AddressAddActivity.this.startActivity(intent);
-
 				String name = nameTxt.getText().toString();
 				String phone = phoneTxt.getText().toString();
 				String carNum = carNumTxt.getText().toString();
@@ -111,6 +107,7 @@ public class AddressAddActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
 		if (requestType.equals(NetworkAction.centerF_add_address)) {
+			MyApplication.refresh=true;
 			String msg="";
 			if(aid==null)
 				msg="添加成功";
