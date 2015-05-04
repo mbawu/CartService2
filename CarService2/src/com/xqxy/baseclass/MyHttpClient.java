@@ -128,6 +128,7 @@ public class MyHttpClient extends Object {
 		Log.i(Cst.TAG, "Url-->"+url);
 		MyRequest jsObjRequest = new MyRequest(Request.Method.GET, url, params,
 				requestType, listener, errorListener);
+		jsObjRequest.setTag(requestType);
 		this.addRequest(jsObjRequest);
 	}
 

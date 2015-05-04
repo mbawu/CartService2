@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -82,9 +84,10 @@ public class CouponActivity extends BaseActivity implements
 		expired.setOnCheckedChangeListener(this);
 		
 		noUse.setChecked(true);
-
 	}
 
+	
+	
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
@@ -179,6 +182,7 @@ public class CouponActivity extends BaseActivity implements
 //		datas.clear();
 		requestWrapper = new RequestWrapper();
 		requestWrapper.setIdentity(MyApplication.identity);
+		requestWrapper.setShowDialog(true);
 		switch (buttonView.getId()) {
 		case R.id.coupon_noUse:
 			if(isChecked)
