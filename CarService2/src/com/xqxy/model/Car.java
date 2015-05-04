@@ -7,6 +7,9 @@ public class Car {
 	private String journey;
 	private String upkeep;
 	private String create_time;
+	private String bid;
+	private String sid;
+	private String mid;
 	private String name;
 	private String sname;
 	private String mname;
@@ -20,8 +23,6 @@ public class Car {
 	public void setYear(String year) {
 		this.year = year;
 	}
-
-
 
 
 	public String getId() {
@@ -78,6 +79,30 @@ public class Car {
 
 	public void setMname(String mname) {
 		this.mname = mname;
+	}
+
+	public String getBid() {
+		return bid;
+	}
+
+	public void setBid(String bid) {
+		this.bid = bid;
+	}
+
+	public String getSid() {
+		return sid;
+	}
+
+	public void setSid(String sid) {
+		this.sid = sid;
+	}
+
+	public String getMid() {
+		return mid;
+	}
+
+	public void setMid(String mid) {
+		this.mid = mid;
 	}
 
 }

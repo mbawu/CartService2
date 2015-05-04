@@ -1,12 +1,12 @@
 package com.xqxy.carservice.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.xqxy.baseclass.BaseActivity;
@@ -17,9 +17,9 @@ import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
 import com.xqxy.carservice.adapter.CarInfoAdapter;
 import com.xqxy.model.Brand;
+import com.xqxy.model.Car;
 import com.xqxy.model.Model;
 import com.xqxy.model.Series;
-import com.xqxy.person.RegisterActivity;
 
 public class CarActivity extends BaseActivity implements OnClickListener,
 		OnItemSelectedListener {
@@ -34,16 +34,23 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 	private EditText textViewLC;
 	private EditText textViewBYPL;
 
-	private String bid = "";
-	private String sid = "";
-	private String mid = "";
+	private MyApplication app;
+
+	private Car car = new Car();
+
+	private String pid = "";
+	/*
+	 * private String bid = ""; private String sid = ""; private String mid =
+	 * ""; private String bname = ""; private String sname = ""; private String
+	 * mname = "";
+	 */
 	private int countRequest = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.car_add);
-
+		app = (MyApplication) getApplication();
 		brandSpinner = (Spinner) findViewById(R.id.rst_brand);
 		seriesSpinner = (Spinner) findViewById(R.id.rst_series);
 		modelSpinner = (Spinner) findViewById(R.id.rst_model);
@@ -54,6 +61,8 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 		modelSpinner.setOnItemSelectedListener(this);
 
 		findViewById(R.id.btn_car_save).setOnClickListener(this);
+
+		pid = getIntent().getStringExtra("pid");
 
 		sendDataByGet(new RequestWrapper(), NetworkAction.carF_brand);
 		sendDataByGet(new RequestWrapper(), NetworkAction.carF_series);
@@ -84,11 +93,12 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 			modelAdapter.notifyDataSetChanged();
 			countRequest++;
 		} else if (requestType.equals(NetworkAction.centerF_add_car)) {
-			/*
-			 * Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
-			 * MyApplication.identity = responseWrapper.getIdentity().get(0)
-			 * .getIdentity();
-			 */
+			if (pid == null || "".equals(pid)) {
+				car.setId("0000");
+				goServiceDetaile();
+			}else{//返回爱车列表
+				this.finish();
+			}
 		}
 
 	}
@@ -97,12 +107,18 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 	public void onItemSelected(AdapterView<?> parent, View view, int position,
 			long id) {
 		Object object = parent.getItemAtPosition(position);
-		if (object instanceof Brand)
-			bid = ((Brand) object).getBid();
-		else if (object instanceof Series)
-			sid = ((Series) object).getSid();
-		else if (object instanceof Model)
-			mid = ((Model) object).getMid();
+		if (object instanceof Brand) {
+			car.setBid(((Brand) object).getBid());
+			car.setName(((Brand) object).getName());
+		} else if (object instanceof Series) {
+			car.setSid(((Series) object).getSid());
+			car.setSname(((Series) object).getSname());
+
+		} else if (object instanceof Model) {
+			car.setMid(((Model) object).getMid());
+			car.setMname(((Model) object).getMname());
+
+		}
 	}
 
 	@Override
@@ -114,13 +130,36 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 	public void onClick(View v) {
 		String lc = textViewLC.getText().toString();
 		String bypl = textViewBYPL.getText().toString();
+
 		RequestWrapper request = new RequestWrapper();
-		request.setIdentity(MyApplication.identity);
-		request.setBid(bid);
-		request.setSid(sid);
-		request.setMid(mid);
+		request.setBid(car.getBid());
+		request.setSid(car.getSid());
+		request.setMid(car.getMid());
 		request.setJourney(lc);
 		request.setUpkeep(bypl);
-		sendData(request, NetworkAction.centerF_add_car);
+		car.setJourney(lc);
+		car.setUpkeep(bypl);
+		if (pid == null || "".equals(pid)) {// 登陆后增加爱车
+			request.setIdentity(MyApplication.identity);
+			sendData(request, NetworkAction.centerF_add_car);
+		} else {// 从服务列表跳转而来，目的增加爱车后打开详情页
+			if (!MyApplication.loginStat) {// 未登录，在本地保存
+				
+				goServiceDetaile();
+			} else {// 已登录,提交服务器
+				request.setIdentity(MyApplication.identity);
+				sendData(request, NetworkAction.centerF_add_car);
+			}
+		}
+
+	}
+
+	private void goServiceDetaile() {
+		app.setCar(car);
+		Intent intent = new Intent(this, ServiceDetailActivity.class);
+		intent.putExtra("pid", pid);
+		intent.putExtra("flag", "1");
+		this.startActivity(intent);
+		finish();
 	}
 }

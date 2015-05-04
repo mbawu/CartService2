@@ -20,6 +20,7 @@ public class RequestWrapper {
 	private String code;
 	private String lng;
 	private String lat;
+	private String file;
 
 	//用户标识
 	private String identity;
@@ -180,6 +181,12 @@ public class RequestWrapper {
 	}
 	public void setUpkeep(String upkeep) {
 		this.upkeep = upkeep;
+	}
+	public String getFile() {
+		return file;
+	}
+	public void setFile(String file) {
+		this.file = file;
 	}
 	
 	

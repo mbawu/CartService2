@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioButton xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/radio_service_cartype_five"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:button="@drawable/radio_selector"
+    android:paddingLeft="22dp"
+    android:textColor="#323232"
+    android:textSize="@dimen/font_size_26px" />

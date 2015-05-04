@@ -13,6 +13,8 @@ import com.xqxy.model.Message;
 import com.xqxy.model.Model;
 import com.xqxy.model.Order;
 import com.xqxy.model.Product;
+import com.xqxy.model.ProductAttr;
+import com.xqxy.model.ProductDetails;
 import com.xqxy.model.Series;
 import com.xqxy.model.StoreCard;
 import com.xqxy.model.UserInfo;
@@ -86,6 +88,10 @@ public class ResponseWrapper {
 
 	
 	private ArrayList<StoreCard> card;
+	
+	private ProductDetails product_details;
+	
+	private ArrayList<ProductAttr> attr;
 	
 
 	/**
@@ -242,6 +248,22 @@ public class ResponseWrapper {
 
 	public void setSrc(String src) {
 		this.src = src;
+	}
+
+	public ProductDetails getProduct_details() {
+		return product_details;
+	}
+
+	public void setProduct_details(ProductDetails product_details) {
+		this.product_details = product_details;
+	}
+
+	public ArrayList<ProductAttr> getAttr() {
+		return attr;
+	}
+
+	public void setAttr(ArrayList<ProductAttr> attr) {
+		this.attr = attr;
 	}
 
 	

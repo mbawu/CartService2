@@ -17,7 +17,7 @@ public enum NetworkAction {
 	centerF_add_address,//添加修改地址
 	centerF_del_address,//删除地址
 	centerF_user,//获取用户基本信息
-	center_head,//上传头像
+	centerF_head,//上传头像
 	userF_login ,	//登录
 	carF_brand, //品
 	carF_series, //车系
@@ -25,6 +25,7 @@ public enum NetworkAction {
 	indexF_banner,//轮播
 	indexF_product,//首页服务
 	indexF_product_details,//服务详情
+	indexF_product_attr,
 	indexF_column,//项目分类
 	indexF_column_product,//分类项目
 	centerF_user_car,//我的爱车

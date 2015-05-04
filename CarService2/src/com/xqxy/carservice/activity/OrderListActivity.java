@@ -109,6 +109,10 @@ public class OrderListActivity extends BaseActivity implements
 			}
 		}
 	}
+	
+	private void deleteOrder(){
+		
+	}
 
 	class OrderListAdapter extends CarBaseAdapter<Order> {
 

@@ -22,8 +22,11 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xqxy.baseclass.BaseActivity;
+import com.xqxy.baseclass.JsonUtil;
+import com.xqxy.baseclass.MyApplication;
 import com.xqxy.baseclass.NetworkAction;
 import com.xqxy.baseclass.RequestWrapper;
 import com.xqxy.baseclass.ResponseWrapper;
@@ -32,6 +35,7 @@ import com.xqxy.carservice.adapter.CarBaseAdapter;
 import com.xqxy.carservice.adapter.CarouselAdapter;
 import com.xqxy.carservice.view.CarImageView;
 import com.xqxy.model.Banner;
+import com.xqxy.model.Car;
 import com.xqxy.model.Product;
 
 public class MainActivity extends BaseActivity {
@@ -46,16 +50,29 @@ public class MainActivity extends BaseActivity {
 	private List<Banner> banners;
 	private List<Product> products;
 
+	private MyApplication app;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		app = (MyApplication) getApplication();
 		viewPager = (ViewPager) findViewById(R.id.viewpager);
 		radioGroup = (RadioGroup) findViewById(R.id.viewpager_radiogroup);
 		listView = (ListView) findViewById(R.id.listview);
 		imgBottomCar = (ImageView) findViewById(R.id.img_homepager_car);
 		productAdapter = new ProductAdapter(this);
 		listView.setAdapter(productAdapter);
+
+		imgBottomCar.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(MainActivity.this, "去购物车", Toast.LENGTH_SHORT)
+						.show();
+			}
+		});
+
 		sendRequest();
 	}
 
@@ -200,13 +217,21 @@ public class MainActivity extends BaseActivity {
 
 				@Override
 				public void onClick(View v) {
-					if("2".equals(product.getFlag())){//其他类，直接打开
-						Intent intent = new Intent(activity,
-								ServiceDetailActivity.class);
-						intent.putExtra("pid", product.getPid());
+					Intent intent = new Intent();
+					intent.putExtra("pid", product.getPid());
+					intent.putExtra("flag", product.getFlag());
+					if ("2".equals(product.getFlag())) {// 其他类，直接打开
+						intent.setClass(activity, ServiceDetailActivity.class);
 						activity.startActivity(intent);
+					} else {
+						if (app.getCar() == null) {
+							intent.setClass(activity, CarActivity.class);
+							activity.startActivity(intent);
+						} else {
+							intent.setClass(activity, ServiceDetailActivity.class);
+							activity.startActivity(intent);
+						}
 					}
-					
 				}
 			});
 

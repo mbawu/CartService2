@@ -2,21 +2,19 @@ package com.xqxy.baseclass;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Iterator;
 
+import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import cn.jpush.android.api.JPushInterface;
 
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-
-import android.app.Application;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.util.Log;
+import com.xqxy.model.Car;
 
 public class MyApplication extends Application {
 
@@ -24,8 +22,8 @@ public class MyApplication extends Application {
 	public static ArrayList<BaseActivity> list;// 记录所有存在的activity
 	public static SharedPreferences sp; // 本地存储SharedPreferences
 	public static Editor ed; // 本地存储编辑器Editor
-	public static String identity; 
-	public static boolean loginStat=true;
+	public static String identity;
+	public static boolean loginStat = false;
 
 	@Override
 	public void onCreate() {
@@ -47,12 +45,12 @@ public class MyApplication extends Application {
 		// 初始化SharedPreferences
 		sp = getSharedPreferences("CarService", MODE_PRIVATE);
 		ed = sp.edit();
-		
-		//初始化JPUSH
-		 JPushInterface.init(getApplicationContext());
-	}
 
-	
+		initSharePreferenceData();
+
+		// 初始化JPUSH
+		JPushInterface.init(getApplicationContext());
+	}
 
 	// 获取拼接出来的请求字符串
 	public static String getUrl(HashMap<String, String> paramter, String url) {
@@ -85,5 +83,25 @@ public class MyApplication extends Application {
 				.discCacheSize(32 * 1024 * 1024)
 				.memoryCacheSize(4 * 1024 * 1024).enableLogging().build();
 		ImageLoader.getInstance().init(config);
+	}
+
+	private void initSharePreferenceData() {
+		String carJson = sp.getString("car", null);
+		if (carJson != null) {
+			car = JsonUtil.fromJson(carJson, Car.class);
+		}
+	};
+
+	private Car car;
+
+	public Car getCar() {
+
+		return car;
+	}
+
+	public void setCar(Car car) {
+		this.car = car;
+		ed.putString("car", JsonUtil.toJson(car));
+		ed.commit();
 	}
 }

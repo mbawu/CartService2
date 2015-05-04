@@ -12,15 +12,12 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.util.Log;
 
-
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
-
 
 public class MyHttpClient extends Object {
 	private RequestQueue mRequestQueue; // 网络请求的请求队列，谷歌封装好的。
@@ -108,6 +105,7 @@ public class MyHttpClient extends Object {
 
 	/**
 	 * 向服务器发送数据使用get方式
+	 * 
 	 * @param url
 	 * @param params
 	 * @param listener
@@ -117,7 +115,7 @@ public class MyHttpClient extends Object {
 	public void getWithURL(String url, Map<String, String> params,
 			Response.Listener<JSONObject> listener, NetworkAction requestType,
 			Response.ErrorListener errorListener) {
-		url+=requestType;
+		url += requestType;
 		if (params != null && params.size() > 0) {
 			if (url.contains("?")) {
 				url = url + "&" + encodeParameters(params, "UTF-8");
@@ -125,47 +123,52 @@ public class MyHttpClient extends Object {
 				url = url + "?" + encodeParameters(params, "UTF-8");
 			}
 		}
-		Log.i(Cst.TAG, "Url-->"+url);
+		Log.i(Cst.TAG, "Url-->" + url);
 		MyRequest jsObjRequest = new MyRequest(Request.Method.GET, url, params,
 				requestType, listener, errorListener);
+		jsObjRequest.setTag(requestType);
 		this.addRequest(jsObjRequest);
 	}
 
 	/**
 	 * 向服务器发送数据，固定封装client信息
+	 * 
 	 * @param request
 	 * @param requestType
 	 * @param listener
 	 * @param errorListener
 	 */
-	public void postWithURL(String url,HashMap< String, String>paramMap,NetworkAction requestType,
-			Response.Listener<JSONObject> listener, 
+	public void postWithURL(String url, HashMap<String, String> paramMap,
+			NetworkAction requestType, Response.Listener<JSONObject> listener,
 			Response.ErrorListener errorListener) {
-//		Hashtable<String, String> paramMap = new Hashtable<String, String>();
-//		//终端固定信息
-//		paramMap.put("appKey", Cst.appkey);
-//		paramMap.put("method", requestType.toString());
-//		Log.i(Cst.TAG, "Method->"+requestType.toString());
-//		paramMap.put("v", "1");
-//		paramMap.put("format", "json");
-//		//终端信息
-//		AppClient client=new AppClient();
-//		client.setAppName(AppInfo.getPackageName());
-//		client.setAppVersion(AppInfo.getVersion());
-//		client.setSn(AppInfo.getSn());
-//		client.setMac(AppInfo.getMac());
-//		client.setTermType(AppInfo.getTerminalType());
-//		client.setAppType("tv");
-//		request.setClient(client);
-//		paramMap.put("requestBody", JsonUtil.toJson(request));
-//		//加密
-//		String sign = RopUtils.sign(paramMap, null, Cst.secret);
-//		paramMap.put("sign", sign);
-//		Log.i(Cst.TAG, "Method->"+MyApplication.getUrl(paramMap, Cst.testurl));
-		//向服务器发数据
-		Log.i(Cst.TAG,MyApplication.getUrl(paramMap, url+requestType.toString()));
-		MyRequest jsObjRequest = new MyRequest(Request.Method.POST,url+requestType.toString(),
-				paramMap, requestType, listener, errorListener);
+		// Hashtable<String, String> paramMap = new Hashtable<String, String>();
+		// //终端固定信息
+		// paramMap.put("appKey", Cst.appkey);
+		// paramMap.put("method", requestType.toString());
+		// Log.i(Cst.TAG, "Method->"+requestType.toString());
+		// paramMap.put("v", "1");
+		// paramMap.put("format", "json");
+		// //终端信息
+		// AppClient client=new AppClient();
+		// client.setAppName(AppInfo.getPackageName());
+		// client.setAppVersion(AppInfo.getVersion());
+		// client.setSn(AppInfo.getSn());
+		// client.setMac(AppInfo.getMac());
+		// client.setTermType(AppInfo.getTerminalType());
+		// client.setAppType("tv");
+		// request.setClient(client);
+		// paramMap.put("requestBody", JsonUtil.toJson(request));
+		// //加密
+		// String sign = RopUtils.sign(paramMap, null, Cst.secret);
+		// paramMap.put("sign", sign);
+		// Log.i(Cst.TAG, "Method->"+MyApplication.getUrl(paramMap,
+		// Cst.testurl));
+		// 向服务器发数据
+		Log.i(Cst.TAG,
+				MyApplication.getUrl(paramMap, url + requestType.toString()));
+		MyRequest jsObjRequest = new MyRequest(Request.Method.POST, url
+				+ requestType.toString(), paramMap, requestType, listener,
+				errorListener);
 		jsObjRequest.setTag(requestType);
 		this.addRequest(jsObjRequest);
 	}

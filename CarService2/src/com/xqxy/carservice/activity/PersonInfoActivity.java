@@ -1,19 +1,27 @@
 package com.xqxy.carservice.activity;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
+import android.util.Base64;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.xqxy.baseclass.MyApplication;
+import com.xqxy.baseclass.NetworkAction;
 import com.xqxy.baseclass.PhotoActivity;
-import com.xqxy.baseclass.UploadUtil;
+import com.xqxy.baseclass.RequestWrapper;
+import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
 import com.xqxy.carservice.view.PhotoSelectDialog;
 import com.xqxy.carservice.view.TopTitleView;
@@ -21,11 +29,14 @@ import com.xqxy.carservice.view.TopTitleView;
 public class PersonInfoActivity extends PhotoActivity implements
 		OnClickListener {
 	Dialog dialog;
-	private UploadUtil uploadUtil;
+
 	private TopTitleView topTitleView;
 	private ImageView imgHeadPhoto;
 	private String imgPath = Environment.getExternalStorageDirectory()
 			.getPath() + "/CarTemp/head.jpg";
+	
+	private String txtPath = Environment.getExternalStorageDirectory()
+			.getPath() + "/CarTemp/head.txt";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,57 +70,56 @@ public class PersonInfoActivity extends PhotoActivity implements
 		dialog.show();
 	}
 
+	@Override
+	public void showResualt(ResponseWrapper responseWrapper,
+			NetworkAction requestType) {
+		super.showResualt(responseWrapper, requestType);
+		if(requestType == NetworkAction.centerF_head){
+			
+		}
+	}
+	
+	
 	public void uploadImg(String imagePath) {
 		Toast.makeText(this, imagePath, Toast.LENGTH_SHORT).show();
-		if (uploadUtil == null) {
-			uploadUtil = new UploadUtil();
-			uploadUtil.setOnUploadProcessListener(onUploadProcessListener);
-		}
-		String url = "http://car.xinlingmingdeng.com/api.php/center/head";
-		uploadUtil.uploadFile(imagePath, url);
+		
+		try {
+			File file = new File(imagePath);  
+			FileInputStream in = new FileInputStream(file);  
+			byte[] buffer = new byte[(int) file.length()];  
+			int length = in.read(buffer);  
+			String data = Base64.encodeToString(buffer, 0, length,  
+			        Base64.DEFAULT);
+			in.close();
+			
+			
+		        byte[] bytexml = data.getBytes();  
+		          
+		        try {  
+		            OutputStream os = new FileOutputStream(new File(txtPath));  
+		            os.write(bytexml);  
+		            os.flush();  
+		            os.close();  
+		        } catch (FileNotFoundException e) {  
+		            // TODO Auto-generated catch block  
+		            e.printStackTrace();  
+		        } catch (IOException e) {  
+		            // TODO Auto-generated catch block  
+		            e.printStackTrace();  
+		        }  
+			
+			
+			RequestWrapper request = new RequestWrapper();
+			request.setIdentity( MyApplication.identity);
+			request.setFile(data);
+			sendData(request, NetworkAction.centerF_head);
+			        
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
 	}
-
-	UploadUtil.OnUploadProcessListener onUploadProcessListener = new UploadUtil.OnUploadProcessListener() {
-
-		@Override
-		public void onUploadProcess(int uploadSize) {
-			Log.i("UploadUtil", "process---" + uploadSize);
-
-		}
-
-		@Override
-		public void onUploadDone(int responseCode, final String message) {
-
-			Log.i("UploadUtil", "responseCode---" + responseCode + "-----msg--"
-					+ message);
-			if (responseCode == UploadUtil.UPLOAD_SUCCESS_CODE) {
-				// userEdit.head_photo = message;
-
-				runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						Toast.makeText(PersonInfoActivity.this, message,
-								Toast.LENGTH_SHORT).show();
-						Bitmap bm = BitmapFactory.decodeFile(imgPath);
-						// headImageView.setImageBitmap(bm);
-
-					}
-				});
-
-			} else {
-				runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						// showTipMessage(message);
-					}
-				});
-			}
-			Log.i("UploadUtil", "opus---" + message);
-		}
-
-		@Override
-		public void initUpload(int fileSize) {
-			Log.i("UploadUtil", "fileSize---" + fileSize);
-		}
-	};
 }
