@@ -11,12 +11,24 @@
         android:id="@+id/listview"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="5dp"
         android:layout_weight="1"
         android:cacheColorHint="#f5f5f5"
         android:divider="#FFFFFF"
         android:dividerHeight="8dp"
         android:fadingEdge="none"
         android:listSelector="#f5f5f5" />
+
+    <TextView
+        android:id="@+id/nodataTxt"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="暂无记录"
+        android:textSize="22sp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/text_car_list_add"

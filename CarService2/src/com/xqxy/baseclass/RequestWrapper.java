@@ -14,6 +14,8 @@ public class RequestWrapper {
 	private String surname;
 	private String sex;
 	private String phone;
+	private String id;
+	private String oid;
 	private String bid;
 	private String sid;
 	private String mid;
@@ -196,6 +198,18 @@ public class RequestWrapper {
 	}
 	public void setFile(String file) {
 		this.file = file;
+	}
+	public String getOid() {
+		return oid;
+	}
+	public void setOid(String oid) {
+		this.oid = oid;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	

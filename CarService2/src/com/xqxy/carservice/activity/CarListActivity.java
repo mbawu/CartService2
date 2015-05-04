@@ -23,14 +23,22 @@ import com.xqxy.model.Car;
 public class CarListActivity extends BaseActivity {
 
 	private ListView listView;
+	private TextView nodata;
 	private TextView textCarAdd;
 	private CarAdapter adapter;
 	private List<Car> carList;
+	private MyApplication app;
+	private Car delCar;
+
+	private String pid;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.car_list_layout);
+		app = (MyApplication) getApplication();
+		pid = getIntent().getStringExtra("pid");
+		nodata = (TextView) findViewById(R.id.nodataTxt);
 		listView = (ListView) findViewById(R.id.listview);
 		textCarAdd = (TextView) findViewById(R.id.text_car_list_add);
 		adapter = new CarAdapter(this);
@@ -57,7 +65,27 @@ public class CarListActivity extends BaseActivity {
 				adapter.setDataList(carList);
 				adapter.notifyDataSetChanged();
 			}
+		}else if(requestType == NetworkAction.centerF_del_car){
+			if(delCar!= null && carList.contains(delCar)){
+				carList.remove(delCar);
+				delCar = null;
+				adapter.notifyDataSetChanged();
+			}
 		}
+		if(carList!= null && carList.size()>0){
+			nodata.setVisibility(View.GONE);
+		}
+		else{
+			nodata.setVisibility(View.VISIBLE);
+		}
+	}
+	
+	private void deleteCar(Car car){
+		delCar = car;
+		RequestWrapper request = new RequestWrapper();
+		request.setIdentity(MyApplication.identity);
+		request.setId(car.getId());
+		sendData(request, NetworkAction.centerF_del_car);
 	}
 
 	class CarAdapter extends CarBaseAdapter<Car> {
@@ -85,11 +113,13 @@ public class CarListActivity extends BaseActivity {
 						.findViewById(R.id.text_car_item_pl);
 				viewHolder.textBYPL = (TextView) convertView
 						.findViewById(R.id.text_car_item_bypl);
+				viewHolder.textDelete = (TextView) convertView
+						.findViewById(R.id.text_car_item_delete);
 				convertView.setTag(viewHolder);
 			} else {
 				viewHolder = (ViewHolder) convertView.getTag();
 			}
-			Car car = this.getDataList().get(position);
+			final Car car = this.getDataList().get(position);
 
 			viewHolder.textPP.setText(getString(R.string.car_item_pp,
 					car.getName()));
@@ -103,13 +133,41 @@ public class CarListActivity extends BaseActivity {
 					car.getMname()));
 			viewHolder.textBYPL.setText(getString(R.string.car_item_bypl,
 					car.getUpkeep() + ""));
+			
+			
+			viewHolder.textDelete.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					
+					deleteCar(car);
+				}
+			});
+			
+			
+			convertView.setOnClickListener(new OnClickListener() {
 
+				@Override
+				public void onClick(View v) {
+					if (pid != null) {
+						app.setCar(car);
+						setResult(RESULT_OK);
+					} else {
+						Intent intent = new Intent(CarListActivity.this,
+								CarActivity.class);
+						intent.putExtra("car", car);
+						startActivity(intent);
+					}
+
+				}
+			});
 			return convertView;
 		}
 
 	}
 
 	class ViewHolder {
+		TextView textDelete;
 		TextView textPP;
 		TextView textYear;
 		TextView textLC;

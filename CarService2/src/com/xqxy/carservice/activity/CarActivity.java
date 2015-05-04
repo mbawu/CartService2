@@ -1,5 +1,7 @@
 package com.xqxy.carservice.activity;
 
+import java.io.Serializable;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -39,11 +41,7 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 	private Car car = new Car();
 
 	private String pid = "";
-	/*
-	 * private String bid = ""; private String sid = ""; private String mid =
-	 * ""; private String bname = ""; private String sname = ""; private String
-	 * mname = "";
-	 */
+
 	private int countRequest = 0;
 
 	@Override
@@ -51,6 +49,7 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.car_add);
 		app = (MyApplication) getApplication();
+
 		brandSpinner = (Spinner) findViewById(R.id.rst_brand);
 		seriesSpinner = (Spinner) findViewById(R.id.rst_series);
 		modelSpinner = (Spinner) findViewById(R.id.rst_model);
@@ -63,7 +62,12 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 		findViewById(R.id.btn_car_save).setOnClickListener(this);
 
 		pid = getIntent().getStringExtra("pid");
-
+		Serializable obj = getIntent().getSerializableExtra("car");
+		if (obj != null) {
+			car = (Car) obj;
+			textViewLC.setText(car.getJourney());
+			textViewBYPL.setText(car.getUpkeep());
+		}
 		sendDataByGet(new RequestWrapper(), NetworkAction.carF_brand);
 		sendDataByGet(new RequestWrapper(), NetworkAction.carF_series);
 		sendDataByGet(new RequestWrapper(), NetworkAction.carF_model);
@@ -80,24 +84,52 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 			brandSpinner.setAdapter(brandAdapter);
 			brandAdapter.notifyDataSetChanged();
 			countRequest++;
+			if (car.getId() != null && responseWrapper.getBrand() != null) {
+				for (int i = 0; i < responseWrapper.getBrand().size(); i++) {
+					if (car.getBid().equals(
+							responseWrapper.getBrand().get(i).getBid())) {
+						brandSpinner.setSelection(i);
+						break;
+					}
+				}
+			}
 		} else if (requestType.equals(NetworkAction.carF_series)) {
 			seriesAdapter = new CarInfoAdapter(this, NetworkAction.carF_series,
 					responseWrapper.getSeries());
 			seriesSpinner.setAdapter(seriesAdapter);
 			seriesAdapter.notifyDataSetChanged();
 			countRequest++;
+			if (car.getId() != null && responseWrapper.getSeries() != null) {
+				for (int i = 0; i < responseWrapper.getSeries().size(); i++) {
+					if (car.getSid().equals(
+							responseWrapper.getSeries().get(i).getSid())) {
+						seriesSpinner.setSelection(i);
+						break;
+					}
+				}
+			}
 		} else if (requestType.equals(NetworkAction.carF_model)) {
 			modelAdapter = new CarInfoAdapter(this, NetworkAction.carF_model,
 					responseWrapper.getModel());
 			modelSpinner.setAdapter(modelAdapter);
 			modelAdapter.notifyDataSetChanged();
 			countRequest++;
+			if (car.getId() != null && responseWrapper.getBrand() != null) {
+				for (int i = 0; i < responseWrapper.getModel().size(); i++) {
+					if (car.getMid().equals(
+							responseWrapper.getModel().get(i).getMid())) {
+						modelSpinner.setSelection(i);
+						break;
+					}
+				}
+			}
 		} else if (requestType.equals(NetworkAction.centerF_add_car)) {
-			if (pid == null || "".equals(pid)) {
+			if (pid == null || "".equals(pid)) {// 返回爱车列表
+				this.finish();
+			} else {
+
 				car.setId("0000");
 				goServiceDetaile();
-			}else{//返回爱车列表
-				this.finish();
 			}
 		}
 
@@ -132,6 +164,9 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 		String bypl = textViewBYPL.getText().toString();
 
 		RequestWrapper request = new RequestWrapper();
+		if (car.getId() != null) {
+			request.setId(car.getId());
+		}
 		request.setBid(car.getBid());
 		request.setSid(car.getSid());
 		request.setMid(car.getMid());
@@ -144,7 +179,7 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 			sendData(request, NetworkAction.centerF_add_car);
 		} else {// 从服务列表跳转而来，目的增加爱车后打开详情页
 			if (!MyApplication.loginStat) {// 未登录，在本地保存
-				
+
 				goServiceDetaile();
 			} else {// 已登录,提交服务器
 				request.setIdentity(MyApplication.identity);

@@ -1,7 +1,10 @@
 package com.xqxy.model;
 
-public class Car {
+import java.io.Serializable;
 
+public class Car implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	private String id;
 	private String year;
 	private String journey;

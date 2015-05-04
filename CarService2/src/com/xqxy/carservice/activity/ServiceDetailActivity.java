@@ -111,7 +111,7 @@ public class ServiceDetailActivity extends BaseActivity implements
 			}
 			sendDataByGet(request, NetworkAction.indexF_product_attr);
 		} else {
-			Toast.makeText(this, "服务项目不存在", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "服务项目不存在--", Toast.LENGTH_SHORT).show();
 			finish();
 		}
 

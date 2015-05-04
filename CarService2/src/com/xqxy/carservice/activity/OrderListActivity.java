@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
@@ -26,10 +25,7 @@ public class OrderListActivity extends BaseActivity implements
 		View.OnClickListener {
 
 	private RadioGroup radioGroupType;
-	private RadioButton radioBtnAll;
-	private RadioButton radioBtnUnderway;
-	private RadioButton radioBtnCancel;
-
+	private TextView nodata;
 	private ListView listView;
 	private OrderListAdapter adapter;
 	private List<Order> orderList;
@@ -37,8 +33,7 @@ public class OrderListActivity extends BaseActivity implements
 	private String page = "1";
 	private String status = "0";
 
-	private static final String ORDER_STATUS_WAITING = "1"; // 待处理
-	private static final String ORDER_STATUS_ACCEPT = "2"; // 已接受，进行中
+	private static final String ORDER_STATUS_WAITING = "2"; // 等待服务
 	private static final String ORDER_STATUS_FINISH = "3"; // 已完成
 	private static final String ORDER_STATUS_CANCEL = "4"; // 已取消
 
@@ -46,10 +41,8 @@ public class OrderListActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_list_layout);
+		nodata = (TextView) findViewById(R.id.nodataTxt);
 		listView = (ListView) findViewById(R.id.listview);
-		radioBtnAll = (RadioButton) findViewById(R.id.order_list_all_radiobtn);
-		radioBtnUnderway = (RadioButton) findViewById(R.id.order_list_underway_radiobtn);
-		radioBtnCancel = (RadioButton) findViewById(R.id.order_list_cancel_radiobtn);
 		radioGroupType = (RadioGroup) findViewById(R.id.order_list_type);
 		radioGroupType
 				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -60,26 +53,28 @@ public class OrderListActivity extends BaseActivity implements
 							status = "0";
 							break;
 						case R.id.order_list_underway_radiobtn:
-							status = ORDER_STATUS_ACCEPT;
+							status = ORDER_STATUS_WAITING;
 							break;
 						case R.id.order_list_cancel_radiobtn:
 							status = ORDER_STATUS_CANCEL;
 							break;
 						}
+						getOrder();
 					}
 				});
 
 		adapter = new OrderListAdapter(this);
 		listView.setAdapter(adapter);
-		
+
 		getOrder();
 	}
 
 	private void getOrder() {
 		RequestWrapper request = new RequestWrapper();
+		request.setShowDialog(true);
 		request.setIdentity(MyApplication.identity);
 		request.setStatus(status);
-		request.setPage(page);
+		// request.setPage(page);
 		sendDataByGet(request, NetworkAction.centerF_user_order);
 	}
 
@@ -89,8 +84,17 @@ public class OrderListActivity extends BaseActivity implements
 		super.showResualt(responseWrapper, requestType);
 		if (requestType == NetworkAction.centerF_user_order) {
 			orderList = responseWrapper.getOrder();
+			if (orderList != null && orderList.size() > 0) {
+				nodata.setVisibility(View.GONE);
+			} else {
+				nodata.setVisibility(View.VISIBLE);
+			}
 			adapter.setDataList(orderList);
 			adapter.notifyDataSetChanged();
+		} else if (requestType == NetworkAction.centerF_cancel_order
+				|| requestType == NetworkAction.centerF_del_order
+				|| requestType == NetworkAction.centerF_affirm_order) {
+			getOrder();
 		}
 	}
 
@@ -98,20 +102,22 @@ public class OrderListActivity extends BaseActivity implements
 	public void onClick(View v) {
 		if (v instanceof TextView) {
 			String btnTxt = ((TextView) v).getText().toString();
+			Order order = (Order) v.getTag();
+			RequestWrapper request = new RequestWrapper();
+			request.setIdentity(MyApplication.identity);
+			request.setOid(order.getOid());
+			NetworkAction action = null;
 			if (btnTxt.equals(getString(R.string.order_btn_cancel))) {
-
+				action = NetworkAction.centerF_cancel_order;
 			} else if (btnTxt.equals(getString(R.string.order_btn_delete))) {
-
+				action = NetworkAction.centerF_del_order;
 			} else if (btnTxt.equals(getString(R.string.order_btn_finish))) {
-
-			} else if (btnTxt.equals(getString(R.string.order_btn_finish))) {
-
+				action = NetworkAction.centerF_affirm_order;
+			} else if (btnTxt.equals(getString(R.string.order_btn_evaluate))) {
+				return;
 			}
+			sendData(request, action);
 		}
-	}
-	
-	private void deleteOrder(){
-		
 	}
 
 	class OrderListAdapter extends CarBaseAdapter<Order> {
@@ -149,53 +155,65 @@ public class OrderListActivity extends BaseActivity implements
 
 			Order order = getDataList().get(position);
 			viewHolder.textOrderSn.setText(order.getOrder());
-			viewHolder.textOrderTime.setText(order.getCreate_time());
+			viewHolder.textOrderTime.setText(order.getServer_time());
 			viewHolder.textOrderPayMoney.setText(getString(
 					R.string.order_price, order.getPay_price()));
 
 			OrderProductAdapter opAdapter = new OrderProductAdapter(activity);
 			opAdapter.setDataList(order.getProduct());
 			viewHolder.listViewProduct.setAdapter(opAdapter);
-
-			if (ORDER_STATUS_WAITING.equals(order.getStatus())) {// 待处理
+			/*
+			 * if (ORDER_STATUS_WAITING.equals(order.getStatus())) {// 待处理
+			 * viewHolder.textOrderState
+			 * .setText(getString(R.string.order_status_waiting));
+			 * 
+			 * viewHolder.textBtnOk.setVisibility(View.VISIBLE);
+			 * viewHolder.textBtnOk
+			 * .setText(getString(R.string.order_btn_finish));
+			 * viewHolder.textBtnCancel.setVisibility(View.VISIBLE);
+			 * viewHolder.textBtnCancel
+			 * .setText(getString(R.string.order_btn_cancel)); } else
+			 */
+			if (ORDER_STATUS_WAITING.equals(order.getStatus())) {// ---等待服务
 				viewHolder.textOrderState
-						.setText(getString(R.string.order_status_waiting));
+						.setText(R.string.order_status_waiting);
 
 				viewHolder.textBtnOk.setVisibility(View.VISIBLE);
 				viewHolder.textBtnOk
-						.setText(getString(R.string.order_btn_finish));
+						.setText(getString(R.string.order_btn_cancel));// 取消订单
+
 				viewHolder.textBtnCancel.setVisibility(View.VISIBLE);
 				viewHolder.textBtnCancel
-						.setText(getString(R.string.order_btn_cancel));
-			} else if (ORDER_STATUS_ACCEPT.equals(order.getStatus())) {// 进行中
-				viewHolder.textOrderState.setText("服务进行中");
+						.setText(getString(R.string.order_btn_finish));// 确认完成
 
-				viewHolder.textBtnOk.setVisibility(View.VISIBLE);
-				viewHolder.textBtnOk
-						.setText(getString(R.string.order_btn_evaluate));
-				viewHolder.textBtnCancel.setVisibility(View.VISIBLE);
-				viewHolder.textBtnCancel
-						.setText(getString(R.string.order_btn_delete));
-
-			} else if (ORDER_STATUS_FINISH.equals(order.getStatus())) {// 已完成
+			} else if (ORDER_STATUS_FINISH.equals(order.getStatus())) {// ---服务完成
 				viewHolder.textOrderState
 						.setText(getString(R.string.order_status_finish));
 
-				viewHolder.textBtnOk.setVisibility(View.GONE);
+				viewHolder.textBtnOk.setVisibility(View.VISIBLE);
+				viewHolder.textBtnOk
+						.setText(getString(R.string.order_btn_evaluate));// 评价
+
 				viewHolder.textBtnCancel.setVisibility(View.VISIBLE);
 				viewHolder.textBtnCancel
-						.setText(getString(R.string.order_btn_delete));
-			} else if (ORDER_STATUS_CANCEL.equals(order.getStatus())) {// 已取消
+						.setText(getString(R.string.order_btn_delete));// 删除
+
+			} else if (ORDER_STATUS_CANCEL.equals(order.getStatus())) {// ---已取消
 				viewHolder.textOrderState
 						.setText(getString(R.string.order_status_cancel));
 
 				viewHolder.textBtnOk.setVisibility(View.GONE);
 				viewHolder.textBtnCancel.setVisibility(View.VISIBLE);
 				viewHolder.textBtnCancel
-						.setText(getString(R.string.order_btn_delete));
+						.setText(getString(R.string.order_btn_delete));// 删除
+			} else {
+				viewHolder.textBtnOk.setVisibility(View.GONE);
+				viewHolder.textBtnCancel.setVisibility(View.GONE);
 			}
 			viewHolder.textBtnCancel.setOnClickListener(OrderListActivity.this);
 			viewHolder.textBtnOk.setOnClickListener(OrderListActivity.this);
+			viewHolder.textBtnCancel.setTag(order);
+			viewHolder.textBtnOk.setTag(order);
 			return convertView;
 		}
 	}
