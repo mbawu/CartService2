@@ -68,6 +68,7 @@
         <activity android:name="com.xqxy.carservice.activity.PersonInfoActivity" />
          <activity android:name="com.xqxy.person.BuyStoreCardActivity" />
          <activity android:name="com.xqxy.person.StoreCardDetailActivity" />
+           <activity android:name="com.xqxy.person.PayCarInfoActivity" />
 
         <activity android:name="com.xqxy.carservice.activity.GuideActivity" />
         <activity android:name="com.xqxy.carservice.activity.CategoryActivity" />
@@ -81,6 +82,12 @@
           
 
          <!-- pay activity -->
+                 <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="com.alipay.sdk.auth.AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"

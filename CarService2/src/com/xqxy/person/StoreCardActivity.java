@@ -92,7 +92,7 @@ public class StoreCardActivity extends BaseActivity {
 			NetworkAction requestType) {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
-		 if (requestType.equals(NetworkAction.centerF_user_card)) {
+		 if (requestType==(NetworkAction.centerF_user_card)) {
 				datas = responseWrapper.getCard();
 				if(datas.size()>0)
 				{

@@ -53,7 +53,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			NetworkAction requestType) {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
-		if(requestType.equals(NetworkAction.userF_login))
+		if(requestType==(NetworkAction.userF_login))
 		{
 			Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
 			MyApplication.loginStat=true;

@@ -50,6 +50,9 @@ public class ResponseWrapper {
 
 	private UserInfo user;
 
+	
+	private String cid;
+
 	/**
 	 * 汽车品牌
 	 */
@@ -98,6 +101,14 @@ public class ResponseWrapper {
 	private ArrayList<ProductAttr> attr;
 
 	private ArrayList<CategoryProduct> column_product;
+
+	public String getCid() {
+		return cid;
+	}
+
+	public void setCid(String cid) {
+		this.cid = cid;
+	}
 
 	/**
 	 * 我的储值卡

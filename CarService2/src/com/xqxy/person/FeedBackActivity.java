@@ -62,6 +62,9 @@ public class FeedBackActivity extends BaseActivity {
 			NetworkAction requestType) {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
-		Toast.makeText(this, "提交成功", Toast.LENGTH_SHORT).show();
+		 if (requestType==(NetworkAction.indexF_suggest)) {
+			 Toast.makeText(this, "提交成功", Toast.LENGTH_SHORT).show();
+		 }
+		
 	}
 }

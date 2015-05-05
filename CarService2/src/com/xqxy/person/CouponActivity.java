@@ -93,17 +93,21 @@ public class CouponActivity extends BaseActivity implements
 			NetworkAction requestType) {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
-		datas = responseWrapper.getCoupon();
-		Log.i(Cst.TAG," datas.size()-->"+ datas.size()+"");
-		if (datas.size() > 0) {
-			nodata.setVisibility(View.GONE);
-			listView.setVisibility(View.VISIBLE);
-			adapter.setDataList(datas);
-			adapter.notifyDataSetChanged();
-		} else {
-			nodata.setVisibility(View.VISIBLE);
-			listView.setVisibility(View.GONE);
+		if(requestType==NetworkAction.centerF_user_coupon)
+		{
+			datas = responseWrapper.getCoupon();
+			Log.i(Cst.TAG," datas.size()-->"+ datas.size()+"");
+			if (datas.size() > 0) {
+				nodata.setVisibility(View.GONE);
+				listView.setVisibility(View.VISIBLE);
+				adapter.setDataList(datas);
+				adapter.notifyDataSetChanged();
+			} else {
+				nodata.setVisibility(View.VISIBLE);
+				listView.setVisibility(View.GONE);
+			}
 		}
+	
 	}
 
 	class CouponAdapter extends CarBaseAdapter<Coupon> {
