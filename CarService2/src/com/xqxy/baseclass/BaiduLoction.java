@@ -1,6 +1,7 @@
 package com.xqxy.baseclass;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -70,7 +71,7 @@ public class BaiduLoction {
 
 		@Override
 		public void onReceiveLocation(BDLocation location) {
-
+			Log.i("location---", location.getLocType()+"");
 			if (locationCallback != null
 					&& (location.getLocType() == BDLocation.TypeNetWorkLocation
 							|| location.getLocType() == BDLocation.TypeGpsLocation || location
