@@ -45,19 +45,10 @@ public class RequestWrapper {
 	
 	//投诉建议
 	private String content;
-	//储值卡ID
-	private String cid;
 	
 	private boolean showDialog=false;
 	
 	
-	
-	public String getCid() {
-		return cid;
-	}
-	public void setCid(String cid) {
-		this.cid = cid;
-	}
 	public boolean isShowDialog() {
 		return showDialog;
 	}
