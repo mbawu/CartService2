@@ -222,9 +222,10 @@ public class BaseActivity extends Activity {
 		else {
 			// 提示网络异常
 			// DialogUtil.showToast(BaseActivity.this, msg);
+			showResualt(null, null);
 			Log.i(Cst.TAG, msg);
 			Toast.makeText(BaseActivity.this, msg, Toast.LENGTH_SHORT).show();
-
+			
 			// if (progressDialog != null)
 			// progressDialog.dismiss();
 			// else if (progressDialog == null)
@@ -233,6 +234,7 @@ public class BaseActivity extends Activity {
 
 	}
 
+	
 	/**
 	 * 解析和显示服务器返回的结果
 	 * 
