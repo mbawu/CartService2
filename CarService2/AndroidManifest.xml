@@ -60,29 +60,23 @@
         <activity android:name="com.xqxy.person.CouponActivity" />
         <activity android:name="com.xqxy.person.OtherActivity" />
         <activity android:name="com.xqxy.person.FeedBackActivity" />
-
         <activity android:name="com.xqxy.person.StoreCardActivity" />
         <activity android:name="com.xqxy.carservice.activity.CarActivity" />
         <activity android:name="com.xqxy.carservice.activity.OrderListActivity" />
         <activity android:name="com.xqxy.carservice.activity.CarListActivity" />
         <activity android:name="com.xqxy.carservice.activity.PersonInfoActivity" />
-         <activity android:name="com.xqxy.person.BuyStoreCardActivity" />
-         <activity android:name="com.xqxy.person.StoreCardDetailActivity" />
-           <activity android:name="com.xqxy.person.PayCarInfoActivity" />
-
+        <activity android:name="com.xqxy.person.BuyStoreCardActivity" />
+        <activity android:name="com.xqxy.person.StoreCardDetailActivity" />
+        <activity android:name="com.xqxy.person.PayCarInfoActivity" />
+        <activity android:name="com.xqxy.person.StoreCardPayActivity" />
         <activity android:name="com.xqxy.carservice.activity.GuideActivity" />
         <activity android:name="com.xqxy.carservice.activity.CategoryActivity" />
-
         <activity android:name="com.xqxy.carservice.activity.PersonCentreActivity" />
-
         <activity android:name="com.xqxy.carservice.activity.ServiceDetailActivity" />
         <activity android:name="com.xqxy.carservice.activity.ServiceEvaluateActivity" />
 
-        
-          
-
-         <!-- pay activity -->
-                 <activity
+        <!-- pay activity -->
+        <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"

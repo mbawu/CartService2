@@ -3,6 +3,7 @@ package com.xqxy.person;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
@@ -120,7 +121,13 @@ public class PayCarInfoActivity extends BaseActivity implements
 			modelAdapter.notifyDataSetChanged();
 			countRequest++;
 		} else if (requestType==(NetworkAction.orderF_buy_card)) {
-			Log.i("test","Cid->"+ responseWrapper.getCid());
+			card.setCid(responseWrapper.getCid());
+			Intent intent=new Intent();
+			intent.setClass(this, StoreCardPayActivity.class);
+			Bundle mb=new Bundle();
+			mb.putSerializable(StoreCardDetailActivity.DATA, card);
+			intent.putExtras(mb);
+			startActivity(intent);
 		}
 	}
 

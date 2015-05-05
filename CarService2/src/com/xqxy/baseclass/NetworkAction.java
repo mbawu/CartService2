@@ -23,6 +23,7 @@ public enum NetworkAction {
 	carF_brand, //品
 	carF_series, //车系
 	carF_model, //类型
+	indexF_pay_base,//支付信息
 	indexF_banner,//轮播
 	indexF_product,//首页服务
 	indexF_product_details,//服务详情

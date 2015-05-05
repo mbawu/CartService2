@@ -36,15 +36,15 @@ public class Pay {
 		this.activity = activity;
 	}
 
-	public static final String PARTNER = "2088511050709950";
-	public static final String SELLER = "gaoqiang.yue@changhong.com";
-	public static final String RSA_PRIVATE = "MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBALjj+t+0KPrHUwuzpiG3K5LA1VMVjrMuj1AF1MyFAVDrGFjm5cYYYwSSAHfbHj146OVX/97oOwZ2NXPowt+Ncq5DwRt5Wjm2YoA9+hbur++Z7b+HpNfVIdWsYI/PXRPwVRio8+lxnZWTdVf/c5CIsQoU3dwaJREe+aU8q6xhe2fdAgMBAAECgYBhAXRyBKNvmD7xJ8ulauZYtAX49pmNV4Nnt/eDatFa9E4s7tBllAv3rObD+9os5JBFLFuaR3wYktLOwrPj+OHOuW2O/HV2WrBmluIT8Ll3ShS9IOaqZu+Fz65DbM84kSMt+9+AN6psy5KrNYXgQkwXzsYGzNiKdkKe59eKeXNF4QJBAO+zX9rIUamYjLNa1Jjlz7t35woVFsUmF/MAMDt3U/Vt1ix1DVoM7yF1A9RN7szfNl83a8uM61CDdJ4Yvap1HAUCQQDFdn1qWLyi69jKAyEMrPJvU7c6eaeiBvKoRkUf7XuKwI08G02XakKAkWIoDoBe8HZ7obTv3Dkz1WleupUwBjv5AkAQtRgBT+UhRRjJh5M59Qq9rmXUNhQYOceBkInMG00m1jkPcDk2BaDFXDqgGa6DaSuJB3vj/DaKrh76xg6ySudhAkBqL+UTynJuvpvPTs14Do009vUCuic+h7P4cAl+OOyF2jRZTWl1cowerY/2cI3yACgHJheyIWCVkj9e1MGjmMapAkBiTFUs1lGuaWHYrqvrGQFM1Z+bdiHOgAhvSHAwE1FdZQrcMVxiaA6W0mnx6g6Q7H6pry8I5H0Fn+X7W0rEMbBI";
+	private  String PARTNER = "";
+	private String SELLER = "";
+	private String RSA_PRIVATE = "";
 	public static final String RSA_PUBLIC = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB";
 
 	private static final int SDK_PAY_FLAG = 1;
 
 	private static final int SDK_CHECK_FLAG = 2;
-
+	
 	
 	private static String mMode = "01";// 设置测试模式:01为测试环境00为正式环境
 	
@@ -87,6 +87,32 @@ public class Pay {
 			}
 		};
 	};
+
+	
+	
+	public String getPARTNER() {
+		return PARTNER;
+	}
+
+	public void setPARTNER(String pARTNER) {
+		PARTNER = pARTNER;
+	}
+
+	public String getSELLER() {
+		return SELLER;
+	}
+
+	public void setSELLER(String sELLER) {
+		SELLER = sELLER;
+	}
+
+	public String getRSA_PRIVATE() {
+		return RSA_PRIVATE;
+	}
+
+	public void setRSA_PRIVATE(String rSA_PRIVATE) {
+		RSA_PRIVATE = rSA_PRIVATE;
+	}
 
 	/**
 	 * call alipay sdk pay. 调用SDK支付

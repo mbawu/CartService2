@@ -12,6 +12,7 @@ import com.xqxy.model.Credit;
 import com.xqxy.model.Message;
 import com.xqxy.model.Model;
 import com.xqxy.model.Order;
+import com.xqxy.model.PayModel;
 import com.xqxy.model.Product;
 import com.xqxy.model.ProductAttr;
 import com.xqxy.model.ProductDetails;
@@ -95,6 +96,20 @@ public class ResponseWrapper {
 	
 	private ArrayList<ProductAttr> attr;
 	
+	private PayModel pay;
+
+	
+	/**
+	 * 获取支付宝支付信息
+	 * @return
+	 */
+	public PayModel getPay() {
+		return pay;
+	}
+
+	public void setPay(PayModel pay) {
+		this.pay = pay;
+	}
 
 	public String getCid() {
 		return cid;

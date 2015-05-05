@@ -31,7 +31,7 @@
                 android:id="@+id/totalTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
+                android:gravity="right"
                 android:text="￥45625"
                 android:textColor="#ffff4444"
                 android:textSize="18sp" />
