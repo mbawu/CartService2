@@ -70,7 +70,7 @@ public class MessageActivity extends BaseActivity {
 			NetworkAction requestType) {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
-		 if (requestType.equals(NetworkAction.centerF_user_msg)) {
+		 if (requestType==(NetworkAction.centerF_user_msg)) {
 				datas = responseWrapper.getInfo();
 				if(datas.size()>0)
 				{

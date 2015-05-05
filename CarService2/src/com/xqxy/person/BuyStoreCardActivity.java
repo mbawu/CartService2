@@ -67,7 +67,7 @@ public class BuyStoreCardActivity extends BaseActivity {
 			NetworkAction requestType) {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
-		 if (requestType.equals(NetworkAction.indexF_card)) {
+		 if (requestType==(NetworkAction.indexF_card)) {
 				datas = responseWrapper.getCard();
 				if(datas.size()>0)
 				{

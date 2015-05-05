@@ -45,6 +45,8 @@ public class ResponseWrapper {
 	private String msg;
 	
 	private String src;
+	
+	private String cid;
 	/**
 	 * 汽车品牌
 	 */
@@ -93,6 +95,14 @@ public class ResponseWrapper {
 	
 	private ArrayList<ProductAttr> attr;
 	
+
+	public String getCid() {
+		return cid;
+	}
+
+	public void setCid(String cid) {
+		this.cid = cid;
+	}
 
 	/**
 	 * 我的储值卡

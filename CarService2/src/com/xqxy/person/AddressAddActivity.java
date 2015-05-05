@@ -106,7 +106,7 @@ public class AddressAddActivity extends BaseActivity {
 			NetworkAction requestType) {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
-		if (requestType.equals(NetworkAction.centerF_add_address)) {
+		if (requestType==(NetworkAction.centerF_add_address)) {
 			MyApplication.refresh=true;
 			String msg="";
 			if(aid==null)

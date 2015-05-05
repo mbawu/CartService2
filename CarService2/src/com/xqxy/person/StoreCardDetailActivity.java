@@ -65,8 +65,31 @@ public class StoreCardDetailActivity extends BaseActivity {
 			
 			@Override
 			public void onClick(View v) {
-				Pay pay=new Pay(StoreCardDetailActivity.this);
-				pay.alipay("储值卡", "100元的储值卡", "0.01");
+				Intent intent=new Intent();
+				intent.setClass(StoreCardDetailActivity.this, PayCarInfoActivity.class);
+				
+				StoreCard card=datas.get(0);
+				if(buyModule)
+				{
+					//1储值卡 2增值卡
+					if(card.getFlag().equals("1"))
+					{
+						Bundle mBundle = new Bundle();     
+				        mBundle.putSerializable(StoreCardDetailActivity.DATA,  card);     
+				        intent.putExtras(mBundle);     
+				        StoreCardDetailActivity.this.startActivity(intent);
+					}
+					else
+					{
+						RequestWrapper wrapper = new RequestWrapper();
+						wrapper.setCid(card.getCid());
+						wrapper.setIdentity(MyApplication.identity);
+						sendData(wrapper, NetworkAction.orderF_buy_card);
+					}
+				}
+			
+//				Pay pay=new Pay(StoreCardDetailActivity.this);
+//				pay.alipay("储值卡", "{\"type\":\"1\",\"identity\":\"afasdfasdfasdf\",\"cid\":\"123456\"}", "0.01");
 			}
 		});
 		nodata=(TextView) findViewById(R.id.nodataTxt);
@@ -81,6 +104,16 @@ public class StoreCardDetailActivity extends BaseActivity {
 	}
 	
 	
+	@Override
+	public void showResualt(ResponseWrapper responseWrapper,
+			NetworkAction requestType) {
+		// TODO Auto-generated method stub
+		super.showResualt(responseWrapper, requestType);
+		if(requestType==NetworkAction.orderF_buy_card)
+		{
+			//跳转至支付页面
+		}
+	}
 	
 	public void getCard()
 	{

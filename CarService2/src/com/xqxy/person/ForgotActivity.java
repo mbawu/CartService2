@@ -67,7 +67,7 @@ public class ForgotActivity extends BaseActivity implements OnClickListener {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
 		
-		if (requestType.equals(NetworkAction.userF_send_phone)) {
+		if (requestType==(NetworkAction.userF_send_phone)) {
 			Toast.makeText(this, "验证码已发送到手机", Toast.LENGTH_SHORT).show();
 			// 正确拿到验证码以后开始倒计时
 			handler.sendEmptyMessage(count);
@@ -80,7 +80,7 @@ public class ForgotActivity extends BaseActivity implements OnClickListener {
 				}
 			});
 		}
-		else if (requestType.equals(NetworkAction.userF_resetpwd)) {
+		else if (requestType==(NetworkAction.userF_resetpwd)) {
 			Toast.makeText(this, "操作成功", Toast.LENGTH_SHORT).show();
 			MyApplication.identity=responseWrapper.getIdentity().get(0).getIdentity();
 		}

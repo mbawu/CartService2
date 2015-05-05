@@ -120,25 +120,25 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 			NetworkAction requestType) {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
-		if (requestType.equals(NetworkAction.carF_brand)) {
+		if (requestType==(NetworkAction.carF_brand)) {
 			brandAdapter = new CarInfoAdapter(this, NetworkAction.carF_brand,
 					responseWrapper.getBrand());
 			brandSpinner.setAdapter(brandAdapter);
 			brandAdapter.notifyDataSetChanged();
 			countRequest++;
-		} else if (requestType.equals(NetworkAction.carF_series)) {
+		} else if (requestType==(NetworkAction.carF_series)) {
 			seriesAdapter = new CarInfoAdapter(this, NetworkAction.carF_series,
 					responseWrapper.getSeries());
 			seriesSpinner.setAdapter(seriesAdapter);
 			seriesAdapter.notifyDataSetChanged();
 			countRequest++;
-		} else if (requestType.equals(NetworkAction.carF_model)) {
+		} else if (requestType==(NetworkAction.carF_model)) {
 			modelAdapter = new CarInfoAdapter(this, NetworkAction.carF_model,
 					responseWrapper.getModel());
 			modelSpinner.setAdapter(modelAdapter);
 			modelAdapter.notifyDataSetChanged();
 			countRequest++;
-		} else if (requestType.equals(NetworkAction.userF_send_phone)) {
+		} else if (requestType==(NetworkAction.userF_send_phone)) {
 			Toast.makeText(this, "验证码已发送到手机", Toast.LENGTH_SHORT).show();
 			// 正确拿到验证码以后开始倒计时
 			handler.sendEmptyMessage(count);
@@ -151,7 +151,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 				}
 			});
 		}
-		else if(requestType.equals(NetworkAction.userF_register))
+		else if(requestType==(NetworkAction.userF_register))
 		{
 			Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
 			MyApplication.identity=responseWrapper.getIdentity().get(0).getIdentity();

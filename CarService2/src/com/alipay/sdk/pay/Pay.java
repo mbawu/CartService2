@@ -171,7 +171,7 @@ public class Pay {
 		orderInfo += "&seller_id=" + "\"" + SELLER + "\"";
 
 		// 商户网站唯一订单号
-		orderInfo += "&out_trade_no=" + "\"" +body + "\"";
+		orderInfo += "&out_trade_no=" + "\""+"123456" + "\"";
 
 		// 商品名称
 		orderInfo += "&subject=" + "\"" + subject + "\"";

@@ -89,7 +89,7 @@ public class AdressActivity extends BaseActivity {
 			NetworkAction requestType) {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
-		if (requestType.equals(NetworkAction.centerF_user_address)) {
+		if (requestType==(NetworkAction.centerF_user_address)) {
 			datas = responseWrapper.getAddress();
 			if (datas.size() > 0) {
 				listView.setVisibility(View.VISIBLE);
@@ -108,7 +108,7 @@ public class AdressActivity extends BaseActivity {
 		// .getIdentity());
 		// sendData(wrapper, NetworkAction.centerF_user_address);
 		// }
-		else if (requestType.equals(NetworkAction.centerF_del_address)) {
+		else if (requestType==(NetworkAction.centerF_del_address)) {
 			Toast.makeText(this, "删除成功", Toast.LENGTH_SHORT).show();
 			RequestWrapper wrapper = new RequestWrapper();
 			wrapper.setIdentity(MyApplication.identity);

@@ -57,7 +57,7 @@ public class CreditActivity extends BaseActivity {
 			NetworkAction requestType) {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
-		if (requestType.equals(NetworkAction.centerF_user_integral)) {
+		if (requestType==(NetworkAction.centerF_user_integral)) {
 			datas=responseWrapper.getIntegral();
 			if(datas.size()>0)
 			{
