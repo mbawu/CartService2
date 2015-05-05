@@ -128,6 +128,7 @@ public class PayCarInfoActivity extends BaseActivity implements
 			mb.putSerializable(StoreCardDetailActivity.DATA, card);
 			intent.putExtras(mb);
 			startActivity(intent);
+			finish();
 		}
 	}
 

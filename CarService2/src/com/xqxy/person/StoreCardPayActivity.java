@@ -96,10 +96,16 @@ public class StoreCardPayActivity extends BaseActivity implements
 				pay.setPARTNER(payModel.getPay_pid());
 				pay.setSELLER(payModel.getPay_name());
 				pay.setRSA_PRIVATE(payModel.getPay_key());
-				pay.alipay(card.getName(),
-						"{\"type\":\"1\",\"identity\":\""
-								+ MyApplication.identity + "\",\"cid\":\""
-								+ card.getCid() + "\"}", card.getPrice());
+				try {
+					pay.alipay(card.getName(),
+							"{\"type\":\"1\",\"identity\":\""
+									+ MyApplication.identity + "\",\"cid\":\""
+									+ card.getCid() + "\"}", card.getPrice());
+				} catch (Exception e) {
+					Toast.makeText(this, "商家支付信息有误，请重试", Toast.LENGTH_SHORT).show();
+				}
+				
+				
 			}
 		}
 		else if(requestType==null)
