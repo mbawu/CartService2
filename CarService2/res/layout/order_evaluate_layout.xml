@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
+
+    <include layout="@layout/top_title_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="7dp"
+            android:paddingTop="7dp" >
+
+            <com.xqxy.carservice.view.CarImageView
+                android:id="@+id/img_service_photo"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:background="@color/blank" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/text_service_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#323232"
+                    android:textSize="@dimen/font_size_30px" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="0dp"
+                        android:text="价格:"
+                        android:textColor="#323232"
+                        android:textSize="@dimen/font_size_26px" />
+
+                    <TextView
+                        android:id="@+id/text_service_price_new"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="0dp"
+                        android:textColor="#E94F3A"
+                        android:textSize="@dimen/font_size_26px" />
+
+                    <TextView
+                        android:id="@+id/text_service_price_old"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#969696"
+                        android:textSize="@dimen/font_size_18px" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="时长:"
+                        android:textColor="#323232"
+                        android:textSize="@dimen/font_size_26px" />
+
+                    <TextView
+                        android:id="@+id/text_service_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="#E94F3A"
+                        android:textSize="@dimen/font_size_26px" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#BDC7D8" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="right"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/radiobtn_order_eva_level_good"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="好评"
+                android:textColor="#646464"
+                android:textSize="@dimen/font_size_28px" />
+
+            <RadioButton
+                android:id="@+id/radiobtn_order_eva_level_cha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="差评"
+                android:textColor="#646464"
+                android:textSize="@dimen/font_size_28px" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box_normal"
+            android:padding="2dp"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/edit_order_eva_content"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:gravity="left|top"
+                android:text="对服务非常满意"
+                android:textColor="#646464"
+                android:background="#FFFFFF"
+                android:textSize="@dimen/font_size_26px" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_order_eva_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ok_btn_bg"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="5dp"
+            android:text="提  交"
+            android:textColor="@color/wihte"
+            android:textSize="@dimen/font_size_28px" />
+    </LinearLayout>
+
+</LinearLayout>
