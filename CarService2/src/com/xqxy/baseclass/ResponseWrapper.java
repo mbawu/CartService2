@@ -1,12 +1,14 @@
 package com.xqxy.baseclass;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.xqxy.model.Address;
 import com.xqxy.model.Banner;
 import com.xqxy.model.Brand;
 import com.xqxy.model.Car;
 import com.xqxy.model.Category;
+import com.xqxy.model.CategoryProduct;
 import com.xqxy.model.Coupon;
 import com.xqxy.model.Credit;
 import com.xqxy.model.Message;
@@ -44,10 +46,14 @@ public class ResponseWrapper {
 	 * 返回信息
 	 */
 	private String msg;
-	
+
 	private String src;
+
+	private UserInfo user;
+
 	
 	private String cid;
+
 	/**
 	 * 汽车品牌
 	 */
@@ -71,9 +77,9 @@ public class ResponseWrapper {
 	private ArrayList<Product> product;
 
 	private ArrayList<Category> column;
-	
+
 	private ArrayList<Car> car;
-	
+
 	private ArrayList<Order> order;
 
 	/**
@@ -89,12 +95,12 @@ public class ResponseWrapper {
 
 	private ArrayList<Coupon> coupon;
 
-	
 	private ArrayList<StoreCard> card;
-	
+
 	private ProductDetails product_details;
-	
+
 	private ArrayList<ProductAttr> attr;
+
 	
 	private PayModel pay;
 
@@ -110,6 +116,10 @@ public class ResponseWrapper {
 	public void setPay(PayModel pay) {
 		this.pay = pay;
 	}
+
+
+	private ArrayList<CategoryProduct> column_product;
+
 
 	public String getCid() {
 		return cid;
@@ -291,5 +301,20 @@ public class ResponseWrapper {
 		this.attr = attr;
 	}
 
-	
+	public ArrayList<CategoryProduct> getColumn_product() {
+		return column_product;
+	}
+
+	public void setColumn_product(ArrayList<CategoryProduct> column_product) {
+		this.column_product = column_product;
+	}
+
+	public UserInfo getUser() {
+		return user;
+	}
+
+	public void setUser(UserInfo user) {
+		this.user = user;
+	}
+
 }

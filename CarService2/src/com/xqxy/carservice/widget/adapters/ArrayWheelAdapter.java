@@ -15,6 +15,9 @@
  */
 package com.xqxy.carservice.widget.adapters;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import android.content.Context;
 
 /**
@@ -24,14 +27,14 @@ import android.content.Context;
 public class ArrayWheelAdapter<T> extends AbstractWheelTextAdapter {
     
     // items
-    private T items[];
+    private ArrayList<T> items;
 
     /**
      * Constructor
      * @param context the current context
      * @param items the items
      */
-    public ArrayWheelAdapter(Context context, T items[]) {
+    public ArrayWheelAdapter(Context context, ArrayList<T> items) {
         super(context);
         
         //setEmptyItemResource(TEXT_VIEW_ITEM_RESOURCE);
@@ -40,10 +43,12 @@ public class ArrayWheelAdapter<T> extends AbstractWheelTextAdapter {
     
     @Override
     public CharSequence getItemText(int index) {
-        if (index >= 0 && index < items.length) {
-            T item = items[index];
+        if (index >= 0 && index < items.size()) {
+            T item = items.get(index);
             if (item instanceof CharSequence) {
                 return (CharSequence) item;
+            }else if(item instanceof HashMap){
+            	return ((HashMap)item).get("name").toString();
             }
             return item.toString();
         }
@@ -52,6 +57,6 @@ public class ArrayWheelAdapter<T> extends AbstractWheelTextAdapter {
 
     @Override
     public int getItemsCount() {
-        return items.length;
+        return items.size();
     }
 }

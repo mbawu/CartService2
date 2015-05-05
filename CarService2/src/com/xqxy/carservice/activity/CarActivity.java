@@ -78,7 +78,7 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 			NetworkAction requestType) {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
-		if (requestType.equals(NetworkAction.carF_brand)) {
+		if (requestType == NetworkAction.carF_brand) {
 			brandAdapter = new CarInfoAdapter(this, NetworkAction.carF_brand,
 					responseWrapper.getBrand());
 			brandSpinner.setAdapter(brandAdapter);
@@ -93,7 +93,7 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 					}
 				}
 			}
-		} else if (requestType.equals(NetworkAction.carF_series)) {
+		} else if (requestType == NetworkAction.carF_series) {
 			seriesAdapter = new CarInfoAdapter(this, NetworkAction.carF_series,
 					responseWrapper.getSeries());
 			seriesSpinner.setAdapter(seriesAdapter);
@@ -108,7 +108,7 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 					}
 				}
 			}
-		} else if (requestType.equals(NetworkAction.carF_model)) {
+		} else if (requestType == NetworkAction.carF_model) {
 			modelAdapter = new CarInfoAdapter(this, NetworkAction.carF_model,
 					responseWrapper.getModel());
 			modelSpinner.setAdapter(modelAdapter);

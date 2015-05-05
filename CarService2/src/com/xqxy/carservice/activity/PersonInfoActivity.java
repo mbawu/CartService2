@@ -25,6 +25,7 @@ import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
 import com.xqxy.carservice.view.PhotoSelectDialog;
 import com.xqxy.carservice.view.TopTitleView;
+import com.xqxy.model.UserInfo;
 
 public class PersonInfoActivity extends PhotoActivity implements
 		OnClickListener {
@@ -34,7 +35,7 @@ public class PersonInfoActivity extends PhotoActivity implements
 	private ImageView imgHeadPhoto;
 	private String imgPath = Environment.getExternalStorageDirectory()
 			.getPath() + "/CarTemp/head.jpg";
-	
+
 	private String txtPath = Environment.getExternalStorageDirectory()
 			.getPath() + "/CarTemp/head.txt";
 
@@ -49,7 +50,10 @@ public class PersonInfoActivity extends PhotoActivity implements
 		findViewById(R.id.btn_person_info_exit).setOnClickListener(this);
 		dialog = new PhotoSelectDialog(this, imgPath);
 		setImgPath(imgPath);
+
+
 	}
+
 
 	@Override
 	public void onClick(View v) {
@@ -74,52 +78,51 @@ public class PersonInfoActivity extends PhotoActivity implements
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
 		super.showResualt(responseWrapper, requestType);
-		if(requestType == NetworkAction.centerF_head){
-			
+		if (requestType == NetworkAction.centerF_head) {
+
+		}else if(requestType == NetworkAction.centerF_user){
+			UserInfo user = responseWrapper.getUser();
 		}
 	}
-	
-	
+
 	public void uploadImg(String imagePath) {
 		Toast.makeText(this, imagePath, Toast.LENGTH_SHORT).show();
-		
+
 		try {
-			File file = new File(imagePath);  
-			FileInputStream in = new FileInputStream(file);  
-			byte[] buffer = new byte[(int) file.length()];  
-			int length = in.read(buffer);  
-			String data = Base64.encodeToString(buffer, 0, length,  
-			        Base64.DEFAULT);
+			File file = new File(imagePath);
+			FileInputStream in = new FileInputStream(file);
+			byte[] buffer = new byte[(int) file.length()];
+			int length = in.read(buffer);
+			String data = Base64.encodeToString(buffer, 0, length,
+					Base64.DEFAULT);
 			in.close();
-			
-			
-		        byte[] bytexml = data.getBytes();  
-		          
-		        try {  
-		            OutputStream os = new FileOutputStream(new File(txtPath));  
-		            os.write(bytexml);  
-		            os.flush();  
-		            os.close();  
-		        } catch (FileNotFoundException e) {  
-		            // TODO Auto-generated catch block  
-		            e.printStackTrace();  
-		        } catch (IOException e) {  
-		            // TODO Auto-generated catch block  
-		            e.printStackTrace();  
-		        }  
-			
-			
+
+			byte[] bytexml = data.getBytes();
+
+			try {
+				OutputStream os = new FileOutputStream(new File(txtPath));
+				os.write(bytexml);
+				os.flush();
+				os.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 			RequestWrapper request = new RequestWrapper();
-			request.setIdentity( MyApplication.identity);
+			request.setIdentity(MyApplication.identity);
 			request.setFile(data);
 			sendData(request, NetworkAction.centerF_head);
-			        
+
 		} catch (FileNotFoundException e) {
-			
+
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}  
+		}
 	}
 }

@@ -7,31 +7,35 @@
 
     <include layout="@layout/top_title_layout" />
 
-   <LinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal" >
 
-       
         <ListView
-            android:layout_marginTop="5dp"
             android:id="@+id/listview"
             android:layout_width="160dp"
             android:layout_height="match_parent"
             android:choiceMode="singleChoice"
             android:divider="#FFFFFF"
             android:dividerHeight="8dp"
-            android:listSelector="@drawable/category_item_bg" >
+            android:listSelector="@color/blue" >
         </ListView>
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/line_bg_color" />
 
-        <com.xqxy.carservice.widget.WheelView
-            android:id="@+id/id_province"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#FFFFFF" >
-        </com.xqxy.carservice.widget.WheelView>
+        <ListView
+            android:id="@+id/listview_product"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="1dp"
+            android:choiceMode="singleChoice"
+            android:divider="@color/province_line_border"
+            android:listSelector="@color/blue" >
+        </ListView>
     </LinearLayout>
 
 </LinearLayout>
