@@ -1,6 +1,11 @@
 package com.xqxy.baseclass;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
@@ -10,6 +15,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 
 public abstract class PhotoActivity extends BaseActivity {
@@ -133,4 +139,40 @@ public abstract class PhotoActivity extends BaseActivity {
 	}
 
 	public abstract void uploadImg(String imagePath);
+
+	protected String fileToString(String url) {
+		String data = null;
+		try {
+			File file = new File(url);
+			FileInputStream in = new FileInputStream(file);
+			byte[] buffer = new byte[(int) file.length()];
+			int length = in.read(buffer);
+			data = Base64.encodeToString(buffer, 0, length, Base64.DEFAULT);
+			in.close();
+
+			// byte[] byteData = data.getBytes();
+
+			// try {
+			// OutputStream os = new FileOutputStream(new File(url + ".txt"));
+			// os.write(byteData);
+			// os.flush();
+			// os.close();
+			// } catch (FileNotFoundException e) {
+			//
+			// e.printStackTrace();
+			// } catch (IOException e) {
+			//
+			// e.printStackTrace();
+			// }
+
+		} catch (FileNotFoundException e) {
+
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return data;
+	}
+
 }

@@ -28,4 +28,7 @@
     <string name="storecard_date">有效期：%1$s</string>
     <string name="storecard_price">价格：￥%1$s</string>
 	<string name="storecard_worth">价值：￥%1$s</string>
+	<string name="user_sex_man">%1$s先生</string>
+	<string name="user_sex_woman">%1$s女士</string>
+	<string name="user_credit">%1$s积分</string>
 </resources>

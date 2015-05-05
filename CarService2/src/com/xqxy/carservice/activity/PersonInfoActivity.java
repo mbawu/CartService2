@@ -1,20 +1,11 @@
 package com.xqxy.carservice.activity;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Base64;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.xqxy.baseclass.MyApplication;
@@ -23,6 +14,7 @@ import com.xqxy.baseclass.PhotoActivity;
 import com.xqxy.baseclass.RequestWrapper;
 import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
+import com.xqxy.carservice.view.CarImageView;
 import com.xqxy.carservice.view.PhotoSelectDialog;
 import com.xqxy.carservice.view.TopTitleView;
 import com.xqxy.model.UserInfo;
@@ -32,28 +24,31 @@ public class PersonInfoActivity extends PhotoActivity implements
 	Dialog dialog;
 
 	private TopTitleView topTitleView;
-	private ImageView imgHeadPhoto;
+	private CarImageView imgHeadPhoto;
 	private String imgPath = Environment.getExternalStorageDirectory()
 			.getPath() + "/CarTemp/head.jpg";
 
-	private String txtPath = Environment.getExternalStorageDirectory()
-			.getPath() + "/CarTemp/head.txt";
+	private String src;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.person_info_layout);
+		src = getIntent().getStringExtra("src");
 		topTitleView = new TopTitleView(this);
-		imgHeadPhoto = (ImageView) findViewById(R.id.img_person_info_head);
+		imgHeadPhoto = (CarImageView) findViewById(R.id.img_person_info_head);
 		findViewById(R.id.text_person_info_car).setOnClickListener(this);
 		findViewById(R.id.layout_person_info_head).setOnClickListener(this);
 		findViewById(R.id.btn_person_info_exit).setOnClickListener(this);
+
+		if (src != null) {
+			imgHeadPhoto.loadImage(src);
+		}
+
 		dialog = new PhotoSelectDialog(this, imgPath);
 		setImgPath(imgPath);
 
-
 	}
-
 
 	@Override
 	public void onClick(View v) {
@@ -79,49 +74,33 @@ public class PersonInfoActivity extends PhotoActivity implements
 			NetworkAction requestType) {
 		super.showResualt(responseWrapper, requestType);
 		if (requestType == NetworkAction.centerF_head) {
-
-		}else if(requestType == NetworkAction.centerF_user){
-			UserInfo user = responseWrapper.getUser();
+			String imgsrc = responseWrapper.getSrc();
+			if (src != null && !"".equals(imgsrc)) {
+				imgHeadPhoto.loadImage(imgsrc);
+				this.src = imgsrc;
+				Intent intent = new Intent();
+				intent.putExtra("src", imgsrc);
+				setResult(PersonCentreActivity.REQUEST_CODE_PHOTO, intent);
+			}
 		}
 	}
 
 	public void uploadImg(String imagePath) {
-		Toast.makeText(this, imagePath, Toast.LENGTH_SHORT).show();
 
 		try {
-			File file = new File(imagePath);
-			FileInputStream in = new FileInputStream(file);
-			byte[] buffer = new byte[(int) file.length()];
-			int length = in.read(buffer);
-			String data = Base64.encodeToString(buffer, 0, length,
-					Base64.DEFAULT);
-			in.close();
-
-			byte[] bytexml = data.getBytes();
-
-			try {
-				OutputStream os = new FileOutputStream(new File(txtPath));
-				os.write(bytexml);
-				os.flush();
-				os.close();
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			String data = fileToString(imagePath);
+			if (data != null) {
+				RequestWrapper request = new RequestWrapper();
+				request.setIdentity(MyApplication.identity);
+				request.setFile(data);
+				request.setShowDialog(true);
+				sendData(request, NetworkAction.centerF_head);
+			} else {
+				Toast.makeText(this, "获取图片失败", Toast.LENGTH_SHORT).show();
 			}
 
-			RequestWrapper request = new RequestWrapper();
-			request.setIdentity(MyApplication.identity);
-			request.setFile(data);
-			sendData(request, NetworkAction.centerF_head);
+		} catch (Exception e) {
 
-		} catch (FileNotFoundException e) {
-
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

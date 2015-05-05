@@ -2,7 +2,6 @@ package com.xqxy.carservice.activity;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,8 +22,9 @@ import com.xqxy.baseclass.NetworkAction;
 import com.xqxy.baseclass.RequestWrapper;
 import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
+import com.xqxy.carservice.view.CarImageView;
 import com.xqxy.model.Message;
-import com.xqxy.person.AddressAddActivity;
+import com.xqxy.model.UserInfo;
 import com.xqxy.person.AdressActivity;
 import com.xqxy.person.CouponActivity;
 import com.xqxy.person.CreditActivity;
@@ -34,7 +35,8 @@ import com.xqxy.person.StoreCardActivity;
 
 public class PersonCentreActivity extends BaseActivity implements
 		OnClickListener {
-
+	public static int REQUEST_CODE_PHOTO = 1;
+	private LinearLayout layoutUser;
 	private ImageView backImageView;
 	private TextView titleTextView;
 	private TextView rightBtnTextView;
@@ -44,11 +46,15 @@ public class PersonCentreActivity extends BaseActivity implements
 	private TextView address;
 	private FrameLayout message;
 	private TextView other;
-	private TextView credit;
+	private TextView creditText;
 	private TextView msgNum;
-	private ImageView headImg;
+	private CarImageView headImg;
+	private TextView textSex;
+	private TextView textScore;
 	private ArrayList<Message> data;
 	private Intent msgIntent;
+
+	private UserInfo user;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +63,29 @@ public class PersonCentreActivity extends BaseActivity implements
 		init();
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (MyApplication.loginStat) {
+			layoutUser.setVisibility(View.VISIBLE);
+			if (user == null) {
+				RequestWrapper request = new RequestWrapper();
+				request.setIdentity(MyApplication.identity);
+				sendData(request, NetworkAction.centerF_user);
+			}
+		} else {
+			layoutUser.setVisibility(View.INVISIBLE);
+			user = null;
+		}
+	}
+
 	private void init() {
 		// 登录
-		RequestWrapper wrapper = new RequestWrapper();
-		wrapper.setPhone("13466899985");
-		wrapper.setPassword("1");
-		sendData(wrapper, NetworkAction.userF_login);
+		/*
+		 * RequestWrapper wrapper = new RequestWrapper();
+		 * wrapper.setPhone("13466899985"); wrapper.setPassword("1");
+		 * sendData(wrapper, NetworkAction.userF_login);
+		 */
 
 		backImageView = (ImageView) findViewById(R.id.imageTopBack);
 		titleTextView = (TextView) findViewById(R.id.textTopTitle);
@@ -74,9 +97,11 @@ public class PersonCentreActivity extends BaseActivity implements
 		address = (TextView) findViewById(R.id.personCenterItemAddress);
 		message = (FrameLayout) findViewById(R.id.personCenterItemMessage);
 		other = (TextView) findViewById(R.id.personCenterItemOther);
-		credit = (TextView) findViewById(R.id.textPersonCenterCredits);
+		creditText = (TextView) findViewById(R.id.textPersonCenterCredits);
 		msgNum = (TextView) findViewById(R.id.msgNum);
-		headImg = (ImageView) findViewById(R.id.imagePersonCenterHeader);
+		headImg = (CarImageView) findViewById(R.id.imagePersonCenterHeader);
+		layoutUser = (LinearLayout) findViewById(R.id.layout_user);
+		textSex = (TextView) findViewById(R.id.textPersonCenterSex);
 		headImg.setOnClickListener(this);
 		backImageView.setOnClickListener(this);
 		order.setOnClickListener(this);
@@ -85,7 +110,7 @@ public class PersonCentreActivity extends BaseActivity implements
 		address.setOnClickListener(this);
 		message.setOnClickListener(this);
 		other.setOnClickListener(this);
-		credit.setOnClickListener(this);
+		creditText.setOnClickListener(this);
 
 		// 注册广播
 		registerBoradcastReceiver();
@@ -96,11 +121,11 @@ public class PersonCentreActivity extends BaseActivity implements
 			NetworkAction requestType) {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
-		if (requestType.equals(NetworkAction.userF_login)) {
+		if (requestType == NetworkAction.userF_login) {
 			MyApplication.identity = responseWrapper.getIdentity().get(0)
 					.getIdentity();
 			getMsg();
-		} else if (requestType.equals(NetworkAction.centerF_user_msg)) {
+		} else if (requestType == NetworkAction.centerF_user_msg) {
 			data = responseWrapper.getInfo();
 			int count = 0;
 			for (int i = 0; i < data.size(); i++) {
@@ -115,6 +140,24 @@ public class PersonCentreActivity extends BaseActivity implements
 			// Bundle bundle = new Bundle();
 			// bundle.putSerializable("datas", data);
 			// msgIntent.putExtras(bundle);
+		} else if (requestType == NetworkAction.centerF_user) {
+			user = responseWrapper.getUser();
+			if (user != null) {
+				if (user.getHead() != null && !"".equals(user.getHead())) {
+					headImg.loadImage(user.getHead());
+				}
+				if ("1".equals(user.getSex())) {
+					textSex.setText(getString(R.string.user_sex_man,
+							user.getSurname()));
+				} else {
+					textSex.setText(getString(R.string.user_sex_woman,
+							user.getSurname()));
+				}
+
+				creditText.setText(getString(R.string.user_credit,
+						user.getIntegral()));
+			}
+
 		}
 	}
 
@@ -199,12 +242,31 @@ public class PersonCentreActivity extends BaseActivity implements
 			break;
 		case R.id.imagePersonCenterHeader:
 			intent = new Intent().setClass(this, PersonInfoActivity.class);
-			break;
+			if (user != null && user.getHead() != null) {
+				intent.putExtra("src", user.getHead());
+			}
+			startActivityForResult(intent, REQUEST_CODE_PHOTO);
+			return;
 		}
 
 		if (intent != null)
 			startActivity(intent);
 
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == REQUEST_CODE_PHOTO && MyApplication.loginStat
+				&& data != null) {
+			String src = data.getStringExtra("src");
+			if (src != null) {
+				headImg.loadImage(src);
+				if (user != null) {
+					user.setHead(src);
+				}
+			}
+		}
 	}
 
 }
