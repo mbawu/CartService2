@@ -31,6 +31,7 @@
             android:id="@+id/login_username"
 			style="@style/editStyle"
             android:inputType="phone"
+            android:text="13466899985"
             android:drawableLeft="@drawable/username_ico"
             android:hint="请输入手机号"/>
         

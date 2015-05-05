@@ -24,7 +24,7 @@ public class MyApplication extends Application {
 	public static Editor ed; // 本地存储编辑器Editor
 
 	public static String identity; 
-	public static boolean loginStat=true;
+	public static boolean loginStat=false;
 	public static boolean refresh=false; //是否需要刷新
 
 

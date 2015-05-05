@@ -34,7 +34,7 @@
                 android:textColor="#000000"
                 android:textSize="20sp" />
 
-            <ImageView
+            <com.xqxy.carservice.view.CarImageView
                 android:id="@+id/img_person_info_head"
                 android:layout_width="70dp"
                 android:layout_height="70dp"

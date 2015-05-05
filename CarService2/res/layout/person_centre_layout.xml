@@ -8,15 +8,16 @@
     <include layout="@layout/top_title_layout" />
 
     <LinearLayout
+        android:id="@+id/layout_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
         android:gravity="center_horizontal"
-        android:visibility="gone"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:visibility="invisible" >
 
-        <ImageView
+        <com.xqxy.carservice.view.CarImageView
             android:id="@+id/imagePersonCenterHeader"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -27,14 +28,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="女士" />
+            android:textSize="@dimen/font_size_30px"
+            android:textColor="#3c3c3c"
+           />
 
         <TextView
             android:id="@+id/textPersonCenterCredits"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="积分" />
+             android:textSize="@dimen/font_size_24px"
+            android:textColor="#e94f3a"
+             />
     </LinearLayout>
 
     <TextView
@@ -63,36 +68,36 @@
 
     <FrameLayout
         android:id="@+id/personCenterItemMessage"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:background="@drawable/person_item_border_normal"
-         android:layout_marginLeft="50dp"
-         android:layout_marginRight="50dp"
-         android:paddingTop="4dp"
-         android:paddingBottom="4dp"
-         android:layout_marginTop="5dp"
-         android:layout_marginBottom="5dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/person_item_border_normal"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp" >
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/person_message"
             android:gravity="center"
-            android:textSize="18sp"
             android:text="我的消息"
-            android:textColor="#FFFFFF" />
-        
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
         <TextView
-             android:id="@+id/msgNum"
+            android:id="@+id/msgNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_gravity="right|center"
-            android:text="0"
             android:layout_marginRight="10dp"
-            android:textSize="13sp"
             android:background="@drawable/msg_ico"
-            android:textColor="#FFFFFF" />
+            android:gravity="center"
+            android:text="0"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp" />
     </FrameLayout>
 
     <TextView
