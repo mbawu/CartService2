@@ -15,6 +15,7 @@ public class RequestWrapper {
 	private String sex;
 	private String phone;
 	private String id;
+	private String cid;
 	private String oid;
 	private String bid;
 	private String sid;
@@ -210,6 +211,12 @@ public class RequestWrapper {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getCid() {
+		return cid;
+	}
+	public void setCid(String cid) {
+		this.cid = cid;
 	}
 	
 	

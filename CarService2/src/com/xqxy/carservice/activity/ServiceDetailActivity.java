@@ -110,6 +110,9 @@ public class ServiceDetailActivity extends BaseActivity implements
 				});
 			}
 			sendDataByGet(request, NetworkAction.indexF_product_attr);
+
+			progressDialog = createDialog();
+			progressDialog.show();
 		} else {
 			Toast.makeText(this, "服务项目不存在--", Toast.LENGTH_SHORT).show();
 			finish();
@@ -133,6 +136,7 @@ public class ServiceDetailActivity extends BaseActivity implements
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
 		super.showResualt(responseWrapper, requestType);
+		respCount++;
 		if (requestType == NetworkAction.indexF_product_details) {
 			product = responseWrapper.getProduct_details();
 			if (product != null) {
@@ -172,6 +176,9 @@ public class ServiceDetailActivity extends BaseActivity implements
 					radioGroupAttr.addView(radioBtn);
 				}
 			}
+		}
+		if (respCount == 2) {
+			progressDialog.dismiss();
 		}
 	}
 

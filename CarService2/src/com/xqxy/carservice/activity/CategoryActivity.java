@@ -5,47 +5,87 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.xqxy.baseclass.BaseActivity;
+import com.xqxy.baseclass.MyApplication;
 import com.xqxy.baseclass.NetworkAction;
 import com.xqxy.baseclass.RequestWrapper;
 import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
 import com.xqxy.carservice.view.TopTitleView;
-import com.xqxy.carservice.widget.WheelView;
-import com.xqxy.carservice.widget.adapters.ArrayWheelAdapter;
 import com.xqxy.model.Category;
+import com.xqxy.model.CategoryProduct;
 
-public class CategoryActivity extends BaseActivity {
+public class CategoryActivity extends BaseActivity implements
+		AdapterView.OnItemClickListener {
 
 	private ListView listView;
+	private ListView listViewProduct;
 	private TopTitleView topTitleView;
-	private WheelView mViewProvince;
-	protected String[] mProvinceDatas = new String[] { "甘肃1", "甘肃2", "甘肃3",
-			"甘肃4", "甘肃5", "甘肃6", "甘肃7", "甘肃8", "甘肃9", "甘肃10" };
 
 	private List<Category> categorys;
+	private ArrayAdapter<CategoryProduct> cpAdapter;
+	private MyApplication app;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.category_layout);
+		app = (MyApplication) getApplication();
 		topTitleView = new TopTitleView(this);
 		topTitleView.setTitle("服务分类");
 		listView = (ListView) findViewById(R.id.listview);
-		mViewProvince = (WheelView) findViewById(R.id.id_province);
+		listViewProduct = (ListView) findViewById(R.id.listview_product);
 
-		ArrayWheelAdapter ad = new ArrayWheelAdapter<String>(
-				CategoryActivity.this, mProvinceDatas);
-		mViewProvince.setViewAdapter(ad);
-		// 设置可见条目数量
-		mViewProvince.setVisibleItems(7);
+		cpAdapter = new ArrayAdapter<CategoryProduct>(this,
+				R.layout.category_produc_item);
+		listViewProduct.setAdapter(cpAdapter);
 
-		sendData(new RequestWrapper(), NetworkAction.indexF_column);
+		listView.setOnItemClickListener(this);
+		listViewProduct.setOnItemClickListener(this);
+
+		RequestWrapper request = new RequestWrapper();
+		request.setShowDialog(true);
+		sendData(request, NetworkAction.indexF_column);
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		if (parent == listView) {
+			Map<String, Object> map = (HashMap<String, Object>) parent
+					.getItemAtPosition(position);
+			String cid = map.get("cid").toString();
+			if (cid != null && !"".equals(cid)) {
+				getCategoryProduct(cid);
+			}
+		} else if (parent == listViewProduct) {
+			CategoryProduct cp = cpAdapter.getItem(position);
+
+			Intent intent = new Intent();
+			intent.putExtra("pid", cp.getPid());
+			intent.putExtra("flag", cp.getFlag());
+			if ("2".equals(cp.getFlag())) {// 其他类，直接打开
+				intent.setClass(this, ServiceDetailActivity.class);
+				startActivity(intent);
+			} else {
+				if (app.getCar() == null) {
+					intent.setClass(this, CarActivity.class);
+					startActivity(intent);
+				} else {
+					intent.setClass(this, ServiceDetailActivity.class);
+					startActivity(intent);
+				}
+			}
+		}
+
 	}
 
 	public void showResualt(ResponseWrapper responseWrapper,
@@ -56,6 +96,7 @@ public class CategoryActivity extends BaseActivity {
 				List<Map<String, Object>> dataMaps = new ArrayList<Map<String, Object>>();
 				for (int i = 1, j = 0; i < categorys.size(); i++, j++) {
 					Map map = new HashMap<String, Object>();
+					map.put("cid", categorys.get(i).getCid());
 					map.put("img", iconIds[j]);
 					map.put("text", categorys.get(i).getName());
 					dataMaps.add(map);
@@ -70,11 +111,23 @@ public class CategoryActivity extends BaseActivity {
 								R.id.text_category_item_title });
 				listView.setAdapter(ad1);
 			}
+		} else if (requestType == NetworkAction.indexF_column_product) {
+			List<CategoryProduct> cps = responseWrapper.getColumn_product();
+			cpAdapter.clear();
+			cpAdapter.addAll(cps);
 		}
+	}
+
+	private void getCategoryProduct(String cid) {
+		RequestWrapper request = new RequestWrapper();
+		request.setShowDialog(true);
+		request.setCid(cid);
+		sendDataByGet(request, NetworkAction.indexF_column_product);
 	}
 
 	public int iconIds[] = new int[] { R.drawable.category_1,
 			R.drawable.category_2, R.drawable.category_3,
 			R.drawable.category_4, R.drawable.category_5,
 			R.drawable.category_6, R.drawable.category_7, R.drawable.category_8 };
+
 }

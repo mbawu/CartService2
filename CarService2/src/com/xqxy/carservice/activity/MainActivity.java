@@ -77,6 +77,8 @@ public class MainActivity extends BaseActivity {
 	}
 
 	public void sendRequest() {
+		progressDialog = createDialog();
+		progressDialog.show();
 		sendData(new RequestWrapper(), NetworkAction.indexF_banner);
 		sendData(new RequestWrapper(), NetworkAction.indexF_product);
 	}
@@ -85,6 +87,7 @@ public class MainActivity extends BaseActivity {
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
 		super.showResualt(responseWrapper, requestType);
+		respCount++;
 		if (requestType == NetworkAction.indexF_banner) {
 			banners = responseWrapper.getBanner();
 			if (banners != null && banners.size() > 0) {
@@ -96,6 +99,9 @@ public class MainActivity extends BaseActivity {
 				productAdapter.setDataList(products);
 				productAdapter.notifyDataSetChanged();
 			}
+		}
+		if (respCount == 2) {
+			progressDialog.dismiss();
 		}
 	}
 
@@ -228,7 +234,8 @@ public class MainActivity extends BaseActivity {
 							intent.setClass(activity, CarActivity.class);
 							activity.startActivity(intent);
 						} else {
-							intent.setClass(activity, ServiceDetailActivity.class);
+							intent.setClass(activity,
+									ServiceDetailActivity.class);
 							activity.startActivity(intent);
 						}
 					}
