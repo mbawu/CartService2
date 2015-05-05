@@ -46,10 +46,10 @@
         
                 <!-- meta-data需要写在application中 -->
         <!-- release Z28KS5vL789wVA1G2bh1FCd0 -->
-        <!-- debug   UuotQapRSmw0UzLD5y4KXG8G -->
+        <!-- debug   rLXkxWKihXM0DIjQ0emxPSmX -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="Z28KS5vL789wVA1G2bh1FCd0" />
+            android:value="rLXkxWKihXM0DIjQ0emxPSmX" />
         
         <activity android:name="com.xqxy.carservice.activity.MainActivity" >
             <intent-filter>
