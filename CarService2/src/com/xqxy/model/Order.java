@@ -17,6 +17,7 @@ public class Order {
 	private String car_num;
 	private String name;
 	private String flag;
+	private String appnum;
 	private List<OrderProduct> product;
 
 	public String getOid() {
@@ -137,6 +138,14 @@ public class Order {
 
 	public void setProduct(List<OrderProduct> product) {
 		this.product = product;
+	}
+
+	public String getAppnum() {
+		return appnum;
+	}
+
+	public void setAppnum(String appnum) {
+		this.appnum = appnum;
 	}
 
 }

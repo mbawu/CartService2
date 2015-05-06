@@ -12,11 +12,11 @@
     <string name="car_item_pl">排量：%1$s</string>
     <string name="car_item_bypl">保养频率：%1$s</string>
     <string name="order_price">￥%1$s</string>
+    <string name="product_time">约%1$s分钟</string>
     <string name="order_status_waiting">等待服务</string>
     <string name="order_status_accept">服务进行中</string>
     <string name="order_status_finish">服务完成</string>
     <string name="order_status_cancel">已取消</string>
-    
     <string name="order_btn_finish">确认完成</string>
     <string name="order_btn_evaluate">评价订单</string>
     <string name="order_btn_delete">删除订单</string>
@@ -27,8 +27,9 @@
     <string name="storecard_num">卡片编号：%1$s</string>
     <string name="storecard_date">有效期：%1$s</string>
     <string name="storecard_price">价格：￥%1$s</string>
-	<string name="storecard_worth">价值：￥%1$s</string>
-	<string name="user_sex_man">%1$s先生</string>
-	<string name="user_sex_woman">%1$s女士</string>
-	<string name="user_credit">%1$s积分</string>
+    <string name="storecard_worth">价值：￥%1$s</string>
+    <string name="user_sex_man">%1$s先生</string>
+    <string name="user_sex_woman">%1$s女士</string>
+    <string name="user_credit">%1$s积分</string>
+
 </resources>

@@ -1,12 +1,19 @@
 package com.xqxy.model;
 
-public class OrderProduct {
+import java.io.Serializable;
+
+public class OrderProduct implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String pid;
 	private String price;
 	private String name;
 	private String attrname;
 	private String time;
 	private String cid;
+	private String pic;
 	public String getPid() {
 		return pid;
 	}
@@ -42,6 +49,12 @@ public class OrderProduct {
 	}
 	public void setCid(String cid) {
 		this.cid = cid;
+	}
+	public String getPic() {
+		return pic;
+	}
+	public void setPic(String pic) {
+		this.pic = pic;
 	}
 	
 }

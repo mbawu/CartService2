@@ -49,7 +49,7 @@ public class PhotoSelectDialog extends Dialog implements
 	@Override
 	public void onClick(View v) {
 		File vFile = new File(imgPath);
-		if (!vFile.exists()) {
+		if (v.getId() != R.id.btn_person_cancel && !vFile.exists()) {
 			File vDirPath = vFile.getParentFile();
 			vDirPath.mkdirs();
 		}
@@ -57,7 +57,8 @@ public class PhotoSelectDialog extends Dialog implements
 			Uri uri = Uri.fromFile(vFile);
 			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 			intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);//
-			activity.startActivityForResult(intent, PhotoActivity.REQUEST_CODE_CAMERA);
+			activity.startActivityForResult(intent,
+					PhotoActivity.REQUEST_CODE_CAMERA);
 		} else if (v.getId() == R.id.btn_person_select) {
 			Intent photoIntent = new Intent();
 			photoIntent.setType("image/*");
@@ -71,6 +72,14 @@ public class PhotoSelectDialog extends Dialog implements
 
 		}
 		this.dismiss();
+	}
+
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
 	}
 
 }
