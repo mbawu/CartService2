@@ -110,7 +110,7 @@ public class CallServiceActivity extends BaseActivity implements
 					public void onDateChanged(DatePicker view, int year,
 							int monthOfYear, int dayOfMonth) {
 
-						if (isDateBefore(timePicker, view)) {
+						if (isDateBefore(timePicker, view) || isDateAfter(timePicker, view)) {
 							view.init(calendar.get(Calendar.YEAR),
 									calendar.get(Calendar.MONTH),
 									calendar.get(Calendar.DAY_OF_MONTH), this);
@@ -125,6 +125,8 @@ public class CallServiceActivity extends BaseActivity implements
 								timePicker.setCurrentMinute((calendar
 										.get(Calendar.MINUTE) + 40));
 							}
+							
+							initTime();
 						}
 					}
 
@@ -135,7 +137,7 @@ public class CallServiceActivity extends BaseActivity implements
 
 			@Override
 			public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-				if (isDateBefore(view, datePicker)) {
+				if (isDateBefore(view, datePicker) || isDateAfter(view, datePicker)) {
 					initTime();
 				}
 
@@ -157,16 +159,40 @@ public class CallServiceActivity extends BaseActivity implements
 		} else
 			mCalendar.set(calendar.get(Calendar.YEAR),
 					calendar.get(Calendar.MONTH),
-					calendar.get(Calendar.DAY_OF_MONTH), hour, minute, 0);
+					calendar.get(Calendar.DAY_OF_MONTH), hour, minute+40, 0);
 
-		tempCalendar.set(date.getYear(), date.getMonth(), date.getDayOfMonth(),
-				tempView.getCurrentHour(), tempView.getCurrentMinute(), 0);
+		tempCalendar.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(),
+				timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
 		if (tempCalendar.before(mCalendar))
 			return true;
 		else
 			return false;
 	}
 
+	private boolean isDateAfter(TimePicker tempView, DatePicker date) {
+		Calendar mCalendar = Calendar.getInstance();
+		Calendar tempCalendar = Calendar.getInstance();
+
+		int hour = calendar.get(Calendar.HOUR_OF_DAY);
+		int minute = calendar.get(Calendar.MINUTE);
+		if (minute + 40 > 60) {
+			mCalendar.set(calendar.get(Calendar.YEAR),
+					calendar.get(Calendar.MONTH),
+					calendar.get(Calendar.DAY_OF_MONTH)+2, hour + 1,
+					(minute + 40 - 60));
+		} else
+			mCalendar.set(calendar.get(Calendar.YEAR),
+					calendar.get(Calendar.MONTH),
+					calendar.get(Calendar.DAY_OF_MONTH)+2, hour, minute+40, 0);
+
+		tempCalendar.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(),
+				timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+		if (tempCalendar.after(mCalendar))
+			return true;
+		else
+			return false;
+	}
+	
 	private void initTime() {
 		int hour = calendar.get(Calendar.HOUR_OF_DAY);
 		int minute = calendar.get(Calendar.MINUTE);
@@ -175,7 +201,7 @@ public class CallServiceActivity extends BaseActivity implements
 			timePicker.setCurrentMinute(minute + 40 - 60);
 		} else {
 			timePicker.setCurrentHour(hour);
-			timePicker.setCurrentMinute(minute);
+			timePicker.setCurrentMinute(minute+40);
 		}
 	}
 
@@ -232,10 +258,7 @@ public class CallServiceActivity extends BaseActivity implements
 						+ "月" + datePicker.getDayOfMonth() + "日 ";
 				int hour = timePicker.getCurrentHour();
 				int minute = timePicker.getCurrentMinute();
-				if (minute + 40 > 60) {
-					time += (hour + 1) + "时" + (minute + 40 - 60) + "分";
-				} else
-					time += hour + "时" + (minute + 40) + "分";
+					time += hour + "时" + minute+ "分";
 			}
 			date = date + time;
 			dateTxt.setText(date);
