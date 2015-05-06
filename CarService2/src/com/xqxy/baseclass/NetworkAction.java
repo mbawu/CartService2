@@ -37,6 +37,7 @@ public enum NetworkAction {
 	centerF_affirm_order,//确认订单
 	centerF_cancel_order,//取消订单
 	centerF_del_order,//删除订单
+	centerF_appraise,
 	indexF_suggest,//投诉建议
 	orderF_index //立即预约
 	;

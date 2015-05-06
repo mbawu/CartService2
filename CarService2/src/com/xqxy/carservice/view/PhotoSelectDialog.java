@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.xqxy.baseclass.PhotoActivity;
 import com.xqxy.carservice.R;
@@ -20,7 +21,7 @@ import com.xqxy.carservice.R;
 public class PhotoSelectDialog extends Dialog implements
 		android.view.View.OnClickListener {
 	private Activity activity;
-	public Button btnCamera;
+	public ImageButton btnCamera;
 	public Button btnSelect;
 	public Button btnCancel;
 	private String imgPath;
@@ -30,7 +31,7 @@ public class PhotoSelectDialog extends Dialog implements
 		setContentView(R.layout.photo_select_layout);
 		this.activity = (Activity) context;
 		this.imgPath = imgPath;
-		btnCamera = (Button) findViewById(R.id.btn_person_camera);
+		btnCamera = (ImageButton) findViewById(R.id.btn_person_camera);
 		btnSelect = (Button) findViewById(R.id.btn_person_select);
 		btnCancel = (Button) findViewById(R.id.btn_person_cancel);
 		btnCamera.setOnClickListener(this);

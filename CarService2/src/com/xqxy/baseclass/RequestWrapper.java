@@ -1,4 +1,7 @@
 package com.xqxy.baseclass;
+
+import java.util.Map;
+
 /**
  * 
      * 此类描述的是： 请求参数的包装类
@@ -24,7 +27,7 @@ public class RequestWrapper {
 	private String lng;
 	private String lat;
 	private String file;
-
+	private String flag;
 	//用户标识
 	private String identity;
 	
@@ -50,6 +53,8 @@ public class RequestWrapper {
 	private String server_time;
 	private String note;
 	private boolean showDialog=false;
+	private Map<String,String> files;
+	
 	
 	
 	public String getNote() {
@@ -237,6 +242,18 @@ public class RequestWrapper {
 	}
 	public void setCid(String cid) {
 		this.cid = cid;
+	}
+	public Map<String, String> getFiles() {
+		return files;
+	}
+	public void setFiles(Map<String, String> files) {
+		this.files = files;
+	}
+	public String getFlag() {
+		return flag;
+	}
+	public void setFlag(String flag) {
+		this.flag = flag;
 	}
 	
 	

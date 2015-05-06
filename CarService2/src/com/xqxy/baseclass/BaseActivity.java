@@ -5,33 +5,22 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 import cn.jpush.android.api.JPushInterface;
 
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.xqxy.carservice.R;
-
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
-import android.content.DialogInterface.OnDismissListener;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 public class BaseActivity extends Activity {
 	private ArrayList<NetworkAction> requesType;// 记录当前页面所有的网络请求类型
@@ -42,7 +31,7 @@ public class BaseActivity extends Activity {
 	private long exitTime = 0;// 记录点击退出的时间间隔
 
 	protected int respCount = 0;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -96,7 +85,6 @@ public class BaseActivity extends Activity {
 				android.R.color.transparent);
 		return dialog;
 	}
-
 
 	public void sendData(RequestWrapper requestWrapper,
 			final NetworkAction requestType) {
@@ -221,7 +209,7 @@ public class BaseActivity extends Activity {
 			showResualt(null, null);
 			Log.i(Cst.TAG, msg);
 			Toast.makeText(BaseActivity.this, msg, Toast.LENGTH_SHORT).show();
-			
+
 			// if (progressDialog != null)
 			// progressDialog.dismiss();
 			// else if (progressDialog == null)
@@ -230,7 +218,6 @@ public class BaseActivity extends Activity {
 
 	}
 
-	
 	/**
 	 * 解析和显示服务器返回的结果
 	 * 
@@ -413,12 +400,22 @@ public class BaseActivity extends Activity {
 					try {
 						Object value = m[i].invoke(thisObj);
 						if (value != null) {
+
 							String key = method.substring(3);
 							key = key.substring(0, 1).toLowerCase()
 									+ key.substring(1);
 							if (key.equals("class"))
 								continue;
-							map.put(key, value.toString());
+							if (value instanceof String) {
+								map.put(key, value.toString());
+							} else if (value instanceof Map) {
+								Map<String, String> valueMap = (Map<String, String>) value;
+								Set<String> keySet = valueMap.keySet();
+								for (String k : keySet) {
+									map.put(k, valueMap.get(k));
+								}
+							}
+
 						}
 					} catch (Exception e) {
 						// TODO: handle exception

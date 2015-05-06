@@ -1,12 +1,12 @@
 package com.xqxy.carservice.activity;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.provider.Settings.System;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,16 +15,22 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xqxy.baseclass.Cst;
+import com.xqxy.baseclass.MyApplication;
+import com.xqxy.baseclass.NetworkAction;
 import com.xqxy.baseclass.PhotoActivity;
+import com.xqxy.baseclass.RequestWrapper;
+import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
 import com.xqxy.carservice.adapter.CarBaseAdapter;
 import com.xqxy.carservice.view.CarImageView;
 import com.xqxy.carservice.view.TopTitleView;
 import com.xqxy.model.OrderProduct;
 
-public class OrderEvaluateActivity extends PhotoActivity {
+public class OrderEvaluateActivity extends PhotoActivity implements
+		View.OnClickListener {
 	private TopTitleView topTitleView;
 
 	private ListView listView;
@@ -57,23 +63,66 @@ public class OrderEvaluateActivity extends PhotoActivity {
 		OrderEvaProductAdapter adapter = new OrderEvaProductAdapter(this);
 		adapter.setDataList(product);
 		listView.setAdapter(adapter);
-		btnSelect.setOnClickListener(new OnClickListener() {
+		btnSelect.setOnClickListener(this);
+		btnOk.setOnClickListener(this);
+	}
 
-			@Override
-			public void onClick(View v) {
+	@Override
+	public void showResualt(ResponseWrapper responseWrapper,
+			NetworkAction requestType) {
+		super.showResualt(responseWrapper, requestType);
+		if (requestType == NetworkAction.centerF_appraise) {
+			Toast.makeText(this, "评价成功", Toast.LENGTH_SHORT).show();
+			finish();
+		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		if (v.getId() == R.id.btn_order_eva_select_phone) {
+			if (imgLinearLayout.getChildCount() < 3) {
 				showSelectPhotoDialog(Cst.UPLOAD_TEMP
-						+ java.lang.System.currentTimeMillis() + ".jpg");
+						+ System.currentTimeMillis() + ".jpg");
+			} else {
+				Toast.makeText(this, "已经上传3张了,不能再传了.", Toast.LENGTH_SHORT)
+						.show();
 			}
-		});
+
+		} else if (v.getId() == R.id.btn_order_eva_save) {
+
+			RequestWrapper request = new RequestWrapper();
+			request.setIdentity(MyApplication.identity);
+			request.setOid(oid);
+			request.setContent(editContent.getText().toString());
+			request.setShowDialog(true);
+			if (radioBtnGood.isChecked()) {
+				request.setFlag("1");
+			} else {
+				request.setFlag("2");
+			}
+
+			int childCount = imgLinearLayout.getChildCount();
+			if (childCount > 0) {
+				String path;
+				Map<String, String> fileMap = new HashMap<String, String>();
+				for (int i = 0; i < childCount; i++) {
+					path = imgLinearLayout.getChildAt(i).getTag().toString();
+					fileMap.put("file" + (i + 1), fileToString(path));
+				}
+				request.setFiles(fileMap);
+			}
+			sendData(request, NetworkAction.centerF_appraise);
+		}
+
 	}
 
 	@Override
 	public void uploadImg(String imagePath) {
 		CarImageView img = (CarImageView) getLayoutInflater().inflate(
-				R.layout.order_eva_img, null);
+				R.layout.order_eva_img, imgLinearLayout, false);
 		img.setTag(imagePath);
 		imgLinearLayout.addView(img);
-		img.loadImage("file://"+imagePath);
+		img.loadImage("file://" + imagePath);
 
 	}
 
@@ -123,4 +172,5 @@ public class OrderEvaluateActivity extends PhotoActivity {
 		TextView textOrderProductTime;
 		CarImageView imageView;
 	}
+
 }

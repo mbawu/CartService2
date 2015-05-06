@@ -2,25 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="20dp" >
+
+    <ImageButton
+        android:id="@+id/btn_person_camera"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/blue"
+        android:src="@drawable/img_camera_s" />
 
     <Button
         android:id="@+id/btn_person_select"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="选择" />
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/blue"
+        android:text="相册"
+         android:textSize="20sp"
+        android:textColor="#FFFFFF" />
 
     <Button
-         android:id="@+id/btn_person_camera"
+        android:id="@+id/btn_person_cancel"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="拍照" />
-
-    <Button
-         android:id="@+id/btn_person_cancel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="取消" />
+        android:layout_height="50dp"
+        android:layout_marginTop="12dp"
+        android:background="#E6E6E6"
+        android:textSize="20sp"
+        android:text="取消"
+        android:textColor="#FFFFFF" />
 
 </LinearLayout>

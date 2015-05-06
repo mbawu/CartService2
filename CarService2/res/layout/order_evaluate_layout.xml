@@ -26,11 +26,6 @@
             android:visibility="visible" >
         </com.xqxy.carservice.view.MyListView>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#BDC7D8" />
-
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,7 +37,9 @@
                 android:id="@+id/radiobtn_order_eva_level_good"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:button="@drawable/radio_selector"
                 android:checked="true"
+                android:paddingLeft="24dp"
                 android:text="好评"
                 android:textColor="#646464"
                 android:textSize="@dimen/font_size_28px" />
@@ -51,6 +48,9 @@
                 android:id="@+id/radiobtn_order_eva_level_cha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:button="@drawable/radio_selector"
+                android:paddingLeft="24dp"
                 android:text="差评"
                 android:textColor="#646464"
                 android:textSize="@dimen/font_size_28px" />
@@ -80,7 +80,8 @@
                 <LinearLayout
                     android:id="@+id/layout_order_eva_img"
                     android:layout_width="0dp"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
                     android:gravity="left"
                     android:orientation="horizontal" >
@@ -88,8 +89,10 @@
 
                 <ImageButton
                     android:id="@+id/btn_order_eva_select_phone"
-                    android:layout_width="40dp"
-                    android:layout_height="60dp"
+                    android:layout_width="50dp"
+                    android:layout_height="38dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="3dp"
                     android:background="#00000000"
                     android:src="@drawable/img_camare" />
             </LinearLayout>
@@ -100,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/ok_btn_bg"
             android:paddingBottom="5dp"
             android:paddingLeft="20dp"
