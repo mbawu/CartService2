@@ -32,6 +32,7 @@ public class AdressActivity extends BaseActivity {
 	private ArrayList<Address> datas;
 	private TextView addBtn;
 	private RequestWrapper wrapper;
+	private boolean selectAddress=false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -48,7 +49,7 @@ public class AdressActivity extends BaseActivity {
 		// wrapper.setPhone("13466899985");
 		// wrapper.setPassword("1");
 		// sendData(wrapper, NetworkAction.userF_login);
-
+		check();
 		addBtn = (TextView) findViewById(R.id.address_add);
 		addBtn.setOnClickListener(new OnClickListener() {
 
@@ -67,13 +68,22 @@ public class AdressActivity extends BaseActivity {
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
 				Address address = datas.get(position);
-				Intent intent = new Intent();
-				intent.setClass(AdressActivity.this, AddressAddActivity.class);
-				intent.putExtra(AddressAddActivity.ADDRESS_ID, address.getAid());
-				Bundle bundle = new Bundle();
-				bundle.putSerializable("address", address);
-				intent.putExtras(bundle);
-				AdressActivity.this.startActivity(intent);
+				if(!selectAddress)
+				{
+					Intent intent = new Intent();
+					intent.setClass(AdressActivity.this, AddressAddActivity.class);
+					intent.putExtra(AddressAddActivity.ADDRESS_ID, address.getAid());
+					Bundle bundle = new Bundle();
+					bundle.putSerializable("address", address);
+					intent.putExtras(bundle);
+					AdressActivity.this.startActivity(intent);
+				}
+				else
+				{
+					CallServiceActivity.address=address;
+					finish();
+				}
+				
 			}
 		});
 		adapter = new AddressAdapter(this);
@@ -82,6 +92,16 @@ public class AdressActivity extends BaseActivity {
 		wrapper.setIdentity(MyApplication.identity);
 		wrapper.setShowDialog(true);
 		sendData(wrapper, NetworkAction.centerF_user_address);
+	}
+
+	private void check() {
+		Intent intent=getIntent();
+		String select=intent.getStringExtra("select");
+		if(select!=null)
+		{
+			selectAddress=true;
+		}
+		
 	}
 
 	@Override

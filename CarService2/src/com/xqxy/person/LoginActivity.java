@@ -58,6 +58,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
 			MyApplication.loginStat=true;
 			MyApplication.identity=responseWrapper.getIdentity().get(0).getIdentity();
+			finish();
 		}
 	}
 	@Override
@@ -81,6 +82,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			}
 			wrapper.setPhone(userName);
 			wrapper.setPassword(password);
+			wrapper.setShowDialog(true);
 			sendData(wrapper,NetworkAction.userF_login);
 			break;
 		// 忘记密码按钮

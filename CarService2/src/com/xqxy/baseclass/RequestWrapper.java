@@ -46,9 +46,30 @@ public class RequestWrapper {
 	//投诉建议
 	private String content;
 	
+	private String paid;
+	private String server_time;
+	private String note;
 	private boolean showDialog=false;
 	
 	
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
+	public String getServer_time() {
+		return server_time;
+	}
+	public void setServer_time(String server_time) {
+		this.server_time = server_time;
+	}
+	public String getPaid() {
+		return paid;
+	}
+	public void setPaid(String paid) {
+		this.paid = paid;
+	}
 	public boolean isShowDialog() {
 		return showDialog;
 	}

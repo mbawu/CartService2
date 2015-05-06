@@ -17,46 +17,209 @@
         android:layout_below="@+id/include1"
         android:gravity="center"
         android:padding="100dp"
-        android:text="请点击这里填写常用地址"
-        android:textSize="20sp" />
+        android:text="请点击这里选择常用地址"
+        android:textSize="20sp"
+        android:visibility="gone" />
 
     <LinearLayout
+        android:id="@+id/address_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/call_add_address"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical" >
+        
+         <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/address_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/address_name"
+                    android:drawablePadding="6dp"
+                    android:gravity="center"
+                    android:text="姓名"
+                    android:textSize="16sp"
+                    android:textColor="@color/blank" />
+
+                <TextView
+                    android:id="@+id/address_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:drawableLeft="@drawable/address_phone"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:text="15928071696"
+                    android:textSize="16sp"
+                    android:textColor="@color/blank" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/address_car_num"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:text="车牌号码："
+                    android:textSize="16sp"
+                    android:textColor="@color/blank" />
+
+                <TextView
+                    android:id="@+id/address_car_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="15928071696"
+                    android:textSize="16sp"
+                    android:textColor="@color/nomarl_gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/address_location"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:text="停车地址："
+                    android:textSize="16sp"
+                    android:textColor="@color/blank" />
+
+                <TextView
+                    android:id="@+id/address_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="15928071696"
+                    android:textSize="16sp"
+                    android:textColor="@color/nomarl_gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:gravity="center"
+                    android:text="详细地址："
+                    android:textSize="16sp"
+                    android:textColor="@color/blank" />
+
+                <TextView
+                    android:id="@+id/address_location_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="15928071696"
+                    android:textSize="16sp"
+                    android:textColor="@color/nomarl_gray" />
+            </LinearLayout>
+        
+            <FrameLayout 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+                <TextView 
+                    android:id="@+id/change_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/style_color"
+                    android:layout_gravity="right"
+                     android:textSize="12sp"
+                    android:text="更换地址>>"/>
+            </FrameLayout>
+        </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/layout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/address_layout"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="预约时间："
+             android:layout_marginLeft="24dp"
+              android:textSize="16sp"
             android:textColor="@color/blank" />
 
-        <EditText
+        <TextView
             android:id="@+id/call_date"
             style="@style/editStyle"
             android:layout_marginLeft="10dp"
-            android:enabled="false"
-            android:text="点击选择时间"
-            android:textColor="@color/nomarl_gray" >
-
-            <requestFocus />
-        </EditText>
+            android:hint="点击选择时间"
+             android:textSize="16sp"
+            android:textColor="@color/nomarl_gray" />
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/call_note"
+        style="@style/editStyle"
+        android:layout_below="@+id/layout2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:hint="备注爱车详细信息，如颜色可以帮助服务人员快速找到您的爱车；或者您有任何需求都备注信息~"
+        android:minLines="4" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+       android:layout_below="@+id/call_note" 
+       android:layout_marginTop="30dp"
+       android:gravity="center">
+      <TextView
+                android:id="@+id/call_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/style_btn_bg"
+                android:paddingBottom="5dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="5dp"
+                android:textSize="18sp"
+                android:text="去支付"
+                android:textColor="@color/wihte" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/call_date_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:visibility="gone" >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#f0f0f0" 
-            android:gravity="center">
+            android:background="#f0f0f0"
+            android:gravity="center" >
 
             <TextView
                 android:id="@+id/call_cancel"
@@ -97,20 +260,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" 
-            android:background="@color/nomarl_gray">
+            android:background="@color/nomarl_gray"
+            android:orientation="vertical" >
 
             <DatePicker
                 android:id="@+id/call_picker_date"
                 android:layout_width="match_parent"
-                android:spinnersShown="false"
+                android:layout_height="wrap_content"
                 android:calendarViewShown="true"
-                android:layout_height="wrap_content" />
+                android:spinnersShown="false" />
 
             <TimePicker
                 android:id="@+id/call_picker_time"
                 android:layout_width="match_parent"
-                
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
