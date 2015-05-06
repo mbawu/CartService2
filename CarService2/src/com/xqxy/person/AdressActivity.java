@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.xqxy.baseclass.BaseActivity;
 import com.xqxy.baseclass.Cst;
+import com.xqxy.baseclass.JsonUtil;
 import com.xqxy.baseclass.MyApplication;
 import com.xqxy.baseclass.NetworkAction;
 import com.xqxy.baseclass.RequestWrapper;
@@ -80,7 +81,9 @@ public class AdressActivity extends BaseActivity {
 				}
 				else
 				{
-					CallServiceActivity.address=address;
+//					CallServiceActivity.address=address;
+					MyApplication.ed.putString("address", JsonUtil.toJson(address));
+					MyApplication.ed.commit();
 					finish();
 				}
 				

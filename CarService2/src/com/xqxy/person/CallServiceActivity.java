@@ -21,6 +21,7 @@ import android.widget.TimePicker.OnTimeChangedListener;
 import android.widget.Toast;
 
 import com.xqxy.baseclass.BaseActivity;
+import com.xqxy.baseclass.JsonUtil;
 import com.xqxy.baseclass.MyApplication;
 import com.xqxy.baseclass.NetworkAction;
 import com.xqxy.baseclass.RequestWrapper;
@@ -53,7 +54,7 @@ public class CallServiceActivity extends BaseActivity implements
 	private TextView changeTxt;
 	private EditText noteTxt;
 	
-	public static Address address;
+	private Address address;
 	private String pid;
 	private String paid;
 
@@ -293,18 +294,11 @@ public class CallServiceActivity extends BaseActivity implements
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		if(!MyApplication.sp.getString("identity", "").equals("") && address==null
-				&& !MyApplication.sp.getString("Aid", "").equals(""))
+		
+		String addString=MyApplication.sp.getString("address", null);
+		if(addString!=null)
 		{
-			address=new Address();
-			address.setAid(MyApplication.sp.getString("Aid", ""));
-			address.setName(MyApplication.sp.getString("Name", ""));
-			address.setPhone(MyApplication.sp.getString("Phone", ""));
-			address.setCar_num(MyApplication.sp.getString("Car_num", ""));
-			address.setAddress(MyApplication.sp.getString("Address", ""));
-			address.setDetailed(MyApplication.sp.getString("Detailed", ""));
-			addBtn.setVisibility(View.GONE);
-			addressLayout.setVisibility(View.VISIBLE);
+			address=JsonUtil.fromJson(addString, Address.class);
 		}
 		if (address != null) {
 			addBtn.setVisibility(View.GONE);
@@ -314,14 +308,6 @@ public class CallServiceActivity extends BaseActivity implements
 			car_numTxt.setText(address.getCar_num());
 			address_locationTxt.setText(address.getAddress());
 			address_location_detailTxt.setText(address.getDetailed());
-			MyApplication.ed.putString("identity", MyApplication.identity);
-			MyApplication.ed.putString("Name", address.getName());
-			MyApplication.ed.putString("Phone", address.getPhone());
-			MyApplication.ed.putString("Car_num", address.getCar_num());
-			MyApplication.ed.putString("Address", address.getAddress());
-			MyApplication.ed.putString("Detailed", address.getDetailed());
-			MyApplication.ed.putString("Aid", address.getAid());
-			MyApplication.ed.commit();
 		} else {
 			addBtn.setVisibility(View.VISIBLE);
 			addressLayout.setVisibility(View.GONE);
