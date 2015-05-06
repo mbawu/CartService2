@@ -97,13 +97,7 @@ public class BaseActivity extends Activity {
 		return dialog;
 	}
 
-	/**
-	 * 向服务器发起网络请求的方法，发送成功执行showResualt方法则可根据网络请求类型解析结果
-	 * 发送失败，例如访问目标服务器出错等提示"访问服务器出错!"。
-	 * 
-	 * @param requestType
-	 *            需要请求的接口类型
-	 */
+
 	public void sendData(RequestWrapper requestWrapper,
 			final NetworkAction requestType) {
 		String url = Cst.HOST;

@@ -38,6 +38,7 @@ public enum NetworkAction {
 	centerF_cancel_order,//取消订单
 	centerF_del_order,//删除订单
 	indexF_suggest,//投诉建议
+	orderF_index //立即预约
 	;
 
 	@Override
