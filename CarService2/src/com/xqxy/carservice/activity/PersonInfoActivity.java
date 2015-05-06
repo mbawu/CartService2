@@ -1,13 +1,12 @@
 package com.xqxy.carservice.activity;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 
+import com.xqxy.baseclass.Cst;
 import com.xqxy.baseclass.MyApplication;
 import com.xqxy.baseclass.NetworkAction;
 import com.xqxy.baseclass.PhotoActivity;
@@ -15,18 +14,14 @@ import com.xqxy.baseclass.RequestWrapper;
 import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
 import com.xqxy.carservice.view.CarImageView;
-import com.xqxy.carservice.view.PhotoSelectDialog;
 import com.xqxy.carservice.view.TopTitleView;
-import com.xqxy.model.UserInfo;
 
 public class PersonInfoActivity extends PhotoActivity implements
 		OnClickListener {
-	Dialog dialog;
 
 	private TopTitleView topTitleView;
 	private CarImageView imgHeadPhoto;
-	private String imgPath = Environment.getExternalStorageDirectory()
-			.getPath() + "/CarTemp/head.jpg";
+	private String imgPath = Cst.UPLOAD_TEMP + "head.jpg";
 
 	private String src;
 
@@ -34,6 +29,7 @@ public class PersonInfoActivity extends PhotoActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.person_info_layout);
+		topTitleView = new TopTitleView(this);
 		src = getIntent().getStringExtra("src");
 		topTitleView = new TopTitleView(this);
 		imgHeadPhoto = (CarImageView) findViewById(R.id.img_person_info_head);
@@ -44,10 +40,7 @@ public class PersonInfoActivity extends PhotoActivity implements
 		if (src != null) {
 			imgHeadPhoto.loadImage(src);
 		}
-
-		dialog = new PhotoSelectDialog(this, imgPath);
 		setImgPath(imgPath);
-
 	}
 
 	@Override
@@ -62,11 +55,6 @@ public class PersonInfoActivity extends PhotoActivity implements
 		case R.id.btn_person_info_exit:
 			break;
 		}
-	}
-
-	public void showSelectPhotoDialog() {
-
-		dialog.show();
 	}
 
 	@Override

@@ -13,5 +13,7 @@
     <color name="blue">#3AB5E9</color>
     <color name="transparent">#00000000</color>
     <color name="litill_gray">#969696</color>
+    <color name="ok_btn_bg_press">#FF8811</color>
+    <color name="cancel_btn_bg_normal">#909090</color>
 
 </resources>

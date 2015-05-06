@@ -3,6 +3,7 @@ package com.xqxy.carservice.activity;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.xqxy.baseclass.RequestWrapper;
 import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
 import com.xqxy.carservice.adapter.CarBaseAdapter;
+import com.xqxy.carservice.widget.ConfirmDialog;
 import com.xqxy.model.Car;
 
 public class CarListActivity extends BaseActivity {
@@ -65,22 +67,21 @@ public class CarListActivity extends BaseActivity {
 				adapter.setDataList(carList);
 				adapter.notifyDataSetChanged();
 			}
-		}else if(requestType == NetworkAction.centerF_del_car){
-			if(delCar!= null && carList.contains(delCar)){
+		} else if (requestType == NetworkAction.centerF_del_car) {
+			if (delCar != null && carList.contains(delCar)) {
 				carList.remove(delCar);
 				delCar = null;
 				adapter.notifyDataSetChanged();
 			}
 		}
-		if(carList!= null && carList.size()>0){
+		if (carList != null && carList.size() > 0) {
 			nodata.setVisibility(View.GONE);
-		}
-		else{
+		} else {
 			nodata.setVisibility(View.VISIBLE);
 		}
 	}
-	
-	private void deleteCar(Car car){
+
+	private void deleteCar(Car car) {
 		delCar = car;
 		RequestWrapper request = new RequestWrapper();
 		request.setIdentity(MyApplication.identity);
@@ -133,18 +134,35 @@ public class CarListActivity extends BaseActivity {
 					car.getMname()));
 			viewHolder.textBYPL.setText(getString(R.string.car_item_bypl,
 					car.getUpkeep() + ""));
-			
-			
+
 			viewHolder.textDelete.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
-					
-					deleteCar(car);
+					ConfirmDialog dlg = new ConfirmDialog(CarListActivity.this);
+					dlg.setTitle("提示");
+					dlg.setMessage("确定删除爱车吗？删除后将无法恢复.");
+					dlg.setPositiveButton("删除",
+							new ConfirmDialog.OnClickListener() {
+
+								@Override
+								public void onClick(Dialog dialog, View view) {
+									deleteCar(car);
+								}
+							});
+
+					dlg.setNegativeButton("取消",
+							new ConfirmDialog.OnClickListener() {
+
+								@Override
+								public void onClick(Dialog dialog, View view) {
+
+								}
+							});
+					dlg.show();
 				}
 			});
-			
-			
+
 			convertView.setOnClickListener(new OnClickListener() {
 
 				@Override

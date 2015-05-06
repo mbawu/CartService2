@@ -7,7 +7,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import com.xqxy.carservice.view.PhotoSelectDialog;
+
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
@@ -23,12 +26,29 @@ public abstract class PhotoActivity extends BaseActivity {
 	public static final int REQUEST_CODE_CAMERA = 2;
 	public static final int REQUEST_CODE_CORP = 3;
 
+	private PhotoSelectDialog dialog;
+
 	private String imgPath;
 	Uri imageUri;
 
 	public void setImgPath(String imgPath) {
 		this.imgPath = imgPath;
 		imageUri = Uri.parse("file://" + imgPath);
+		if (dialog == null) {
+			dialog = new PhotoSelectDialog(this, imgPath);
+		} else {
+			dialog.setImgPath(imgPath);
+		}
+	}
+
+	public void showSelectPhotoDialog(String imgPath) {
+		setImgPath(imgPath);
+		dialog.show();
+	}
+
+	public void showSelectPhotoDialog() {
+
+		dialog.show();
 	}
 
 	@SuppressLint("NewApi")

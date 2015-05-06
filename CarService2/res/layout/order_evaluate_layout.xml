@@ -14,84 +14,17 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <com.xqxy.carservice.view.MyListView
+            android:id="@+id/listview"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="7dp"
-            android:paddingTop="7dp" >
-
-            <com.xqxy.carservice.view.CarImageView
-                android:id="@+id/img_service_photo"
-                android:layout_width="110dp"
-                android:layout_height="110dp"
-                android:background="@color/blank" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/text_service_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#323232"
-                    android:textSize="@dimen/font_size_30px" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="6dp"
-                    android:layout_marginTop="4dp"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="0dp"
-                        android:text="价格:"
-                        android:textColor="#323232"
-                        android:textSize="@dimen/font_size_26px" />
-
-                    <TextView
-                        android:id="@+id/text_service_price_new"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="0dp"
-                        android:textColor="#E94F3A"
-                        android:textSize="@dimen/font_size_26px" />
-
-                    <TextView
-                        android:id="@+id/text_service_price_old"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#969696"
-                        android:textSize="@dimen/font_size_18px" />
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="时长:"
-                        android:textColor="#323232"
-                        android:textSize="@dimen/font_size_26px" />
-
-                    <TextView
-                        android:id="@+id/text_service_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textColor="#E94F3A"
-                        android:textSize="@dimen/font_size_26px" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
+            android:cacheColorHint="#ffffff"
+            android:divider="#FFFFFF"
+            android:dividerHeight="8dp"
+            android:fadingEdge="none"
+            android:listSelector="#ffffff"
+            android:visibility="visible" >
+        </com.xqxy.carservice.view.MyListView>
 
         <View
             android:layout_width="match_parent"
@@ -127,23 +60,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/box_normal"
-            android:padding="2dp"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:padding="2dp" >
 
             <EditText
                 android:id="@+id/edit_order_eva_content"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
+                android:background="#FFFFFF"
                 android:gravity="left|top"
                 android:text="对服务非常满意"
                 android:textColor="#646464"
-                android:background="#FFFFFF"
                 android:textSize="@dimen/font_size_26px" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:id="@+id/layout_order_eva_img"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/btn_order_eva_select_phone"
+                    android:layout_width="40dp"
+                    android:layout_height="60dp"
+                    android:background="#00000000"
+                    android:src="@drawable/img_camare" />
             </LinearLayout>
         </LinearLayout>
 

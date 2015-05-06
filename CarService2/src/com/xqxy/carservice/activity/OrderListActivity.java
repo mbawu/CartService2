@@ -1,8 +1,10 @@
 package com.xqxy.carservice.activity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -114,6 +116,11 @@ public class OrderListActivity extends BaseActivity implements
 			} else if (btnTxt.equals(getString(R.string.order_btn_finish))) {
 				action = NetworkAction.centerF_affirm_order;
 			} else if (btnTxt.equals(getString(R.string.order_btn_evaluate))) {
+
+				Intent intent = new Intent(this, OrderEvaluateActivity.class);
+				intent.putExtra("oid", order.getOid());
+				intent.putExtra("product", (Serializable) order.getProduct());
+				startActivity(intent);
 				return;
 			}
 			sendData(request, action);
@@ -162,18 +169,19 @@ public class OrderListActivity extends BaseActivity implements
 			OrderProductAdapter opAdapter = new OrderProductAdapter(activity);
 			opAdapter.setDataList(order.getProduct());
 			viewHolder.listViewProduct.setAdapter(opAdapter);
-			/*
-			 * if (ORDER_STATUS_WAITING.equals(order.getStatus())) {// 待处理
-			 * viewHolder.textOrderState
-			 * .setText(getString(R.string.order_status_waiting));
-			 * 
-			 * viewHolder.textBtnOk.setVisibility(View.VISIBLE);
-			 * viewHolder.textBtnOk
-			 * .setText(getString(R.string.order_btn_finish));
-			 * viewHolder.textBtnCancel.setVisibility(View.VISIBLE);
-			 * viewHolder.textBtnCancel
-			 * .setText(getString(R.string.order_btn_cancel)); } else
-			 */
+
+			if ("1".equals(order.getStatus())) {// 待处理
+				viewHolder.textOrderState
+						.setText(getString(R.string.order_status_waiting));
+
+				viewHolder.textBtnOk.setVisibility(View.VISIBLE);
+				viewHolder.textBtnOk
+						.setText(getString(R.string.order_btn_evaluate));
+				viewHolder.textBtnCancel.setVisibility(View.GONE);
+				viewHolder.textBtnCancel
+						.setText(getString(R.string.order_btn_cancel));
+			} else
+
 			if (ORDER_STATUS_WAITING.equals(order.getStatus())) {// ---等待服务
 				viewHolder.textOrderState
 						.setText(R.string.order_status_waiting);
