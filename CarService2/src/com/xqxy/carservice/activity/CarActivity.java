@@ -123,7 +123,7 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 					}
 				}
 			}
-		} else if (requestType.equals(NetworkAction.centerF_add_car)) {
+		} else if (requestType==(NetworkAction.centerF_add_car)) {
 			if (pid == null || "".equals(pid)) {// 返回爱车列表
 				this.finish();
 			} else {
