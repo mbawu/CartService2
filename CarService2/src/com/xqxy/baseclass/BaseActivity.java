@@ -24,7 +24,7 @@ import com.xqxy.carservice.R;
 
 public class BaseActivity extends Activity {
 	private ArrayList<NetworkAction> requesType;// 记录当前页面所有的网络请求类型
-	protected Dialog progressDialog; // 整个页面的进度条对话框
+	private Dialog progressDialog; // 整个页面的进度条对话框
 	// private User.LoginCallbackCH loginCallbackCH;
 	private boolean getResualt = false;// 判断是否获取到了返回的结果
 	// private NetStatus netStatus;// 网络监听对象

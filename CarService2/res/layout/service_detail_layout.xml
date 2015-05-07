@@ -197,6 +197,7 @@
                 android:background="@color/line_bg_color" />
 
             <RelativeLayout
+                android:id="@+id/layout_evaluate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp" >

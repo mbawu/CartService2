@@ -29,6 +29,8 @@ public class CarImageView extends ImageView {
 	// 图片是否加载成功
 	private boolean loadSuccess = false;
 
+	private boolean isRound = false;
+
 	/**
 	 * 不设置将使用默认图片 设置下载中，与加载失败的图片,
 	 * 
@@ -59,51 +61,72 @@ public class CarImageView extends ImageView {
 	 *            图片的URL
 	 */
 	public void loadImage(String url) {
-		int d = this.getWidth();
-		DisplayImageOptions options = new DisplayImageOptions.Builder()
-				.showStubImage(downLoadingImageId)
-				.showImageForEmptyUri(downLoadingImagefailureId)
-				.cacheInMemory().cacheOnDisc()
-				.showImageOnFail(downLoadingImagefailureId)
-				.bitmapConfig(Bitmap.Config.RGB_565).displayer(new RoundedBitmapDisplayer(d/2))  
-				.build();
-		ImageLoader.getInstance().displayImage(url, this,options);
-//		
-//		ImageLoader.getInstance().loadImage(url, options,
-//				new ImageLoadingListener() {
-//
-//					@Override
-//					public void onLoadingStarted(String arg0, View arg1) {
-//						loadSuccess = false;
-//						setImageResource(downLoadingImageId);
-//					}
-//
-//					@Override
-//					public void onLoadingFailed(String arg0, View arg1,
-//							FailReason arg2) {
-//						loadSuccess = false;
-//						setImageResource(downLoadingImagefailureId);
-//					}
-//
-//					@Override
-//					public void onLoadingComplete(String arg0, View arg1,
-//							Bitmap arg2) {
-//						
-//						if (getTag() == null || arg0.equals(getTag())) {
-//							loadSuccess = true;
-//							setImageBitmap(arg2);
-//						}
-//					}
-//
-//					@Override
-//					public void onLoadingCancelled(String arg0, View arg1) {
-//						loadSuccess = false;
-//						setImageResource(downLoadingImagefailureId);
-//					}
-//				});
+
+		if (isRound) {
+			int d = this.getWidth();
+			DisplayImageOptions options = new DisplayImageOptions.Builder()
+					.showStubImage(downLoadingImageId)
+					.showImageForEmptyUri(downLoadingImagefailureId)
+					.cacheInMemory().cacheOnDisc()
+					.showImageOnFail(downLoadingImagefailureId)
+					.bitmapConfig(Bitmap.Config.RGB_565)
+					.displayer(new RoundedBitmapDisplayer(d / 2)).build();
+			ImageLoader.getInstance().displayImage(url, this, options);
+		} else {
+			DisplayImageOptions options = new DisplayImageOptions.Builder()
+					.showStubImage(downLoadingImageId)
+					.showImageForEmptyUri(downLoadingImagefailureId)
+					.cacheInMemory().cacheOnDisc()
+					.showImageOnFail(downLoadingImagefailureId)
+					.bitmapConfig(Bitmap.Config.RGB_565).build();
+			ImageLoader.getInstance().displayImage(url, this, options);
+		}
+
+		//
+		// ImageLoader.getInstance().loadImage(url, options,
+		// new ImageLoadingListener() {
+		//
+		// @Override
+		// public void onLoadingStarted(String arg0, View arg1) {
+		// loadSuccess = false;
+		// setImageResource(downLoadingImageId);
+		// }
+		//
+		// @Override
+		// public void onLoadingFailed(String arg0, View arg1,
+		// FailReason arg2) {
+		// loadSuccess = false;
+		// setImageResource(downLoadingImagefailureId);
+		// }
+		//
+		// @Override
+		// public void onLoadingComplete(String arg0, View arg1,
+		// Bitmap arg2) {
+		//
+		// if (getTag() == null || arg0.equals(getTag())) {
+		// loadSuccess = true;
+		// setImageBitmap(arg2);
+		// }
+		// }
+		//
+		// @Override
+		// public void onLoadingCancelled(String arg0, View arg1) {
+		// loadSuccess = false;
+		// setImageResource(downLoadingImagefailureId);
+		// }
+		// });
 	}
 
 	public boolean isLoadSuccess() {
 		return loadSuccess;
 	}
+
+	public boolean isRound() {
+		return isRound;
+	}
+
+	public void setRound(boolean isRound) {
+		this.isRound = isRound;
+	}
+
 }

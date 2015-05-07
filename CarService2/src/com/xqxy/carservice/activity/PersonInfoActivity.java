@@ -36,7 +36,7 @@ public class PersonInfoActivity extends PhotoActivity implements
 		findViewById(R.id.text_person_info_car).setOnClickListener(this);
 		findViewById(R.id.layout_person_info_head).setOnClickListener(this);
 		findViewById(R.id.btn_person_info_exit).setOnClickListener(this);
-
+		imgHeadPhoto.setRound(true);
 		if (src != null) {
 			imgHeadPhoto.loadImage(src);
 		}

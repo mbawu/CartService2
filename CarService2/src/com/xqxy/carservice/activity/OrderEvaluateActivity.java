@@ -102,6 +102,7 @@ public class OrderEvaluateActivity extends PhotoActivity implements
 			}
 
 			int childCount = imgLinearLayout.getChildCount();
+			request.setFilenum(childCount + "");
 			if (childCount > 0) {
 				String path;
 				Map<String, String> fileMap = new HashMap<String, String>();
@@ -123,7 +124,6 @@ public class OrderEvaluateActivity extends PhotoActivity implements
 		img.setTag(imagePath);
 		imgLinearLayout.addView(img);
 		img.loadImage("file://" + imagePath);
-
 	}
 
 	class OrderEvaProductAdapter extends CarBaseAdapter<OrderProduct> {
