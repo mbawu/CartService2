@@ -30,6 +30,7 @@ public enum NetworkAction {
 	indexF_product_attr,
 	indexF_column,//项目分类
 	indexF_column_product,//分类项目
+	indexF_appraise,//项目评论
 	centerF_user_car,//我的爱车
 	centerF_add_car,//增加爱车
 	centerF_del_car,//删除爱车
@@ -39,7 +40,8 @@ public enum NetworkAction {
 	centerF_del_order,//删除订单
 	centerF_appraise,
 	indexF_suggest,//投诉建议
-	orderF_index //立即预约
+	orderF_index, //立即预约
+	cartF_add_cart
 	;
 
 	@Override
