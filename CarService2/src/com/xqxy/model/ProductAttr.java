@@ -1,6 +1,8 @@
 package com.xqxy.model;
 
-public class ProductAttr {
+import java.io.Serializable;
+
+public class ProductAttr implements Serializable{
 	private String id;
 	private String name;
 	private String price;

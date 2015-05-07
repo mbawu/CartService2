@@ -9,6 +9,24 @@ public class Cart {
 	private String attrname;
 	private String real_price;
 	private String time;
+	private String flag;
+	
+	
+	public String getFlag() {
+		return flag;
+	}
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+	private boolean checked=true;
+	
+	
+	public boolean isChecked() {
+		return checked;
+	}
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
 	public String getId() {
 		return id;
 	}

@@ -44,6 +44,7 @@ public enum NetworkAction {
 	cartF_add_cart,
 	cartF_index,//购物车列表
 	cartF_del_cart,//删除购物车项目
+	cartF_update_cart,//修改购物车
 	;
 
 	@Override
