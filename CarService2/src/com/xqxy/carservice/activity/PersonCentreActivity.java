@@ -114,6 +114,9 @@ public class PersonCentreActivity extends BaseActivity implements
 
 		// 注册广播
 		registerBoradcastReceiver();
+		
+		if(MyApplication.loginStat)
+			getMsg();
 	}
 
 	@Override
