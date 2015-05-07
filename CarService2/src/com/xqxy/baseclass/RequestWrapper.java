@@ -28,6 +28,7 @@ public class RequestWrapper {
 	private String lat;
 	private String file;
 	private String flag;
+	private String limit;
 	//用户标识
 	private String identity;
 	
@@ -37,6 +38,7 @@ public class RequestWrapper {
 	private String car_num;
 	private String address;
 	private String detailed;
+	private String filenum;
 	
 	private String page;
 	private String status;
@@ -254,6 +256,18 @@ public class RequestWrapper {
 	}
 	public void setFlag(String flag) {
 		this.flag = flag;
+	}
+	public String getLimit() {
+		return limit;
+	}
+	public void setLimit(String limit) {
+		this.limit = limit;
+	}
+	public String getFilenum() {
+		return filenum;
+	}
+	public void setFilenum(String filenum) {
+		this.filenum = filenum;
 	}
 	
 	

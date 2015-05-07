@@ -21,6 +21,7 @@ import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
 import com.xqxy.carservice.view.CarImageView;
 import com.xqxy.carservice.view.TopTitleView;
+import com.xqxy.model.Appraise;
 import com.xqxy.model.Car;
 import com.xqxy.model.ProductAttr;
 import com.xqxy.model.ProductDetails;
@@ -41,6 +42,7 @@ public class ServiceDetailActivity extends BaseActivity implements
 	private RadioGroup radioGroupAttr;
 	private WebView webview;
 	private String pid;
+	private String paid;
 	private String flag;
 
 	private ProductDetails product;
@@ -76,6 +78,7 @@ public class ServiceDetailActivity extends BaseActivity implements
 			RequestWrapper request = new RequestWrapper();
 			request.setPid(pid);
 			sendDataByGet(request, NetworkAction.indexF_product_details);
+
 			if ("2".equals(flag)) {
 
 				textCarType.setVisibility(View.GONE);
@@ -111,6 +114,11 @@ public class ServiceDetailActivity extends BaseActivity implements
 			}
 			sendDataByGet(request, NetworkAction.indexF_product_attr);
 
+			request = new RequestWrapper();
+			request.setPid(pid);
+			request.setLimit("1");
+			sendDataByGet(request, NetworkAction.indexF_appraise);
+
 			progressDialog = createDialog();
 			progressDialog.show();
 		} else {
@@ -136,54 +144,69 @@ public class ServiceDetailActivity extends BaseActivity implements
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
 		super.showResualt(responseWrapper, requestType);
-		respCount++;
-		if (requestType == NetworkAction.indexF_product_details) {
-			product = responseWrapper.getProduct_details();
-			if (product != null) {
-				textServiceName.setText(product.getName());
-				if (product.getAppnum() != null
-						&& !"".equals(product.getAppnum())) {
-					textEvaluateNum.setText("(" + product.getAppnum() + ")");
-				}
-
-				if (product.getPic() != null && !"".equals(product.getPic())) {
-					imgServicePhoto.loadImage(product.getPic());
-				}
-				if (product.getContent() != null
-						&& !"".equals(product.getContent())) {
-					webview.loadData(product.getContent(),
-							"text/html; charset=UTF-8", null);
-				}
-
-			}
-		} else if (requestType == NetworkAction.indexF_product_attr) {
-			attrs = responseWrapper.getAttr();
-			radioGroupAttr.removeAllViews();
-			if (attrs != null && attrs.size() > 0) {
-				for (int i = 0; i < attrs.size(); i++) {
-					ProductAttr attr = attrs.get(i);
-					RadioButton radioBtn = (RadioButton) getLayoutInflater()
-							.inflate(R.layout.product_dretail_attr_item, null);
-					radioBtn.setTag(attr);
-					radioBtn.setId(i);
-					radioBtn.setText(attr.getName());
-					if (i == 0) {
-						radioBtn.setChecked(true);
-						setAttr(attr);
-					} else {
-						radioBtn.setChecked(false);
+		if (NetworkAction.cartF_add_cart == requestType) {
+			Toast.makeText(this, "已成功加入购物车.", Toast.LENGTH_SHORT).show();
+		} else {
+			respCount++;
+			if (requestType == NetworkAction.indexF_product_details) {
+				product = responseWrapper.getProduct_details();
+				if (product != null) {
+					textServiceName.setText(product.getName());
+					if (product.getAppnum() != null
+							&& !"".equals(product.getAppnum())) {
+						textEvaluateNum
+								.setText("(" + product.getAppnum() + ")");
 					}
-					radioGroupAttr.addView(radioBtn);
+
+					if (product.getPic() != null
+							&& !"".equals(product.getPic())) {
+						imgServicePhoto.loadImage(product.getPic());
+					}
+					if (product.getContent() != null
+							&& !"".equals(product.getContent())) {
+						webview.loadData(product.getContent(),
+								"text/html; charset=UTF-8", null);
+					}
+
+				}
+			} else if (requestType == NetworkAction.indexF_product_attr) {
+				attrs = responseWrapper.getAttr();
+				radioGroupAttr.removeAllViews();
+				if (attrs != null && attrs.size() > 0) {
+					for (int i = 0; i < attrs.size(); i++) {
+						ProductAttr attr = attrs.get(i);
+						RadioButton radioBtn = (RadioButton) getLayoutInflater()
+								.inflate(R.layout.product_dretail_attr_item,
+										null);
+						radioBtn.setTag(attr);
+						radioBtn.setId(i);
+						radioBtn.setText(attr.getName());
+						if (i == 0) {
+							radioBtn.setChecked(true);
+							setAttr(attr);
+						} else {
+							radioBtn.setChecked(false);
+						}
+						radioGroupAttr.addView(radioBtn);
+					}
+				}
+			} else if (requestType == NetworkAction.indexF_appraise) {
+				if (responseWrapper.getAppraise() != null
+						&& responseWrapper.getAppraise().size() > 0) {
+					Appraise appraise = responseWrapper.getAppraise().get(0);
+				} else {
+
 				}
 			}
-		}
-		if (respCount == 2) {
-			progressDialog.dismiss();
+			if (respCount == 3) {
+				progressDialog.dismiss();
+			}
 		}
 	}
 
 	private void setAttr(ProductAttr attr) {
 		if (attr != null) {
+			paid = attr.getId();
 			textServicePriceNew.setText(getString(R.string.product_price,
 					attr.getReal_price()));
 			textServicePriceOld.setText(getString(R.string.product_price,
@@ -198,6 +221,7 @@ public class ServiceDetailActivity extends BaseActivity implements
 		switch (v.getId()) {
 		case R.id.layout_service_evaluate:
 			Intent intent = new Intent(this, ServiceEvaluateActivity.class);
+			intent.putExtra("pid", pid);
 			startActivity(intent);
 			break;
 		case R.id.btn_service_go_pay:
@@ -207,7 +231,15 @@ public class ServiceDetailActivity extends BaseActivity implements
 
 			break;
 		case R.id.btn_service_add_car:
-
+			if (!MyApplication.loginStat) {
+				startActivity(new Intent(this, LoginActivity.class));
+			} else {
+				RequestWrapper request = new RequestWrapper();
+				request.setIdentity(MyApplication.identity);
+				request.setPid(pid);
+				request.setPaid(paid);
+				sendData(request, NetworkAction.cartF_add_cart);
+			}
 			break;
 
 		}
