@@ -353,6 +353,7 @@ public class ServiceDetailActivity extends BaseActivity implements
 					startActivity(new Intent(this, LoginActivity.class));
 				} else {
 					RequestWrapper request = new RequestWrapper();
+					request.setShowDialog(true);
 					request.setIdentity(MyApplication.identity);
 					request.setPid(pid);
 					request.setPaid(paid);
