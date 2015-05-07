@@ -1,5 +1,6 @@
 package com.xqxy.person;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -164,6 +165,8 @@ public class CallServiceActivity extends BaseActivity implements
 		{
 			pid=datas.get(0).getPid();
 			paid=datas.get(0).getPaid();
+			Log.i("test", "pid-->"+pid);
+			Log.i("test", "paid-->"+paid);
 		}
 		
 	}
@@ -344,6 +347,10 @@ public class CallServiceActivity extends BaseActivity implements
 		{
 			Toast.makeText(this, "生成订单成功", Toast.LENGTH_SHORT).show();
 			//跳转到支付页面
+			Intent intent=new Intent();
+			intent.setClass(this, OrderPayActivity.class);
+			intent.putExtra("data", (Serializable) datas);
+			startActivity(intent);
 		}
 		
 		if(requestType==NetworkAction.cartF_cart_order)

@@ -117,6 +117,7 @@ public class CartActivity extends BaseActivity implements OnClickListener {
 			break;
 		case R.id.cart_call:
 			ArrayList<Cart> tempCats=new ArrayList<Cart>();
+			ArrayList<Cart> tempCats2=new ArrayList<Cart>();
 			for (int i = 0; i < datas.size(); i++) {
 				Cart cart=datas.get(i);
 				if(cart.isChecked())
@@ -124,6 +125,7 @@ public class CartActivity extends BaseActivity implements OnClickListener {
 					Cart cart1=new Cart();
 					cart1.setId(cart.getId());
 					tempCats.add(cart1);
+					tempCats2.add(cart);
 				}
 			}
 			if(tempCats.size()<=0)
@@ -137,7 +139,7 @@ public class CartActivity extends BaseActivity implements OnClickListener {
 			intent.setClass(this, CallServiceActivity.class);
 			intent.putExtra("cart",json);
 			Bundle b=new Bundle();
-			b.putSerializable("data", tempCats);
+			b.putSerializable("data", tempCats2);
 			intent.putExtras(b);
 			startActivity(intent);
 			break;

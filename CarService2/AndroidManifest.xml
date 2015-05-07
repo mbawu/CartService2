@@ -7,10 +7,6 @@
     <uses-sdk
         android:minSdkVersion="12"
         android:targetSdkVersion="18" />
-    <!-- Required -->
-    <permission
-        android:name="com.xqxy.carservice.permission.JPUSH_MESSAGE"
-        android:protectionLevel="signature" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.xqxy.carservice.permission.JPUSH_MESSAGE" />
@@ -42,6 +38,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:theme="@style/MyTheme.Basic" >
 
         <!-- meta-data需要写在application中 -->
@@ -69,6 +66,7 @@
         <activity android:name="com.xqxy.person.OtherActivity" />
         <activity android:name="com.xqxy.person.FeedBackActivity" />
         <activity android:name="com.xqxy.person.StoreCardActivity" />
+        <activity android:name="com.xqxy.person.OrderPayActivity" />
          <activity android:name="com.xqxy.person.CartActivity" />
           <activity android:name="com.xqxy.person.CallServiceActivity" />
         <activity android:name="com.xqxy.carservice.activity.CarActivity" />
