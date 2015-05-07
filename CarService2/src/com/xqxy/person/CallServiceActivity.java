@@ -151,6 +151,7 @@ public class CallServiceActivity extends BaseActivity implements
 
 			}
 		});
+		dateTxt.setText(getDate());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -266,28 +267,8 @@ public class CallServiceActivity extends BaseActivity implements
 		// 确定按钮
 		case R.id.call_confirm:
 			dateLayout.setVisibility(View.GONE);
-			String date = "";
-			String time = "";
-			if (isDateBefore(timePicker, datePicker)) {
-				date += calendar.get(Calendar.YEAR) + "年"
-						+ (calendar.get(Calendar.MONTH)+1) + "月"
-						+ calendar.get(Calendar.DAY_OF_MONTH) + "日 ";
-
-				int hour = calendar.get(Calendar.HOUR_OF_DAY);
-				int minute = calendar.get(Calendar.MINUTE);
-				if (minute + 40 > 60) {
-					time += (hour + 1) + "时" + (minute + 40 - 60) + "分";
-				} else
-					time += hour + "时" + (minute + 40) + "分";
-			} else {
-				date += datePicker.getYear() + "年" + (datePicker.getMonth()+1)
-						+ "月" + datePicker.getDayOfMonth() + "日 ";
-				int hour = timePicker.getCurrentHour();
-				int minute = timePicker.getCurrentMinute();
-					time += hour + "时" + minute+ "分";
-			}
-			date = date + time;
-			dateTxt.setText(date);
+			
+			dateTxt.setText(getDate());
 			break;
 		// 日期输入框
 		case R.id.call_date:
@@ -309,6 +290,33 @@ public class CallServiceActivity extends BaseActivity implements
 
 	}
 
+	private String getDate()
+	{
+		String date = "";
+		String time = "";
+		calendar.setTimeInMillis(System.currentTimeMillis());
+		if (isDateBefore(timePicker, datePicker)) {
+			date += calendar.get(Calendar.YEAR) + "年"
+					+ (calendar.get(Calendar.MONTH)+1) + "月"
+					+ calendar.get(Calendar.DAY_OF_MONTH) + "日 ";
+
+			int hour = calendar.get(Calendar.HOUR_OF_DAY);
+			int minute = calendar.get(Calendar.MINUTE);
+			if (minute + 40 > 60) {
+				time += (hour + 1) + "时" + (minute + 40 - 60) + "分";
+			} else
+				time += hour + "时" + (minute + 40) + "分";
+		} else {
+			date += datePicker.getYear() + "年" + (datePicker.getMonth()+1)
+					+ "月" + datePicker.getDayOfMonth() + "日 ";
+			int hour = timePicker.getCurrentHour();
+			int minute = timePicker.getCurrentMinute();
+				time += hour + "时" + minute+ "分";
+		}
+		date = date + time;
+		return date;
+	}
+	
 	private void submitOrder() { 
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date date=new Date(datePicker.getYear()-1900, datePicker.getMonth(), datePicker.getDayOfMonth(), timePicker.getCurrentHour(), timePicker.getCurrentMinute());
