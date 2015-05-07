@@ -111,7 +111,7 @@ public class PersonCentreActivity extends BaseActivity implements
 		message.setOnClickListener(this);
 		other.setOnClickListener(this);
 		creditText.setOnClickListener(this);
-
+		headImg.setRound(true);
 		// 注册广播
 		registerBoradcastReceiver();
 		

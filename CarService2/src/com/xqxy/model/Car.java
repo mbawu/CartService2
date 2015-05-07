@@ -10,6 +10,7 @@ public class Car implements Serializable{
 	private String journey;
 	private String upkeep;
 	private String create_time;
+	private String key;
 	private String bid;
 	private String sid;
 	private String mid;
@@ -106,6 +107,14 @@ public class Car implements Serializable{
 
 	public void setMid(String mid) {
 		this.mid = mid;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
 	}
 
 }

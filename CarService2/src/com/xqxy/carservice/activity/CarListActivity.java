@@ -48,11 +48,16 @@ public class CarListActivity extends BaseActivity {
 		textCarAdd.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(CarListActivity.this,
-						CarActivity.class));
+				startActivityForResult((new Intent(CarListActivity.this,
+						CarActivity.class)), 1);
 			}
 		});
+		getCarList();
+	}
+
+	private void getCarList() {
 		RequestWrapper request = new RequestWrapper();
+		request.setShowDialog(true);
 		request.setIdentity(MyApplication.identity);
 		sendData(request, NetworkAction.centerF_user_car);
 	}
@@ -63,10 +68,9 @@ public class CarListActivity extends BaseActivity {
 		super.showResualt(responseWrapper, requestType);
 		if (requestType == NetworkAction.centerF_user_car) {
 			carList = responseWrapper.getCar();
-			if (carList != null && carList.size() > 0) {
-				adapter.setDataList(carList);
-				adapter.notifyDataSetChanged();
-			}
+			adapter.setDataList(carList);
+			adapter.notifyDataSetChanged();
+
 		} else if (requestType == NetworkAction.centerF_del_car) {
 			if (delCar != null && carList.contains(delCar)) {
 				carList.remove(delCar);
@@ -78,6 +82,14 @@ public class CarListActivity extends BaseActivity {
 			nodata.setVisibility(View.GONE);
 		} else {
 			nodata.setVisibility(View.VISIBLE);
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == 1 && resultCode == RESULT_OK) {
+			getCarList();
 		}
 	}
 
@@ -170,6 +182,7 @@ public class CarListActivity extends BaseActivity {
 					if (pid != null) {
 						app.setCar(car);
 						setResult(RESULT_OK);
+						finish();
 					} else {
 						Intent intent = new Intent(CarListActivity.this,
 								CarActivity.class);

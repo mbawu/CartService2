@@ -7,30 +7,26 @@ package com.xqxy.carservice.adapter;
 
 import java.util.ArrayList;
 
-
-
-import com.xqxy.baseclass.NetworkAction;
-import com.xqxy.carservice.R;
-import com.xqxy.model.Brand;
-import com.xqxy.model.Model;
-import com.xqxy.model.Series;
-
 import android.content.Context;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.xqxy.baseclass.NetworkAction;
+import com.xqxy.carservice.R;
+import com.xqxy.model.Brand;
+import com.xqxy.model.Journey;
+import com.xqxy.model.Model;
+import com.xqxy.model.Series;
 
 public class CarInfoAdapter extends BaseAdapter {
 	private Context context;
 	private ArrayList<Brand> brands;
 	private ArrayList<Series> series;
 	private ArrayList<Model> model;
+	private ArrayList<Journey> lc;
 	private NetworkAction type;
 	private LayoutInflater inflater;
 	private ViewHolder holder;
@@ -45,6 +41,8 @@ public class CarInfoAdapter extends BaseAdapter {
 			series=(ArrayList<Series>) data;
 		else if(type.equals(NetworkAction.carF_model))
 			model=(ArrayList<Model>) data;
+		else if(type.equals(NetworkAction.indexF_journey))
+			lc=(ArrayList<Journey>) data;
 		this.inflater = LayoutInflater.from(context);
 	}
 
@@ -56,6 +54,8 @@ public class CarInfoAdapter extends BaseAdapter {
 			return series.size();
 		else if(type.equals(NetworkAction.carF_model))
 			return model.size();
+		else if(type.equals(NetworkAction.indexF_journey))
+			return lc.size();
 		return 0;
 	}
 
@@ -81,6 +81,8 @@ public class CarInfoAdapter extends BaseAdapter {
 			return series.get(position);
 		else if(type.equals(NetworkAction.carF_model))
 			return model.get(position);
+		else if(type.equals(NetworkAction.indexF_journey))
+			return lc.get(position);
 		return "";
 	}
 
@@ -117,7 +119,11 @@ public class CarInfoAdapter extends BaseAdapter {
 			Model brand=(Model) model.get(position);
 			holder.name.setText(brand.getMname());
 		}
-	
+		else if(type.equals(NetworkAction.indexF_journey))
+		{
+			Journey journey=(Journey) lc.get(position);
+			holder.name.setText(journey.getValue());
+		}
 		return convertView;
 	}
 	

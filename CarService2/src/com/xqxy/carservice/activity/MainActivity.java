@@ -6,6 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -51,6 +52,7 @@ public class MainActivity extends BaseActivity {
 	private ProductAdapter productAdapter;
 	private List<Banner> banners;
 	private List<Product> products;
+	private Dialog myProgressDialog; 
 
 	private MyApplication app;
 
@@ -83,8 +85,8 @@ public class MainActivity extends BaseActivity {
 	}
 
 	public void sendRequest() {
-		progressDialog = createDialog();
-		progressDialog.show();
+		myProgressDialog = createDialog();
+		myProgressDialog.show();
 		sendData(new RequestWrapper(), NetworkAction.indexF_banner);
 		sendData(new RequestWrapper(), NetworkAction.indexF_product);
 	}
@@ -107,7 +109,7 @@ public class MainActivity extends BaseActivity {
 			}
 		}
 		if (respCount == 2) {
-			progressDialog.dismiss();
+			myProgressDialog.dismiss();
 		}
 	}
 

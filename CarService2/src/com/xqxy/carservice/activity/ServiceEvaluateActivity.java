@@ -1,6 +1,5 @@
 package com.xqxy.carservice.activity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -8,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
@@ -27,10 +25,6 @@ public class ServiceEvaluateActivity extends BaseActivity {
 
 	private ListView listView;
 	private RadioGroup radioGroupType;
-	private RadioButton radioBtnAll;
-	private RadioButton radioBtnGood;
-	private RadioButton radioBtnNormal;
-	private RadioButton radioBtnBad;
 	private EvaluateAdapter adapter;
 	private String pid;
 	private String flag = "0";
@@ -43,10 +37,7 @@ public class ServiceEvaluateActivity extends BaseActivity {
 		topTitleView = new TopTitleView(this);
 		topTitleView.setTitle("服务评价");
 		listView = (ListView) findViewById(R.id.listview);
-		radioBtnAll = (RadioButton) findViewById(R.id.eva_list_all_radiobtn);
-		radioBtnGood = (RadioButton) findViewById(R.id.eva_list_good_radiobtn);
-		radioBtnNormal = (RadioButton) findViewById(R.id.eva_list_normal_radiobtn);
-		radioBtnBad = (RadioButton) findViewById(R.id.eva_list_bad_radiobtn);
+
 		radioGroupType = (RadioGroup) findViewById(R.id.evaluate_list_type);
 		radioGroupType
 				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
