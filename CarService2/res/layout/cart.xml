@@ -8,5 +8,36 @@
     <include
         android:id="@+id/include1"
         layout="@layout/top_title_layout" />
+ <TextView
+        android:id="@+id/nodataTxt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="暂无记录"
+        android:textSize="22sp"
+        android:visibility="visible" />
 
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="10dp"
+        android:divider="@null"
+        android:visibility="gone" >
+    </ListView>
+    
+    <TextView 
+        android:id="@+id/cart_call"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="立即预约"
+        android:textColor="@color/wihte"
+        android:textSize="20sp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center"
+        android:background="@drawable/style_btn_bg"
+        android:visibility="gone"/>
 </LinearLayout>
