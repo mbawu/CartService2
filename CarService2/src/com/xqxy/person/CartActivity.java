@@ -136,6 +136,9 @@ public class CartActivity extends BaseActivity implements OnClickListener {
 			Intent intent=new Intent();
 			intent.setClass(this, CallServiceActivity.class);
 			intent.putExtra("cart",json);
+			Bundle b=new Bundle();
+			b.putSerializable("data", tempCats);
+			intent.putExtras(b);
 			startActivity(intent);
 			break;
 		}

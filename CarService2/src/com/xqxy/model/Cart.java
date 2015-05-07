@@ -1,6 +1,8 @@
 package com.xqxy.model;
 
-public class Cart {
+import java.io.Serializable;
+
+public class Cart implements Serializable{
 
 	private String id;
 	private String pid;
@@ -10,8 +12,14 @@ public class Cart {
 	private String real_price;
 	private String time;
 	private String flag;
+	private String pic;
 	
-	
+	public String getPic() {
+		return pic;
+	}
+	public void setPic(String pic) {
+		this.pic = pic;
+	}
 	public String getFlag() {
 		return flag;
 	}
