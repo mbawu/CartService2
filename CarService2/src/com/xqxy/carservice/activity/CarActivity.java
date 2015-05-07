@@ -167,7 +167,7 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 					}
 				}
 			}
-			if (respCount == 4) {
+			if (respCount == 3) {
 				myProgressDialog.dismiss();
 			}
 		}
