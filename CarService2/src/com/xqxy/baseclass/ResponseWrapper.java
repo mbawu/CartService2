@@ -1,9 +1,10 @@
 package com.xqxy.baseclass;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 import com.xqxy.model.Address;
+import com.xqxy.model.Appraise;
 import com.xqxy.model.Banner;
 import com.xqxy.model.Brand;
 import com.xqxy.model.Car;
@@ -100,6 +101,8 @@ public class ResponseWrapper {
 	private ProductDetails product_details;
 
 	private ArrayList<ProductAttr> attr;
+	
+	private List<Appraise> appraise;
 
 	
 	private PayModel pay;
@@ -315,6 +318,14 @@ public class ResponseWrapper {
 
 	public void setUser(UserInfo user) {
 		this.user = user;
+	}
+
+	public List<Appraise> getAppraise() {
+		return appraise;
+	}
+
+	public void setAppraise(List<Appraise> appraise) {
+		this.appraise = appraise;
 	}
 
 }
