@@ -8,6 +8,7 @@ import com.xqxy.model.Appraise;
 import com.xqxy.model.Banner;
 import com.xqxy.model.Brand;
 import com.xqxy.model.Car;
+import com.xqxy.model.Cart;
 import com.xqxy.model.Category;
 import com.xqxy.model.CategoryProduct;
 import com.xqxy.model.Coupon;
@@ -107,7 +108,18 @@ public class ResponseWrapper {
 	
 	private PayModel pay;
 
+	private ArrayList<Cart> cart;
 	
+	
+	
+	public ArrayList<Cart> getCart() {
+		return cart;
+	}
+
+	public void setCart(ArrayList<Cart> cart) {
+		this.cart = cart;
+	}
+
 	/**
 	 * 获取支付宝支付信息
 	 * @return

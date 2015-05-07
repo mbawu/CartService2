@@ -41,7 +41,9 @@ public enum NetworkAction {
 	centerF_appraise,
 	indexF_suggest,//投诉建议
 	orderF_index, //立即预约
-	cartF_add_cart
+	cartF_add_cart,
+	cartF_index,//购物车列表
+	cartF_del_cart,//删除购物车项目
 	;
 
 	@Override
