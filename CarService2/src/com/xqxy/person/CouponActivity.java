@@ -135,7 +135,7 @@ public class CouponActivity extends BaseActivity implements
 						.findViewById(R.id.coupon_status);
 				viewHolder.coupon_date = (TextView) convertView
 						.findViewById(R.id.coupon_date);
-
+				convertView.setTag(viewHolder);
 			} else {
 				viewHolder = (ViewHolder) convertView.getTag();
 			}

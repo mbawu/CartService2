@@ -57,8 +57,15 @@ public class RequestWrapper {
 	private boolean showDialog=false;
 	private Map<String,String> files;
 	
+	private String cart;
 	
 	
+	public String getCart() {
+		return cart;
+	}
+	public void setCart(String cart) {
+		this.cart = cart;
+	}
 	public String getNote() {
 		return note;
 	}

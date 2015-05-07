@@ -21,6 +21,7 @@ import android.widget.TimePicker.OnTimeChangedListener;
 import android.widget.Toast;
 
 import com.xqxy.baseclass.BaseActivity;
+import com.xqxy.baseclass.Cst;
 import com.xqxy.baseclass.JsonUtil;
 import com.xqxy.baseclass.MyApplication;
 import com.xqxy.baseclass.NetworkAction;
@@ -57,7 +58,9 @@ public class CallServiceActivity extends BaseActivity implements
 	private Address address;
 	private String pid;
 	private String paid;
-
+	private boolean cartModule=false;
+	private String cartJson;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -67,6 +70,8 @@ public class CallServiceActivity extends BaseActivity implements
 	}
 
 	private void init() {
+		
+		check();
 		pid=getIntent().getStringExtra("pid");
 		paid=getIntent().getStringExtra("paid");
 		backImageView = (ImageView) findViewById(R.id.imageTopBack);
@@ -143,6 +148,17 @@ public class CallServiceActivity extends BaseActivity implements
 
 			}
 		});
+	}
+
+	private void check() {
+		pid=getIntent().getStringExtra("pid");
+		paid=getIntent().getStringExtra("paid");
+		cartJson=getIntent().getStringExtra("cart");
+		if(cartJson!=null)
+		{
+			cartModule=true;
+		}
+		
 	}
 
 	private boolean isDateBefore(TimePicker tempView, DatePicker date) {
@@ -244,7 +260,7 @@ public class CallServiceActivity extends BaseActivity implements
 			String time = "";
 			if (isDateBefore(timePicker, datePicker)) {
 				date += calendar.get(Calendar.YEAR) + "年"
-						+ calendar.get(Calendar.MONTH) + "月"
+						+ (calendar.get(Calendar.MONTH)+1) + "月"
 						+ calendar.get(Calendar.DAY_OF_MONTH) + "日 ";
 
 				int hour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -254,7 +270,7 @@ public class CallServiceActivity extends BaseActivity implements
 				} else
 					time += hour + "时" + (minute + 40) + "分";
 			} else {
-				date += datePicker.getYear() + "年" + datePicker.getMonth()
+				date += datePicker.getYear() + "年" + (datePicker.getMonth()+1)
 						+ "月" + datePicker.getDayOfMonth() + "日 ";
 				int hour = timePicker.getCurrentHour();
 				int minute = timePicker.getCurrentMinute();
@@ -283,22 +299,32 @@ public class CallServiceActivity extends BaseActivity implements
 
 	}
 
-	private void submitOrder() {
+	private void submitOrder() { 
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date date=new Date(datePicker.getYear()-1900, datePicker.getMonth(), datePicker.getDayOfMonth(), timePicker.getCurrentHour(), timePicker.getCurrentMinute());
 		//Date类型转换成String类型
 		String sdate=sdf.format(date);
+		Log.i("test",sdate );
 		RequestWrapper wrapper=new RequestWrapper();
 		wrapper.setIdentity(MyApplication.identity);
-//		wrapper.setPid(pid);
-//		wrapper.setPaid(paid);
-		wrapper.setPid("1");
-		wrapper.setPaid("13");
-		wrapper.setAid(address.getAid());
-		wrapper.setServer_time(sdate);
-		wrapper.setNote(noteTxt.getText().toString());
 		wrapper.setShowDialog(true);
-		sendData(wrapper, NetworkAction.orderF_index);
+		wrapper.setNote(noteTxt.getText().toString());
+		wrapper.setServer_time(sdate);
+		wrapper.setAid(address.getAid());
+		if(cartModule)
+		{
+			wrapper.setCart(cartJson);
+			sendData(wrapper, NetworkAction.cartF_cart_order);
+		}
+		else
+		{
+			wrapper.setPid(pid);
+			wrapper.setPaid(paid);
+//			wrapper.setPid("1");
+//			wrapper.setPaid("13");
+			sendData(wrapper, NetworkAction.orderF_index);
+		}
+	
 	}
 
 	@Override
@@ -306,10 +332,17 @@ public class CallServiceActivity extends BaseActivity implements
 			NetworkAction requestType) {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
-		if(requestType==NetworkAction.orderF_index)
+		if(requestType==NetworkAction.orderF_index
+				||requestType==NetworkAction.cartF_cart_order )
 		{
 			Toast.makeText(this, "生成订单成功", Toast.LENGTH_SHORT).show();
 			//跳转到支付页面
+		}
+		
+		if(requestType==NetworkAction.cartF_cart_order)
+		{
+			Intent intent=new Intent(Cst.CART_CAHNGE);
+			sendBroadcast(intent);
 		}
 	}
 	

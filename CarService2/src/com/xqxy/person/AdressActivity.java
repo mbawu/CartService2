@@ -3,6 +3,7 @@ package com.xqxy.person;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,7 +24,9 @@ import com.xqxy.baseclass.NetworkAction;
 import com.xqxy.baseclass.RequestWrapper;
 import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
+import com.xqxy.carservice.activity.CarListActivity;
 import com.xqxy.carservice.adapter.CarBaseAdapter;
+import com.xqxy.carservice.widget.ConfirmDialog;
 import com.xqxy.model.Address;
 
 public class AdressActivity extends BaseActivity {
@@ -193,11 +196,34 @@ public class AdressActivity extends BaseActivity {
 
 				@Override
 				public void onClick(View v) {
-					RequestWrapper wrapper = new RequestWrapper();
-					wrapper.setIdentity(MyApplication.identity);
-					wrapper.setAid(address.getAid());
-					wrapper.setShowDialog(true);
-					sendData(wrapper, NetworkAction.centerF_del_address);
+				
+					
+					ConfirmDialog dlg = new ConfirmDialog(AdressActivity.this);
+					dlg.setTitle("提示");
+					dlg.setMessage("确定删除地址吗？删除后将无法恢复.");
+					dlg.setPositiveButton("删除",
+							new ConfirmDialog.OnClickListener() {
+
+								@Override
+								public void onClick(Dialog dialog, View view) {
+									RequestWrapper wrapper = new RequestWrapper();
+									wrapper.setIdentity(MyApplication.identity);
+									wrapper.setAid(address.getAid());
+									wrapper.setShowDialog(true);
+									sendData(wrapper, NetworkAction.centerF_del_address);
+								}
+							});
+
+					dlg.setNegativeButton("取消",
+							new ConfirmDialog.OnClickListener() {
+
+								@Override
+								public void onClick(Dialog dialog, View view) {
+
+								}
+							});
+					dlg.show();
+					
 				}
 			});
 			return convertView;
