@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -48,7 +50,7 @@ public class CartActivity extends BaseActivity implements OnClickListener {
 	private TextView callBtn;
 	private RequestWrapper cartWrapper;
 	private RequestWrapper delWrapper;
-	private Cart cartSelect;
+//	private Cart cartSelect;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +73,7 @@ public class CartActivity extends BaseActivity implements OnClickListener {
 		listView = (ListView) findViewById(R.id.listview);
 		adapter = new CartAdapter(this);
 		listView.setAdapter(adapter);
-//		registerBoradcastReceiver();
+		registerBoradcastReceiver();
 		cartWrapper = new RequestWrapper();
 		cartWrapper.setIdentity(MyApplication.identity);
 		cartWrapper.setShowDialog(true);
@@ -131,32 +133,36 @@ public class CartActivity extends BaseActivity implements OnClickListener {
 			}
 			String json=JsonUtil.toJson(tempCats);
 			Log.i("test", "json--->"+json);
+			Intent intent=new Intent();
+			intent.setClass(this, CallServiceActivity.class);
+			intent.putExtra("cart",json);
+			startActivity(intent);
 			break;
 		}
 
 	}
 
 	
-//	private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
-//		@Override
-//		public void onReceive(Context context, Intent intent) {
-//			String action = intent.getAction();
-//			if (action.equals(Cst.CART_CAHNGE)) {
+	private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String action = intent.getAction();
+			if (action.equals(Cst.CART_CAHNGE)) {
 //				datas.clear();
-//				sendDataByGet(cartWrapper, NetworkAction.cartF_index);
-//				
-//			}
-//		}
-//
-//	};
+				sendDataByGet(cartWrapper, NetworkAction.cartF_index);
+				
+			}
+		}
 
-//	public void registerBoradcastReceiver() {
-//		IntentFilter myIntentFilter = new IntentFilter();
-//		myIntentFilter.addAction(Cst.GET_RECEIVE);
-//		// 注册广播
-//		registerReceiver(mBroadcastReceiver, myIntentFilter);
-//		
-//	}
+	};
+
+	public void registerBoradcastReceiver() {
+		IntentFilter myIntentFilter = new IntentFilter();
+		myIntentFilter.addAction(Cst.CART_CAHNGE);
+		// 注册广播
+		registerReceiver(mBroadcastReceiver, myIntentFilter);
+		
+	}
 
 	public void changeAttr()
 	{
@@ -167,7 +173,7 @@ public class CartActivity extends BaseActivity implements OnClickListener {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-//		unregisterReceiver(mBroadcastReceiver);
+		unregisterReceiver(mBroadcastReceiver);
 	}
 	
 	class CartAdapter extends CarBaseAdapter<Cart> {
@@ -202,6 +208,14 @@ public class CartActivity extends BaseActivity implements OnClickListener {
 			}
 			final Cart cart = getItem(position);
 			viewHolder.cart_check.setChecked(cart.isChecked());
+			viewHolder.cart_check.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+				
+				@Override
+				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+					
+					cart.setChecked(isChecked);
+				}
+			});
 			viewHolder.cart_name.setText(cart.getName());
 			viewHolder.cart_real_price.setText("￥" + cart.getReal_price());
 			viewHolder.cart_attrname.setText(cart.getAttrname());
@@ -214,7 +228,6 @@ public class CartActivity extends BaseActivity implements OnClickListener {
 
 				@Override
 				public void onClick(View v) {
-					cartSelect=cart;
 					CartDialog editDialog = new CartDialog(CartActivity.this,cart);
 					editDialog.show();
 				}
