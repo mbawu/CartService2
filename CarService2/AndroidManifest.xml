@@ -69,6 +69,7 @@
         <activity android:name="com.xqxy.person.OtherActivity" />
         <activity android:name="com.xqxy.person.FeedBackActivity" />
         <activity android:name="com.xqxy.person.StoreCardActivity" />
+         <activity android:name="com.xqxy.person.CartActivity" />
         <activity android:name="com.xqxy.carservice.activity.CarActivity" />
         <activity android:name="com.xqxy.carservice.activity.OrderListActivity" />
         <activity android:name="com.xqxy.carservice.activity.CarListActivity" />

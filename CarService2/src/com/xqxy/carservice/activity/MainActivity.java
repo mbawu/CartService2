@@ -37,6 +37,8 @@ import com.xqxy.carservice.view.CarImageView;
 import com.xqxy.model.Banner;
 import com.xqxy.model.Car;
 import com.xqxy.model.Product;
+import com.xqxy.person.CartActivity;
+import com.xqxy.person.LoginActivity;
 
 public class MainActivity extends BaseActivity {
 
@@ -68,8 +70,12 @@ public class MainActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(MainActivity.this, "去购物车", Toast.LENGTH_SHORT)
-						.show();
+				Intent intent=new Intent();
+				if(!MyApplication.loginStat)
+					intent.setClass(MainActivity.this, LoginActivity.class);
+				else
+					intent.setClass(MainActivity.this, CartActivity.class);
+				startActivity(intent);
 			}
 		});
 
