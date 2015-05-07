@@ -334,6 +334,7 @@ public class ServiceDetailActivity extends BaseActivity implements
 					cart.setPid(paid);
 					cart.setTime(productAttr.getTime());
 					cart.setReal_price(productAttr.getReal_price());
+					cart.setPic(product.getPic());
 					List<Cart> carts = new ArrayList<Cart>();
 					carts.add(cart);
 					Intent intent2 = new Intent(this, CallServiceActivity.class);
