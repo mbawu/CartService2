@@ -1,6 +1,7 @@
 package com.xqxy.person;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -29,6 +30,7 @@ import com.xqxy.baseclass.RequestWrapper;
 import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
 import com.xqxy.model.Address;
+import com.xqxy.model.Cart;
 
 public class CallServiceActivity extends BaseActivity implements
 		OnClickListener {
@@ -61,6 +63,8 @@ public class CallServiceActivity extends BaseActivity implements
 	private boolean cartModule=false;
 	private String cartJson;
 	
+	private ArrayList<Cart> datas;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -72,8 +76,6 @@ public class CallServiceActivity extends BaseActivity implements
 	private void init() {
 		
 		check();
-		pid=getIntent().getStringExtra("pid");
-		paid=getIntent().getStringExtra("paid");
 		backImageView = (ImageView) findViewById(R.id.imageTopBack);
 		backImageView.setOnClickListener(this);
 		titleTextView = (TextView) findViewById(R.id.textTopTitle);
@@ -150,13 +152,18 @@ public class CallServiceActivity extends BaseActivity implements
 		});
 	}
 
+	@SuppressWarnings("unchecked")
 	private void check() {
-		pid=getIntent().getStringExtra("pid");
-		paid=getIntent().getStringExtra("paid");
+		datas=(ArrayList<Cart>) getIntent().getSerializableExtra("data");
 		cartJson=getIntent().getStringExtra("cart");
 		if(cartJson!=null)
 		{
 			cartModule=true;
+		}
+		else
+		{
+			pid=datas.get(0).getPid();
+			paid=datas.get(0).getPaid();
 		}
 		
 	}
