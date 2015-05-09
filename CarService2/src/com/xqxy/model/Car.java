@@ -17,6 +17,7 @@ public class Car implements Serializable{
 	private String name;
 	private String sname;
 	private String mname;
+	private String journey_value;
 
 
 
@@ -115,6 +116,14 @@ public class Car implements Serializable{
 
 	public void setKey(String key) {
 		this.key = key;
+	}
+
+	public String getJourney_value() {
+		return journey_value;
+	}
+
+	public void setJourney_value(String journey_value) {
+		this.journey_value = journey_value;
 	}
 
 }

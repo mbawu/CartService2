@@ -17,6 +17,7 @@ import com.xqxy.baseclass.NetworkAction;
 import com.xqxy.baseclass.RequestWrapper;
 import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
+import com.xqxy.model.AutoLogin;
 
 public class LoginActivity extends BaseActivity implements OnClickListener {
 
@@ -26,79 +27,83 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	private TextView loginBtn;
 	private TextView forgotBtn;
 	private TextView registerBtn;
+	private MyApplication app;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.person_login);
+		app = (MyApplication) getApplication();
 		initView();
 	}
 
 	private void initView() {
-		finishBtn=(ImageView) findViewById(R.id.login_finish);
-		userNameTxt=(EditText) findViewById(R.id.login_username);
-		pwdTxt=(EditText) findViewById(R.id.login_pwd);
-		loginBtn=(TextView) findViewById(R.id.login_btn);
-		forgotBtn=(TextView) findViewById(R.id.login_forgot);
-		registerBtn=(TextView) findViewById(R.id.login_register);
+		finishBtn = (ImageView) findViewById(R.id.login_finish);
+		userNameTxt = (EditText) findViewById(R.id.login_username);
+		pwdTxt = (EditText) findViewById(R.id.login_pwd);
+		loginBtn = (TextView) findViewById(R.id.login_btn);
+		forgotBtn = (TextView) findViewById(R.id.login_forgot);
+		registerBtn = (TextView) findViewById(R.id.login_register);
 		finishBtn.setOnClickListener(this);
 		loginBtn.setOnClickListener(this);
 		forgotBtn.setOnClickListener(this);
 		registerBtn.setOnClickListener(this);
 	}
 
-
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
-		if(requestType==(NetworkAction.userF_login))
-		{
+		if (requestType == (NetworkAction.userF_login)) {
 			Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
-			MyApplication.loginStat=true;
-			MyApplication.identity=responseWrapper.getIdentity().get(0).getIdentity();
+			AutoLogin autoLogin = new AutoLogin(userNameTxt.getText()
+					.toString(), pwdTxt.getText().toString());
+			app.setAutoLogin(autoLogin);
+			MyApplication.loginStat = true;
+			MyApplication.identity = responseWrapper.getIdentity().get(0)
+					.getIdentity();
 			finish();
 		}
 	}
+
 	@Override
 	public void onClick(View v) {
-		Intent intent=null;
-		RequestWrapper wrapper=new RequestWrapper();
+		Intent intent = null;
+		RequestWrapper wrapper = new RequestWrapper();
 		switch (v.getId()) {
 		// 登录按钮
 		case R.id.login_btn:
-			String userName=userNameTxt.getText().toString();
-			String password=pwdTxt.getText().toString();
-			if(!DataFormatCheck.isMobile(userName))
-			{
+			String userName = userNameTxt.getText().toString();
+			String password = pwdTxt.getText().toString();
+			if (!DataFormatCheck.isMobile(userName)) {
 				Toast.makeText(this, "请输入正确的手机号码！", Toast.LENGTH_SHORT).show();
 				return;
 			}
-			if(userName.equals("") || password.equals(""))
-			{
+			if (userName.equals("") || password.equals("")) {
 				Toast.makeText(this, "用户名或密码不能为空！", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			wrapper.setPhone(userName);
 			wrapper.setPassword(password);
 			wrapper.setShowDialog(true);
-			sendData(wrapper,NetworkAction.userF_login);
+			sendData(wrapper, NetworkAction.userF_login);
 			break;
 		// 忘记密码按钮
 		case R.id.login_forgot:
-			intent=new Intent().setClass(this, ForgotActivity.class);
+			intent = new Intent().setClass(this, ForgotActivity.class);
 			break;
 		// 注册按钮
 		case R.id.login_register:
-			intent=new Intent().setClass(this, RegisterActivity.class);
+			intent = new Intent().setClass(this, RegisterActivity.class);
 			break;
 		// 关闭按钮
 		case R.id.login_finish:
 			finish();
 			break;
 		}
-		if(intent!=null)
+		if (intent != null)
 			startActivity(intent);
 
 	}

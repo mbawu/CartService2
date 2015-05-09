@@ -14,8 +14,9 @@
         android:gravity="center"
         android:paddingBottom="6dp"
         android:paddingTop="6dp"
+        android:drawableRight="@drawable/right_arrow"
         android:textColor="#323232"
-        android:textSize="@dimen/font_size_26px"
+        android:textSize="@dimen/font_size_28px"
         android:visibility="gone" />
 
     <View
@@ -52,12 +53,24 @@
                     android:gravity="clip_vertical"
                     android:orientation="vertical" >
 
+                    <View
+                        android:id="@+id/view_service_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:visibility="gone" />
+
                     <TextView
                         android:id="@+id/text_service_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="#323232"
                         android:textSize="@dimen/font_size_30px" />
+
+                    <View
+                        android:id="@+id/view_service_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:visibility="gone" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

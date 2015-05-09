@@ -19,11 +19,12 @@ import com.xqxy.baseclass.RequestWrapper;
 import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
 import com.xqxy.carservice.adapter.CarBaseAdapter;
+import com.xqxy.carservice.view.TopTitleView;
 import com.xqxy.carservice.widget.ConfirmDialog;
 import com.xqxy.model.Car;
 
 public class CarListActivity extends BaseActivity {
-
+	private TopTitleView topTitleView;
 	private ListView listView;
 	private TextView nodata;
 	private TextView textCarAdd;
@@ -31,13 +32,14 @@ public class CarListActivity extends BaseActivity {
 	private List<Car> carList;
 	private MyApplication app;
 	private Car delCar;
-
+	private String[] upkeeps;
 	private String pid;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.car_list_layout);
+		topTitleView = new TopTitleView(this);
 		app = (MyApplication) getApplication();
 		pid = getIntent().getStringExtra("pid");
 		nodata = (TextView) findViewById(R.id.nodataTxt);
@@ -52,6 +54,7 @@ public class CarListActivity extends BaseActivity {
 						CarActivity.class)), 1);
 			}
 		});
+		upkeeps = getResources().getStringArray(R.array.upkeep);
 		getCarList();
 	}
 
@@ -139,13 +142,24 @@ public class CarListActivity extends BaseActivity {
 			viewHolder.textYear.setText(getString(R.string.car_item_year,
 					car.getYear()));
 			viewHolder.textLC.setText(getString(R.string.car_item_lc,
-					car.getJourney() + ""));
+					car.getJourney_value() + ""));
 			viewHolder.textXL.setText(getString(R.string.car_item_xl,
 					car.getSname()));
 			viewHolder.textPL.setText(getString(R.string.car_item_pl,
 					car.getMname()));
-			viewHolder.textBYPL.setText(getString(R.string.car_item_bypl,
-					car.getUpkeep() + ""));
+			viewHolder.textBYPL.setText(getString(R.string.car_item_bypl, ""));
+			if (car.getUpkeep() != null && !"".equals(car.getUpkeep())) {
+				try {
+					int posi = Integer.parseInt(car.getUpkeep());
+					if (posi <= upkeeps.length) {
+						viewHolder.textBYPL.setText(getString(
+								R.string.car_item_bypl, upkeeps[posi - 1]));
+					}
+				} catch (NumberFormatException e) {
+
+					e.printStackTrace();
+				}
+			}
 
 			viewHolder.textDelete.setOnClickListener(new OnClickListener() {
 
@@ -187,7 +201,8 @@ public class CarListActivity extends BaseActivity {
 						Intent intent = new Intent(CarListActivity.this,
 								CarActivity.class);
 						intent.putExtra("car", car);
-						startActivity(intent);
+						//startActivity(intent);
+						startActivityForResult(intent, 1);
 					}
 
 				}

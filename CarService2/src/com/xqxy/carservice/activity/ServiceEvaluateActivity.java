@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -71,7 +72,7 @@ public class ServiceEvaluateActivity extends BaseActivity {
 		request.setShowDialog(true);
 		request.setFlag(flag);
 		request.setPid(pid);
-		//request.setLimit("10000");
+		// request.setLimit("10000");
 		sendDataByGet(request, NetworkAction.indexF_appraise);
 	}
 
@@ -109,6 +110,10 @@ public class ServiceEvaluateActivity extends BaseActivity {
 						.findViewById(R.id.text_evaluate_date);
 				viewHolder.textEvaluateTime = (TextView) convertView
 						.findViewById(R.id.text_evaluate_time);
+				viewHolder.textEvaluateAnswer = (TextView) convertView
+						.findViewById(R.id.text_evaluate_answer);
+				viewHolder.layoutEaluateAnswer = (LinearLayout) convertView
+						.findViewById(R.id.layout_evaluate_answer);
 				convertView.setTag(viewHolder);
 
 			} else {
@@ -145,10 +150,16 @@ public class ServiceEvaluateActivity extends BaseActivity {
 				viewHolder.textEvaluateTime.setText(eva.getCreate_time()
 						.substring(10));
 			}
+
+			if (eva.getReply() != null && !"".equals(eva.getReply())) {
+				viewHolder.textEvaluateAnswer.setText(eva.getReply());
+				viewHolder.layoutEaluateAnswer.setVisibility(View.VISIBLE);
+			} else {
+				viewHolder.layoutEaluateAnswer.setVisibility(View.GONE);
+			}
 			return convertView;
 		}
 	}
-	
 
 	class ViewHolder {
 		TextView textEvaluateLevel;
@@ -156,5 +167,7 @@ public class ServiceEvaluateActivity extends BaseActivity {
 		TextView textEvaluateContent;
 		TextView textEvaluateDate;
 		TextView textEvaluateTime;
+		TextView textEvaluateAnswer;
+		LinearLayout layoutEaluateAnswer;
 	}
 }

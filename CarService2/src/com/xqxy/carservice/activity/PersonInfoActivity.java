@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.xqxy.baseclass.Cst;
@@ -15,6 +16,7 @@ import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
 import com.xqxy.carservice.view.CarImageView;
 import com.xqxy.carservice.view.TopTitleView;
+import com.xqxy.person.OtherActivity;
 
 public class PersonInfoActivity extends PhotoActivity implements
 		OnClickListener {
@@ -37,10 +39,28 @@ public class PersonInfoActivity extends PhotoActivity implements
 		findViewById(R.id.layout_person_info_head).setOnClickListener(this);
 		findViewById(R.id.btn_person_info_exit).setOnClickListener(this);
 		imgHeadPhoto.setRound(true);
-		if (src != null) {
-			imgHeadPhoto.loadImage(src);
-		}
+
 		setImgPath(imgPath);
+	}
+
+	boolean isInit = false;
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (!isInit) {
+			if (src != null) {
+				imgHeadPhoto.postDelayed(new Runnable() {
+
+					@Override
+					public void run() {
+						imgHeadPhoto.loadImage(src);
+					}
+				}, 200);
+
+			}
+			isInit = true;
+		}
 	}
 
 	@Override
@@ -53,6 +73,12 @@ public class PersonInfoActivity extends PhotoActivity implements
 			startActivity(new Intent(this, CarListActivity.class));
 			break;
 		case R.id.btn_person_info_exit:
+			MyApplication.loginStat = false;
+			MyApplication.identity = "";
+			((MyApplication) getApplication()).setAutoLogin(null);
+			Toast.makeText(PersonInfoActivity.this, "退出登录成功",
+					Toast.LENGTH_SHORT).show();
+			finish();
 			break;
 		}
 	}
