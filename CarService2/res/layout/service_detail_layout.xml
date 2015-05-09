@@ -222,7 +222,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:text="好评"
+                   
                     android:textColor="#e94f3a"
                     android:textSize="@dimen/font_size_26px" />
 
@@ -243,7 +243,7 @@
                     android:layout_below="@id/text_evaluate_level"
                     android:layout_marginBottom="3dp"
                     android:layout_marginTop="3dp"
-                    android:text="好评好评好评好评好评好评好评好评好评好评好评好评好评好评好评好评好评好评好评"
+                   
                     android:textColor="#646464"
                     android:textSize="@dimen/font_size_26px" />
 
@@ -253,7 +253,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/text_evaluate_content"
                     android:gravity="left|center_vertical"
-                    android:text="2015-02-11"
+            
                     android:textColor="#646464"
                     android:textSize="@dimen/font_size_26px" />
 
@@ -264,7 +264,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_below="@id/text_evaluate_content"
                     android:gravity="left|center_vertical"
-                    android:text="14:15:20"
+             
                     android:textColor="#646464"
                     android:textSize="@dimen/font_size_26px" />
             </RelativeLayout>
