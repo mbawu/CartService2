@@ -6,4 +6,5 @@
     android:button="@drawable/radio_selector"
     android:paddingLeft="22dp"
     android:textColor="#323232"
+    android:layout_marginRight="5dp"
     android:textSize="@dimen/font_size_26px" />

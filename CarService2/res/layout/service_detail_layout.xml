@@ -152,7 +152,7 @@
                     android:background="@drawable/go_pay_bg"
                     android:text="去购物车结算"
                     android:textColor="#FFFFFF"
-                    android:textSize="@dimen/font_size_26px" />
+                    android:textSize="@dimen/font_size_27px" />
 
                 <Button
                     android:id="@+id/btn_service_add_car"
@@ -163,7 +163,7 @@
                     android:background="@drawable/add_car_bg"
                     android:text="加入购物车"
                     android:textColor="#FFFFFF"
-                    android:textSize="@dimen/font_size_26px" />
+                    android:textSize="@dimen/font_size_27px" />
 
                 <Button
                     android:id="@+id/btn_service_go_order"
@@ -173,7 +173,7 @@
                     android:background="@drawable/go_order_bg"
                     android:text="立即预约"
                     android:textColor="#FFFFFF"
-                    android:textSize="@dimen/font_size_26px" />
+                    android:textSize="@dimen/font_size_27px" />
             </LinearLayout>
 
             <View

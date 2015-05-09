@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -94,7 +95,7 @@ public class ServiceDetailActivity extends BaseActivity implements
 		textEvaContent = (TextView) findViewById(R.id.text_evaluate_content);
 		textEvaData = (TextView) findViewById(R.id.text_evaluate_date);
 		textEvaTime = (TextView) findViewById(R.id.text_evaluate_time);
-		
+
 		view1 = findViewById(R.id.view_service_1);
 		view2 = findViewById(R.id.view_service_2);
 
@@ -232,7 +233,7 @@ public class ServiceDetailActivity extends BaseActivity implements
 						ProductAttr attr = attrs.get(i);
 						RadioButton radioBtn = (RadioButton) getLayoutInflater()
 								.inflate(R.layout.product_dretail_attr_item,
-										null);
+										radioGroupAttr,false);
 						radioBtn.setTag(attr);
 						radioBtn.setId(i);
 						radioBtn.setText(attr.getName());
@@ -305,7 +306,10 @@ public class ServiceDetailActivity extends BaseActivity implements
 					attr.getReal_price()));
 			textServicePriceOld.setText(getString(R.string.product_price,
 					attr.getPrice()));
-			textServiceTime.setText(attr.getTime());
+			textServicePriceOld.getPaint().setFlags(
+					Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+			textServiceTime.setText(getString(R.string.product_time,
+					attr.getTime()));
 		}
 	}
 
