@@ -9,6 +9,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
+import com.xqxy.baseclass.BaiduLoction;
+import com.xqxy.baseclass.BaiduLoction.LocationCallback;
 import com.xqxy.baseclass.BaseActivity;
 import com.xqxy.baseclass.DataFormatCheck;
 import com.xqxy.baseclass.MyApplication;
@@ -31,6 +34,8 @@ public class AddressAddActivity extends BaseActivity {
 	private RequestWrapper wrapper;
 	private String aid = "";
 	private Address address;
+	private String lng="0";
+	private String lat="0";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +46,7 @@ public class AddressAddActivity extends BaseActivity {
 	}
 
 	private void init() {
-
+		
 		nameTxt = (EditText) findViewById(R.id.add_name);
 		phoneTxt = (EditText) findViewById(R.id.add_phone);
 		carNumTxt = (EditText) findViewById(R.id.add_car_num);
@@ -79,8 +84,8 @@ public class AddressAddActivity extends BaseActivity {
 				wrapper.setCar_num(carNum);
 				wrapper.setAddress(location);
 				wrapper.setDetailed(locationDel);
-				wrapper.setLng("110");
-				wrapper.setLat("110");
+				wrapper.setLng(lng);
+				wrapper.setLat(lat);
 				wrapper.setIdentity(MyApplication.identity);
 				 sendData(wrapper, NetworkAction.centerF_add_address);
 
@@ -99,6 +104,25 @@ public class AddressAddActivity extends BaseActivity {
 			locationTxt.setText(address.getAddress());
 			locationDelTxt.setText(address.getDetailed());
 		}
+		else
+		{
+			getLocation();
+		}
+	}
+
+	private void getLocation() {
+		BaiduLoction.getInstance().startLocation();
+		BaiduLoction.getInstance().setLocationCallback(new LocationCallback() {
+			
+			@Override
+			public void locationResult(BDLocation location) {
+				locationTxt.setText(location.getProvince()+location.getCity()+location.getDistrict());
+				locationDelTxt.setText(location.getStreet()+location.getStreetNumber());
+				lng=String.valueOf(location.getLongitude());
+				lat=String.valueOf(location.getLatitude());
+			}
+		});
+		
 	}
 
 	@Override

@@ -248,7 +248,6 @@ public class CartDialog extends Dialog {
 
 	public void onResponseEvent(JSONObject response, NetworkAction requestType) {
 
-		// 先分析返回code值，正确执行showResualt，错误直接输出结果
 		boolean done = false;
 		String msg = "";
 		Log.i("response", response.toString());
@@ -260,13 +259,10 @@ public class CartDialog extends Dialog {
 			e.printStackTrace();
 		}
 
-		Log.i(Cst.TAG, response.toString());
-		// 如果数据返回正确的时候正常执行showResualt
 		if (done) {
 			ResponseWrapper responseWrappe = jsonToClass(response.toString());
 			showAttr(responseWrappe,requestType);
 		}
-		// 否则输出错误信息
 		else {
 //			dismiss();
 		}

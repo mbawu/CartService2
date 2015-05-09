@@ -5,6 +5,23 @@ public class PayModel {
 	private String pay_name;
 	private String pay_pid;
 	private String pay_key;
+	private String alipay_public_key;
+	private String rsa_private_key;
+	
+	
+	
+	public String getAlipay_public_key() {
+		return alipay_public_key;
+	}
+	public void setAlipay_public_key(String alipay_public_key) {
+		this.alipay_public_key = alipay_public_key;
+	}
+	public String getRsa_private_key() {
+		return rsa_private_key;
+	}
+	public void setRsa_private_key(String rsa_private_key) {
+		this.rsa_private_key = rsa_private_key;
+	}
 	public String getPay_name() {
 		return pay_name;
 	}
