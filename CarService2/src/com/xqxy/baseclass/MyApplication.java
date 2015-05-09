@@ -97,6 +97,8 @@ public class MyApplication extends Application {
 		if (autoLogin != null && !"".equals(autoLoginJson)) {
 			autoLogin = JsonUtil.fromJson(autoLoginJson, AutoLogin.class);
 		}
+		
+		guide = sp.getString("guide", null);
 	};
 
 	private Car car;
@@ -129,5 +131,18 @@ public class MyApplication extends Application {
 		}
 
 	}
+	
+	private String guide;
+
+	public String getGuide() {
+		return guide;
+	}
+
+	public void setGuide(String guide) {
+		this.guide = guide;
+		ed.putString("guide", guide);
+		ed.commit();
+	}
+	
 
 }

@@ -11,10 +11,13 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 
+import cn.jpush.android.api.JPushInterface;
+
+import com.xqxy.baseclass.MyApplication;
 import com.xqxy.carservice.R;
 
 public class GuideActivity extends Activity {
-
+	private MyApplication app;
 	private ViewPager viewPager;
 	private List<View> views = new ArrayList<View>();
 
@@ -22,6 +25,7 @@ public class GuideActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.guide_layout);
+		app = (MyApplication) getApplication();
 		viewPager = (ViewPager) findViewById(R.id.viewPager);
 
 		ImageView imgView = (ImageView) getLayoutInflater().inflate(
@@ -41,7 +45,20 @@ public class GuideActivity extends Activity {
 
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		JPushInterface.onResume(this);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		JPushInterface.onPause(this);
+	}
+
 	public void onClickBtn(View v) {
+		app.setGuide("1");
 		startActivity(new Intent(this, MainActivity.class));
 		finish();
 	}
