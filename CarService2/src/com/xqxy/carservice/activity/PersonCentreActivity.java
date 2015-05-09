@@ -73,9 +73,11 @@ public class PersonCentreActivity extends BaseActivity implements
 				request.setIdentity(MyApplication.identity);
 				sendData(request, NetworkAction.centerF_user);
 			}
+			getMsg();
 		} else {
 			layoutUser.setVisibility(View.INVISIBLE);
 			user = null;
+			msgNum.setText("0");
 		}
 	}
 
@@ -114,9 +116,10 @@ public class PersonCentreActivity extends BaseActivity implements
 		headImg.setRound(true);
 		// 注册广播
 		registerBoradcastReceiver();
-		
-		if(MyApplication.loginStat)
-			getMsg();
+
+		/*
+		 * if(MyApplication.loginStat) getMsg();
+		 */
 	}
 
 	@Override

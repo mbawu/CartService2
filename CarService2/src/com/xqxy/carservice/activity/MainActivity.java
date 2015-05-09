@@ -52,7 +52,7 @@ public class MainActivity extends BaseActivity {
 	private ProductAdapter productAdapter;
 	private List<Banner> banners;
 	private List<Product> products;
-	private Dialog myProgressDialog; 
+	private Dialog myProgressDialog;
 
 	private MyApplication app;
 
@@ -72,14 +72,20 @@ public class MainActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent=new Intent();
-				if(!MyApplication.loginStat)
+				Intent intent = new Intent();
+				if (!MyApplication.loginStat)
 					intent.setClass(MainActivity.this, LoginActivity.class);
 				else
 					intent.setClass(MainActivity.this, CartActivity.class);
 				startActivity(intent);
 			}
 		});
+		if (app.getAutoLogin() != null) {
+			RequestWrapper wrapper = new RequestWrapper();
+			wrapper.setPhone(app.getAutoLogin().getUsername());
+			wrapper.setPassword(app.getAutoLogin().getPassword());
+			sendData(wrapper, NetworkAction.userF_login);
+		}
 
 		sendRequest();
 	}
@@ -95,22 +101,29 @@ public class MainActivity extends BaseActivity {
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
 		super.showResualt(responseWrapper, requestType);
-		respCount++;
-		if (requestType == NetworkAction.indexF_banner) {
-			banners = responseWrapper.getBanner();
-			if (banners != null && banners.size() > 0) {
-				initCarouselViewPager();
+		if(requestType == NetworkAction.userF_login){
+			MyApplication.loginStat = true;
+			MyApplication.identity = responseWrapper.getIdentity().get(0)
+					.getIdentity();
+		}else{
+			respCount++;
+			if (requestType == NetworkAction.indexF_banner) {
+				banners = responseWrapper.getBanner();
+				if (banners != null && banners.size() > 0) {
+					initCarouselViewPager();
+				}
+			} else if (requestType == NetworkAction.indexF_product) {
+				products = responseWrapper.getProduct();
+				if (products != null && products.size() > 0) {
+					productAdapter.setDataList(products);
+					productAdapter.notifyDataSetChanged();
+				}
 			}
-		} else if (requestType == NetworkAction.indexF_product) {
-			products = responseWrapper.getProduct();
-			if (products != null && products.size() > 0) {
-				productAdapter.setDataList(products);
-				productAdapter.notifyDataSetChanged();
+			if (respCount == 2) {
+				myProgressDialog.dismiss();
 			}
 		}
-		if (respCount == 2) {
-			myProgressDialog.dismiss();
-		}
+		
 	}
 
 	public void btnOnClick(View view) {

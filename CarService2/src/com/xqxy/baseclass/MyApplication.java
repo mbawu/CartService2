@@ -14,6 +14,7 @@ import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.xqxy.model.AutoLogin;
 import com.xqxy.model.Car;
 
 public class MyApplication extends Application {
@@ -23,10 +24,9 @@ public class MyApplication extends Application {
 	public static SharedPreferences sp; // 本地存储SharedPreferences
 	public static Editor ed; // 本地存储编辑器Editor
 
-	public static String identity; 
-	public static boolean loginStat=false;
-	public static boolean refresh=false; //是否需要刷新
-
+	public static String identity;
+	public static boolean loginStat = false;
+	public static boolean refresh = false; // 是否需要刷新
 
 	@Override
 	public void onCreate() {
@@ -93,6 +93,10 @@ public class MyApplication extends Application {
 		if (carJson != null) {
 			car = JsonUtil.fromJson(carJson, Car.class);
 		}
+		String autoLoginJson = sp.getString("autoLogin", null);
+		if (autoLogin != null && !"".equals(autoLoginJson)) {
+			autoLogin = JsonUtil.fromJson(autoLoginJson, AutoLogin.class);
+		}
 	};
 
 	private Car car;
@@ -107,4 +111,23 @@ public class MyApplication extends Application {
 		ed.putString("car", JsonUtil.toJson(car));
 		ed.commit();
 	}
+
+	private AutoLogin autoLogin;
+
+	public AutoLogin getAutoLogin() {
+		return autoLogin;
+	}
+
+	public void setAutoLogin(AutoLogin autoLogin) {
+		this.autoLogin = autoLogin;
+		if (autoLogin == null) {
+			ed.putString("autoLogin", "");
+			ed.commit();
+		} else {
+			ed.putString("autoLogin", JsonUtil.toJson(autoLogin));
+			ed.commit();
+		}
+
+	}
+
 }

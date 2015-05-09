@@ -123,12 +123,16 @@
                 android:text="保养频率"
                 android:textColor="@color/litill_gray" />
 
-            <EditText
-                android:id="@+id/edit_car_bypl"
-                style="@style/editStyle"
+                       <Spinner
+                android:id="@+id/rst_bypl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberSigned" />
+                android:animationCache="true"
+                android:background="@drawable/spinner_selector"
+                android:drawSelectorOnTop="true"
+                android:padding="0dip"
+                android:textColor="#6d6d6d"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <TextView

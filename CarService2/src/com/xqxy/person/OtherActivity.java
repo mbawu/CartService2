@@ -19,41 +19,41 @@ public class OtherActivity extends BaseActivity implements OnClickListener {
 	private ImageView backImageView;
 	private TextView titleTextView;
 	private TextView rightBtnTextView;
-	
+
 	private TextView personClear;
 	private TextView personContranct;
 	private TextView personAbout;
 	private TextView personFeedBack;
 	private TextView personComment;
 	private TextView personLoginOut;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.person_other);
 		init();
 	}
-	
-	 private void init() {
+
+	private void init() {
 		// TODO Auto-generated method stub
-			backImageView = (ImageView) findViewById(R.id.imageTopBack);
-			titleTextView = (TextView) findViewById(R.id.textTopTitle);
-			rightBtnTextView = (TextView) findViewById(R.id.textTopRightBtn);
-			
-			personClear = (TextView) findViewById(R.id.personClear);
-			personContranct = (TextView) findViewById(R.id.personContranct);
-			personAbout = (TextView) findViewById(R.id.personAbout);
-			personFeedBack = (TextView) findViewById(R.id.personFeedBack);
-			personComment = (TextView) findViewById(R.id.personComment);
-			personLoginOut = (TextView) findViewById(R.id.personLoginOut);
-			
-			
-			backImageView.setOnClickListener(this);
-			personClear.setOnClickListener(this);
-			personContranct.setOnClickListener(this);
-			personAbout.setOnClickListener(this);
-			personFeedBack.setOnClickListener(this);
-			personComment.setOnClickListener(this);
-			personLoginOut.setOnClickListener(this);
+		backImageView = (ImageView) findViewById(R.id.imageTopBack);
+		titleTextView = (TextView) findViewById(R.id.textTopTitle);
+		rightBtnTextView = (TextView) findViewById(R.id.textTopRightBtn);
+
+		personClear = (TextView) findViewById(R.id.personClear);
+		personContranct = (TextView) findViewById(R.id.personContranct);
+		personAbout = (TextView) findViewById(R.id.personAbout);
+		personFeedBack = (TextView) findViewById(R.id.personFeedBack);
+		personComment = (TextView) findViewById(R.id.personComment);
+		personLoginOut = (TextView) findViewById(R.id.personLoginOut);
+
+		backImageView.setOnClickListener(this);
+		personClear.setOnClickListener(this);
+		personContranct.setOnClickListener(this);
+		personAbout.setOnClickListener(this);
+		personFeedBack.setOnClickListener(this);
+		personComment.setOnClickListener(this);
+		personLoginOut.setOnClickListener(this);
 	}
 
 	@Override
@@ -63,8 +63,8 @@ public class OtherActivity extends BaseActivity implements OnClickListener {
 			finish();
 			break;
 		case R.id.personClear:
-			Thread thread=new Thread(new Runnable() {
-				
+			Thread thread = new Thread(new Runnable() {
+
 				@Override
 				public void run() {
 					handler.sendMessageDelayed(new Message(), 2000);
@@ -79,7 +79,7 @@ public class OtherActivity extends BaseActivity implements OnClickListener {
 			finish();
 			break;
 		case R.id.personFeedBack:
-			Intent intent=new Intent();
+			Intent intent = new Intent();
 			intent.setClass(this, FeedBackActivity.class);
 			startActivity(intent);
 			break;
@@ -87,18 +87,20 @@ public class OtherActivity extends BaseActivity implements OnClickListener {
 
 			break;
 		case R.id.personLoginOut:
-			MyApplication.loginStat=false;
-			MyApplication.identity="";
-			Toast.makeText(OtherActivity.this, "退出登录成功", Toast.LENGTH_SHORT).show();
+			MyApplication.loginStat = false;
+			MyApplication.identity = "";
+			((MyApplication) getApplication()).setAutoLogin(null);
+			Toast.makeText(OtherActivity.this, "退出登录成功", Toast.LENGTH_SHORT)
+					.show();
 			break;
 		}
-		
+
 	}
 
-	Handler handler=new Handler()
-	{
+	Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
-			Toast.makeText(OtherActivity.this, "缓存清除完毕", Toast.LENGTH_SHORT).show();
+			Toast.makeText(OtherActivity.this, "缓存清除完毕", Toast.LENGTH_SHORT)
+					.show();
 		};
 	};
 }

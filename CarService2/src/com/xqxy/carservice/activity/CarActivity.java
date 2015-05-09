@@ -6,12 +6,11 @@ import java.util.ArrayList;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.EditText;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -40,17 +39,17 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 
 	private Spinner lcSpinner;
 	private CarInfoAdapter lcAdapter;
-
-	// private EditText textViewLC;
-	private EditText textViewBYPL;
+	private Spinner byplSpinner;
 
 	private MyApplication app;
-	private Dialog myProgressDialog; 
+	private Dialog myProgressDialog;
 	private Car car = new Car();
 
 	private String pid = "";
 
 	private int countRequest = 0;
+
+	private String[] upkeeps;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,13 +60,13 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 		brandSpinner = (Spinner) findViewById(R.id.rst_brand);
 		seriesSpinner = (Spinner) findViewById(R.id.rst_series);
 		modelSpinner = (Spinner) findViewById(R.id.rst_model);
-		/* textViewLC = (EditText) findViewById(R.id.edit_car_lc); */
 		lcSpinner = (Spinner) findViewById(R.id.rst_lc);
-		textViewBYPL = (EditText) findViewById(R.id.edit_car_bypl);
+		byplSpinner = (Spinner) findViewById(R.id.rst_bypl);
 		brandSpinner.setOnItemSelectedListener(this);
 		seriesSpinner.setOnItemSelectedListener(this);
 		modelSpinner.setOnItemSelectedListener(this);
 		lcSpinner.setOnItemSelectedListener(this);
+		byplSpinner.setOnItemSelectedListener(this);
 
 		findViewById(R.id.btn_car_save).setOnClickListener(this);
 
@@ -75,16 +74,32 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 		Serializable obj = getIntent().getSerializableExtra("car");
 		if (obj != null) {
 			car = (Car) obj;
-			// textViewLC.setText(car.getJourney());
-			textViewBYPL.setText(car.getUpkeep());
 		}
 		myProgressDialog = createDialog();
 		myProgressDialog.show();
 		respCount = 0;
+
+		upkeeps = getResources().getStringArray(R.array.upkeep);
+
 		sendDataByGet(new RequestWrapper(), NetworkAction.carF_brand);
 		sendDataByGet(new RequestWrapper(), NetworkAction.carF_series);
-		//sendDataByGet(new RequestWrapper(), NetworkAction.carF_model);
+		sendDataByGet(new RequestWrapper(), NetworkAction.carF_model);
 		sendDataByGet(new RequestWrapper(), NetworkAction.indexF_journey);
+		byplSpinner.setAdapter(new ArrayAdapter<String>(this,
+				R.layout.car_info_adapter, R.id.textView, upkeeps));
+
+		if (car.getId() != null && car.getUpkeep() != null
+				&& !"".equals(car.getUpkeep())) {
+			try {
+				int posi = Integer.parseInt(car.getUpkeep());
+				if (posi <= upkeeps.length) {
+					byplSpinner.setSelection(posi - 1);
+				}
+			} catch (NumberFormatException e) {
+
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override
@@ -157,8 +172,8 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 				countRequest++;
 				if (car.getId() != null && responseWrapper.getJourney() != null) {
 					for (int i = 0; i < responseWrapper.getJourney().size(); i++) {
-						if (car.getKey() != null
-								&& car.getKey().equals(
+						if (car.getJourney() != null
+								&& car.getJourney().equals(
 										responseWrapper.getJourney().get(i)
 												.getKey())) {
 							lcSpinner.setSelection(i);
@@ -167,7 +182,7 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 					}
 				}
 			}
-			if (respCount == 3) {
+			if (respCount == 4) {
 				myProgressDialog.dismiss();
 			}
 		}
@@ -192,6 +207,8 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 		} else if (object instanceof Journey) {
 			car.setKey(((Journey) object).getKey());
 			car.setJourney(((Journey) object).getValue());
+		} else if (object instanceof String) {
+			car.setUpkeep(position + 1 + "");
 		}
 	}
 
@@ -202,8 +219,6 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public void onClick(View v) {
-		// String lc = textViewLC.getText().toString();
-		String bypl = textViewBYPL.getText().toString();
 
 		if (car.getBid() == null) {
 			Toast.makeText(this, "请选择品牌.", Toast.LENGTH_SHORT).show();
@@ -220,13 +235,8 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 			return;
 		}
 
-		/*
-		 * if ("".equals(lc.trim())) { Toast.makeText(this, "请输入已驾公里.",
-		 * Toast.LENGTH_SHORT).show(); return; }
-		 */
-
-		if ("".equals(bypl.trim())) {
-			Toast.makeText(this, "请输入保养频率.", Toast.LENGTH_SHORT).show();
+		if (car.getJourney() == null) {
+			Toast.makeText(this, "请选择已驾公里.", Toast.LENGTH_SHORT).show();
 			return;
 		}
 
@@ -238,9 +248,8 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 		request.setSid(car.getSid());
 		request.setMid(car.getMid());
 		request.setJourney(car.getKey());
-		request.setUpkeep(bypl);
-		// car.setJourney(lc);
-		car.setUpkeep(bypl);
+		request.setUpkeep(car.getUpkeep());
+
 		if (pid == null || "".equals(pid)) {// 登陆后增加爱车
 			request.setIdentity(MyApplication.identity);
 			sendData(request, NetworkAction.centerF_add_car);

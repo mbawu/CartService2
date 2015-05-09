@@ -1,9 +1,12 @@
 package com.xqxy.carservice.activity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +23,7 @@ import com.xqxy.baseclass.RequestWrapper;
 import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
 import com.xqxy.carservice.adapter.CarBaseAdapter;
+import com.xqxy.carservice.widget.ConfirmDialog;
 import com.xqxy.model.Order;
 import com.xqxy.model.OrderProduct;
 
@@ -34,7 +38,7 @@ public class OrderListActivity extends BaseActivity implements
 
 	private String page = "1";
 	private String status = "0";
-
+	private static final String ORDER_STATUS_ACCEPT = "1"; // 等待服务
 	private static final String ORDER_STATUS_WAITING = "2"; // 等待服务
 	private static final String ORDER_STATUS_FINISH = "3"; // 已完成
 	private static final String ORDER_STATUS_CANCEL = "4"; // 已取消
@@ -105,16 +109,60 @@ public class OrderListActivity extends BaseActivity implements
 		if (v instanceof TextView) {
 			String btnTxt = ((TextView) v).getText().toString();
 			Order order = (Order) v.getTag();
-			RequestWrapper request = new RequestWrapper();
+
+			final RequestWrapper request = new RequestWrapper();
 			request.setIdentity(MyApplication.identity);
 			request.setOid(order.getOid());
-			NetworkAction action = null;
+
 			if (btnTxt.equals(getString(R.string.order_btn_cancel))) {
-				action = NetworkAction.centerF_cancel_order;
+
+				String serviceTime = order.getServer_time();
+				if (serviceTime != null && !"".equals(serviceTime)) {
+					try {
+						Calendar c = Calendar.getInstance();
+						c.setTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+								.parse(serviceTime));
+						long tt = c.getTimeInMillis();
+						if ((tt - System.currentTimeMillis()) < 60 * 60 * 1000) {
+							ConfirmDialog dlg = new ConfirmDialog(this);
+							dlg.setTitle("提示");
+							dlg.setMessage("离订单服务时间已不足1小时，此时取消订单将收取10%的违约费.确定取消吗？");
+							dlg.setPositiveButton("取消订单",
+									new ConfirmDialog.OnClickListener() {
+
+										@Override
+										public void onClick(Dialog dialog,
+												View view) {
+											sendData(
+													request,
+													NetworkAction.centerF_cancel_order);
+										}
+									});
+
+							dlg.setNegativeButton("暂不取消",
+									new ConfirmDialog.OnClickListener() {
+
+										@Override
+										public void onClick(Dialog dialog,
+												View view) {
+
+										}
+									});
+							dlg.show();
+						}else{
+							sendData(request, NetworkAction.centerF_cancel_order);
+						}
+					} catch (Exception e) {
+						sendData(request, NetworkAction.centerF_cancel_order);
+					}
+				} else {
+					sendData(request, NetworkAction.centerF_cancel_order);
+				}
+
 			} else if (btnTxt.equals(getString(R.string.order_btn_delete))) {
-				action = NetworkAction.centerF_del_order;
+				sendData(request, NetworkAction.centerF_del_order);
 			} else if (btnTxt.equals(getString(R.string.order_btn_finish))) {
-				action = NetworkAction.centerF_affirm_order;
+				sendData(request, NetworkAction.centerF_affirm_order);
 			} else if (btnTxt.equals(getString(R.string.order_btn_evaluate))) {
 
 				Intent intent = new Intent(this, OrderEvaluateActivity.class);
@@ -123,7 +171,7 @@ public class OrderListActivity extends BaseActivity implements
 				startActivity(intent);
 				return;
 			}
-			sendData(request, action);
+
 		}
 	}
 
@@ -170,37 +218,59 @@ public class OrderListActivity extends BaseActivity implements
 			opAdapter.setDataList(order.getProduct());
 			viewHolder.listViewProduct.setAdapter(opAdapter);
 
-			if ("1".equals(order.getStatus())) {// 待处理
-				viewHolder.textOrderState
-						.setText(getString(R.string.order_status_waiting));
+			/*
+			 * if ("1".equals(order.getStatus())) {// 待处理
+			 * viewHolder.textOrderState
+			 * .setText(getString(R.string.order_status_waiting));
+			 * 
+			 * viewHolder.textBtnOk.setVisibility(View.VISIBLE);
+			 * viewHolder.textBtnOk
+			 * .setText(getString(R.string.order_btn_evaluate));
+			 * viewHolder.textBtnCancel.setVisibility(View.GONE);
+			 * viewHolder.textBtnCancel
+			 * .setText(getString(R.string.order_btn_cancel)); } else
+			 */
 
-				viewHolder.textBtnOk.setVisibility(View.VISIBLE);
-				viewHolder.textBtnOk
-						.setText(getString(R.string.order_btn_evaluate));
-				viewHolder.textBtnCancel.setVisibility(View.GONE);
-				viewHolder.textBtnCancel
-						.setText(getString(R.string.order_btn_cancel));
-			} else
-
-			if (ORDER_STATUS_WAITING.equals(order.getStatus())) {// ---等待服务
+			if (ORDER_STATUS_ACCEPT.equals(order.getStatus())
+					|| ORDER_STATUS_WAITING.equals(order.getStatus())) {// ---等待服务
 				viewHolder.textOrderState
 						.setText(R.string.order_status_waiting);
 
 				viewHolder.textBtnOk.setVisibility(View.VISIBLE);
 				viewHolder.textBtnOk
-						.setText(getString(R.string.order_btn_cancel));// 取消订单
+						.setText(getString(R.string.order_btn_finish));// 确认完成
 
 				viewHolder.textBtnCancel.setVisibility(View.VISIBLE);
 				viewHolder.textBtnCancel
-						.setText(getString(R.string.order_btn_finish));// 确认完成
+						.setText(getString(R.string.order_btn_cancel));// 取消订单
+
+				String serviceTime = order.getServer_time();
+				if (serviceTime != null && !"".equals(serviceTime)) {
+					try {
+						Calendar c = Calendar.getInstance();
+						c.setTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+								.parse(serviceTime));
+						long tt = c.getTimeInMillis();
+						if ((tt - System.currentTimeMillis()) < 0) {
+							viewHolder.textBtnCancel.setVisibility(View.GONE);
+						}
+					} catch (Exception e) {
+
+					}
+				}
 
 			} else if (ORDER_STATUS_FINISH.equals(order.getStatus())) {// ---服务完成
 				viewHolder.textOrderState
 						.setText(getString(R.string.order_status_finish));
 
-				viewHolder.textBtnOk.setVisibility(View.VISIBLE);
 				viewHolder.textBtnOk
 						.setText(getString(R.string.order_btn_evaluate));// 评价
+
+				if ("0".equals(order.getAppnum())) {
+					viewHolder.textBtnOk.setVisibility(View.VISIBLE);
+				} else {
+					viewHolder.textBtnOk.setVisibility(View.GONE);
+				}
 
 				viewHolder.textBtnCancel.setVisibility(View.VISIBLE);
 				viewHolder.textBtnCancel

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.xqxy.carservice.R;
 
 /**
  * 继承自ImageView，用于异步加载图片，在下载图片时使用设置的loading图片占位，图片下载好后刷新View
@@ -66,18 +67,18 @@ public class CarImageView extends ImageView {
 			int d = this.getWidth();
 			DisplayImageOptions options = new DisplayImageOptions.Builder()
 					.showStubImage(downLoadingImageId)
-					.showImageForEmptyUri(downLoadingImagefailureId)
+					.showImageForEmptyUri(R.drawable.head_default)
 					.cacheInMemory().cacheOnDisc()
-					.showImageOnFail(downLoadingImagefailureId)
+					.showImageOnFail(R.drawable.head_default)
 					.bitmapConfig(Bitmap.Config.RGB_565)
 					.displayer(new RoundedBitmapDisplayer(d / 2)).build();
 			ImageLoader.getInstance().displayImage(url, this, options);
 		} else {
 			DisplayImageOptions options = new DisplayImageOptions.Builder()
 					.showStubImage(downLoadingImageId)
-					.showImageForEmptyUri(downLoadingImagefailureId)
+					.showImageForEmptyUri(R.drawable.car_default)
 					.cacheInMemory().cacheOnDisc()
-					.showImageOnFail(downLoadingImagefailureId)
+					.showImageOnFail(R.drawable.car_default)
 					.bitmapConfig(Bitmap.Config.RGB_565).build();
 			ImageLoader.getInstance().displayImage(url, this, options);
 		}

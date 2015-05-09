@@ -39,7 +39,7 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_alignParentRight="true"
-                android:background="#333333" />
+              />
         </RelativeLayout>
 
         <View
@@ -78,7 +78,7 @@
                 android:id="@+id/btn_person_info_exit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_blue_border"
+                android:background="@drawable/white_btn_bg"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
                 android:text="退出登录"

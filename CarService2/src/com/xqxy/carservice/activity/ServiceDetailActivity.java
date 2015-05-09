@@ -54,6 +54,8 @@ public class ServiceDetailActivity extends BaseActivity implements
 	private TextView textEvaContent;
 	private TextView textEvaData;
 	private TextView textEvaTime;
+	private View view1;
+	private View view2;
 
 	private WebView webview;
 	private String pid;
@@ -92,6 +94,9 @@ public class ServiceDetailActivity extends BaseActivity implements
 		textEvaContent = (TextView) findViewById(R.id.text_evaluate_content);
 		textEvaData = (TextView) findViewById(R.id.text_evaluate_date);
 		textEvaTime = (TextView) findViewById(R.id.text_evaluate_time);
+		
+		view1 = findViewById(R.id.view_service_1);
+		view2 = findViewById(R.id.view_service_2);
 
 		findViewById(R.id.btn_service_go_pay).setOnClickListener(this);
 		findViewById(R.id.btn_service_go_order).setOnClickListener(this);
@@ -105,10 +110,11 @@ public class ServiceDetailActivity extends BaseActivity implements
 			sendDataByGet(request, NetworkAction.indexF_product_details);
 
 			if ("2".equals(flag)) {
-
 				textCarType.setVisibility(View.GONE);
 			} else if ("1".equals(flag)) {
 				radioGroupAttr.setVisibility(View.GONE);
+				view1.setVisibility(View.VISIBLE);
+				view2.setVisibility(View.VISIBLE);
 				Car car = app.getCar();
 
 				if (car != null) {

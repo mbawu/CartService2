@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:paddingBottom="1dp"
     android:paddingLeft="10dp"
-    android:paddingRight="10dp" 
-    android:paddingBottom="1dp">
+    android:paddingRight="10dp" >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -60,5 +60,33 @@
             android:textColor="#646464"
             android:textSize="@dimen/font_size_26px" />
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_evaluate_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:background="@drawable/evaluate_item_bg"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:layout_marginTop="3dp"
+            android:text="[商家回复]:"
+            android:textColor="#646464"
+            android:textSize="@dimen/font_size_26px" />
+
+        <TextView
+            android:id="@+id/text_evaluate_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:layout_marginTop="3dp"
+            android:textColor="#646464"
+            android:textSize="@dimen/font_size_26px" />
+    </LinearLayout>
 
 </LinearLayout>
