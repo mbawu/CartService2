@@ -117,7 +117,12 @@ public class MyApplication extends Application {
 	private AutoLogin autoLogin;
 
 	public AutoLogin getAutoLogin() {
-		return autoLogin;
+		try {
+			return JsonUtil.fromJson(sp.getString("autoLogin", ""), AutoLogin.class);
+		} catch (Exception e) {
+			return null;
+		}
+	
 	}
 
 	public void setAutoLogin(AutoLogin autoLogin) {
