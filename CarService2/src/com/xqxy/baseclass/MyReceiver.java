@@ -3,6 +3,7 @@ package com.xqxy.baseclass;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.gson.JsonObject;
 import com.xqxy.person.MessageActivity;
 
 import android.content.BroadcastReceiver;
@@ -10,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 import cn.jpush.android.api.JPushInterface;
 
 /**
@@ -44,6 +46,23 @@ public class MyReceiver extends BroadcastReceiver {
 			Log.d(TAG, "[MyReceiver] 接收到推送下来的通知");
 			int notifactionId = bundle
 					.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
+			 String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
+			 String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
+			 JSONObject ob;
+			try {
+				ob = new JSONObject(extras);
+				 if(ob.get("sex").equals("1"))
+				 {
+					 JPushInterface.clearAllNotifications(context);
+					 JPushInterface.clearNotificationById(context, notifactionId);
+					return;
+				 }
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				Toast.makeText(context, "解析推送消息出错", Toast.LENGTH_SHORT).show();
+			}
+			
 			Log.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
 			// 接收到消息推送以后通知改变消息数量
 			Intent mIntent = new Intent(Cst.GET_RECEIVE);
