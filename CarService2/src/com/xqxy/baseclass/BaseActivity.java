@@ -261,6 +261,7 @@ public class BaseActivity extends Activity {
 		if (progressDialog != null) {
 			progressDialog.dismiss();
 		}
+		showResualt(null, null);
 		Toast.makeText(this, "访问服务器失败，请重试", Toast.LENGTH_SHORT).show();
 	}
 
