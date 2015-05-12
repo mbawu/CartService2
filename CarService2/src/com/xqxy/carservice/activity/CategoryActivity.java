@@ -110,11 +110,25 @@ public class CategoryActivity extends BaseActivity implements
 						new int[] { R.id.img_category_item_icon,
 								R.id.text_category_item_title });
 				listView.setAdapter(ad1);
+
+				getCategoryProduct(dataMaps.get(0).get("cid").toString());
+		
+				listView.postDelayed(new Runnable() {
+
+					@Override
+					public void run() {
+						listView.requestFocusFromTouch();
+
+						listView.setSelection(0);
+					}
+				}, 500);
+
 			}
 		} else if (requestType == NetworkAction.indexF_column_product) {
 			List<CategoryProduct> cps = responseWrapper.getColumn_product();
 			cpAdapter.clear();
 			cpAdapter.addAll(cps);
+
 		}
 	}
 

@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:gravity="center"
-                android:text="车美容"
+                android:text="汽车仁"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />
 
@@ -87,9 +87,9 @@
                 android:layout_marginLeft="15dp"
                 android:gravity="left|center_vertical"
                 android:padding="0dp"
-                android:text="限量优惠"
+                android:text="优惠活动"
                 android:textColor="#323232"
-                android:textSize="22sp" />
+                android:textSize="@dimen/font_size_30px" />
         </LinearLayout>
 
         <ListView
