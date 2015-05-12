@@ -21,25 +21,23 @@
             android:id="@+id/imagePersonCenterHeader"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            />
+            android:background="@drawable/head_default" />
 
         <TextView
             android:id="@+id/textPersonCenterSex"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:textSize="@dimen/font_size_30px"
             android:textColor="#3c3c3c"
-           />
+            android:textSize="@dimen/font_size_30px" />
 
         <TextView
             android:id="@+id/textPersonCenterCredits"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-             android:textSize="@dimen/font_size_24px"
             android:textColor="#e94f3a"
-             />
+            android:textSize="@dimen/font_size_24px" />
     </LinearLayout>
 
     <TextView

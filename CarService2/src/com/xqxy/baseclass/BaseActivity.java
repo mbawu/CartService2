@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -35,6 +36,7 @@ public class BaseActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		// if(Cst.EXITE)
 		// {
 		// finish();
@@ -259,6 +261,7 @@ public class BaseActivity extends Activity {
 		if (progressDialog != null) {
 			progressDialog.dismiss();
 		}
+		showResualt(null, null);
 		Toast.makeText(this, "访问服务器失败，请重试", Toast.LENGTH_SHORT).show();
 	}
 
