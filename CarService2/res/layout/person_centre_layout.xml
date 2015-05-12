@@ -95,7 +95,8 @@
             android:gravity="center"
             android:text="0"
             android:textColor="#FFFFFF"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            android:visibility="gone" />
     </FrameLayout>
 
     <TextView

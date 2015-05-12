@@ -35,67 +35,69 @@ public class MessageActivity extends BaseActivity {
 	private MessageAdapter adapter;
 	private ArrayList<Message> datas;
 	private TextView nodata;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.person_message);
 		init();
 	}
-	
+
 	private void init() {
 		backImageView = (ImageView) findViewById(R.id.imageTopBack);
 		titleTextView = (TextView) findViewById(R.id.textTopTitle);
 		rightBtnTextView = (TextView) findViewById(R.id.textTopRightBtn);
 		backImageView.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				MessageActivity.this.finish();
-				
+
 			}
 		});
-		nodata=(TextView) findViewById(R.id.nodataTxt);
+		nodata = (TextView) findViewById(R.id.nodataTxt);
 		listView = (ListView) findViewById(R.id.listview);
 		adapter = new MessageAdapter(this);
 		listView.setAdapter(adapter);
 		getMsg();
-//		Intent intent=getIntent();
-//		datas=(ArrayList<Message>) intent.getSerializableExtra("datas");
-		
+		// Intent intent=getIntent();
+		// datas=(ArrayList<Message>) intent.getSerializableExtra("datas");
+
 	}
-	
+
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
-		 if (requestType==(NetworkAction.centerF_user_msg)) {
-				datas = responseWrapper.getInfo();
-				if(datas.size()>0)
-				{
-					nodata.setVisibility(View.GONE);
-					listView.setVisibility(View.VISIBLE);
-					adapter.setDataList(datas);
-					adapter.notifyDataSetChanged();
-				}
-				else
-				{
-					nodata.setVisibility(View.VISIBLE);
-					listView.setVisibility(View.GONE);
-				}
-
-				
+		if (requestType == (NetworkAction.centerF_user_msg)) {
+			datas = responseWrapper.getInfo();
+			if (datas.size() > 0) {
+				nodata.setVisibility(View.GONE);
+				listView.setVisibility(View.VISIBLE);
+				adapter.setDataList(datas);
+				adapter.notifyDataSetChanged();
+			} else {
+				nodata.setVisibility(View.VISIBLE);
+				listView.setVisibility(View.GONE);
 			}
+			RequestWrapper requestWrapper = new RequestWrapper();
+			requestWrapper.setIdentity(MyApplication.identity);
+			sendData(requestWrapper, NetworkAction.centerF_update_msg);
+
+		} else if (requestType == (NetworkAction.centerF_update_msg)) {
+			Intent intent = new Intent();
+			setResult(PersonCentreActivity.REQUEST_CODE_MSG, intent);
+		}
 	}
-	public void getMsg()
-	{
+
+	public void getMsg() {
 		RequestWrapper requestWrapper = new RequestWrapper();
 		requestWrapper.setIdentity(MyApplication.identity);
 		requestWrapper.setShowDialog(true);
 		sendDataByGet(requestWrapper, NetworkAction.centerF_user_msg);
 	}
-	
+
 	class MessageAdapter extends CarBaseAdapter<Message> {
 
 		public MessageAdapter(Activity activity) {
@@ -124,13 +126,15 @@ public class MessageActivity extends BaseActivity {
 			final Message msg = getItem(position);
 			viewHolder.msg_content.setText(msg.getContent());
 			viewHolder.msg_date.setText(msg.getCreate_time());
-			//未读
-			if(msg.getStatus().equals("1"))
-				viewHolder.msg_layout.setBackground(getResources().getDrawable(R.drawable.edit_text_selector));
+			// 未读
+			if (msg.getStatus().equals("1"))
+				viewHolder.msg_layout.setBackground(getResources().getDrawable(
+						R.drawable.edit_text_selector));
 			else
-				viewHolder.msg_layout.setBackground(getResources().getDrawable(R.drawable.style_text_selector));
-//			viewHolder.credit_integral.setText(msg.getIntegral());
-			
+				viewHolder.msg_layout.setBackground(getResources().getDrawable(
+						R.drawable.style_text_selector));
+			// viewHolder.credit_integral.setText(msg.getIntegral());
+
 			return convertView;
 		}
 	}
@@ -139,7 +143,7 @@ public class MessageActivity extends BaseActivity {
 		TextView msg_content;
 		TextView msg_date;
 		LinearLayout msg_layout;
-//		TextView credit_integral;
-//		TableRow credit_title;
+		// TextView credit_integral;
+		// TableRow credit_title;
 	}
 }

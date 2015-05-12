@@ -29,10 +29,6 @@
         android:id="@+id/personFeedBack"
         style="@style/personOtherItemStyle"
         android:text="意见反馈" />
-        <TextView
-        android:id="@+id/personComment"
-        style="@style/personOtherItemStyle"
-        android:text="去App Store评分" />
     </LinearLayout>
 
     

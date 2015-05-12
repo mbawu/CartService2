@@ -24,7 +24,7 @@ public class OtherActivity extends BaseActivity implements OnClickListener {
 	private TextView personContranct;
 	private TextView personAbout;
 	private TextView personFeedBack;
-	private TextView personComment;
+//	private TextView personComment;
 	private TextView personLoginOut;
 
 	@Override
@@ -44,7 +44,7 @@ public class OtherActivity extends BaseActivity implements OnClickListener {
 		personContranct = (TextView) findViewById(R.id.personContranct);
 		personAbout = (TextView) findViewById(R.id.personAbout);
 		personFeedBack = (TextView) findViewById(R.id.personFeedBack);
-		personComment = (TextView) findViewById(R.id.personComment);
+//		personComment = (TextView) findViewById(R.id.personComment);
 		personLoginOut = (TextView) findViewById(R.id.personLoginOut);
 
 		backImageView.setOnClickListener(this);
@@ -52,7 +52,7 @@ public class OtherActivity extends BaseActivity implements OnClickListener {
 		personContranct.setOnClickListener(this);
 		personAbout.setOnClickListener(this);
 		personFeedBack.setOnClickListener(this);
-		personComment.setOnClickListener(this);
+//		personComment.setOnClickListener(this);
 		personLoginOut.setOnClickListener(this);
 	}
 
@@ -83,9 +83,7 @@ public class OtherActivity extends BaseActivity implements OnClickListener {
 			intent.setClass(this, FeedBackActivity.class);
 			startActivity(intent);
 			break;
-		case R.id.personComment:
-
-			break;
+	
 		case R.id.personLoginOut:
 			MyApplication.loginStat = false;
 			MyApplication.identity = "";

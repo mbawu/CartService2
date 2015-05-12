@@ -9,6 +9,7 @@ public enum NetworkAction {
 	userF_resetpwd,//忘记密码
 	userF_send_phone,//获取验证码
 	centerF_user_msg,//我的消息
+	centerF_update_msg,
 	centerF_user_card,//我的储值卡
 	indexF_card,//储值卡列表
 	orderF_buy_card,//储值卡购买前的接口

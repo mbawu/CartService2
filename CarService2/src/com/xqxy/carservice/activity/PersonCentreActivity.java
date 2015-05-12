@@ -36,6 +36,7 @@ import com.xqxy.person.StoreCardActivity;
 public class PersonCentreActivity extends BaseActivity implements
 		OnClickListener {
 	public static int REQUEST_CODE_PHOTO = 1;
+	public static int REQUEST_CODE_MSG = 1;
 	private LinearLayout layoutUser;
 	private ImageView backImageView;
 	private TextView titleTextView;
@@ -139,7 +140,12 @@ public class PersonCentreActivity extends BaseActivity implements
 				if (msg.getStatus().equals("1"))
 					count++;
 			}
-			msgNum.setText(count + "");
+			if(count>0)
+			{
+				msgNum.setVisibility(View.VISIBLE);
+				msgNum.setText(count + "");
+			}
+		
 			msgIntent = new Intent();
 			msgIntent
 					.setClass(PersonCentreActivity.this, MessageActivity.class);
@@ -237,7 +243,7 @@ public class PersonCentreActivity extends BaseActivity implements
 						.show();
 				return;
 			}
-			startActivity(msgIntent);
+			startActivityForResult(msgIntent, REQUEST_CODE_MSG);
 			break;
 		// 其他
 		case R.id.personCenterItemOther:
@@ -273,6 +279,10 @@ public class PersonCentreActivity extends BaseActivity implements
 					user.setHead(src);
 				}
 			}
+		}
+		else if(requestCode == REQUEST_CODE_PHOTO )
+		{
+			msgNum.setVisibility(View.GONE);
 		}
 	}
 
