@@ -120,17 +120,13 @@ public class OrderPayActivity extends BaseActivity implements
 //				pay.setPARTNER(payModel.getPay_pid());
 //				pay.setSELLER(payModel.getPay_name());
 //				pay.setRSA_PRIVATE(payModel.getRsa_private_key());
-				pay.setPARTNER("2088511325117985");
-				pay.setSELLER("jianghh@zhoulin.com.cn");
-				pay.setRSA_PRIVATE("MIICXQIBAAKBgQDBNfLxJMvlY63ODUAl+OUJ1H9vQWrd+4Unbo5Ai9B4yoBf54LljCZxxgKmfFsiPJQ3UgE6oxeOnH1aa/6HD5nSa75ocNRBbEWahK5FUQ71zM+asK7Q3oy3MvXSVj90C1sl5kXk2U+mauk/f3J1UkhKBQAsY81uLHQYPQnb3HV11wIDAQABAoGAQ7ZchhaXPrVIXEZYjPZFjsRiRONwSIu1hrRANm7JiQuvIe1I+pm7f3QdyasbZUxFxX1/4MT3pItDg0UF1t+o0HH6xxx1At6qCfUqtSDnVxnsQiD/P10U2eyJA4zONPF6QTo7qMtkCOnfv0hvFNcStIL3fGLoG7mbrcF2pqOeUwECQQDhvfoLu8Qcf8L6hvyRf+QeM3ySVQXP2ovTw47F5lInbmWdENqq11SS+JLkwjjZUTUU00JmD5sJQnoqsmgqYKNxAkEA2xu0T49yTZP9iKy+DXEFAZZdou1zW4Lr9VJdADvdrkFAdXgPXSPUf0zcTo69VxYpS1lqdHZqtAIv+0mKaHZ5xwJBAMNXSLO0lJxwtkFiY9ZoS/cSaJ6b8j6OCGeEFt0LVFYIwudqeT5SvT282igYJWdwTTWrJg75PBiELQEbhuX84BECQAgzeENGFjwrHuE/vflY0pwlmamgg6HYO6a6B3sbwodkL9p1vPV6gtik8tYJ57JbxP3qAd8ME6BbOJqKPSD91j8CQQCEi10J/Rxpbn/FLbuHIrXFs5g0Jv4D++y8oa6UdcdJUMIqNeSfm0HMRE7m9xtI9bbedl7bSHCc9ts+DX4Ub7n5");
+				
 				try {
-//					String subject=carts.get(0).getName();
-//					pay.alipay(carts.get(0).getName(),
-//							"{\"type\":\"2\",\"identity\":\""
-//									+ MyApplication.identity + "\",\"oid\":\""
-//									+ oid + "\"}", total+"");
-					pay.alipay("123",
-							"213", "321");
+					String subject=carts.get(0).getName();
+					pay.alipay(carts.get(0).getName(),
+							"{\"type\":\"2\",\"identity\":\""
+									+ MyApplication.identity + "\",\"oid\":\""
+									+ oid + "\"}", total+"");
 				} catch (Exception e) {
 					Toast.makeText(this, "商家支付信息有误，请重试", Toast.LENGTH_SHORT).show();
 				}
