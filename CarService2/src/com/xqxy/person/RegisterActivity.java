@@ -33,6 +33,7 @@ import com.xqxy.baseclass.RequestWrapper;
 import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
 import com.xqxy.carservice.adapter.CarInfoAdapter;
+import com.xqxy.model.AutoLogin;
 import com.xqxy.model.Brand;
 import com.xqxy.model.Model;
 import com.xqxy.model.Series;
@@ -67,11 +68,11 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 	private String sid = "";
 	private String mid = "";
 
-	private int defaultCount = 10;// 默认多长时间(秒)重复获取验证码
+	private int defaultCount = 60;// 默认多长时间(秒)重复获取验证码
 	private int count = defaultCount;
 	private RequestWrapper wrapper;
 	private String phone;
-
+	private MyApplication app;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -107,6 +108,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 		rbLady.setOnCheckedChangeListener(this);
 		contract.setOnCheckedChangeListener(this);
 		openPwdBtn.setOnClickListener(this);
+		app=(MyApplication) getApplicationContext();
 	}
 
 	public void getCarInfo() {
@@ -155,6 +157,11 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 		{
 			Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
 			MyApplication.identity=responseWrapper.getIdentity().get(0).getIdentity();
+			AutoLogin autoLogin = new AutoLogin(phoneTxt.getText()
+					.toString(), pwdTxt.getText().toString());
+			app.setAutoLogin(autoLogin);
+			MyApplication.loginStat = true;
+			finish();
 		}
 	}
 

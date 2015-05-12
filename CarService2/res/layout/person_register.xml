@@ -70,6 +70,7 @@
             android:layout_marginTop="10dp"
             android:drawableLeft="@drawable/rst_phone"
             android:gravity="center"
+            android:paddingRight="40dp"
             android:hint="请输入手机号"
             android:inputType="phone" />
 
@@ -127,7 +128,6 @@
                 style="@style/editStyle"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:gravity="center"
                 android:hint="短信验证码"
                 android:inputType="phone" />
 
@@ -197,6 +197,8 @@
             android:background="@drawable/style_btn_bg"
             android:gravity="center"
             android:text="注册"
+                        android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:textColor="@color/wihte"
             android:textSize="20sp" />
 

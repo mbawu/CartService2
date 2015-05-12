@@ -29,8 +29,9 @@
             style="@style/editStyle"
             android:layout_marginTop="10dp"
             android:drawableLeft="@drawable/rst_phone"
-            android:gravity="center"
             android:hint="请输入手机号"
+            android:gravity="center"
+            android:paddingRight="40dp"
             android:inputType="phone" />
 
         <LinearLayout
@@ -43,7 +44,6 @@
                 style="@style/editStyle"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:gravity="center"
                 android:hint="短信验证码"
                 android:inputType="phone" />
 
@@ -68,8 +68,7 @@
                 android:id="@+id/fot_pwd"
                 style="@style/editStyle"
                 android:gravity="center"
-                android:hint="输入新密码"
-                android:inputType="textPassword" />
+                android:hint="输入新密码" />
 
             <FrameLayout
                 android:id="@+id/fot_openpwd"
@@ -94,6 +93,8 @@
             android:background="@drawable/style_btn_bg"
             android:gravity="center"
             android:textColor="@color/wihte"
+             android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:text="提交"
             android:textSize="20sp" />
     </LinearLayout>

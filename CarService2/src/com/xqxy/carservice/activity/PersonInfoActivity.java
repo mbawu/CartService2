@@ -75,7 +75,7 @@ public class PersonInfoActivity extends PhotoActivity implements
 		case R.id.btn_person_info_exit:
 			MyApplication.loginStat = false;
 			MyApplication.identity = "";
-			((MyApplication) getApplication()).setAutoLogin(null);
+//			((MyApplication) getApplication()).setAutoLogin(null);
 			Toast.makeText(PersonInfoActivity.this, "退出登录成功",
 					Toast.LENGTH_SHORT).show();
 			finish();

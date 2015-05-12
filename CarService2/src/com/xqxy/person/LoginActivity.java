@@ -49,6 +49,27 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		loginBtn.setOnClickListener(this);
 		forgotBtn.setOnClickListener(this);
 		registerBtn.setOnClickListener(this);
+		app=(MyApplication) getApplicationContext();
+		getLogin();
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		if(MyApplication.loginStat)
+		{
+			finish();
+		}
+	}
+	
+	private void getLogin() {
+		AutoLogin info=app.getAutoLogin();
+		if(info!=null)
+		{
+			userNameTxt.setText(info.getUsername());
+			pwdTxt.setText(info.getPassword());
+		}
 	}
 
 	@Override
@@ -64,6 +85,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			MyApplication.loginStat = true;
 			MyApplication.identity = responseWrapper.getIdentity().get(0)
 					.getIdentity();
+			
 			finish();
 		}
 	}

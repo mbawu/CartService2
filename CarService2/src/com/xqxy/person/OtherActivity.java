@@ -89,7 +89,7 @@ public class OtherActivity extends BaseActivity implements OnClickListener {
 		case R.id.personLoginOut:
 			MyApplication.loginStat = false;
 			MyApplication.identity = "";
-			((MyApplication) getApplication()).setAutoLogin(null);
+//			((MyApplication) getApplication()).setAutoLogin(null);
 			Toast.makeText(OtherActivity.this, "退出登录成功", Toast.LENGTH_SHORT)
 					.show();
 			break;

@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -19,6 +21,7 @@ import com.xqxy.baseclass.NetworkAction;
 import com.xqxy.baseclass.RequestWrapper;
 import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
+import com.xqxy.model.AutoLogin;
 
 /**
  * 忘记密码
@@ -34,11 +37,13 @@ public class ForgotActivity extends BaseActivity implements OnClickListener {
 	private EditText pwdTxt;
 	private FrameLayout openPwdBtn;
 	private TextView commit;
+	private MyApplication app;
 	
-	private int defaultCount = 10;// 默认多长时间(秒)重复获取验证码
+	private int defaultCount = 60;// 默认多长时间(秒)重复获取验证码
 	private int count = defaultCount;
 	private RequestWrapper wrapper;
 	private String phone;
+	private boolean mbDisplayFlg = true;  
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +60,29 @@ public class ForgotActivity extends BaseActivity implements OnClickListener {
 		pwdTxt=(EditText) findViewById(R.id.fot_pwd);
 		openPwdBtn=(FrameLayout) findViewById(R.id.fot_openpwd);
 		commit=(TextView) findViewById(R.id.fot_commit);
+		app=(MyApplication) getApplicationContext();
 		finishBtn.setOnClickListener(this);
 		getCode.setOnClickListener(this);
 		openPwdBtn.setOnClickListener(this);
 		commit.setOnClickListener(this);
+		openPwdBtn.setOnClickListener(new OnClickListener() {  
+			  
+	        @Override  
+	        public void onClick(View v) {  
+	            // TODO Auto-generated method stub  
+//	            Log.d("AndroidTest", "mbDisplayFlg = " + mbDisplayFlg);  
+	            if (!mbDisplayFlg) {  
+	                // display password text, for example "123456"  
+	            	pwdTxt.setTransformationMethod(HideReturnsTransformationMethod.getInstance());  
+	            } else {  
+	                // hide password, display "."  
+	            	pwdTxt.setTransformationMethod(PasswordTransformationMethod.getInstance());  
+	            }  
+	            mbDisplayFlg = !mbDisplayFlg;  
+	            pwdTxt.postInvalidate();  
+	        }  
+	          
+	       });  
 	}
 	
 	@Override
@@ -83,6 +107,11 @@ public class ForgotActivity extends BaseActivity implements OnClickListener {
 		else if (requestType==(NetworkAction.userF_resetpwd)) {
 			Toast.makeText(this, "操作成功", Toast.LENGTH_SHORT).show();
 			MyApplication.identity=responseWrapper.getIdentity().get(0).getIdentity();
+			AutoLogin autoLogin = new AutoLogin(phoneTxt.getText()
+					.toString(), pwdTxt.getText().toString());
+			app.setAutoLogin(autoLogin);
+			MyApplication.loginStat = true;
+			finish();
 		}
 	}
 	@Override

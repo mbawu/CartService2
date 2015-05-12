@@ -201,6 +201,11 @@ public class PersonCentreActivity extends BaseActivity implements
 	@Override
 	public void onClick(View v) {
 		Intent intent = null;
+		if(v.getId() ==  R.id.imageTopBack)
+		{
+			finish();
+			return;
+		}
 		if (v.getId() != R.id.personCenterItemOther && !MyApplication.loginStat) {
 			intent = new Intent().setClass(this, LoginActivity.class);
 			startActivity(intent);
@@ -208,10 +213,6 @@ public class PersonCentreActivity extends BaseActivity implements
 		}
 
 		switch (v.getId()) {
-		// 后退按钮
-		case R.id.imageTopBack:
-			finish();
-			break;
 		// 订单
 		case R.id.personCenterItemOrder:
 			intent = new Intent(this, OrderListActivity.class);
