@@ -99,6 +99,20 @@ public class MainActivity extends BaseActivity {
 	}
 
 	@Override
+	protected void onResume() {
+		
+		super.onResume();
+		imgBottomCar.postDelayed(new Runnable() {
+			
+			@Override
+			public void run() {
+				imgBottomCar.requestFocus();
+			}
+		}, 100);
+		
+	}
+	
+	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
 		super.showResualt(responseWrapper, requestType);
