@@ -151,11 +151,12 @@ public class CarListActivity extends BaseActivity {
 			if (car.getUpkeep() != null && !"".equals(car.getUpkeep())) {
 				try {
 					int posi = Integer.parseInt(car.getUpkeep());
+					
 					if (posi <= upkeeps.length) {
 						viewHolder.textBYPL.setText(getString(
 								R.string.car_item_bypl, upkeeps[posi - 1]));
 					}
-				} catch (NumberFormatException e) {
+				} catch (Exception e) {
 
 					e.printStackTrace();
 				}
