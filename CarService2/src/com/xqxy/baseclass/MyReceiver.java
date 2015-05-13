@@ -43,7 +43,7 @@ public class MyReceiver extends BroadcastReceiver {
 							+ bundle.getString(JPushInterface.EXTRA_MESSAGE));
 			// processCustomMessage(context, bundle);
 			int notifactionId = bundle
-					.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
+					.getInt(JPushInterface.EXTRA_MSG_ID);
 			String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
 			String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
 			Log.i("test", "extras-->"+extras);
@@ -76,8 +76,9 @@ public class MyReceiver extends BroadcastReceiver {
 						{
 							if(!user.getSex().equals(ob.getString("sex")))
 							{
-								JPushInterface.clearNotificationById(context,
-										notifactionId);
+								JPushInterface.clearLocalNotifications(context);
+//								JPushInterface.clearNotificationById(context,
+//										notifactionId);
 								return;
 							}
 						}
@@ -106,8 +107,10 @@ public class MyReceiver extends BroadcastReceiver {
 					}
 					// 用户未登录不显示在通知栏
 					else {
-						JPushInterface.clearNotificationById(context,
-								notifactionId);
+						JPushInterface.clearLocalNotifications(context);
+						JPushInterface.clearAllNotifications(context);
+//						JPushInterface.clearNotificationById(context,
+//								notifactionId);
 						return;
 					}
 
@@ -128,8 +131,11 @@ public class MyReceiver extends BroadcastReceiver {
 		} else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent
 				.getAction())) {
 			Log.d(TAG, "[MyReceiver] 接收到推送下来的通知");
-			
-
+			int notifactionId = bundle
+					.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
+	//			JPushInterface.clearNotificationById(context,
+	//					notifactionId);
+			JPushInterface.clearAllNotifications(context);
 		} else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent
 				.getAction())) {
 			Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
