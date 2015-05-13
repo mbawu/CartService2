@@ -36,7 +36,7 @@ import com.xqxy.person.StoreCardActivity;
 public class PersonCentreActivity extends BaseActivity implements
 		OnClickListener {
 	public static int REQUEST_CODE_PHOTO = 1;
-	public static int REQUEST_CODE_MSG = 1;
+	public static int REQUEST_CODE_MSG = 1001;
 	private LinearLayout layoutUser;
 	private ImageView backImageView;
 	private TextView titleTextView;
@@ -281,7 +281,7 @@ public class PersonCentreActivity extends BaseActivity implements
 				}
 			}
 		}
-		else if(requestCode == REQUEST_CODE_PHOTO )
+		else if(requestCode == REQUEST_CODE_MSG )
 		{
 			msgNum.setVisibility(View.GONE);
 		}

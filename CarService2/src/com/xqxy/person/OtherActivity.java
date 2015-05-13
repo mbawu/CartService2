@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.xqxy.baseclass.BaseActivity;
 import com.xqxy.baseclass.MyApplication;
 import com.xqxy.carservice.R;
+import com.xqxy.model.AutoLogin;
 
 public class OtherActivity extends BaseActivity implements OnClickListener {
 
@@ -48,7 +49,10 @@ public class OtherActivity extends BaseActivity implements OnClickListener {
 		personFeedBack = (TextView) findViewById(R.id.personFeedBack);
 		// personComment = (TextView) findViewById(R.id.personComment);
 		personLoginOut = (TextView) findViewById(R.id.personLoginOut);
-
+		if(MyApplication.loginStat)
+		{
+			personLoginOut.setVisibility(View.VISIBLE);
+		}
 		backImageView.setOnClickListener(this);
 		personClear.setOnClickListener(this);
 		personContranct.setOnClickListener(this);
@@ -94,6 +98,11 @@ public class OtherActivity extends BaseActivity implements OnClickListener {
 			// ((MyApplication) getApplication()).setAutoLogin(null);
 			Toast.makeText(OtherActivity.this, "退出登录成功", Toast.LENGTH_SHORT)
 					.show();
+			MyApplication myApp=(MyApplication) getApplicationContext();
+			myApp.setCar(null);
+			AutoLogin a=myApp.getAutoLogin();
+			a.setLoginState(false);
+			myApp.setAutoLogin(a);
 			finish();
 			break;
 		}

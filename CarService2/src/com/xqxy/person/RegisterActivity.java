@@ -156,11 +156,12 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 		else if(requestType==(NetworkAction.userF_register))
 		{
 			Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
+			MyApplication.loginStat = true;
 			MyApplication.identity=responseWrapper.getIdentity().get(0).getIdentity();
 			AutoLogin autoLogin = new AutoLogin(phoneTxt.getText()
 					.toString(), pwdTxt.getText().toString());
+			autoLogin.setLoginState(true);
 			app.setAutoLogin(autoLogin);
-			MyApplication.loginStat = true;
 			finish();
 		}
 	}

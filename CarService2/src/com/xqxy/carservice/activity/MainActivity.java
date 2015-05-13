@@ -80,11 +80,12 @@ public class MainActivity extends BaseActivity {
 				startActivity(intent);
 			}
 		});
-		if (app.getAutoLogin() != null) {
-			RequestWrapper wrapper = new RequestWrapper();
-			wrapper.setPhone(app.getAutoLogin().getUsername());
-			wrapper.setPassword(app.getAutoLogin().getPassword());
-			sendData(wrapper, NetworkAction.userF_login);
+		AutoLogin a=app.getAutoLogin() ;
+		if (app.getAutoLogin() != null && app.getAutoLogin().isLoginState()) {
+				RequestWrapper wrapper = new RequestWrapper();
+				wrapper.setPhone(app.getAutoLogin().getUsername());
+				wrapper.setPassword(app.getAutoLogin().getPassword());
+				sendData(wrapper, NetworkAction.userF_login);
 		}
 
 		sendRequest();

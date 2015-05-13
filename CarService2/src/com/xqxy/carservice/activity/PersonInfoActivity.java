@@ -16,6 +16,7 @@ import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
 import com.xqxy.carservice.view.CarImageView;
 import com.xqxy.carservice.view.TopTitleView;
+import com.xqxy.model.AutoLogin;
 import com.xqxy.person.OtherActivity;
 
 public class PersonInfoActivity extends PhotoActivity implements
@@ -78,6 +79,11 @@ public class PersonInfoActivity extends PhotoActivity implements
 //			((MyApplication) getApplication()).setAutoLogin(null);
 			Toast.makeText(PersonInfoActivity.this, "退出登录成功",
 					Toast.LENGTH_SHORT).show();
+			MyApplication myApp=(MyApplication) getApplicationContext();
+			myApp.setCar(null);
+			AutoLogin a=myApp.getAutoLogin();
+			a.setLoginState(false);
+			myApp.setAutoLogin(a);
 			finish();
 			break;
 		}
