@@ -49,7 +49,10 @@ public class OtherActivity extends BaseActivity implements OnClickListener {
 		personFeedBack = (TextView) findViewById(R.id.personFeedBack);
 		// personComment = (TextView) findViewById(R.id.personComment);
 		personLoginOut = (TextView) findViewById(R.id.personLoginOut);
-
+		if(MyApplication.loginStat)
+		{
+			personLoginOut.setVisibility(View.VISIBLE);
+		}
 		backImageView.setOnClickListener(this);
 		personClear.setOnClickListener(this);
 		personContranct.setOnClickListener(this);
