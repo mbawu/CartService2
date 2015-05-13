@@ -1,5 +1,6 @@
 package com.xqxy.person;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,8 +25,9 @@ public class OtherActivity extends BaseActivity implements OnClickListener {
 	private TextView personContranct;
 	private TextView personAbout;
 	private TextView personFeedBack;
-//	private TextView personComment;
+	// private TextView personComment;
 	private TextView personLoginOut;
+	Dialog myDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,7 @@ public class OtherActivity extends BaseActivity implements OnClickListener {
 		personContranct = (TextView) findViewById(R.id.personContranct);
 		personAbout = (TextView) findViewById(R.id.personAbout);
 		personFeedBack = (TextView) findViewById(R.id.personFeedBack);
-//		personComment = (TextView) findViewById(R.id.personComment);
+		// personComment = (TextView) findViewById(R.id.personComment);
 		personLoginOut = (TextView) findViewById(R.id.personLoginOut);
 
 		backImageView.setOnClickListener(this);
@@ -52,7 +54,7 @@ public class OtherActivity extends BaseActivity implements OnClickListener {
 		personContranct.setOnClickListener(this);
 		personAbout.setOnClickListener(this);
 		personFeedBack.setOnClickListener(this);
-//		personComment.setOnClickListener(this);
+		// personComment.setOnClickListener(this);
 		personLoginOut.setOnClickListener(this);
 	}
 
@@ -63,6 +65,8 @@ public class OtherActivity extends BaseActivity implements OnClickListener {
 			finish();
 			break;
 		case R.id.personClear:
+			myDialog = createDialog();
+			myDialog.show();
 			Thread thread = new Thread(new Runnable() {
 
 				@Override
@@ -83,13 +87,14 @@ public class OtherActivity extends BaseActivity implements OnClickListener {
 			intent.setClass(this, FeedBackActivity.class);
 			startActivity(intent);
 			break;
-	
+
 		case R.id.personLoginOut:
 			MyApplication.loginStat = false;
 			MyApplication.identity = "";
-//			((MyApplication) getApplication()).setAutoLogin(null);
+			// ((MyApplication) getApplication()).setAutoLogin(null);
 			Toast.makeText(OtherActivity.this, "退出登录成功", Toast.LENGTH_SHORT)
 					.show();
+			finish();
 			break;
 		}
 
@@ -99,6 +104,8 @@ public class OtherActivity extends BaseActivity implements OnClickListener {
 		public void handleMessage(Message msg) {
 			Toast.makeText(OtherActivity.this, "缓存清除完毕", Toast.LENGTH_SHORT)
 					.show();
+			if (myDialog != null)
+				myDialog.dismiss();
 		};
 	};
 }

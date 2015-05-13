@@ -16,6 +16,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.xqxy.model.AutoLogin;
 import com.xqxy.model.Car;
+import com.xqxy.model.UserInfo;
 
 public class MyApplication extends Application {
 
@@ -150,5 +151,26 @@ public class MyApplication extends Application {
 		ed.commit();
 	}
 	
+	
+	public static UserInfo getUserInfo() {
+		try {
+			String info=sp.getString("userInfo", "");
+			return JsonUtil.fromJson(info, UserInfo.class);
+		} catch (Exception e) {
+			return null;
+		}
+	
+	}
+
+	public static void setUserInfo(UserInfo userInfo) {
+		if (userInfo == null) {
+			ed.putString("userInfo", "");
+			ed.commit();
+		} else {
+			ed.putString("userInfo", JsonUtil.toJson(userInfo));
+			ed.commit();
+		}
+
+	}
 
 }

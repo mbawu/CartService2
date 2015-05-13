@@ -155,6 +155,7 @@ public class PersonCentreActivity extends BaseActivity implements
 		} else if (requestType == NetworkAction.centerF_user) {
 			user = responseWrapper.getUser();
 			if (user != null) {
+				MyApplication.setUserInfo(user);
 				if (user.getHead() != null && !"".equals(user.getHead())) {
 					headImg.loadImage(user.getHead());
 				}

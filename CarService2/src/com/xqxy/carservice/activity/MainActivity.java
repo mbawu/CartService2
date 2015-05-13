@@ -35,6 +35,7 @@ import com.xqxy.carservice.R;
 import com.xqxy.carservice.adapter.CarBaseAdapter;
 import com.xqxy.carservice.adapter.CarouselAdapter;
 import com.xqxy.carservice.view.CarImageView;
+import com.xqxy.model.AutoLogin;
 import com.xqxy.model.Banner;
 import com.xqxy.model.Product;
 import com.xqxy.person.CartActivity;
@@ -104,6 +105,14 @@ public class MainActivity extends BaseActivity {
 			MyApplication.loginStat = true;
 			MyApplication.identity = responseWrapper.getIdentity().get(0)
 					.getIdentity();
+			if(MyApplication.getUserInfo()==null)
+			{
+				RequestWrapper request = new RequestWrapper();
+				request.setIdentity(responseWrapper.getIdentity().get(0)
+						.getIdentity());
+				sendData(request, NetworkAction.centerF_user);
+			}
+		
 		}else{
 			respCount++;
 			if (requestType == NetworkAction.indexF_banner) {
@@ -121,6 +130,10 @@ public class MainActivity extends BaseActivity {
 			if (respCount == 2) {
 				myProgressDialog.dismiss();
 			}
+		}
+		if(requestType == NetworkAction.centerF_user)
+		{
+			MyApplication.setUserInfo(responseWrapper.getUser());
 		}
 		
 	}
