@@ -3,6 +3,17 @@ package com.xqxy.model;
 public class AutoLogin {
 	private String username;
 	private String password;
+	private boolean loginState;
+	
+	
+	
+	public boolean isLoginState() {
+		return loginState;
+	}
+
+	public void setLoginState(boolean loginState) {
+		this.loginState = loginState;
+	}
 
 	public AutoLogin(String username, String password) {
 		super();

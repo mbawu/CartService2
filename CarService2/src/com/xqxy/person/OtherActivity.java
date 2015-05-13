@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.xqxy.baseclass.BaseActivity;
 import com.xqxy.baseclass.MyApplication;
 import com.xqxy.carservice.R;
+import com.xqxy.model.AutoLogin;
 
 public class OtherActivity extends BaseActivity implements OnClickListener {
 
@@ -94,6 +95,11 @@ public class OtherActivity extends BaseActivity implements OnClickListener {
 			// ((MyApplication) getApplication()).setAutoLogin(null);
 			Toast.makeText(OtherActivity.this, "退出登录成功", Toast.LENGTH_SHORT)
 					.show();
+			MyApplication myApp=(MyApplication) getApplicationContext();
+			myApp.setCar(null);
+			AutoLogin a=myApp.getAutoLogin();
+			a.setLoginState(false);
+			myApp.setAutoLogin(a);
 			finish();
 			break;
 		}

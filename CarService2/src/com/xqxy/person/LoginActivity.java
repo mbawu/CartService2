@@ -68,7 +68,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		if(info!=null)
 		{
 			userNameTxt.setText(info.getUsername());
-			pwdTxt.setText(info.getPassword());
+//			pwdTxt.setText(info.getPassword());
 		}
 	}
 
@@ -79,13 +79,14 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		super.showResualt(responseWrapper, requestType);
 		if (requestType == (NetworkAction.userF_login)) {
 			Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
-			AutoLogin autoLogin = new AutoLogin(userNameTxt.getText()
-					.toString(), pwdTxt.getText().toString());
-			app.setAutoLogin(autoLogin);
+			
 			MyApplication.loginStat = true;
 			MyApplication.identity = responseWrapper.getIdentity().get(0)
 					.getIdentity();
-			
+			AutoLogin autoLogin = new AutoLogin(userNameTxt.getText()
+					.toString(), pwdTxt.getText().toString());
+			autoLogin.setLoginState(true);
+			app.setAutoLogin(autoLogin);
 			finish();
 		}
 	}

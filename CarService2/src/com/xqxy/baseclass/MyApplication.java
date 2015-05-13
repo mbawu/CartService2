@@ -90,13 +90,14 @@ public class MyApplication extends Application {
 	}
 
 	private void initSharePreferenceData() {
-		String carJson = sp.getString("car", null);
-		if (carJson != null) {
+		String carJson = sp.getString("car", "");
+		if (!carJson.equals("")) {
 			car = JsonUtil.fromJson(carJson, Car.class);
 		}
 		String autoLoginJson = sp.getString("autoLogin", null);
 		if (autoLogin != null && !"".equals(autoLoginJson)) {
 			autoLogin = JsonUtil.fromJson(autoLoginJson, AutoLogin.class);
+			MyApplication.loginStat=autoLogin.isLoginState();
 		}
 		
 		guide = sp.getString("guide", null);
@@ -111,7 +112,12 @@ public class MyApplication extends Application {
 
 	public void setCar(Car car) {
 		this.car = car;
-		ed.putString("car", JsonUtil.toJson(car));
+		if(car!=null)
+		{
+			ed.putString("car", JsonUtil.toJson(car));
+		}
+		else
+			ed.putString("car", "");
 		ed.commit();
 	}
 
@@ -172,5 +178,6 @@ public class MyApplication extends Application {
 		}
 
 	}
+
 
 }
