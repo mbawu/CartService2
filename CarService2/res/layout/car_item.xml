@@ -3,87 +3,90 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/wihte"
+    android:gravity="center"
     android:orientation="horizontal"
-   
-    android:paddingLeft="-100dp"
-    android:gravity="center">
-  <TextView
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="继续拖动删除--------->>>>>"
-        android:textSize="9sp" />
-   <LinearLayout
-         style="@style/linearLayout_box"
-          android:layout_marginTop="10dp"
-          android:layout_marginBottom="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:paddingBottom="15dp"
-        android:paddingLeft="15dp"
-        android:paddingTop="15dp" >
-
-        <TextView
-            android:id="@+id/text_car_item_pp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/litill_gray" />
-
-        <TextView
-            android:id="@+id/text_car_item_year"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/litill_gray" />
-
-        <TextView
-            android:id="@+id/text_car_item_lc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/litill_gray" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:paddingBottom="15dp"
-        android:paddingTop="15dp" >
-
-        <TextView
-            android:id="@+id/text_car_item_xl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/litill_gray" />
-
-        <TextView
-            android:id="@+id/text_car_item_pl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/litill_gray" />
-
-        <TextView
-            android:id="@+id/text_car_item_bypl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/litill_gray" />
-    </LinearLayout>
+    android:paddingLeft="-100dp" >
 
     <TextView
-        android:id="@+id/text_car_item_delete"
-        android:layout_width="30dp"
-        android:layout_height="match_parent"
-        android:background="@drawable/style_btn_bg"
-        android:ems="1"
-        android:gravity="center"
-        android:text="删          除"
-        android:textColor="@color/wihte"
-        android:visibility="gone" />
-</LinearLayout>
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="继续拖动删除  >>"
+        android:textColor="@color/style_color"
+        android:textSize="9sp" />
+
+    <LinearLayout
+        style="@style/linearLayout_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="15dp" >
+
+            <TextView
+                android:id="@+id/text_car_item_pp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/litill_gray" />
+
+            <TextView
+                android:id="@+id/text_car_item_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/litill_gray" />
+
+            <TextView
+                android:id="@+id/text_car_item_lc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/litill_gray" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp" >
+
+            <TextView
+                android:id="@+id/text_car_item_xl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/litill_gray" />
+
+            <TextView
+                android:id="@+id/text_car_item_pl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/litill_gray" />
+
+            <TextView
+                android:id="@+id/text_car_item_bypl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/litill_gray" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_car_item_delete"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/style_btn_bg"
+            android:ems="1"
+            android:gravity="center"
+            android:text="删          除"
+            android:textColor="@color/wihte"
+            android:visibility="gone" />
+    </LinearLayout>
+
 </LinearLayout>

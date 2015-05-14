@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -66,6 +68,26 @@ public class CarListActivity extends BaseActivity {
 		});
 		upkeeps = getResources().getStringArray(R.array.upkeep);
 		getCarList();
+		listView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				Car car=carList.get(arg2);
+				if (pid != null) {
+					app.setCar(car);
+					setResult(RESULT_OK);
+					finish();
+				} else {
+					Intent intent = new Intent(CarListActivity.this,
+							CarActivity.class);
+					intent.putExtra("car", car);
+					//startActivity(intent);
+					startActivityForResult(intent, 1);
+				}
+				
+			}
+		});
 	}
 
 	private void getCarList() {
@@ -200,24 +222,24 @@ public class CarListActivity extends BaseActivity {
 				}
 			});
 
-			convertView.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					if (pid != null) {
-						app.setCar(car);
-						setResult(RESULT_OK);
-						finish();
-					} else {
-						Intent intent = new Intent(CarListActivity.this,
-								CarActivity.class);
-						intent.putExtra("car", car);
-						//startActivity(intent);
-						startActivityForResult(intent, 1);
-					}
-
-				}
-			});
+//			convertView.setOnClickListener(new OnClickListener() {
+//
+//				@Override
+//				public void onClick(View v) {
+//					if (pid != null) {
+//						app.setCar(car);
+//						setResult(RESULT_OK);
+//						finish();
+//					} else {
+//						Intent intent = new Intent(CarListActivity.this,
+//								CarActivity.class);
+//						intent.putExtra("car", car);
+//						//startActivity(intent);
+//						startActivityForResult(intent, 1);
+//					}
+//
+//				}
+//			});
 			return convertView;
 		}
 

@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
@@ -49,6 +51,7 @@ public class CouponActivity extends BaseActivity implements
 	private RadioButton noUse;
 	private RadioButton used;
 	private RadioButton expired;
+	private boolean selectModule = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +61,8 @@ public class CouponActivity extends BaseActivity implements
 	}
 
 	private void init() {
-//		datas=new ArrayList<Coupon>();
-		
+		// datas=new ArrayList<Coupon>();
+
 		backImageView = (ImageView) findViewById(R.id.imageTopBack);
 		titleTextView = (TextView) findViewById(R.id.textTopTitle);
 		rightBtnTextView = (TextView) findViewById(R.id.textTopRightBtn);
@@ -75,28 +78,46 @@ public class CouponActivity extends BaseActivity implements
 		listView = (ListView) findViewById(R.id.listview);
 		adapter = new CouponAdapter(this);
 		listView.setAdapter(adapter);
-		
+
 		noUse = (RadioButton) findViewById(R.id.coupon_noUse);
 		used = (RadioButton) findViewById(R.id.coupon_used);
 		expired = (RadioButton) findViewById(R.id.coupon_expired);
 		noUse.setOnCheckedChangeListener(this);
 		used.setOnCheckedChangeListener(this);
 		expired.setOnCheckedChangeListener(this);
-		
+
 		noUse.setChecked(true);
+
+		if (!getIntent().getStringExtra("select").equals("")) {
+			selectModule = true;
+			used.setEnabled(false);
+			expired.setEnabled(false);
+			listView.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1,
+						int arg2, long arg3) {
+					Coupon coupon = datas.get(arg2);
+					Intent intent = new Intent();
+					Bundle b = new Bundle();
+					b.putSerializable("data", coupon);
+					intent.putExtras(b);
+					setResult(OrderPayActivity.GET_COUPON, intent);
+					finish();
+				}
+			});
+		}
+
 	}
 
-	
-	
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
-		if(requestType==NetworkAction.centerF_user_coupon)
-		{
+		if (requestType == NetworkAction.centerF_user_coupon) {
 			datas = responseWrapper.getCoupon();
-			Log.i(Cst.TAG," datas.size()-->"+ datas.size()+"");
+			Log.i(Cst.TAG, " datas.size()-->" + datas.size() + "");
 			if (datas.size() > 0) {
 				nodata.setVisibility(View.GONE);
 				listView.setVisibility(View.VISIBLE);
@@ -107,7 +128,7 @@ public class CouponActivity extends BaseActivity implements
 				listView.setVisibility(View.GONE);
 			}
 		}
-	
+
 	}
 
 	class CouponAdapter extends CarBaseAdapter<Coupon> {
@@ -140,29 +161,28 @@ public class CouponActivity extends BaseActivity implements
 				viewHolder = (ViewHolder) convertView.getTag();
 			}
 			try {
-				
-			
-			final Coupon coupon = getItem(position);
-			DecimalFormat decimalFormat = new DecimalFormat("#");
-			String price = decimalFormat.format(Double.valueOf(coupon
-					.getPrice()));
-			viewHolder.coupon_price.setText(price + "元");
-			String name = coupon.getName();
-			if (name == null)
-				name = price + "元优惠券全场使用";
-			else
-				name = price + "元优惠券限" + name + "使用";
-			viewHolder.coupon_name.setText(name);
-			viewHolder.coupon_num.setText("号码：" + coupon.getCode());
-			String status = coupon.getStatus();
-			if (status.equals("1"))
-				status = "状态：未使用";
-			else if (status.equals("2"))
-				status = "状态：已使用";
 
-			viewHolder.coupon_expired.setVisibility(View.VISIBLE);
-			viewHolder.coupon_status.setText(status);
-			viewHolder.coupon_date.setText(coupon.getOver_time());
+				final Coupon coupon = getItem(position);
+				DecimalFormat decimalFormat = new DecimalFormat("#");
+				String price = decimalFormat.format(Double.valueOf(coupon
+						.getPrice()));
+				viewHolder.coupon_price.setText(price + "元");
+				String name = coupon.getName();
+				if (name == null)
+					name = price + "元优惠券全场使用";
+				else
+					name = price + "元优惠券限" + name + "使用";
+				viewHolder.coupon_name.setText(name);
+				viewHolder.coupon_num.setText("号码：" + coupon.getCode());
+				String status = coupon.getStatus();
+				if (status.equals("1"))
+					status = "状态：未使用";
+				else if (status.equals("2"))
+					status = "状态：已使用";
+
+				viewHolder.coupon_expired.setVisibility(View.VISIBLE);
+				viewHolder.coupon_status.setText(status);
+				viewHolder.coupon_date.setText(coupon.getOver_time());
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
@@ -182,37 +202,34 @@ public class CouponActivity extends BaseActivity implements
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-	
-//		datas.clear();
+
+		// datas.clear();
 		requestWrapper = new RequestWrapper();
 		requestWrapper.setIdentity(MyApplication.identity);
 		requestWrapper.setShowDialog(true);
 		switch (buttonView.getId()) {
 		case R.id.coupon_noUse:
-			if(isChecked)
-			{
+			if (isChecked) {
 				requestWrapper.setStatus("1");
 				sendDataByGet(requestWrapper, NetworkAction.centerF_user_coupon);
 			}
-				
+
 			break;
 		case R.id.coupon_used:
-			if(isChecked)
-			{
+			if (isChecked) {
 				requestWrapper.setStatus("2");
 				sendDataByGet(requestWrapper, NetworkAction.centerF_user_coupon);
 			}
-				
+
 			break;
 		case R.id.coupon_expired:
-			if(isChecked)
-			{
+			if (isChecked) {
 				requestWrapper.setStatus("3");
 				sendDataByGet(requestWrapper, NetworkAction.centerF_user_coupon);
 			}
-				
+
 			break;
 		}
-		
+
 	}
 }

@@ -1,6 +1,8 @@
 package com.xqxy.model;
 
-public class Coupon {
+import java.io.Serializable;
+
+public class Coupon implements Serializable{
 	private String cid;
 	private String coloumnid;
 	private String code;
