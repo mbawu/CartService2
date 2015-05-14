@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import cn.jpush.android.api.JPushInterface;
+import cn.sharesdk.framework.ShareSDK;
 
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -36,7 +37,7 @@ public class MyApplication extends Application {
 		/*
 		 * 初始化Volley框架的Http工具类
 		 */
-
+		ShareSDK.initSDK(this);
 		client = MyHttpClient.getInstance(MyApplication.this
 				.getApplicationContext());
 		BaiduLoction.getInstance().init(this);
