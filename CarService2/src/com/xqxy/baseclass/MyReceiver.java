@@ -29,7 +29,6 @@ public class MyReceiver extends BroadcastReceiver {
 		Bundle bundle = intent.getExtras();
 		Log.d(TAG, "[MyReceiver] onReceive - " + intent.getAction()
 				+ ", extras: " + printBundle(bundle));
-
 		if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
 			String regId = bundle
 					.getString(JPushInterface.EXTRA_REGISTRATION_ID);
@@ -42,8 +41,105 @@ public class MyReceiver extends BroadcastReceiver {
 					"[MyReceiver] 接收到推送下来的自定义消息: "
 							+ bundle.getString(JPushInterface.EXTRA_MESSAGE));
 			// processCustomMessage(context, bundle);
+//			int notifactionId = bundle
+//					.getInt("cn.jpush.android.MSG_ID");
+//			String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
+//			String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
+//			Log.i("test", "extras-->"+extras);
+//			JSONObject ob;
+//			try {
+//				ob = new JSONObject(extras);
+//				// 推送给部分人
+//				if (!ob.getBoolean("isAll")) {
+//					// 用户在登录状态下
+//					if (MyApplication.loginStat) {
+//						MyApplication myApp = (MyApplication) context
+//								.getApplicationContext();
+//						UserInfo user = myApp.getUserInfo();
+//						Car car = myApp.getCar();
+//						// 根据性别和车型推送
+//						if (!ob.isNull("sex") && !ob.isNull("bid")) {
+//							if (!ob.getString("sex").equals(user.getSex())
+//									|| !ob.getString("bid")
+//											.equals(car.getBid())
+//									|| !ob.getString("sid")
+//											.equals(car.getSid())
+//									|| !ob.getString("sid")
+//											.equals(car.getSid())) {
+//								JPushInterface.clearNotificationById(context,
+//										notifactionId);
+//								return;
+//							}
+//						}
+//						else if(!ob.isNull("sex") && ob.isNull("bid") )
+//						{
+//							if(!user.getSex().equals(ob.getString("sex")))
+//							{
+//								JPushInterface.clearLocalNotifications(context);
+////								JPushInterface.clearNotificationById(context,
+////										notifactionId);
+//								return;
+//							}
+//						}
+//						else if(ob.isNull("sex") && !ob.isNull("bid") )
+//						{
+//							if ( !ob.getString("bid")
+//											.equals(car.getBid())
+//									|| !ob.getString("sid")
+//											.equals(car.getSid())
+//									|| !ob.getString("sid")
+//											.equals(car.getSid())) {
+//								JPushInterface.clearNotificationById(context,
+//										notifactionId);
+//								return;
+//							}
+//						}
+//						else if(!ob.isNull("uid"))
+//						{
+//							if(!user.getUid().equals(ob.getString("uid")))
+//							{
+//								JPushInterface.clearNotificationById(context,
+//										notifactionId);
+//								return;
+//							}
+//						}
+//					}
+//					// 用户未登录不显示在通知栏
+//					else {
+//						JPushInterface.clearLocalNotifications(context);
+//						JPushInterface.clearAllNotifications(context);
+////						JPushInterface.clearNotificationById(context,
+////								notifactionId);
+//						return;
+//					}
+//
+//				}
+//
+//			} catch (JSONException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//				Toast.makeText(context, "解析推送消息出错", Toast.LENGTH_SHORT).show();
+//			}
+//
+//			Log.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
+//			// 接收到消息推送以后通知改变消息数量
+//			Intent mIntent = new Intent(Cst.GET_RECEIVE);
+//			// 发送广播
+//			context.sendBroadcast(mIntent);
+
+		} else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent
+				.getAction())) {
+			Log.d(TAG, "[MyReceiver] 接收到推送下来的通知");
+			
 			int notifactionId = bundle
-					.getInt(JPushInterface.EXTRA_MSG_ID);
+					.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
+			if(notifactionId!=0)
+			{
+				JPushInterface.clearNotificationById(context,
+						notifactionId);
+				return;
+			}
+			
 			String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
 			String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
 			Log.i("test", "extras-->"+extras);
@@ -76,9 +172,9 @@ public class MyReceiver extends BroadcastReceiver {
 						{
 							if(!user.getSex().equals(ob.getString("sex")))
 							{
-								JPushInterface.clearLocalNotifications(context);
-//								JPushInterface.clearNotificationById(context,
-//										notifactionId);
+//								JPushInterface.clearLocalNotifications(context);
+								JPushInterface.clearNotificationById(context,
+										notifactionId);
 								return;
 							}
 						}
@@ -107,10 +203,10 @@ public class MyReceiver extends BroadcastReceiver {
 					}
 					// 用户未登录不显示在通知栏
 					else {
-						JPushInterface.clearLocalNotifications(context);
-						JPushInterface.clearAllNotifications(context);
-//						JPushInterface.clearNotificationById(context,
-//								notifactionId);
+//						JPushInterface.clearLocalNotifications(context);
+//						JPushInterface.clearAllNotifications(context);
+						JPushInterface.clearNotificationById(context,
+								notifactionId);
 						return;
 					}
 
@@ -120,6 +216,9 @@ public class MyReceiver extends BroadcastReceiver {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				Toast.makeText(context, "解析推送消息出错", Toast.LENGTH_SHORT).show();
+				JPushInterface.clearNotificationById(context,
+						notifactionId);
+				return;
 			}
 
 			Log.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
@@ -127,15 +226,11 @@ public class MyReceiver extends BroadcastReceiver {
 			Intent mIntent = new Intent(Cst.GET_RECEIVE);
 			// 发送广播
 			context.sendBroadcast(mIntent);
-
-		} else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent
-				.getAction())) {
-			Log.d(TAG, "[MyReceiver] 接收到推送下来的通知");
-			int notifactionId = bundle
-					.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
-	//			JPushInterface.clearNotificationById(context,
-	//					notifactionId);
-			JPushInterface.clearAllNotifications(context);
+//			int notifactionId = bundle
+//					.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
+//				JPushInterface.clearNotificationById(context,
+//						notifactionId);
+//			JPushInterface.clearAllNotifications(context);
 		} else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent
 				.getAction())) {
 			Log.d(TAG, "[MyReceiver] 用户点击打开了通知");

@@ -19,13 +19,16 @@ import com.xqxy.baseclass.RequestWrapper;
 import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
 import com.xqxy.carservice.adapter.CarBaseAdapter;
+import com.xqxy.carservice.view.SlideListView;
+import com.xqxy.carservice.view.SlideListView.RemoveListener;
 import com.xqxy.carservice.view.TopTitleView;
+import com.xqxy.carservice.view.SlideListView.RemoveDirection;
 import com.xqxy.carservice.widget.ConfirmDialog;
 import com.xqxy.model.Car;
 
 public class CarListActivity extends BaseActivity {
 	private TopTitleView topTitleView;
-	private ListView listView;
+	private SlideListView listView;
 	private TextView nodata;
 	private TextView textCarAdd;
 	private CarAdapter adapter;
@@ -43,7 +46,14 @@ public class CarListActivity extends BaseActivity {
 		app = (MyApplication) getApplication();
 		pid = getIntent().getStringExtra("pid");
 		nodata = (TextView) findViewById(R.id.nodataTxt);
-		listView = (ListView) findViewById(R.id.listview);
+		listView = (SlideListView) findViewById(R.id.listview);
+		listView.setRemoveListener(new RemoveListener() {
+			
+			@Override
+			public void removeItem(RemoveDirection direction, int position) {
+				deleteCar(carList.get(position));
+			}
+		});
 		textCarAdd = (TextView) findViewById(R.id.text_car_list_add);
 		adapter = new CarAdapter(this);
 		listView.setAdapter(adapter);
