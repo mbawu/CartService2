@@ -26,12 +26,15 @@ import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
 import com.xqxy.carservice.activity.CarListActivity;
 import com.xqxy.carservice.adapter.CarBaseAdapter;
+import com.xqxy.carservice.view.SlideListView;
+import com.xqxy.carservice.view.SlideListView.RemoveDirection;
+import com.xqxy.carservice.view.SlideListView.RemoveListener;
 import com.xqxy.carservice.widget.ConfirmDialog;
 import com.xqxy.model.Address;
 
 public class AdressActivity extends BaseActivity {
 
-	private ListView listView;
+	private SlideListView listView;
 	private AddressAdapter adapter;
 	private ArrayList<Address> datas;
 	private TextView addBtn;
@@ -65,7 +68,14 @@ public class AdressActivity extends BaseActivity {
 
 			}
 		});
-		listView = (ListView) findViewById(R.id.listview);
+		listView = (SlideListView) findViewById(R.id.listview);
+		listView.setRemoveListener(new RemoveListener() {
+			
+			@Override
+			public void removeItem(RemoveDirection direction, int position) {
+				deleteAddress(datas.get(position));
+			}
+		});
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -156,6 +166,14 @@ public class AdressActivity extends BaseActivity {
 		finish();
 	}
 
+	public void deleteAddress(Address address)
+	{
+		RequestWrapper wrapper = new RequestWrapper();
+		wrapper.setIdentity(MyApplication.identity);
+		wrapper.setAid(address.getAid());
+		wrapper.setShowDialog(true);
+		sendData(wrapper, NetworkAction.centerF_del_address);
+	}
 	class AddressAdapter extends CarBaseAdapter<Address> {
 
 		public AddressAdapter(Activity activity) {
