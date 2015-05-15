@@ -23,13 +23,14 @@ import com.xqxy.baseclass.RequestWrapper;
 import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
 import com.xqxy.carservice.adapter.CarBaseAdapter;
+import com.xqxy.carservice.view.TopTitleView;
 import com.xqxy.carservice.widget.ConfirmDialog;
 import com.xqxy.model.Order;
 import com.xqxy.model.OrderProduct;
 
 public class OrderListActivity extends BaseActivity implements
 		View.OnClickListener {
-
+	private TopTitleView topTitleView;
 	private RadioGroup radioGroupType;
 	private TextView nodata;
 	private ListView listView;
@@ -47,6 +48,7 @@ public class OrderListActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_list_layout);
+		topTitleView = new TopTitleView(this);
 		nodata = (TextView) findViewById(R.id.nodataTxt);
 		listView = (ListView) findViewById(R.id.listview);
 		radioGroupType = (RadioGroup) findViewById(R.id.order_list_type);

@@ -419,7 +419,7 @@ public class ServiceDetailActivity extends BaseActivity implements
 		// oks.setTitleUrl(goods_url);
 		oks.setText(product.getName() + "(" + product.getContent() + "------来自"
 				+ getString(R.string.app_name) + ")");
-		//oks.setImageUrl(product.getPic());
+		oks.setImageUrl(product.getPic());
 		oks.show(this);
 
 	}
