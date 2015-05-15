@@ -33,6 +33,7 @@ public enum NetworkAction {
 	indexF_column_product,//分类项目
 	indexF_appraise,//项目评论
 	indexF_journey,//行驶里程
+	indexF_page,//静态网页
 	centerF_user_car,//我的爱车
 	centerF_add_car,//增加爱车
 	centerF_del_car,//删除爱车

@@ -123,6 +123,8 @@ public class ResponseWrapper {
 	public void setCart(ArrayList<Cart> cart) {
 		this.cart = cart;
 	}
+	
+	public String html;
 
 	/**
 	 * 获取支付宝支付信息
@@ -350,6 +352,14 @@ public class ResponseWrapper {
 
 	public void setJourney(ArrayList<Journey> journey) {
 		this.journey = journey;
+	}
+
+	public String getHtml() {
+		return html;
+	}
+
+	public void setHtml(String html) {
+		this.html = html;
 	}
 
 	

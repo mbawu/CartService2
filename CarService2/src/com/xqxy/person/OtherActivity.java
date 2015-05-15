@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.xqxy.baseclass.BaseActivity;
 import com.xqxy.baseclass.MyApplication;
 import com.xqxy.carservice.R;
+import com.xqxy.carservice.activity.WebActivity;
 import com.xqxy.model.AutoLogin;
 
 public class OtherActivity extends BaseActivity implements OnClickListener {
@@ -81,10 +82,16 @@ public class OtherActivity extends BaseActivity implements OnClickListener {
 			thread.start();
 			break;
 		case R.id.personContranct:
-			finish();
+			Intent intent1 = new Intent();
+			intent1.setClass(this, WebActivity.class);
+			intent1.putExtra("name", "agreement");
+			startActivity(intent1);
 			break;
 		case R.id.personAbout:
-			finish();
+			Intent intent2 = new Intent();
+			intent2.setClass(this, WebActivity.class);
+			intent2.putExtra("name", "about");
+			startActivity(intent2);
 			break;
 		case R.id.personFeedBack:
 			Intent intent = new Intent();
