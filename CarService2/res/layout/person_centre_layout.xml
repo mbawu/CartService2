@@ -8,36 +8,42 @@
     <include layout="@layout/top_title_layout" />
 
     <LinearLayout
-        android:id="@+id/layout_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:visibility="invisible" >
+       >
 
         <com.xqxy.carservice.view.CarImageView
             android:id="@+id/imagePersonCenterHeader"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="@drawable/head_default" />
+          />
 
-        <TextView
-            android:id="@+id/textPersonCenterSex"
+        <LinearLayout
+            android:id="@+id/layout_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textColor="#3c3c3c"
-            android:textSize="@dimen/font_size_30px" />
+            android:orientation="vertical"  android:visibility="invisible" >
 
-        <TextView
-            android:id="@+id/textPersonCenterCredits"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textColor="#e94f3a"
-            android:textSize="@dimen/font_size_24px" />
+            <TextView
+                android:id="@+id/textPersonCenterSex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="#3c3c3c"
+                android:textSize="@dimen/font_size_30px" />
+
+            <TextView
+                android:id="@+id/textPersonCenterCredits"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="#e94f3a"
+                android:textSize="@dimen/font_size_24px" />
+        </LinearLayout>
     </LinearLayout>
 
     <TextView

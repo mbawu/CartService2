@@ -11,10 +11,10 @@
         android:id="@+id/text_service_car_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:drawableRight="@drawable/right_arrow"
         android:gravity="center"
         android:paddingBottom="6dp"
         android:paddingTop="6dp"
-        android:drawableRight="@drawable/right_arrow"
         android:textColor="#323232"
         android:textSize="@dimen/font_size_28px"
         android:visibility="gone" />
@@ -69,58 +69,69 @@
                     <View
                         android:id="@+id/view_service_2"
                         android:layout_width="match_parent"
-                        android:layout_height="15dp"
+                        android:layout_height="10dp"
                         android:visibility="gone" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="6dp"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal" >
+                        android:orientation="vertical" >
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="0dp"
-                            android:text="价格:"
-                            android:textColor="#323232"
-                            android:textSize="@dimen/font_size_26px" />
+                            android:layout_marginTop="3dp"
+                            
+                            android:layout_marginBottom="3dp"
+                            android:orientation="horizontal" >
 
-                        <TextView
-                            android:id="@+id/text_service_price_new"
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="0dp"
+                                android:text="价格:"
+                                android:textColor="#323232"
+                                android:textSize="@dimen/font_size_26px" />
+
+                            <TextView
+                                android:id="@+id/text_service_price_new"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:padding="0dp"
+                                android:textColor="#E94F3A"
+                                android:textSize="@dimen/font_size_26px" />
+
+                            <TextView
+                                android:id="@+id/text_service_price_old"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:textColor="#969696"
+                                android:textSize="@dimen/font_size_18px" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="0dp"
-                            android:textColor="#E94F3A"
-                            android:textSize="@dimen/font_size_26px" />
+                            android:orientation="horizontal" >
 
-                        <TextView
-                            android:id="@+id/text_service_price_old"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="#969696"
-                            android:textSize="@dimen/font_size_18px" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="时长:"
+                                android:textColor="#323232"
+                                android:textSize="@dimen/font_size_26px" />
 
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="时长:"
-                            android:textColor="#323232"
-                            android:textSize="@dimen/font_size_26px" />
-
-                        <TextView
-                            android:id="@+id/text_service_time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:textColor="#E94F3A"
-                            android:textSize="@dimen/font_size_26px" />
+                            <TextView
+                                android:id="@+id/text_service_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_weight="1"
+                                android:textColor="#E94F3A"
+                                android:textSize="@dimen/font_size_26px" />
+                        </LinearLayout>
                     </LinearLayout>
 
                     <RadioGroup
@@ -222,7 +233,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                   
                     android:textColor="#e94f3a"
                     android:textSize="@dimen/font_size_26px" />
 
@@ -243,7 +253,6 @@
                     android:layout_below="@id/text_evaluate_level"
                     android:layout_marginBottom="3dp"
                     android:layout_marginTop="3dp"
-                   
                     android:textColor="#646464"
                     android:textSize="@dimen/font_size_26px" />
 
@@ -253,7 +262,6 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/text_evaluate_content"
                     android:gravity="left|center_vertical"
-            
                     android:textColor="#646464"
                     android:textSize="@dimen/font_size_26px" />
 
@@ -264,7 +272,6 @@
                     android:layout_alignParentRight="true"
                     android:layout_below="@id/text_evaluate_content"
                     android:gravity="left|center_vertical"
-             
                     android:textColor="#646464"
                     android:textSize="@dimen/font_size_26px" />
             </RelativeLayout>

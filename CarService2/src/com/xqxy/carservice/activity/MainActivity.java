@@ -8,6 +8,7 @@ import java.util.TimerTask;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -285,6 +286,9 @@ public class MainActivity extends BaseActivity {
 					R.string.product_price, product.getNew_price() + ""));
 			viewHolder.textServicePriceOld.setText(getString(
 					R.string.product_price, product.getOld_price() + ""));
+			viewHolder.textServicePriceOld.getPaint().setFlags(
+					Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+			
 			convertView.setOnClickListener(new OnClickListener() {
 
 				@Override

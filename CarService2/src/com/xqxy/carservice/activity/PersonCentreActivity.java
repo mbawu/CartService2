@@ -79,6 +79,7 @@ public class PersonCentreActivity extends BaseActivity implements
 			layoutUser.setVisibility(View.INVISIBLE);
 			user = null;
 			msgNum.setText("0");
+			headImg.setImageResource(R.drawable.head_default);
 		}
 	}
 

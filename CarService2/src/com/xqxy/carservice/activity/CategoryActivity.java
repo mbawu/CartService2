@@ -58,11 +58,15 @@ public class CategoryActivity extends BaseActivity implements
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
+	public void onItemClick(AdapterView<?> parent, View view,
+			final int position, long id) {
 		if (parent == listView) {
 			Map<String, Object> map = (HashMap<String, Object>) parent
 					.getItemAtPosition(position);
+
+			listView.requestFocusFromTouch();
+
+			listView.setSelection(position);
 			String cid = map.get("cid").toString();
 			if (cid != null && !"".equals(cid)) {
 				getCategoryProduct(cid);
@@ -88,7 +92,6 @@ public class CategoryActivity extends BaseActivity implements
 		}
 
 	}
-	
 
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
@@ -114,7 +117,7 @@ public class CategoryActivity extends BaseActivity implements
 				listView.setAdapter(ad1);
 
 				getCategoryProduct(dataMaps.get(0).get("cid").toString());
-		
+
 				listView.postDelayed(new Runnable() {
 
 					@Override
