@@ -127,7 +127,7 @@ public class SlideListView extends ListView {
     }
     case MotionEvent.ACTION_MOVE: {
       System.out.println("dispatch-->" + "move");
-      if((event.getX() - downX)>0)
+      if((event.getX() - downX)<0)
       {
     	   if (Math.abs(getScrollVelocity()) > SNAP_VELOCITY
     		          || (Math.abs(event.getX() - downX) > mTouchSlop && Math

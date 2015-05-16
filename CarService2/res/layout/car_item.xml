@@ -3,16 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/wihte"
-    android:gravity="center"
-    android:orientation="horizontal"
-    android:paddingLeft="-100dp" >
+    android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="继续拖动删除  >>"
-        android:textColor="@color/style_color"
-        android:textSize="9sp" />
+
 
     <LinearLayout
         style="@style/linearLayout_box"
@@ -88,5 +81,11 @@
             android:textColor="@color/wihte"
             android:visibility="gone" />
     </LinearLayout>
-
+ <TextView
+        android:layout_width="120dp"
+        android:layout_height="match_parent"
+        android:gravity="right|center"
+        android:text="  继续拖动删除"
+        android:textColor="@color/style_color"
+        android:textSize="14sp" />
 </LinearLayout>
