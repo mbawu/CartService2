@@ -21,6 +21,7 @@ import com.xqxy.baseclass.RequestWrapper;
 import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
 import com.xqxy.carservice.adapter.CarInfoAdapter;
+import com.xqxy.carservice.view.TopTitleView;
 import com.xqxy.model.Brand;
 import com.xqxy.model.Car;
 import com.xqxy.model.Journey;
@@ -56,7 +57,7 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.car_add);
 		app = (MyApplication) getApplication();
-
+		new TopTitleView(this);
 		brandSpinner = (Spinner) findViewById(R.id.rst_brand);
 		seriesSpinner = (Spinner) findViewById(R.id.rst_series);
 		modelSpinner = (Spinner) findViewById(R.id.rst_model);
