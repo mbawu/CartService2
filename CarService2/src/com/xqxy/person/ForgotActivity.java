@@ -44,6 +44,7 @@ public class ForgotActivity extends BaseActivity implements OnClickListener {
 	private RequestWrapper wrapper;
 	private String phone;
 	private boolean mbDisplayFlg = true;  
+	private ImageView pwdImg;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class ForgotActivity extends BaseActivity implements OnClickListener {
 		pwdTxt=(EditText) findViewById(R.id.fot_pwd);
 		openPwdBtn=(FrameLayout) findViewById(R.id.fot_openpwd);
 		commit=(TextView) findViewById(R.id.fot_commit);
+		pwdImg=(ImageView) findViewById(R.id.pwd_bg);
 		app=(MyApplication) getApplicationContext();
 		finishBtn.setOnClickListener(this);
 		getCode.setOnClickListener(this);
@@ -74,9 +76,11 @@ public class ForgotActivity extends BaseActivity implements OnClickListener {
 	            if (!mbDisplayFlg) {  
 	                // display password text, for example "123456"  
 	            	pwdTxt.setTransformationMethod(HideReturnsTransformationMethod.getInstance());  
+	            	pwdImg.setBackgroundResource(R.drawable.open_pwd);
 	            } else {  
 	                // hide password, display "."  
 	            	pwdTxt.setTransformationMethod(PasswordTransformationMethod.getInstance());  
+	            	pwdImg.setBackgroundResource(R.drawable.close_pwd);
 	            }  
 	            mbDisplayFlg = !mbDisplayFlg;  
 	            pwdTxt.postInvalidate();  

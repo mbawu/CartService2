@@ -6,6 +6,8 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -73,6 +75,8 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 	private RequestWrapper wrapper;
 	private String phone;
 	private MyApplication app;
+	private ImageView pwdImg;
+	private boolean mbDisplayFlg = true;  
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -98,6 +102,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 		brandSpinner = (Spinner) findViewById(R.id.rst_brand);
 		seriesSpinner = (Spinner) findViewById(R.id.rst_series);
 		modelSpinner = (Spinner) findViewById(R.id.rst_model);
+		pwdImg=(ImageView) findViewById(R.id.pwd_bg);
 		brandSpinner.setOnItemSelectedListener(this);
 		seriesSpinner.setOnItemSelectedListener(this);
 		modelSpinner.setOnItemSelectedListener(this);
@@ -216,7 +221,18 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 			break;
 		// 显示密码
 		case R.id.rst_openpwd:
-			pwdTxt.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+			   if (!mbDisplayFlg) {  
+	                // display password text, for example "123456"  
+	            	pwdTxt.setTransformationMethod(HideReturnsTransformationMethod.getInstance()); 
+	            	pwdImg.setBackgroundResource(R.drawable.open_pwd);
+	            } else {  
+	                // hide password, display "."  
+	            	pwdTxt.setTransformationMethod(PasswordTransformationMethod.getInstance());  
+	            	pwdImg.setBackgroundResource(R.drawable.close_pwd);
+	            }  
+	            mbDisplayFlg = !mbDisplayFlg;  
+	            pwdTxt.postInvalidate();  
+	        
 			break;
 		}
 
