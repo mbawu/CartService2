@@ -99,7 +99,7 @@ public class CategoryActivity extends BaseActivity implements
 			categorys = responseWrapper.getColumn();
 			if (categorys != null && categorys.size() > 0) {
 				List<Map<String, Object>> dataMaps = new ArrayList<Map<String, Object>>();
-				for (int i = 1, j = 0; i < categorys.size(); i++, j++) {
+				for (int i = 0, j = 0; i < categorys.size(); i++, j++) {
 					Map map = new HashMap<String, Object>();
 					map.put("cid", categorys.get(i).getCid());
 					map.put("img", iconIds[j]);

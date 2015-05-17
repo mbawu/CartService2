@@ -160,6 +160,13 @@ public class PersonCentreActivity extends BaseActivity implements
 				if (user.getHead() != null && !"".equals(user.getHead())) {
 					headImg.loadImage(user.getHead());
 				}
+				else
+				{
+					headImg.setRound(true);
+					headImg.loadImage(user.getHead());
+				}
+				
+				
 				if ("1".equals(user.getSex())) {
 					textSex.setText(getString(R.string.user_sex_man,
 							user.getSurname()));

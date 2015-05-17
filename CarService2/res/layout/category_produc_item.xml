@@ -4,5 +4,5 @@
     android:layout_height="50dp"
     android:gravity="center"
     android:maxLines="1"
-    android:textColor="@color/blank"
+    android:textColor="@drawable/category_text_selector"
     android:textSize="18sp" />

@@ -19,6 +19,7 @@
             android:choiceMode="singleChoice"
             android:divider="#FFFFFF"
             android:dividerHeight="8dp"
+            android:scrollbars="none"
             android:listSelector="@color/blue" >
         </ListView>
 
@@ -32,6 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="1dp"
+             android:scrollbars="none"
             android:choiceMode="singleChoice"
             android:divider="@color/province_line_border"
             android:listSelector="@color/blue" >
