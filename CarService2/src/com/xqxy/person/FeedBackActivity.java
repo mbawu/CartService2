@@ -64,6 +64,7 @@ public class FeedBackActivity extends BaseActivity {
 		super.showResualt(responseWrapper, requestType);
 		 if (requestType==(NetworkAction.indexF_suggest)) {
 			 Toast.makeText(this, "提交成功", Toast.LENGTH_SHORT).show();
+			 finish();
 		 }
 		
 	}
