@@ -47,7 +47,7 @@ public class CallServiceActivity extends BaseActivity implements
 	private TextView cancelBtn;
 	private TextView confirmBtn;
 	private TextView submitBtn;
-	private TextView addBtn;
+	private LinearLayout addBtn;
 	private TextView dateTxt;
 	private LinearLayout addressLayout;
 	private TextView nameTxt;
@@ -85,7 +85,7 @@ public class CallServiceActivity extends BaseActivity implements
 		cancelBtn = (TextView) findViewById(R.id.call_cancel);
 		confirmBtn = (TextView) findViewById(R.id.call_confirm);
 		submitBtn = (TextView) findViewById(R.id.call_submit);
-		addBtn = (TextView) findViewById(R.id.call_add_address);
+		addBtn = (LinearLayout) findViewById(R.id.call_add_address);
 		dateTxt = (TextView) findViewById(R.id.call_date);
 		changeTxt = (TextView) findViewById(R.id.change_address);
 		noteTxt= (EditText) findViewById(R.id.call_note);
