@@ -21,6 +21,24 @@ public class StoreCard implements Serializable {
 	private String colname;
 	private String product_name;
 	private String end_time;
+	private String state;
+	private String car_num;
+	
+	
+	
+	
+	public String getCar_num() {
+		return car_num;
+	}
+	public void setCar_num(String car_num) {
+		this.car_num = car_num;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
 	public String getCid() {
 		return cid;
 	}

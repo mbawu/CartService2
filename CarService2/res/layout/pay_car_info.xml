@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="爱车     信息"
+            android:text="爱车信息"
             android:textSize="16sp"
             android:textColor="@color/nomarl_gray" />
 
@@ -65,7 +65,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="爱车      信息"
+            android:text="爱车信息"
             android:textColor="@color/more_gray"
             android:visibility="invisible" />
 
@@ -96,7 +96,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="车牌     号码"
+            android:text="车牌号码"
             android:textSize="16sp"
             android:textColor="@color/nomarl_gray" />
 

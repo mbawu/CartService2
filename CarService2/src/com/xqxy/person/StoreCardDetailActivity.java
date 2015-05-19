@@ -193,6 +193,11 @@ public class StoreCardDetailActivity extends BaseActivity {
 			}
 			else
 			{
+				if (card.getFlag().equals("2")) {
+					viewHolder.scard_worth.setVisibility(View.VISIBLE);
+				}
+				else
+					viewHolder.scard_worth.setVisibility(View.GONE);
 				viewHolder.scard_price_layout.setVisibility(View.VISIBLE);
 				viewHolder.scard_price.setText(getString(R.string.storecard_price,card.getPrice()));
 				viewHolder.scard_worth.setText(getString(R.string.storecard_worth,card.getWorth()));

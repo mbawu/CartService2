@@ -31,11 +31,13 @@ import com.xqxy.carservice.R;
 
 import com.xqxy.carservice.adapter.CarBaseAdapter;
 import com.xqxy.carservice.view.CarImageView;
+import com.xqxy.model.Address;
 import com.xqxy.model.Cart;
 import com.xqxy.model.Category;
 import com.xqxy.model.Coupon;
 import com.xqxy.model.OrderProduct;
 import com.xqxy.model.PayModel;
+import com.xqxy.model.StoreCard;
 import com.xqxy.model.UserInfo;
 
 public class OrderPayActivity extends BaseActivity implements
@@ -62,11 +64,24 @@ public class OrderPayActivity extends BaseActivity implements
 	private String oid;
 	private LinearLayout couponLayout;
 	private TextView couponSelect;
+	private LinearLayout storecardLayout;
+	private TextView storecardSelect;
+	private TextView storecardNum;
+	private LinearLayout clearcardLayout;
+	private TextView clearcardSelect;
+	private TextView clearcardNum;
+	private View line1;
+	private View line2;
+	private View line3;
 	private ArrayList<Coupon> datas;
+	private ArrayList<StoreCard> cardDatas;
+	private ArrayList<StoreCard> cleancardDatas;
+	private ArrayList<StoreCard> storecardDatas;
 	private CheckBox coupon;
 	private CheckBox storecard;
 	private CheckBox credite;
 	private Coupon coupon2 = null;
+	private Address address;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +105,21 @@ public class OrderPayActivity extends BaseActivity implements
 		couponLayout = (LinearLayout) findViewById(R.id.order_coupon_layout);
 		couponSelect = (TextView) findViewById(R.id.select_coupon);
 		carts = (ArrayList<Cart>) getIntent().getSerializableExtra("data");
+		address =(Address) getIntent().getSerializableExtra("address");
 		oid = getIntent().getStringExtra("oid");
 		setPrice();
+
+		cleancardDatas = new ArrayList<StoreCard>();
+		storecardDatas = new ArrayList<StoreCard>();
+		storecardLayout = (LinearLayout) findViewById(R.id.order_storecard_layout);
+		storecardSelect = (TextView) findViewById(R.id.select_storecard);
+		storecardNum = (TextView) findViewById(R.id.storecard_num);
+		clearcardLayout = (LinearLayout) findViewById(R.id.order_cleancard_layout);
+		clearcardSelect = (TextView) findViewById(R.id.cleancard_num);
+		clearcardNum = (TextView) findViewById(R.id.select_cleancard);
+		line1=findViewById(R.id.coupon_line);
+		line2=findViewById(R.id.storecard_line);
+		line3=findViewById(R.id.cleancard_line);
 		adapter = new CartAdapter(this);
 		adapter.setDataList(carts);
 		listView.setAdapter(adapter);
@@ -130,6 +158,14 @@ public class OrderPayActivity extends BaseActivity implements
 		});
 		getCoupon();
 		getCredite();
+		getStoreCard();
+	}
+
+	private void getStoreCard() {
+		RequestWrapper requestWrapper = new RequestWrapper();
+		requestWrapper.setIdentity(MyApplication.identity);
+		sendDataByGet(requestWrapper, NetworkAction.centerF_user_card);
+
 	}
 
 	private void getCredite() {
@@ -220,6 +256,7 @@ public class OrderPayActivity extends BaseActivity implements
 			datas = responseWrapper.getCoupon();
 			if (datas.size() > 0) {
 				coupon2 = datas.get(0);
+				line1.setVisibility(View.VISIBLE);
 				couponLayout.setVisibility(View.VISIBLE);
 				coupon.setVisibility(View.VISIBLE);
 				if (coupon2.getName().equals(""))
@@ -228,12 +265,103 @@ public class OrderPayActivity extends BaseActivity implements
 					coupon.setText(coupon2.getName() + coupon2.getPrice() + "元");
 				getNewPrice();
 			} else
+			{
 				couponLayout.setVisibility(View.GONE);
+				line1.setVisibility(View.GONE);
+			}
+				
 		} else if (requestType == NetworkAction.centerF_user) {
 			UserInfo user = responseWrapper.getUser();
 			creditePrice = Double.valueOf(user.getIntegral()) / 10;
 			credite.setText("可使用" + user.getIntegral() + "积分 （抵算￥"
 					+ creditePrice + "元)");
+		} else if (requestType == NetworkAction.centerF_user_card) {
+			cardDatas = responseWrapper.getCard();
+			for (int i = 0; i < cardDatas.size(); i++) {
+				StoreCard card = cardDatas.get(i);
+				// 只判断有效的卡
+				if (card.getState().equals("1")) {
+					// 储值卡
+					if (card.getFlag().equals("1")) {
+						for (int j = 0; j < carts.size(); j++) {
+							Cart cart = carts.get(j);
+							// 储值卡的服务ID和购买的服务ID相符，并且地址上的车牌号和购买储值卡时候的车牌号要相符
+							if (cart.getPid().equals(card.getPid())
+									&& address.getCar_num().equals(card.getCar_num()) ) {
+
+								if (cleancardDatas.size() > 1) {
+									for (int k = 0; k < cleancardDatas.size(); k++) {
+										StoreCard cardTemp = cleancardDatas.get(k);
+										if (!cardTemp.getCid().equals(
+												card.getCid())) {
+											cleancardDatas.add(card);
+										}
+									}
+								} else {
+									cleancardDatas.add(card);
+								}
+							}
+						}
+					}
+					// 增值卡
+					else if (card.getFlag().equals("2")) {
+
+						//先判断是否是全场使用的
+						if(card.getColid().equals("0"))
+						{
+							storecardDatas.add(card);
+						}
+						else
+						{
+							for (int j = 0; j < carts.size(); j++) {
+								Cart cart = carts.get(j);
+								if (cart.getPid().equals(card.getPid()))
+								{
+									if (storecardDatas.size() > 1) {
+										for (int k = 0; k < storecardDatas.size(); k++) {
+											StoreCard cardTemp = storecardDatas.get(k);
+											if (!cardTemp.getCid().equals(
+													card.getCid())) {
+												storecardDatas.add(card);
+											}
+										}
+									}
+									else
+									{
+										storecardDatas.add(card);
+									}
+								}
+							}
+						}
+					
+					}
+				}
+
+			}
+			
+			if(cleancardDatas.size()>0)
+			{
+				clearcardLayout.setVisibility(View.VISIBLE);
+				clearcardNum.setText(getString(R.string.cleancard_use,cleancardDatas.size()+""));
+			}
+			else
+			{
+				clearcardLayout.setVisibility(View.GONE);
+				line3.setVisibility(View.GONE);
+			}
+				
+			
+			if(storecardDatas.size()>0)
+			{
+				storecardLayout.setVisibility(View.VISIBLE);
+				storecardNum.setText(getString(R.string.storecard_num,storecardDatas.size()+""));
+			}
+			else
+			{
+				storecardLayout.setVisibility(View.GONE);
+				line2.setVisibility(View.GONE);
+			}
+			
 		}
 	}
 

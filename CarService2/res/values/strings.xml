@@ -33,7 +33,8 @@
     <string name="user_sex_man">%1$s先生</string>
     <string name="user_sex_woman">%1$s女士</string>
     <string name="user_credit">%1$s积分</string>
-    
+    <string name="sotrecard_use">增值卡(%1$s张可用)</string>
+     <string name="cleancard_use">储值卡(%1$s张可用)</string>
     <string name="sys_about">关于我们</string>
     <string name="sys_service">服务条款</string>
 

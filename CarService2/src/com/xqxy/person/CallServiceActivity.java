@@ -358,6 +358,7 @@ public class CallServiceActivity extends BaseActivity implements
 			Intent intent=new Intent();
 			intent.setClass(this, OrderPayActivity.class);
 			intent.putExtra("data", (Serializable) datas);
+			intent.putExtra("address", (Serializable) address);
 			intent.putExtra("oid",responseWrapper.getOrder().get(0).getOid());
 			startActivity(intent);
 			finish();
