@@ -44,7 +44,7 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:theme="@style/MyTheme.Basic" >
-
+		<!--app签名 03a8bc1660bd27c9301cd6363c665f77 -->
         <!-- meta-data需要写在application中 -->
         <!-- release Z28KS5vL789wVA1G2bh1FCd0 -->
         <!-- debug   rLXkxWKihXM0DIjQ0emxPSmX -->

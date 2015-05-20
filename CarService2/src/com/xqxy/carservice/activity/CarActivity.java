@@ -83,8 +83,8 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 		upkeeps = getResources().getStringArray(R.array.upkeep);
 
 		sendDataByGet(new RequestWrapper(), NetworkAction.carF_brand);
-		sendDataByGet(new RequestWrapper(), NetworkAction.carF_series);
-		sendDataByGet(new RequestWrapper(), NetworkAction.carF_model);
+		// sendDataByGet(new RequestWrapper(), NetworkAction.carF_series);
+		// sendDataByGet(new RequestWrapper(), NetworkAction.carF_model);
 		sendDataByGet(new RequestWrapper(), NetworkAction.indexF_journey);
 		byplSpinner.setAdapter(new ArrayAdapter<String>(this,
 				R.layout.car_info_adapter, R.id.textView, upkeeps));
@@ -193,13 +193,21 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position,
 			long id) {
+		RequestWrapper request = new RequestWrapper();
 		Object object = parent.getItemAtPosition(position);
 		if (object instanceof Brand) {
 			car.setBid(((Brand) object).getBid());
 			car.setName(((Brand) object).getName());
+
+			request.setBid(car.getBid());
+			sendDataByGet(request, NetworkAction.carF_series);
+
 		} else if (object instanceof Series) {
 			car.setSid(((Series) object).getSid());
 			car.setSname(((Series) object).getSname());
+
+			request.setSid(car.getSid());
+			sendDataByGet(request, NetworkAction.carF_model);
 
 		} else if (object instanceof Model) {
 			car.setMid(((Model) object).getMid());
@@ -221,23 +229,23 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public void onClick(View v) {
 
-		if (car.getBid() == null) {
-			Toast.makeText(this, "请选择品牌.", Toast.LENGTH_SHORT).show();
+		if (brandSpinner.getSelectedItem() == null) {
+			Toast.makeText(this, "请选择品牌", Toast.LENGTH_SHORT).show();
 			return;
 		}
 
-		if (car.getSid() == null) {
-			Toast.makeText(this, "请选择车系.", Toast.LENGTH_SHORT).show();
+		if (seriesSpinner.getSelectedItem() == null) {
+			Toast.makeText(this, "请选择车系", Toast.LENGTH_SHORT).show();
 			return;
 		}
 
-		if (car.getMid() == null) {
-			Toast.makeText(this, "请选择排量.", Toast.LENGTH_SHORT).show();
+		if (modelSpinner.getSelectedItem() == null) {
+			Toast.makeText(this, "请选择排量", Toast.LENGTH_SHORT).show();
 			return;
 		}
 
-		if (car.getJourney() == null) {
-			Toast.makeText(this, "请选择已驾公里.", Toast.LENGTH_SHORT).show();
+		if (lcSpinner.getSelectedItem() == null) {
+			Toast.makeText(this, "请选择已驾公里", Toast.LENGTH_SHORT).show();
 			return;
 		}
 
