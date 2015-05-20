@@ -34,21 +34,23 @@
                 android:id="@+id/order_coupon_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp" >
+                android:layout_marginTop="10dp"
+                android:visibility="gone" >
 
                 <TextView
+                     android:id="@+id/coupon_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="优惠券"
-                    android:textColor="#323232"
-                    android:textSize="18sp" />
+                    android:text="@string/coupon_use"
+                    android:textColor="@color/style_color"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/select_coupon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:text="选择优惠券>>"
+                    android:text="选择    >>"
                     android:textColor="@color/style_color"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -64,22 +66,23 @@
                 android:id="@+id/order_storecard_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp" >
+                android:layout_marginTop="10dp" 
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/storecard_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/sotrecard_use"
-                    android:textColor="#323232"
-                    android:textSize="18sp" />
+                    android:textColor="@color/style_color"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/select_storecard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:text="选择>>"
+                    android:text="选择    >>"
                     android:textColor="@color/style_color"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -95,22 +98,23 @@
                 android:id="@+id/order_cleancard_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp" >
+                android:layout_marginTop="10dp" 
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/cleancard_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cleancard_use"
-                    android:textColor="#323232"
-                    android:textSize="18sp" />
+                    android:textColor="@color/style_color"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/select_cleancard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:text="选择>>"
+                    android:text="选择    >>"
                     android:textColor="@color/style_color"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -172,26 +176,37 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="15dp"
                 android:button="@drawable/radio_selector"
-                android:checked="true"
                 android:paddingLeft="30dp"
                 android:text="洗车卡"
                 android:textColor="@color/blank"
                 android:visibility="gone" />
 
             <CheckBox
-                android:id="@+id/storecard"
+                android:id="@+id/storecard_cb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="15dp"
                 android:button="@drawable/radio_selector"
-                android:checked="true"
+                android:paddingLeft="30dp"
+                android:text="增值卡"
+                android:textColor="@color/blank"
+                android:visibility="gone" />
+
+            <CheckBox
+                android:id="@+id/cleancard_cb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:button="@drawable/radio_selector"
                 android:paddingLeft="30dp"
                 android:text="储值卡"
                 android:textColor="@color/blank"
                 android:visibility="gone" />
-
+            
             <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >

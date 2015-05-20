@@ -54,6 +54,7 @@
     </RadioGroup>
     
      <View 
+         android:id="@+id/line"
              android:layout_width="match_parent"
              android:background="@color/more_gray"
              android:layout_marginLeft="5dp"
