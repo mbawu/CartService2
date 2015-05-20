@@ -118,8 +118,8 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 
 	public void getCarInfo() {
 		sendDataByGet(new RequestWrapper(), NetworkAction.carF_brand);
-		sendDataByGet(new RequestWrapper(), NetworkAction.carF_series);
-		sendDataByGet(new RequestWrapper(), NetworkAction.carF_model);
+//		sendDataByGet(new RequestWrapper(), NetworkAction.carF_series);
+//		sendDataByGet(new RequestWrapper(), NetworkAction.carF_model);
 	}
 
 	@Override
@@ -217,7 +217,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 			wrapper.setLat("39.0100");
 			wrapper.setLng("116.0400");
 			wrapper.setPassword(pwd);
-			sendData(wrapper, NetworkAction.userF_register);
+			sendData(wrapper, NetworkAction.userF_register);          
 			break;
 		// 显示密码
 		case R.id.rst_openpwd:
@@ -263,12 +263,26 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 	public void onItemSelected(AdapterView<?> parent, View view, int position,
 			long id) {
 		Object object = parent.getItemAtPosition(position);
+		RequestWrapper request=new RequestWrapper();
 		if (object instanceof Brand)
+		{
 			bid = ((Brand) object).getBid();
+			request.setBid(bid);
+			sendDataByGet(request, NetworkAction.carF_series);
+		}
+		
 		else if (object instanceof Series)
+		{
 			sid = ((Series) object).getSid();
+			request.setSid(sid);
+			sendDataByGet(request, NetworkAction.carF_model);
+		}
+		
 		else if (object instanceof Model)
+		{
 			mid = ((Model) object).getMid();
+		}
+		
 	}
 
 	@Override
