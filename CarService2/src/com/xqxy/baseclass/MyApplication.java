@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import android.app.Application;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -29,7 +30,7 @@ public class MyApplication extends Application {
 	public static String identity;
 	public static boolean loginStat = false;
 	public static boolean refresh = false; // 是否需要刷新
-
+	public static NotificationManager mNotificationManager;
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
@@ -52,7 +53,7 @@ public class MyApplication extends Application {
 		ed = sp.edit();
 
 		initSharePreferenceData();
-
+		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		// 初始化JPUSH
 		JPushInterface.init(getApplicationContext());
 	}
@@ -179,6 +180,12 @@ public class MyApplication extends Application {
 		}
 
 	}
+	public NotificationManager getmNotificationManager() {
+		return mNotificationManager;
+	}
 
+	public void setmNotificationManager(NotificationManager mNotificationManager) {
+		this.mNotificationManager = mNotificationManager;
+	}
 
 }

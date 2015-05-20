@@ -54,6 +54,69 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/coupon_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="6dp"
+                android:background="#dcdcdc" />
+
+            <LinearLayout
+                android:id="@+id/order_storecard_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" >
+
+                <TextView
+                    android:id="@+id/storecard_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sotrecard_use"
+                    android:textColor="#323232"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/select_storecard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="选择>>"
+                    android:textColor="@color/style_color"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/storecard_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="6dp"
+                android:background="#dcdcdc" />
+
+            <LinearLayout
+                android:id="@+id/order_cleancard_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" >
+
+                <TextView
+                    android:id="@+id/cleancard_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cleancard_use"
+                    android:textColor="#323232"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/select_cleancard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="选择>>"
+                    android:textColor="@color/style_color"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/cleancard_line"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="6dp"

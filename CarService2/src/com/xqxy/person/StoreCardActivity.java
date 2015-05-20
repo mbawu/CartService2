@@ -157,16 +157,29 @@ public class StoreCardActivity extends BaseActivity {
 			viewHolder.scard_num.setVisibility(View.VISIBLE);
 			viewHolder.scard_num.setText(getString(R.string.storecard_num,card.getCid()));
 			//1 储值卡 2 增值卡
-//			if(card.getFlag().equals("2"))
-//			{
+			if(card.getFlag().equals("2"))
+			{
 				viewHolder.scard_cash.setVisibility(View.VISIBLE);
 				viewHolder.scard_cash.setText(getString(R.string.storecard_cash,card.getBalance()));
-//			}
+			}
 		
-			if(position==1 || (position>1 && position%2!=0))
-			{
-				viewHolder.scard_top_layout.setBackgroundResource(R.drawable.storecard_green_top);
-				viewHolder.scard_btm_layout.setBackgroundResource(R.drawable.storecard_green_btm);
+//			if(position==1 || (position>1 && position%2!=0))
+//			{
+//				viewHolder.scard_top_layout.setBackgroundResource(R.drawable.storecard_green_top);
+//				viewHolder.scard_btm_layout.setBackgroundResource(R.drawable.storecard_green_btm);
+//			}
+			if (position == 0) {
+				viewHolder.scard_top_layout
+						.setBackgroundResource(R.drawable.storecard_yellow_top);
+				viewHolder.scard_btm_layout
+						.setBackgroundResource(R.drawable.storecard_yellow_btm);
+			}
+
+			if (position == 1 || (position > 1 && position % 2 != 0)) {
+				viewHolder.scard_top_layout
+						.setBackgroundResource(R.drawable.storecard_green_top);
+				viewHolder.scard_btm_layout
+						.setBackgroundResource(R.drawable.storecard_green_btm);
 			}
 			return convertView;
 		}
