@@ -30,6 +30,7 @@ import com.xqxy.baseclass.RequestWrapper;
 import com.xqxy.baseclass.ResponseWrapper;
 import com.xqxy.carservice.R;
 
+import com.xqxy.carservice.activity.OrderListActivity;
 import com.xqxy.carservice.adapter.CarBaseAdapter;
 import com.xqxy.carservice.view.CarImageView;
 import com.xqxy.model.Address;
@@ -62,6 +63,7 @@ public class OrderPayActivity extends BaseActivity implements
 	private double couponPriceUse = 0.0;// 实际消耗的优惠金额
 	private double cleancardPriceUse = 0.0;
 	private double storecardPriceUse = 0.0;
+	private double storecardPriceTotal = 0.0;// 使用增值卡的服务的集合的总金额
 
 	private TextView priceTxt;
 	private TextView priceAcTxt;
@@ -101,8 +103,11 @@ public class OrderPayActivity extends BaseActivity implements
 	private boolean cleancardB = false;
 	private boolean crediteB = false;
 	private boolean offlineB = false;
-	private Cart cleancart; //使用储值卡的服务
-	private ArrayList<Cart> storecardCarts;//使用增值卡的服务集合
+	private Cart cleancart; // 使用储值卡的服务
+	private ArrayList<Cart> storecardCarts;// 使用增值卡的服务集合
+
+	private boolean step1 = true;// 支付第一步
+	private Pay payClass;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +133,7 @@ public class OrderPayActivity extends BaseActivity implements
 		address = (Address) getIntent().getSerializableExtra("address");
 		oid = getIntent().getStringExtra("oid");
 		setPrice();
-
+		payClass = new Pay(this,oid);
 		cleancardDatas = new ArrayList<StoreCard>();
 		storecardDatas = new ArrayList<StoreCard>();
 		couponData = new ArrayList<Coupon>();
@@ -243,7 +248,7 @@ public class OrderPayActivity extends BaseActivity implements
 			cleancard_cb.setChecked(true);
 		} else if (resultCode == GET_STORECARD) {
 			storeCard = (StoreCard) data.getSerializableExtra("data");
-			storecard_cb.setText(storeCard.getName());
+			storecard_cb.setText(storeCard.getName()+"（可用余额"+storeCard.getBalance()+"）");
 			storecard_cb.setChecked(true);
 		}
 	}
@@ -330,8 +335,8 @@ public class OrderPayActivity extends BaseActivity implements
 				} else {
 					if (cleancardB) {
 						cleancardB = false;
-						checkPrice(Double.valueOf(cleancart.getReal_price()), PayType.储值卡,
-								cleancard_cb.isChecked());
+						checkPrice(Double.valueOf(cleancart.getReal_price()),
+								PayType.储值卡, cleancard_cb.isChecked());
 					}
 				}
 			}
@@ -347,20 +352,39 @@ public class OrderPayActivity extends BaseActivity implements
 						return;
 					}
 					storecardB = true;
-					if (cleancart == null) {
-						for (int i = 0; i < carts.size(); i++) {
-							Cart cartTemp = carts.get(i);
-							if (cartTemp.getPid().equals(cleanCard.getPid()))
-								cleancart = cartTemp;
+					if (storecardCarts == null) {
+						storecardCarts = new ArrayList<Cart>();
+						if (storeCard.getColid().equals("0")) {
+							for (int i = 0; i < carts.size(); i++) {
+								Cart cartTemp = carts.get(i);
+								if (cleancart != null && cleancardB)
+									continue;
+								else {
+									storecardCarts.add(cartTemp);
+								}
+							}
+						} else {
+							for (int i = 0; i < carts.size(); i++) {
+								Cart cartTemp = carts.get(i);
+								if (cartTemp.getPid()
+										.equals(storeCard.getPid()))
+									storecardCarts.add(cartTemp);
+							}
 						}
+						for (int i = 0; i < storecardCarts.size(); i++) {
+							Cart cartTemp = carts.get(i);
+							storecardPriceTotal = storecardPriceTotal
+									+ Double.valueOf(cartTemp.getReal_price());
+						}
+
 					}
-					checkPrice(Double.valueOf(cleancart.getReal_price()),
-							PayType.储值卡, cleancard_cb.isChecked());
+					checkPrice(storecardPriceTotal, PayType.增值卡,
+							storecard_cb.isChecked());
 				} else {
-					if (cleancardB) {
-						cleancardB = false;
-						checkPrice(Double.valueOf(cleancart.getReal_price()), PayType.储值卡,
-								cleancard_cb.isChecked());
+					if (storecardB) {
+						storecardB = false;
+						checkPrice(storecardPriceTotal, PayType.增值卡,
+								storecard_cb.isChecked());
 					}
 				}
 			}
@@ -428,7 +452,24 @@ public class OrderPayActivity extends BaseActivity implements
 				if (cleancardPriceUse == 0.0)
 					return;
 				acTotal = acTotal + price;
-				couponPriceUse = 0.0;
+				cleancardPriceUse = 0.0;
+			}
+
+		} else if (type == PayType.增值卡) {
+			if (ischeck) {
+				if (acTotal <= 0) {
+					Toast.makeText(this, "无需使用增值卡了", Toast.LENGTH_SHORT).show();
+					storecard_cb.setChecked(false);
+					storecardB = false;
+					return;
+				}
+				storecardPriceUse = price;
+				acTotal = acTotal - price;
+			} else {
+				if (storecardPriceUse == 0.0)
+					return;
+				acTotal = acTotal + price;
+				storecardPriceUse = 0.0;
 			}
 
 		}
@@ -441,17 +482,73 @@ public class OrderPayActivity extends BaseActivity implements
 		Log.i("test", "实际使用积分：" + creditePriceUse * 10);
 		Log.i("test", "实际优惠金额：" + couponPriceUse);
 		Log.i("test", "实际储值卡扣减金额：" + cleancardPriceUse);
+		Log.i("test", "实际增值卡扣减金额：" + storecardPriceUse);
 	}
 
 	private void payOrder() {
-		switch (payMethod) {
-		// 支付宝客户端
-		case 1:
+		if (step1) {
 			RequestWrapper wrapper = new RequestWrapper();
-			wrapper.setShowDialog(true);
-			sendDataByGet(wrapper, NetworkAction.indexF_pay_base);
-			break;
+			wrapper.setIdentity(MyApplication.identity);
+			wrapper.setOid(oid);
+			if (offlineB)
+				wrapper.setPay_mode("2");
+			else
+				wrapper.setPay_mode("1");
+			if (couponB) {
+				wrapper.setCid(coupon2.getCid());
+				wrapper.setCoupon_price(couponPriceUse + "");
+			}
+			if (cleancardB) {
+				wrapper.setXc_ucid(cleanCard.getCid());
+				wrapper.setXc_card_price(cleancardPriceUse + "");
+			}
+			if (storecardB) {
+				wrapper.setZz_ucid(storeCard.getCid());
+				wrapper.setZz_card_price(storecardPriceUse + "");
+			}
+			if (crediteB) {
+				wrapper.setIntegral(creditePriceUse * 10 + "");
+				wrapper.setIntegral_price(creditePriceUse + "");
+			}
+			sendDataByGet(wrapper, NetworkAction.orderF_pay_order);
+			return;
 		}
+
+		Intent intent=new Intent();
+		intent.setClass(this, OrderListActivity.class);
+		if (offlineB)
+		{
+			Toast.makeText(this, "预约成功", Toast.LENGTH_SHORT).show();
+			startActivity(intent);
+			finish();
+			return;
+		}
+		
+		if(acTotal<=0)
+		{
+			Toast.makeText(this, "预约成功", Toast.LENGTH_SHORT).show();
+			startActivity(intent);
+			finish();
+			return;
+		}
+		else
+		{
+			if(couponB)
+				Toast.makeText(this, "优惠券使用成功", Toast.LENGTH_SHORT).show();
+			else if(cleancardB)
+				Toast.makeText(this, "储值卡使用成功", Toast.LENGTH_SHORT).show();
+			else if(storecardB)
+				Toast.makeText(this, "增值卡使用成功", Toast.LENGTH_SHORT).show();
+			switch (payMethod) {
+			// 支付宝客户端
+			case 1:
+				RequestWrapper wrapper = new RequestWrapper();
+				wrapper.setShowDialog(true);
+				sendDataByGet(wrapper, NetworkAction.indexF_pay_base);
+				break;
+			}
+		}
+		
 
 	}
 
@@ -468,7 +565,7 @@ public class OrderPayActivity extends BaseActivity implements
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
 		if (requestType == NetworkAction.indexF_pay_base) {
-			Pay pay = new Pay(this);
+//			Pay pay = new Pay(this,oid);
 			if (payMethod == 1) {
 				PayModel payModel = responseWrapper.getPay();
 				// pay.setPARTNER(payModel.getPay_pid());
@@ -477,7 +574,7 @@ public class OrderPayActivity extends BaseActivity implements
 
 				try {
 					String subject = carts.get(0).getName();
-					pay.alipay(carts.get(0).getName(),
+					payClass.alipay(carts.get(0).getName(),
 							"{\"type\":\"2\",\"identity\":\""
 									+ MyApplication.identity + "\",\"oid\":\""
 									+ oid + "\"}", acTotal + "");
@@ -613,6 +710,11 @@ public class OrderPayActivity extends BaseActivity implements
 				line2.setVisibility(View.GONE);
 			}
 		}
+		else if(requestType == NetworkAction.orderF_pay_order)
+		{
+			step1=false;
+			payOrder();
+		}
 	}
 
 	@Override
@@ -647,18 +749,22 @@ public class OrderPayActivity extends BaseActivity implements
 			// if (storeCard != null)
 			if (isChecked) {
 				storecardB = true;
-				coupon.setChecked(false);
-				credite.setChecked(false);
-			} 
+				if (couponB)
+					coupon.setChecked(false);
+				if (cleancardB)
+					credite.setChecked(false);
+			}
 			getNewPrice(storeCard);
 			break;
 		case R.id.cleancard_cb:
 			// if (cleanCard != null)
 			if (isChecked) {
 				cleancardB = true;
-				coupon.setChecked(false);
-				credite.setChecked(false);
-			} 
+				if (couponB)
+					coupon.setChecked(false);
+				if (cleancardB)
+					credite.setChecked(false);
+			}
 			getNewPrice(cleanCard);
 			break;
 		// }
