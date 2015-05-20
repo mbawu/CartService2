@@ -4,10 +4,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.gson.JsonObject;
+import com.xqxy.carservice.R;
 import com.xqxy.model.Car;
 import com.xqxy.model.UserInfo;
 import com.xqxy.person.MessageActivity;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +27,32 @@ import cn.jpush.android.api.JPushInterface;
  */
 public class MyReceiver extends BroadcastReceiver {
 	private static final String TAG = "JPush";
+
+	public void notifyMsg(Context context, String msg) {
+		NotificationManager mNotificationManager = MyApplication.mNotificationManager;
+		//定义通知栏展现的内容信息
+        int icon = R.drawable.ic_launcher;
+        CharSequence tickerText = msg;
+        long when = System.currentTimeMillis();
+        Notification notification = new Notification(icon, tickerText, when);
+         
+        //定义下拉通知栏时要展现的内容信息
+//        Context context = getApplicationContext();
+        notification.flags = Notification.FLAG_AUTO_CANCEL; // 设置默认声音
+        notification.defaults |= Notification.DEFAULT_SOUND; // 设定震动(需加VIBRATE权限)
+        notification.defaults |= Notification.DEFAULT_VIBRATE;
+        CharSequence contentTitle = msg;
+        CharSequence contentText = msg;
+        Intent notificationIntent = new Intent(context, MessageActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
+                notificationIntent, 0);
+        notification.setLatestEventInfo(context, contentTitle, contentText,
+                contentIntent);
+         
+        //用mNotificationManager的notify方法通知用户生成标题栏消息通知
+        mNotificationManager.notify(1, notification);
+        mNotificationManager.cancel(-5);
+	}
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -40,12 +70,11 @@ public class MyReceiver extends BroadcastReceiver {
 			Log.d(TAG,
 					"[MyReceiver] 接收到推送下来的自定义消息: "
 							+ bundle.getString(JPushInterface.EXTRA_MESSAGE));
-//			 processCustomMessage(context, bundle);
-			int notifactionId = bundle
-					.getInt("cn.jpush.android.MSG_ID");
+			
 			String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
+//			notifyMsg(context,message);
 			String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
-			Log.i("test", "extras-->"+extras);
+			Log.i("test", "extras-->" + extras);
 			JSONObject ob;
 			try {
 				ob = new JSONObject(extras);
@@ -59,6 +88,8 @@ public class MyReceiver extends BroadcastReceiver {
 						Car car = myApp.getCar();
 						// 根据性别和车型推送
 						if (!ob.isNull("sex") && !ob.isNull("bid")) {
+							if(car==null)
+								return;
 							if (!ob.getString("sex").equals(user.getSex())
 									|| !ob.getString("bid")
 											.equals(car.getBid())
@@ -66,52 +97,30 @@ public class MyReceiver extends BroadcastReceiver {
 											.equals(car.getSid())
 									|| !ob.getString("sid")
 											.equals(car.getSid())) {
-								JPushInterface.clearNotificationById(context,
-										notifactionId);
 								return;
 							}
-						}
-						else if(!ob.isNull("sex") && ob.isNull("bid") )
-						{
-							if(!user.getSex().equals(ob.getString("sex")))
-							{
-//								JPushInterface.clearLocalNotifications(context);
-								JPushInterface.clearNotificationById(context,
-										notifactionId);
+						} else if (!ob.isNull("sex") && ob.isNull("bid")) {
+							if (!user.getSex().equals(ob.getString("sex"))) {
 								return;
 							}
-						}
-						else if(ob.isNull("sex") && !ob.isNull("bid") )
-						{
-							if ( !ob.getString("bid")
-											.equals(car.getBid())
+						} else if (ob.isNull("sex") && !ob.isNull("bid")) {
+							if(car==null)
+								return;
+							if (!ob.getString("bid").equals(car.getBid())
 									|| !ob.getString("sid")
 											.equals(car.getSid())
 									|| !ob.getString("sid")
 											.equals(car.getSid())) {
-								JPushInterface.clearNotificationById(context,
-										notifactionId);
 								return;
 							}
-						}
-						else if(!ob.isNull("uid"))
-						{
-							if(!user.getUid().equals(ob.getString("uid")))
-							{
-								JPushInterface.clearNotificationById(context,
-										notifactionId);
+						} else if (!ob.isNull("uid")) {
+							if (!user.getUid().equals(ob.getString("uid"))) {
 								return;
 							}
 						}
 					}
 					// 用户未登录不显示在通知栏
 					else {
-//						JPushInterface.clearLocalNotifications(context);
-//						JPushInterface.clearAllNotifications(context);
-						JPushInterface.clearNotificationById(context,
-								notifactionId);
-						JPushInterface.clearNotificationById(context,
-						notifactionId);
 						return;
 					}
 
@@ -120,10 +129,10 @@ public class MyReceiver extends BroadcastReceiver {
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				Toast.makeText(context, "解析推送消息出错", Toast.LENGTH_SHORT).show();
+				Toast.makeText(context, "推送消息格式出错", Toast.LENGTH_SHORT).show();
 			}
 
-			Log.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
+			notifyMsg(context,message);
 			// 接收到消息推送以后通知改变消息数量
 			Intent mIntent = new Intent(Cst.GET_RECEIVE);
 			// 发送广播
@@ -132,118 +141,12 @@ public class MyReceiver extends BroadcastReceiver {
 		} else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent
 				.getAction())) {
 			Log.d(TAG, "[MyReceiver] 接收到推送下来的通知");
-			
-//			int notifactionId = bundle
-//					.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
-//			if(notifactionId!=0)
-//			{
-//				JPushInterface.clearNotificationById(context,
-//						notifactionId);
-//				return;
-//			}
-//			
-//			String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
-//			String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
-//			Log.i("test", "extras-->"+extras);
-//			JSONObject ob;
-//			try {
-//				ob = new JSONObject(extras);
-//				// 推送给部分人
-//				if (!ob.getBoolean("isAll")) {
-//					// 用户在登录状态下
-//					if (MyApplication.loginStat) {
-//						MyApplication myApp = (MyApplication) context
-//								.getApplicationContext();
-//						UserInfo user = myApp.getUserInfo();
-//						Car car = myApp.getCar();
-//						// 根据性别和车型推送
-//						if (!ob.isNull("sex") && !ob.isNull("bid")) {
-//							if (!ob.getString("sex").equals(user.getSex())
-//									|| !ob.getString("bid")
-//											.equals(car.getBid())
-//									|| !ob.getString("sid")
-//											.equals(car.getSid())
-//									|| !ob.getString("sid")
-//											.equals(car.getSid())) {
-//								JPushInterface.clearNotificationById(context,
-//										notifactionId);
-//								return;
-//							}
-//						}
-//						else if(!ob.isNull("sex") && ob.isNull("bid") )
-//						{
-//							if(!user.getSex().equals(ob.getString("sex")))
-//							{
-////								JPushInterface.clearLocalNotifications(context);
-//								JPushInterface.clearNotificationById(context,
-//										notifactionId);
-//								return;
-//							}
-//						}
-//						else if(ob.isNull("sex") && !ob.isNull("bid") )
-//						{
-//							if ( !ob.getString("bid")
-//											.equals(car.getBid())
-//									|| !ob.getString("sid")
-//											.equals(car.getSid())
-//									|| !ob.getString("sid")
-//											.equals(car.getSid())) {
-//								JPushInterface.clearNotificationById(context,
-//										notifactionId);
-//								return;
-//							}
-//						}
-//						else if(!ob.isNull("uid"))
-//						{
-//							if(!user.getUid().equals(ob.getString("uid")))
-//							{
-//								JPushInterface.clearNotificationById(context,
-//										notifactionId);
-//								return;
-//							}
-//						}
-//					}
-//					// 用户未登录不显示在通知栏
-//					else {
-////						JPushInterface.clearLocalNotifications(context);
-////						JPushInterface.clearAllNotifications(context);
-//						JPushInterface.clearNotificationById(context,
-//								notifactionId);
-//						return;
-//					}
-//
-//				}
-//
-//			} catch (JSONException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//				Toast.makeText(context, "解析推送消息出错", Toast.LENGTH_SHORT).show();
-//				JPushInterface.clearNotificationById(context,
-//						notifactionId);
-//				return;
-//			}
-//
-//			Log.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
-//			// 接收到消息推送以后通知改变消息数量
-//			Intent mIntent = new Intent(Cst.GET_RECEIVE);
-//			// 发送广播
-//			context.sendBroadcast(mIntent);
-//			int notifactionId = bundle
-//					.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
-//				JPushInterface.clearNotificationById(context,
-//						notifactionId);
-//			JPushInterface.clearAllNotifications(context);
+
 		} else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent
 				.getAction())) {
 			Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
-
-			// //打开自定义的Activity
+			//打开自定义的Activity
 			Intent i = new Intent(context, MessageActivity.class);
-			// i.putExtras(bundle);
-			// //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			// i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-			// Intent.FLAG_ACTIVITY_CLEAR_TOP );
-			// context.startActivity(i);
 			MyApplication.list.get(0).startActivity(i);
 		} else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent
 				.getAction())) {
@@ -279,25 +182,5 @@ public class MyReceiver extends BroadcastReceiver {
 		return sb.toString();
 	}
 
-	// send msg to MainActivity
-	private void processCustomMessage(Context context, Bundle bundle) {
-		// if (MainActivity.isForeground) {
-		// String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
-		// String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
-		// Intent msgIntent = new Intent(MainActivity.MESSAGE_RECEIVED_ACTION);
-		// msgIntent.putExtra(MainActivity.KEY_MESSAGE, message);
-		// if (!ExampleUtil.isEmpty(extras)) {
-		// try {
-		// JSONObject extraJson = new JSONObject(extras);
-		// if (null != extraJson && extraJson.length() > 0) {
-		// msgIntent.putExtra(MainActivity.KEY_EXTRAS, extras);
-		// }
-		// } catch (JSONException e) {
-		//
-		// }
-		//
-		// }
-		// context.sendBroadcast(msgIntent);
-		// }
-	}
+
 }
