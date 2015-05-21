@@ -510,7 +510,7 @@ public class OrderPayActivity extends BaseActivity implements
 				wrapper.setIntegral(creditePriceUse * 10 + "");
 				wrapper.setIntegral_price(creditePriceUse + "");
 			}
-			sendDataByGet(wrapper, NetworkAction.orderF_pay_order);
+			sendData(wrapper, NetworkAction.orderF_pay_order);
 			return;
 		}
 
@@ -568,9 +568,9 @@ public class OrderPayActivity extends BaseActivity implements
 //			Pay pay = new Pay(this,oid);
 			if (payMethod == 1) {
 				PayModel payModel = responseWrapper.getPay();
-				// pay.setPARTNER(payModel.getPay_pid());
-				// pay.setSELLER(payModel.getPay_name());
-				// pay.setRSA_PRIVATE(payModel.getRsa_private_key());
+				payClass.setPARTNER(payModel.getPay_pid());
+				payClass.setSELLER(payModel.getPay_name());
+				payClass.setRSA_PRIVATE(payModel.getRsa_private_key());
 
 				try {
 					String subject = carts.get(0).getName();
