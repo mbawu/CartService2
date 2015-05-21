@@ -133,7 +133,7 @@ public class OrderPayActivity extends BaseActivity implements
 		address = (Address) getIntent().getSerializableExtra("address");
 		oid = getIntent().getStringExtra("oid");
 		setPrice();
-		payClass = new Pay(this,oid);
+		payClass = new Pay(this, oid);
 		cleancardDatas = new ArrayList<StoreCard>();
 		storecardDatas = new ArrayList<StoreCard>();
 		couponData = new ArrayList<Coupon>();
@@ -248,7 +248,8 @@ public class OrderPayActivity extends BaseActivity implements
 			cleancard_cb.setChecked(true);
 		} else if (resultCode == GET_STORECARD) {
 			storeCard = (StoreCard) data.getSerializableExtra("data");
-			storecard_cb.setText(storeCard.getName()+"（可用余额"+storeCard.getBalance()+"）");
+			storecard_cb.setText(storeCard.getName() + "（可用余额"
+					+ storeCard.getBalance() + "）");
 			storecard_cb.setChecked(true);
 		}
 	}
@@ -405,7 +406,7 @@ public class OrderPayActivity extends BaseActivity implements
 
 				temp = acTotal - price;
 				if (temp <= 0) {
-					creditePriceUse = price - acTotal;
+					creditePriceUse = acTotal;
 				} else {
 					creditePriceUse = price;
 				}
@@ -446,7 +447,14 @@ public class OrderPayActivity extends BaseActivity implements
 					cleancardB = false;
 					return;
 				}
-				cleancardPriceUse = price;
+				
+				temp = acTotal - price;
+				if (temp <= 0) {
+					cleancardPriceUse = acTotal;
+				} else {
+					cleancardPriceUse = price;
+				}
+//				cleancardPriceUse = price;
 				acTotal = acTotal - price;
 			} else {
 				if (cleancardPriceUse == 0.0)
@@ -463,7 +471,13 @@ public class OrderPayActivity extends BaseActivity implements
 					storecardB = false;
 					return;
 				}
-				storecardPriceUse = price;
+				temp = acTotal - price;
+				if (temp <= 0) {
+					storecardPriceUse = acTotal;
+				} else {
+					storecardPriceUse = price;
+				}
+//				storecardPriceUse = price;
 				acTotal = acTotal - price;
 			} else {
 				if (storecardPriceUse == 0.0)
@@ -514,30 +528,26 @@ public class OrderPayActivity extends BaseActivity implements
 			return;
 		}
 
-		Intent intent=new Intent();
+		Intent intent = new Intent();
 		intent.setClass(this, OrderListActivity.class);
-		if (offlineB)
-		{
+		if (offlineB) {
 			Toast.makeText(this, "预约成功", Toast.LENGTH_SHORT).show();
 			startActivity(intent);
 			finish();
 			return;
 		}
-		
-		if(acTotal<=0)
-		{
+
+		if (acTotal <= 0) {
 			Toast.makeText(this, "预约成功", Toast.LENGTH_SHORT).show();
 			startActivity(intent);
 			finish();
 			return;
-		}
-		else
-		{
-			if(couponB)
+		} else {
+			if (couponB)
 				Toast.makeText(this, "优惠券使用成功", Toast.LENGTH_SHORT).show();
-			else if(cleancardB)
+			else if (cleancardB)
 				Toast.makeText(this, "储值卡使用成功", Toast.LENGTH_SHORT).show();
-			else if(storecardB)
+			else if (storecardB)
 				Toast.makeText(this, "增值卡使用成功", Toast.LENGTH_SHORT).show();
 			switch (payMethod) {
 			// 支付宝客户端
@@ -548,7 +558,6 @@ public class OrderPayActivity extends BaseActivity implements
 				break;
 			}
 		}
-		
 
 	}
 
@@ -565,7 +574,7 @@ public class OrderPayActivity extends BaseActivity implements
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
 		if (requestType == NetworkAction.indexF_pay_base) {
-//			Pay pay = new Pay(this,oid);
+			// Pay pay = new Pay(this,oid);
 			if (payMethod == 1) {
 				PayModel payModel = responseWrapper.getPay();
 				payClass.setPARTNER(payModel.getPay_pid());
@@ -709,10 +718,8 @@ public class OrderPayActivity extends BaseActivity implements
 				storecardLayout.setVisibility(View.GONE);
 				line2.setVisibility(View.GONE);
 			}
-		}
-		else if(requestType == NetworkAction.orderF_pay_order)
-		{
-			step1=false;
+		} else if (requestType == NetworkAction.orderF_pay_order) {
+			step1 = false;
 			payOrder();
 		}
 	}

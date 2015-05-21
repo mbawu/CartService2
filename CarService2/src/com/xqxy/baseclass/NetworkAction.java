@@ -50,7 +50,8 @@ public enum NetworkAction {
 	cartF_update_cart,//修改购物车
 	cartF_cart_order,//结算购物车
 	orderF_pay_order,//订单付款
-	orderF_pay_defeated //回滚支付操作
+	orderF_pay_defeated, //回滚支付操作
+	indexF_web_base // 网站基本信息
 	;
 
 	@Override

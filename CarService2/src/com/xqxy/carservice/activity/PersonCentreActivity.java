@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,6 +26,7 @@ import com.xqxy.carservice.R;
 import com.xqxy.carservice.view.CarImageView;
 import com.xqxy.model.Message;
 import com.xqxy.model.UserInfo;
+import com.xqxy.model.WebInfo;
 import com.xqxy.person.AdressActivity;
 import com.xqxy.person.CouponActivity;
 import com.xqxy.person.CreditActivity;
@@ -56,7 +58,8 @@ public class PersonCentreActivity extends BaseActivity implements
 	private Intent msgIntent;
 
 	private UserInfo user;
-
+	private String phoneNum="";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -95,6 +98,22 @@ public class PersonCentreActivity extends BaseActivity implements
 		titleTextView = (TextView) findViewById(R.id.textTopTitle);
 		rightBtnTextView = (TextView) findViewById(R.id.textTopRightBtn);
 		titleTextView.setText("个人中心");
+		rightBtnTextView.setBackgroundResource(R.drawable.call_bg);
+		rightBtnTextView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(!phoneNum.equals(""))
+				{
+	                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNum));
+	                //通知activtity处理传入的call服务
+	                PersonCentreActivity.this.startActivity(intent);
+				}
+				else
+					Toast.makeText(PersonCentreActivity.this, "未获取到电话号码，稍后再试", Toast.LENGTH_SHORT).show();
+				
+			}
+		});
 		order = (TextView) findViewById(R.id.personCenterItemOrder);
 		coupon = (TextView) findViewById(R.id.personCenterItemCoupon);
 		storedcard = (TextView) findViewById(R.id.personCenterItemStoredcard);
@@ -122,7 +141,9 @@ public class PersonCentreActivity extends BaseActivity implements
 		/*
 		 * if(MyApplication.loginStat) getMsg();
 		 */
+		sendDataByGet(new RequestWrapper(), NetworkAction.indexF_web_base);
 	}
+
 
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
@@ -180,6 +201,11 @@ public class PersonCentreActivity extends BaseActivity implements
 			}
 
 		}
+		 else if (requestType == NetworkAction.indexF_web_base) {
+			 ArrayList<WebInfo> web=responseWrapper.getWeb();
+			 WebInfo info=web.get(0);
+			 phoneNum=info.getWeb_phone();
+		 }
 	}
 
 	private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
