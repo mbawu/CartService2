@@ -101,7 +101,7 @@ public class StoreCardPayActivity extends BaseActivity implements
 					pay.alipay(card.getName(),
 							"{\"type\":\"1\",\"identity\":\""
 									+ MyApplication.identity + "\",\"cid\":\""
-									+ card.getCid() + "\"}", card.getPrice());
+									+ card.getId() + "\"}", card.getPrice());
 				} catch (Exception e) {
 					Toast.makeText(this, "商家支付信息有误，请重试", Toast.LENGTH_SHORT).show();
 				}

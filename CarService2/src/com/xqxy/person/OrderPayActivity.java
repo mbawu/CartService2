@@ -513,11 +513,11 @@ public class OrderPayActivity extends BaseActivity implements
 				wrapper.setCoupon_price(couponPriceUse + "");
 			}
 			if (cleancardB) {
-				wrapper.setXc_ucid(cleanCard.getCid());
+				wrapper.setXc_ucid(cleanCard.getId());
 				wrapper.setXc_card_price(cleancardPriceUse + "");
 			}
 			if (storecardB) {
-				wrapper.setZz_ucid(storeCard.getCid());
+				wrapper.setZz_ucid(storeCard.getId());
 				wrapper.setZz_card_price(storecardPriceUse + "");
 			}
 			if (crediteB) {

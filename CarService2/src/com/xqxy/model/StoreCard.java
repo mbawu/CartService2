@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class StoreCard implements Serializable {
 
+	private String id;
 	private String cid;
 	private String ucid;
 	private String balance;
@@ -27,6 +28,12 @@ public class StoreCard implements Serializable {
 	
 	
 	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getCar_num() {
 		return car_num;
 	}
