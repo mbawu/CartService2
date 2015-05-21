@@ -56,7 +56,7 @@ public class StoreCardPayActivity extends BaseActivity implements
 		alipay_web.setOnCheckedChangeListener(this);
 		bank_pay.setOnCheckedChangeListener(this);
 		payBtn = (TextView) findViewById(R.id.pay_btn);
-		final Pay pay = new Pay(this);
+//		final Pay pay = new Pay(this);
 		payBtn.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -93,9 +93,9 @@ public class StoreCardPayActivity extends BaseActivity implements
 			if(payMethod==1)
 			{
 				PayModel payModel=responseWrapper.getPay();
-//				pay.setPARTNER(payModel.getPay_pid());
-//				pay.setSELLER(payModel.getPay_name());
-//				pay.setRSA_PRIVATE(payModel.getPay_key());
+				pay.setPARTNER(payModel.getPay_pid());
+				pay.setSELLER(payModel.getPay_name());
+				pay.setRSA_PRIVATE(payModel.getPay_key());
 				try {
 					pay.alipay(card.getName(),
 							"{\"type\":\"1\",\"identity\":\""
