@@ -1,0 +1,27 @@
+<resources>
+
+    <string-array name="planets">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+        <item>Neptune</item>
+        <item>Neptune</item>
+        <item>Neptune</item>
+        <item>Neptune</item>
+        <item>Neptune</item>
+        <item>Neptune</item>
+        <item>Neptune</item>
+    </string-array>
+    <string-array name="upkeep">
+        <item>1次每年</item>
+        <item>2次每年</item>
+        <item>3次每年</item>
+        <item>4次每年</item>
+    </string-array>
+
+</resources>

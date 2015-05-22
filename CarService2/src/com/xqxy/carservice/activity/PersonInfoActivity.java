@@ -7,16 +7,16 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.xqxy.baseclass.Cst;
-import com.xqxy.baseclass.MyApplication;
-import com.xqxy.baseclass.NetworkAction;
-import com.xqxy.baseclass.PhotoActivity;
-import com.xqxy.baseclass.RequestWrapper;
-import com.xqxy.baseclass.ResponseWrapper;
+import com.cn.hongwei.CarImageView;
+import com.cn.hongwei.MyApplication;
+import com.cn.hongwei.PhotoActivity;
+import com.cn.hongwei.RequestWrapper;
+import com.cn.hongwei.ResponseWrapper;
+import com.cn.hongwei.TopTitleView;
 import com.xqxy.carservice.R;
-import com.xqxy.carservice.view.CarImageView;
-import com.xqxy.carservice.view.TopTitleView;
 import com.xqxy.model.AutoLogin;
+import com.xqxy.person.Cst;
+import com.xqxy.person.NetworkAction;
 import com.xqxy.person.OtherActivity;
 
 public class PersonInfoActivity extends PhotoActivity implements
