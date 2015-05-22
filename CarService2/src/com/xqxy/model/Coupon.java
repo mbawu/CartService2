@@ -11,8 +11,15 @@ public class Coupon implements Serializable{
 	private String status;
 	private String name;
 	private String product_name;
+	private String pid;
 	
 	
+	public String getPid() {
+		return pid;
+	}
+	public void setPid(String pid) {
+		this.pid = pid;
+	}
 	public String getProduct_name() {
 		return product_name;
 	}

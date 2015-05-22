@@ -25,6 +25,7 @@ import com.xqxy.model.ProductDetails;
 import com.xqxy.model.Series;
 import com.xqxy.model.StoreCard;
 import com.xqxy.model.UserInfo;
+import com.xqxy.model.WebInfo;
 
 /**
  * 
@@ -85,6 +86,16 @@ public class ResponseWrapper {
 	private ArrayList<Car> car;
 
 	private ArrayList<Order> order;
+
+	private ArrayList<WebInfo> web;
+	
+	public ArrayList<WebInfo> getWeb() {
+		return web;
+	}
+
+	public void setWeb(ArrayList<WebInfo> web) {
+		this.web = web;
+	}
 
 	/**
 	 * 用户常用地址

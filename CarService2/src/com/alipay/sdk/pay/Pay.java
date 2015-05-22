@@ -1,13 +1,20 @@
 package com.alipay.sdk.pay;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 import android.app.Activity;
@@ -28,15 +35,27 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.alipay.sdk.app.PayTask;
+import com.android.volley.VolleyError;
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
+import com.xqxy.baseclass.Cst;
+import com.xqxy.baseclass.JsonUtil;
+import com.xqxy.baseclass.MyApplication;
+import com.xqxy.baseclass.NetworkAction;
+import com.xqxy.baseclass.RequestWrapper;
+import com.xqxy.baseclass.ResponseWrapper;
 
 public class Pay {
 
 	private Activity activity;
+	private String oid;
 	public Pay(Activity activity) {
 		this.activity = activity;
-		setPARTNER("2088511050709950");
-		setSELLER("gaoqiang.yue@changhong.com");
-		setRSA_PRIVATE("MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBALjj+t+0KPrHUwuzpiG3K5LA1VMVjrMuj1AF1MyFAVDrGFjm5cYYYwSSAHfbHj146OVX/97oOwZ2NXPowt+Ncq5DwRt5Wjm2YoA9+hbur++Z7b+HpNfVIdWsYI/PXRPwVRio8+lxnZWTdVf/c5CIsQoU3dwaJREe+aU8q6xhe2fdAgMBAAECgYBhAXRyBKNvmD7xJ8ulauZYtAX49pmNV4Nnt/eDatFa9E4s7tBllAv3rObD+9os5JBFLFuaR3wYktLOwrPj+OHOuW2O/HV2WrBmluIT8Ll3ShS9IOaqZu+Fz65DbM84kSMt+9+AN6psy5KrNYXgQkwXzsYGzNiKdkKe59eKeXNF4QJBAO+zX9rIUamYjLNa1Jjlz7t35woVFsUmF/MAMDt3U/Vt1ix1DVoM7yF1A9RN7szfNl83a8uM61CDdJ4Yvap1HAUCQQDFdn1qWLyi69jKAyEMrPJvU7c6eaeiBvKoRkUf7XuKwI08G02XakKAkWIoDoBe8HZ7obTv3Dkz1WleupUwBjv5AkAQtRgBT+UhRRjJh5M59Qq9rmXUNhQYOceBkInMG00m1jkPcDk2BaDFXDqgGa6DaSuJB3vj/DaKrh76xg6ySudhAkBqL+UTynJuvpvPTs14Do009vUCuic+h7P4cAl+OOyF2jRZTWl1cowerY/2cI3yACgHJheyIWCVkj9e1MGjmMapAkBiTFUs1lGuaWHYrqvrGQFM1Z+bdiHOgAhvSHAwE1FdZQrcMVxiaA6W0mnx6g6Q7H6pry8I5H0Fn+X7W0rEMbBI");
+	}
+	
+	public Pay(Activity activity,String oid) {
+		this.activity = activity;
+		this.oid=oid;
 	}
 
 	private  String PARTNER = "";
@@ -75,7 +94,10 @@ public class Pay {
 					} else {
 						Toast.makeText(activity, "支付失败", Toast.LENGTH_SHORT)
 								.show();
-
+						RequestWrapper wrapper=new RequestWrapper();
+						wrapper.setIdentity(MyApplication.identity);
+						wrapper.setOid(oid);
+						sendData(wrapper, NetworkAction.orderF_pay_defeated);
 					}
 				}
 				break;
@@ -279,4 +301,136 @@ public class Pay {
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	public void sendData(RequestWrapper requestWrapper,
+			final NetworkAction requestType) {
+		String url = Cst.HOST;
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		MyApplication.client.postWithURL(url, getMap(requestWrapper),requestType, 
+				new Listener<JSONObject>() {
+
+					@Override
+					public void onResponse(JSONObject response) {
+						onResponseEvent(response, requestType);
+					}
+				}, new ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						Log.i(Cst.TAG, "Volley error:" + error.toString());
+						Toast.makeText(activity, "访问服务器失败，请重试",
+								Toast.LENGTH_SHORT).show();
+					}
+				});
+	}
+	
+	/**
+	 * get请求方式
+	 * 
+	 * @param requestWrapper
+	 * @param requestType
+	 */
+	public void sendDataByGet(RequestWrapper requestWrapper,
+			final NetworkAction requestType) {
+		String url = Cst.HOST;
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		MyApplication.client.getWithURL(url, getMap(requestWrapper),
+				new Listener<JSONObject>() {
+
+					@Override
+					public void onResponse(JSONObject response) {
+						onResponseEvent(response, requestType);
+					}
+				}, requestType, new ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						Log.i(Cst.TAG, "Volley error:" + error.toString());
+						Toast.makeText(activity, "访问服务器失败，请重试",
+								Toast.LENGTH_SHORT).show();
+					}
+				});
+	}
+
+	public static HashMap<String, String> getMap(Object thisObj) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		Class c;
+		try {
+			c = Class.forName(thisObj.getClass().getName());
+			Method[] m = c.getMethods();
+			Field[] fileds = c.getFields();
+			for (int i = 0; i < m.length; i++) {
+				String method = m[i].getName();
+				if (method.startsWith("get")) {
+					try {
+						Object value = m[i].invoke(thisObj);
+						if (value != null) {
+
+							String key = method.substring(3);
+							key = key.substring(0, 1).toLowerCase()
+									+ key.substring(1);
+							if (key.equals("class"))
+								continue;
+							if (value instanceof String) {
+								map.put(key, value.toString());
+							} else if (value instanceof Map) {
+								Map<String, String> valueMap = (Map<String, String>) value;
+								Set<String> keySet = valueMap.keySet();
+								for (String k : keySet) {
+									map.put(k, valueMap.get(k));
+								}
+							}
+
+						}
+					} catch (Exception e) {
+						// TODO: handle exception
+						System.out.println("error:" + method);
+					}
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return map;
+	}
+
+	public void onResponseEvent(JSONObject response, NetworkAction requestType) {
+
+		boolean done = false;
+		String msg = "";
+		Log.i("response", response.toString());
+		try {
+			done = response.getBoolean("done");
+			msg = response.getString("msg");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		if (done) {
+			ResponseWrapper responseWrappe = jsonToClass(response.toString());
+			showAttr(responseWrappe,requestType);
+		}
+		else {
+//			dismiss();
+		}
+
+	}
+
+	public ResponseWrapper jsonToClass(String json) {
+		return JsonUtil.fromJson(json, ResponseWrapper.class);
+	}
+	public void showAttr(ResponseWrapper responseWrappe,NetworkAction requestType) {
+		if(requestType==NetworkAction.orderF_pay_defeated)
+		{
+			
+		}
+	}
 }

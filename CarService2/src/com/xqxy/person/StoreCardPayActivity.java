@@ -56,7 +56,7 @@ public class StoreCardPayActivity extends BaseActivity implements
 		alipay_web.setOnCheckedChangeListener(this);
 		bank_pay.setOnCheckedChangeListener(this);
 		payBtn = (TextView) findViewById(R.id.pay_btn);
-		final Pay pay = new Pay(this);
+//		final Pay pay = new Pay(this);
 		payBtn.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -93,14 +93,15 @@ public class StoreCardPayActivity extends BaseActivity implements
 			if(payMethod==1)
 			{
 				PayModel payModel=responseWrapper.getPay();
-//				pay.setPARTNER(payModel.getPay_pid());
-//				pay.setSELLER(payModel.getPay_name());
+				pay.setPARTNER(payModel.getPay_pid());
+				pay.setSELLER(payModel.getPay_name());
 //				pay.setRSA_PRIVATE(payModel.getPay_key());
+				pay.setRSA_PRIVATE("MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAMkMCO2MoYYtn+l7PJ3GLJ+AiVUO5XYrtv8LH4eYMEaQBTsnTeS6s61MBZ/yXR7hnH+wOJqvFjGVTm8uz0KXCNIOWAZ88KRAubIGGxtwhwLcwMbvpb8+wvTSOdvFHiApVK9vJPmsgvCWybqqqYWtSEW9VyZEGWBwch8Js4yakqRdAgMBAAECgYBVrjVX16k239bY0FaC/uQhjcv5XgHYnMS+aOUlCmz4hYRVM2j048STRGTZR5b8BDaIDHfzJE8XDoSAybg2rttouKVapsHmLVDoPhtg48zX7ZPPOe+2hHxcIulRCN2ELshDW6BMe/9QilAqphRp3pyM9YrZCT52V2p8O4UurQzoWQJBAOXKXF2I32PzHgyj50MPwkrvFD9hrTzhJ8lvqz51TiEYde3OwjzW1bIKUCYg2tDjorCeJqlAH+8PDe+uYFROFkcCQQDf+mU2oFmTODgkeZPplillCZ7DtQG+1eXmCcg8d3Zad2p4RAyJpmF0f0iVcbLOshLC4oz+x0p152MZPMCcd247AkBrTWqCNubx2lYe2u6jzxkQOsH+stLdido1YxLY8JgSNkTjTlg/ZqaVI+G3XEIxpwqSZNdy00HWNPZyBMBwvaIDAkEAgbGffBM76zipoc1YrfDKxXvdmBuvCA8Z0aumbAUM3nO5jixxSh+y3N97azXsQS3yGTFQTZOe9UjoJEv+iFvL0wJAI8VbugyH56Cvud/vcYb/mdOO/cIyM7mhTYy5Gh6Klv9+SmZAQgVIQJxhAK+sGenlhRw9ex0Dwr9z3jqmeoVxkA==");
 				try {
 					pay.alipay(card.getName(),
 							"{\"type\":\"1\",\"identity\":\""
 									+ MyApplication.identity + "\",\"cid\":\""
-									+ card.getCid() + "\"}", card.getPrice());
+									+ card.getId() + "\"}", card.getPrice());
 				} catch (Exception e) {
 					Toast.makeText(this, "商家支付信息有误，请重试", Toast.LENGTH_SHORT).show();
 				}

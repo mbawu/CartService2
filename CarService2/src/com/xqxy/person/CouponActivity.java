@@ -52,6 +52,7 @@ public class CouponActivity extends BaseActivity implements
 	private RadioButton used;
 	private RadioButton expired;
 	private boolean selectModule = false;
+	private View line;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,7 @@ public class CouponActivity extends BaseActivity implements
 
 	private void init() {
 		// datas=new ArrayList<Coupon>();
-
+		line = findViewById(R.id.line);
 		backImageView = (ImageView) findViewById(R.id.imageTopBack);
 		titleTextView = (TextView) findViewById(R.id.textTopTitle);
 		rightBtnTextView = (TextView) findViewById(R.id.textTopRightBtn);
@@ -85,13 +86,20 @@ public class CouponActivity extends BaseActivity implements
 		noUse.setOnCheckedChangeListener(this);
 		used.setOnCheckedChangeListener(this);
 		expired.setOnCheckedChangeListener(this);
-
-		noUse.setChecked(true);
-
-		if (!getIntent().getStringExtra("select").equals("")) {
+		String select=getIntent().getStringExtra("select");
+		if (select!=null) {
 			selectModule = true;
-			used.setEnabled(false);
-			expired.setEnabled(false);
+			used.setVisibility(View.GONE);
+			expired.setVisibility(View.GONE);
+			noUse.setVisibility(View.GONE);
+			line.setVisibility(View.GONE);
+			nodata.setVisibility(View.GONE);
+			listView.setVisibility(View.VISIBLE);
+			datas = (ArrayList<Coupon>) getIntent()
+					.getSerializableExtra("data");
+			adapter.setDataList(datas);
+			adapter.notifyDataSetChanged();
+
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
@@ -107,7 +115,8 @@ public class CouponActivity extends BaseActivity implements
 				}
 			});
 		}
-
+		if (!selectModule)
+			noUse.setChecked(true);
 	}
 
 	@Override

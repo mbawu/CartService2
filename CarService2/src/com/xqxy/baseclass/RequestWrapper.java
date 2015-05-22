@@ -58,8 +58,65 @@ public class RequestWrapper {
 	private Map<String,String> files;
 	
 	private String cart;
+	private String pay_mode;
+	private String xc_ucid;
+	private String xc_card_price;
+	private String zz_ucid;
+	private String zz_card_price;
+	private String integral;
+	private String coupon_price;
+	private String integral_price;
 	
 	
+	
+	public String getPay_mode() {
+		return pay_mode;
+	}
+	public void setPay_mode(String pay_mode) {
+		this.pay_mode = pay_mode;
+	}
+	public String getXc_ucid() {
+		return xc_ucid;
+	}
+	public void setXc_ucid(String xc_ucid) {
+		this.xc_ucid = xc_ucid;
+	}
+	public String getXc_card_price() {
+		return xc_card_price;
+	}
+	public void setXc_card_price(String xc_card_price) {
+		this.xc_card_price = xc_card_price;
+	}
+	public String getZz_ucid() {
+		return zz_ucid;
+	}
+	public void setZz_ucid(String zz_ucid) {
+		this.zz_ucid = zz_ucid;
+	}
+	public String getZz_card_price() {
+		return zz_card_price;
+	}
+	public void setZz_card_price(String zz_card_price) {
+		this.zz_card_price = zz_card_price;
+	}
+	public String getIntegral() {
+		return integral;
+	}
+	public void setIntegral(String integral) {
+		this.integral = integral;
+	}
+	public String getCoupon_price() {
+		return coupon_price;
+	}
+	public void setCoupon_price(String coupon_price) {
+		this.coupon_price = coupon_price;
+	}
+	public String getIntegral_price() {
+		return integral_price;
+	}
+	public void setIntegral_price(String integral_price) {
+		this.integral_price = integral_price;
+	}
 	public String getCart() {
 		return cart;
 	}
