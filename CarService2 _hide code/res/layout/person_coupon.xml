@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
+
+    <include layout="@layout/top_title_layout" />
+
+    <RadioGroup 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <RadioButton 
+            android:id="@+id/coupon_noUse"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:gravity="center"
+            android:textColor="@drawable/text_checked_style"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:text="未使用"/>
+        
+        <View 
+             android:layout_width="0.5dp"
+             android:background="@color/more_gray"
+             android:layout_height="20dp"/>
+        <RadioButton 
+            android:id="@+id/coupon_used"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:gravity="center"
+            android:textColor="@drawable/text_checked_style"
+            android:text="已使用"/>
+        <View 
+             android:layout_width="0.5dp"
+             android:background="@color/more_gray"
+             android:layout_height="20dp"/>
+        <RadioButton 
+            android:id="@+id/coupon_expired"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:gravity="center"
+            android:textColor="@drawable/text_checked_style"
+            android:text="已过期"/>
+        
+    </RadioGroup>
+    
+     <View 
+         android:id="@+id/line"
+             android:layout_width="match_parent"
+             android:background="@color/more_gray"
+             android:layout_marginLeft="5dp"
+             android:layout_marginRight="5dp"
+             android:layout_height="0.5dp"/>
+    <TextView
+        android:id="@+id/nodataTxt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="暂无记录"
+        android:textSize="22sp"
+        android:visibility="visible" />
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="10dp"
+        android:divider="@null"
+        android:visibility="gone" >
+    </ListView>
+
+</LinearLayout>

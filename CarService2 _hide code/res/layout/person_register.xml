@@ -1,0 +1,224 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wihte"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/rst_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:background="@drawable/back" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/rst_name"
+                style="@style/editStyle"
+                android:layout_width="100dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="姓氏" />
+
+            <RadioGroup
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/rst_man"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:button="@drawable/radio_selector"
+                    android:checked="true"
+                    android:text=" 先生"
+                    android:textColor="@color/more_gray" />
+
+                <RadioButton
+                    android:id="@+id/rst_lady"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:button="@drawable/radio_selector"
+                    android:text=" 女士"
+                    android:textColor="@color/more_gray" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/rst_phone"
+            style="@style/editStyle"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/rst_phone"
+            android:gravity="center"
+            android:paddingRight="40dp"
+            android:hint="请输入手机号"
+            android:inputType="phone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
+
+            <Spinner
+                android:id="@+id/rst_brand"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:animationCache="true"
+                android:background="@drawable/spinner_selector"
+                android:drawSelectorOnTop="true"
+                android:padding="0dip"
+                android:textColor="#6d6d6d"
+                android:textSize="12sp" />
+
+            <Spinner
+                android:id="@+id/rst_series"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:animationCache="true"
+                android:background="@drawable/spinner_selector"
+                android:drawSelectorOnTop="true"
+                android:padding="0dip"
+                android:textColor="#6d6d6d"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <Spinner
+            android:id="@+id/rst_model"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animationCache="true"
+            android:background="@drawable/spinner_selector"
+            android:drawSelectorOnTop="true"
+            android:padding="0dip"
+            android:textColor="#6d6d6d"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <EditText
+                android:id="@+id/rst_code"
+                style="@style/editStyle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:hint="短信验证码"
+                android:inputType="phone" />
+
+            <TextView
+                android:id="@+id/rst_getcode"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/ok_btn_bg"
+                android:gravity="center"
+                android:text="获取验证码"
+                android:textColor="@color/wihte" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <EditText
+                android:id="@+id/rst_pwd"
+                style="@style/editStyle"
+                android:gravity="center"
+                android:hint="输入新密码"
+                android:inputType="textPassword" />
+
+            <FrameLayout
+                android:id="@+id/rst_openpwd"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="right|center_vertical"
+                android:paddingRight="10dp" >
+
+                <ImageView
+                    android:id="@+id/pwd_bg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/open_pwd" />
+            </FrameLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/rst_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/error_ico"
+                android:gravity="center"
+                android:text="错误提示"
+                android:textColor="@color/red"
+                android:textSize="14sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/rst_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/style_btn_bg"
+            android:gravity="center"
+            android:text="注册"
+                        android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textColor="@color/wihte"
+            android:textSize="20sp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp" >
+
+            <CheckBox
+                android:id="@+id/rst_contract"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:button="@drawable/radio_selector"
+                android:checked="true"
+                android:gravity="center"
+                android:text=" 同意使用服务条款"
+                android:textColor="@color/more_gray" />
+        </FrameLayout>
+    </LinearLayout>
+
+</LinearLayout>

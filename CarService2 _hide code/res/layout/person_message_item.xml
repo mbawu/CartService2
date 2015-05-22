@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/wihte"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/msg_layout"
+        style="@style/linearLayout_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical" >
+	<TextView 
+	     android:id="@+id/msg_content"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:textColor="@color/nomarl_gray"
+	    android:text="我dxiaoxi 是水水水水水水水"
+	    android:textSize="18sp"
+	    android:layout_margin="15dp"
+	    android:gravity="center"/>
+        
+	<TextView 
+	     android:id="@+id/msg_date"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:textColor="@color/nomarl_gray"
+	    android:text="2015-09-11"
+	    android:textSize="14sp"
+	    android:layout_marginRight="10dp"
+	    android:layout_marginBottom="10dp"
+	    android:gravity="right"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="main_bg_color">#39B5E9</color>
+    <color name="style_color">#44B5E9</color>
+    <color name="wihte">#ffffff</color>
+    <color name="more_gray">#C8C8C8</color>
+    <color name="nomarl_gray">#969696</color>
+    <color name="blank">#646464</color>
+    <color name="line_bg_color">#EAEAEA</color>
+    <color name="province_line_border">#C7C7C7</color>
+    <color name="red">#ffff0000</color>
+    <color name="blue">#3AB5E9</color>
+    <color name="transparent">#00000000</color>
+    <color name="litill_gray">#969696</color>
+    <color name="ok_btn_bg_press">#FF8811</color>
+    <color name="cancel_btn_bg_normal">#909090</color>
+
+</resources>

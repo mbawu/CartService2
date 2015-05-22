@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
+
+    <include layout="@layout/top_title_layout" />
+
+    <RadioGroup
+        android:id="@+id/order_list_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/order_list_all_radiobtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="全部"
+            android:textColor="@drawable/text_checked_style" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="20dp"
+            android:background="@color/more_gray" />
+
+        <RadioButton
+            android:id="@+id/order_list_underway_radiobtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="进行中"
+            android:textColor="@drawable/text_checked_style" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="20dp"
+            android:background="@color/more_gray" />
+
+        <RadioButton
+            android:id="@+id/order_list_cancel_radiobtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="已取消"
+            android:textColor="@drawable/text_checked_style" />
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/province_line_border" />
+
+    <TextView
+        android:id="@+id/nodataTxt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="暂无记录"
+        android:textSize="22sp"
+        android:visibility="gone" />
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:cacheColorHint="#ffffff"
+        android:divider="#FFFFFF"
+        android:dividerHeight="8dp"
+        android:fadingEdge="none"
+        android:listSelector="#ffffff"
+        android:visibility="visible" >
+    </ListView>
+</LinearLayout>

@@ -1,0 +1,155 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+
+
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+
+
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="MyTheme.Basic" parent="@android:style/Theme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:screenOrientation">portrait</item>
+    </style>
+
+    <style name="editStyle">
+        <item name="android:background">@drawable/edit_text_selector</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textColorHint">@color/nomarl_gray</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
+    <style name="personCenterItemStyle">
+        <item name="android:background">@drawable/style_btn_bg</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginLeft">50dp</item>
+        <item name="android:layout_marginRight">50dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    
+    <style name="personOtherItemStyle">
+        <item name="android:background">@drawable/style_btn_bg</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginLeft">50dp</item>
+        <item name="android:layout_marginRight">50dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="HdpRadioStyle">
+        <item name="android:layout_width">12dp</item>
+        <item name="android:layout_height">12dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:button">@null</item>
+        <item name="android:background">@drawable/hp_radio_selector</item>
+    </style>
+
+    <style name="categoryRadioBtnStyle">
+        <item name="android:background">@drawable/category_item_bg</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:button">@null</item>
+
+        <!--
+        <item name="android:layout_marginLeft">50dp</item>
+        <item name="android:layout_marginRight">50dp</item>
+
+        -->
+        <item name="android:layout_marginTop">5dp</item>
+        <!--
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:gravity">center</item>
+
+        -->
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="type_radio_btn_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/tab_radiobtn_textcolor_selector</item>
+        <item name="android:textSize">@dimen/font_size_32px</item>
+    </style>
+
+    
+        <!-- 容器盒子样式 -->
+    <style name="linearLayout_box">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textCursorDrawable">@color/blue</item>
+        <item name="android:background">@drawable/edit_text_selector</item>
+        <item name="android:singleLine">true</item>
+    </style>
+ <style name="MyProgressDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@color/wihte</item>
+        <item name="android:windowBackground">@color/wihte</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0</item>
+    </style>
+    
+  <style name="waiting_progress_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@null</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+    
+      <style name="confirmDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowFrame">@color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+</resources>

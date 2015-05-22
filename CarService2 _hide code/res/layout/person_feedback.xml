@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
+
+    <include layout="@layout/top_title_layout" />
+
+    <EditText
+        android:id="@+id/personFeedBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minLines="5"
+        android:gravity="top"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:padding="10dp"
+        android:background="@drawable/edit_text_selector"
+        android:inputType="textMultiLine"
+        android:hint="您的建议或意见对我们非常重要哦~"/>
+
+    
+    <TextView
+        android:id="@+id/personCommit"
+        style="@style/personOtherItemStyle"
+        android:background="@drawable/style_btn_bg"
+        android:textColor="@color/wihte"
+        android:layout_marginTop="40dp"
+        android:text="提交" />
+</LinearLayout>

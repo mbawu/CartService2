@@ -18,16 +18,16 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.xqxy.baseclass.BaseActivity;
-import com.xqxy.baseclass.MyApplication;
-import com.xqxy.baseclass.NetworkAction;
-import com.xqxy.baseclass.RequestWrapper;
-import com.xqxy.baseclass.ResponseWrapper;
+import com.cn.hongwei.BaseActivity;
+import com.cn.hongwei.MyApplication;
+import com.cn.hongwei.RequestWrapper;
+import com.cn.hongwei.ResponseWrapper;
+import com.cn.hongwei.TopTitleView;
 import com.xqxy.carservice.R;
 import com.xqxy.carservice.adapter.CarBaseAdapter;
-import com.xqxy.carservice.view.TopTitleView;
 import com.xqxy.model.Category;
 import com.xqxy.model.CategoryProduct;
+import com.xqxy.person.NetworkAction;
 
 public class CategoryActivity extends BaseActivity implements
 		AdapterView.OnItemClickListener {

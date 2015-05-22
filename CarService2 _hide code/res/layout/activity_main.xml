@@ -1,0 +1,114 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main_bg_color"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/imageTopBack"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:onClick="btnOnClick"
+                android:src="@drawable/homepage_category_img" />
+
+            <TextView
+                android:id="@+id/textTopTitle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="汽车仁"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/textTopRightBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:onClick="btnOnClick"
+                android:src="@drawable/homepage_person_img" />
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp" >
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent" />
+
+            <RadioGroup
+                android:id="@+id/viewpager_radiogroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_marginRight="15dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal" >
+            </RadioGroup>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingLeft="12dp"
+            android:paddingTop="10dp" >
+
+            <View
+                android:layout_width="6dp"
+                android:layout_height="match_parent"
+                android:background="#3AB5E9"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:gravity="left|center_vertical"
+                android:padding="0dp"
+                android:text="优惠活动"
+                android:textColor="#323232"
+                android:textSize="@dimen/font_size_30px" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#FFFFFF"
+            android:dividerHeight="8dp" >
+        </ListView>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/img_homepager_car"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:focusable="true"
+        android:src="@drawable/homepage_car" />
+
+</FrameLayout>

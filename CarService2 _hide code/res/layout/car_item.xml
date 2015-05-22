@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/wihte"
+    android:orientation="horizontal">
+
+
+
+    <LinearLayout
+        style="@style/linearLayout_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="15dp" >
+
+            <TextView
+                android:id="@+id/text_car_item_pp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/litill_gray" />
+
+            <TextView
+                android:id="@+id/text_car_item_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/litill_gray" />
+
+            <TextView
+                android:id="@+id/text_car_item_lc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/litill_gray" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp" >
+
+            <TextView
+                android:id="@+id/text_car_item_xl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/litill_gray" />
+
+            <TextView
+                android:id="@+id/text_car_item_pl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/litill_gray" />
+
+            <TextView
+                android:id="@+id/text_car_item_bypl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/litill_gray" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_car_item_delete"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/style_btn_bg"
+            android:ems="1"
+            android:gravity="center"
+            android:text="删          除"
+            android:textColor="@color/wihte"
+            android:visibility="gone" />
+    </LinearLayout>
+ <TextView
+        android:layout_width="120dp"
+        android:layout_height="match_parent"
+        android:gravity="right|center"
+        android:text="  继续拖动删除"
+        android:textColor="@color/style_color"
+        android:textSize="14sp" />
+</LinearLayout>
