@@ -17,7 +17,6 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
 import com.cn.hongwei.BaseActivity;
-import com.cn.hongwei.ConfirmDialog;
 import com.cn.hongwei.MyApplication;
 import com.cn.hongwei.RequestWrapper;
 import com.cn.hongwei.ResponseWrapper;

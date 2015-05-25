@@ -22,14 +22,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cn.hongwei.BaseActivity;
-import com.cn.hongwei.CartDialog;
-import com.cn.hongwei.ConfirmDialog;
 import com.cn.hongwei.JsonUtil;
 import com.cn.hongwei.MyApplication;
 import com.cn.hongwei.RequestWrapper;
 import com.cn.hongwei.ResponseWrapper;
 import com.xqxy.carservice.R;
 import com.xqxy.carservice.activity.CarListActivity;
+import com.xqxy.carservice.activity.CartDialog;
+import com.xqxy.carservice.activity.ConfirmDialog;
 import com.xqxy.carservice.adapter.CarBaseAdapter;
 import com.xqxy.model.Cart;
 import com.xqxy.model.Coupon;
