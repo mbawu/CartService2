@@ -500,7 +500,12 @@ public class OnekeyShare implements PlatformActionListener, Callback {
 		msg.arg1 = 3;
 		msg.arg2 = action;
 		msg.obj = platform;
-		UIHandler.sendMessage(msg, this);
+		try {
+			UIHandler.sendMessage(msg, this);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public boolean handleMessage(Message msg) {
