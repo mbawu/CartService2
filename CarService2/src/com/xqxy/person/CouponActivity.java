@@ -51,6 +51,7 @@ public class CouponActivity extends BaseActivity implements
 	private RadioButton expired;
 	private boolean selectModule = false;
 	private View line;
+	int statu = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +85,8 @@ public class CouponActivity extends BaseActivity implements
 		noUse.setOnCheckedChangeListener(this);
 		used.setOnCheckedChangeListener(this);
 		expired.setOnCheckedChangeListener(this);
-		String select=getIntent().getStringExtra("select");
-		if (select!=null) {
+		String select = getIntent().getStringExtra("select");
+		if (select != null) {
 			selectModule = true;
 			used.setVisibility(View.GONE);
 			expired.setVisibility(View.GONE);
@@ -129,11 +130,12 @@ public class CouponActivity extends BaseActivity implements
 				nodata.setVisibility(View.GONE);
 				listView.setVisibility(View.VISIBLE);
 				adapter.setDataList(datas);
-				adapter.notifyDataSetChanged();
+				
 			} else {
 				nodata.setVisibility(View.VISIBLE);
 				listView.setVisibility(View.GONE);
 			}
+			adapter.notifyDataSetChanged();
 		}
 
 	}
@@ -163,6 +165,8 @@ public class CouponActivity extends BaseActivity implements
 						.findViewById(R.id.coupon_status);
 				viewHolder.coupon_date = (TextView) convertView
 						.findViewById(R.id.coupon_date);
+				viewHolder.coupon_layout = (LinearLayout) convertView
+						.findViewById(R.id.coupon_layout);
 				convertView.setTag(viewHolder);
 			} else {
 				viewHolder = (ViewHolder) convertView.getTag();
@@ -187,7 +191,25 @@ public class CouponActivity extends BaseActivity implements
 				else if (status.equals("2"))
 					status = "状态：已使用";
 
-				viewHolder.coupon_expired.setVisibility(View.VISIBLE);
+				if (statu == 1 && coupon.getFlag().equals("1")) {
+					viewHolder.coupon_expired.setVisibility(View.VISIBLE);
+					viewHolder.coupon_layout.setVisibility(View.VISIBLE);
+				} else if (statu == 1 && coupon.getFlag().equals("2")) {
+//					datas.remove(position);
+//					notifyDataSetChanged();
+					viewHolder.coupon_layout.setVisibility(View.GONE);
+				} else if (statu == 2) {
+					viewHolder.coupon_layout.setVisibility(View.VISIBLE);
+					viewHolder.coupon_expired.setVisibility(View.GONE);
+					if (coupon.getFlag().equals("2")) {
+						viewHolder.coupon_expired.setText("已过期");
+						viewHolder.coupon_expired.setVisibility(View.VISIBLE);
+					}
+				} else if (statu == 3) {
+					viewHolder.coupon_layout.setVisibility(View.VISIBLE);
+					viewHolder.coupon_expired.setText("已过期");
+					viewHolder.coupon_expired.setVisibility(View.VISIBLE);
+				}
 				viewHolder.coupon_status.setText(status);
 				viewHolder.coupon_date.setText(coupon.getOver_time());
 			} catch (Exception e) {
@@ -204,7 +226,7 @@ public class CouponActivity extends BaseActivity implements
 		TextView coupon_expired;
 		TextView coupon_status;
 		TextView coupon_date;
-
+		LinearLayout coupon_layout;
 	}
 
 	@Override
@@ -217,6 +239,7 @@ public class CouponActivity extends BaseActivity implements
 		switch (buttonView.getId()) {
 		case R.id.coupon_noUse:
 			if (isChecked) {
+				statu = 1;
 				requestWrapper.setStatus("1");
 				sendDataByGet(requestWrapper, NetworkAction.centerF_user_coupon);
 			}
@@ -224,6 +247,7 @@ public class CouponActivity extends BaseActivity implements
 			break;
 		case R.id.coupon_used:
 			if (isChecked) {
+				statu = 2;
 				requestWrapper.setStatus("2");
 				sendDataByGet(requestWrapper, NetworkAction.centerF_user_coupon);
 			}
@@ -231,6 +255,7 @@ public class CouponActivity extends BaseActivity implements
 			break;
 		case R.id.coupon_expired:
 			if (isChecked) {
+				statu = 3;
 				requestWrapper.setStatus("3");
 				sendDataByGet(requestWrapper, NetworkAction.centerF_user_coupon);
 			}

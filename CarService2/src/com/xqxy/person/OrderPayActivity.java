@@ -41,6 +41,7 @@ import com.xqxy.model.PayModel;
 import com.xqxy.model.PayType;
 import com.xqxy.model.StoreCard;
 import com.xqxy.model.UserInfo;
+import com.xqxy.model.WebInfo;
 
 public class OrderPayActivity extends BaseActivity implements
 		OnCheckedChangeListener {
@@ -107,6 +108,7 @@ public class OrderPayActivity extends BaseActivity implements
 
 	private boolean step1 = true;// 支付第一步
 	private Pay payClass;
+	private int credtiIntegral = 10;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -215,8 +217,15 @@ public class OrderPayActivity extends BaseActivity implements
 			}
 		});
 		getCoupon();
-		getCredite();
+//		getCredite();
 		getStoreCard();
+		getWebIntegral();
+	}
+
+	private void getWebIntegral() {
+		RequestWrapper requestWrapper = new RequestWrapper();
+
+		sendDataByGet(requestWrapper, NetworkAction.indexF_web_base);
 	}
 
 	private void getStoreCard() {
@@ -446,14 +455,14 @@ public class OrderPayActivity extends BaseActivity implements
 					cleancardB = false;
 					return;
 				}
-				
+
 				temp = acTotal - price;
 				if (temp <= 0) {
 					cleancardPriceUse = acTotal;
 				} else {
 					cleancardPriceUse = price;
 				}
-//				cleancardPriceUse = price;
+				// cleancardPriceUse = price;
 				acTotal = acTotal - price;
 			} else {
 				if (cleancardPriceUse == 0.0)
@@ -476,7 +485,7 @@ public class OrderPayActivity extends BaseActivity implements
 				} else {
 					storecardPriceUse = price;
 				}
-//				storecardPriceUse = price;
+				// storecardPriceUse = price;
 				acTotal = acTotal - price;
 			} else {
 				if (storecardPriceUse == 0.0)
@@ -492,7 +501,7 @@ public class OrderPayActivity extends BaseActivity implements
 		else
 			priceAcTxt.setText("￥" + "0.0");
 
-		Log.i("test", "实际使用积分：" + creditePriceUse * 10);
+		Log.i("test", "实际使用积分：" + creditePriceUse * credtiIntegral);
 		Log.i("test", "实际优惠金额：" + couponPriceUse);
 		Log.i("test", "实际储值卡扣减金额：" + cleancardPriceUse);
 		Log.i("test", "实际增值卡扣减金额：" + storecardPriceUse);
@@ -520,7 +529,7 @@ public class OrderPayActivity extends BaseActivity implements
 				wrapper.setZz_card_price(storecardPriceUse + "");
 			}
 			if (crediteB) {
-				wrapper.setIntegral(creditePriceUse * 10 + "");
+				wrapper.setIntegral(creditePriceUse * credtiIntegral + "");
 				wrapper.setIntegral_price(creditePriceUse + "");
 			}
 			sendData(wrapper, NetworkAction.orderF_pay_order);
@@ -578,7 +587,7 @@ public class OrderPayActivity extends BaseActivity implements
 				PayModel payModel = responseWrapper.getPay();
 				payClass.setPARTNER(payModel.getPay_pid());
 				payClass.setSELLER(payModel.getPay_name());
-//				payClass.setRSA_PRIVATE(payModel.getRsa_private_key());
+				// payClass.setRSA_PRIVATE(payModel.getRsa_private_key());
 				payClass.setRSA_PRIVATE("MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAMkMCO2MoYYtn+l7PJ3GLJ+AiVUO5XYrtv8LH4eYMEaQBTsnTeS6s61MBZ/yXR7hnH+wOJqvFjGVTm8uz0KXCNIOWAZ88KRAubIGGxtwhwLcwMbvpb8+wvTSOdvFHiApVK9vJPmsgvCWybqqqYWtSEW9VyZEGWBwch8Js4yakqRdAgMBAAECgYBVrjVX16k239bY0FaC/uQhjcv5XgHYnMS+aOUlCmz4hYRVM2j048STRGTZR5b8BDaIDHfzJE8XDoSAybg2rttouKVapsHmLVDoPhtg48zX7ZPPOe+2hHxcIulRCN2ELshDW6BMe/9QilAqphRp3pyM9YrZCT52V2p8O4UurQzoWQJBAOXKXF2I32PzHgyj50MPwkrvFD9hrTzhJ8lvqz51TiEYde3OwjzW1bIKUCYg2tDjorCeJqlAH+8PDe+uYFROFkcCQQDf+mU2oFmTODgkeZPplillCZ7DtQG+1eXmCcg8d3Zad2p4RAyJpmF0f0iVcbLOshLC4oz+x0p152MZPMCcd247AkBrTWqCNubx2lYe2u6jzxkQOsH+stLdido1YxLY8JgSNkTjTlg/ZqaVI+G3XEIxpwqSZNdy00HWNPZyBMBwvaIDAkEAgbGffBM76zipoc1YrfDKxXvdmBuvCA8Z0aumbAUM3nO5jixxSh+y3N97azXsQS3yGTFQTZOe9UjoJEv+iFvL0wJAI8VbugyH56Cvud/vcYb/mdOO/cIyM7mhTYy5Gh6Klv9+SmZAQgVIQJxhAK+sGenlhRw9ex0Dwr9z3jqmeoVxkA==");
 				try {
 					String subject = carts.get(0).getName();
@@ -635,9 +644,14 @@ public class OrderPayActivity extends BaseActivity implements
 
 		} else if (requestType == NetworkAction.centerF_user) {
 			UserInfo user = responseWrapper.getUser();
-			creditePrice = Double.valueOf(user.getIntegral()) / 10;
+			creditePrice = Double.valueOf(user.getIntegral()) / credtiIntegral;
 			credite.setText("可使用" + user.getIntegral() + "积分 （抵算￥"
 					+ creditePrice + "元)");
+		} else if (requestType == NetworkAction.indexF_web_base) {
+			ArrayList<WebInfo> infoList=responseWrapper.getWeb();
+			WebInfo info=infoList.get(0);
+			credtiIntegral=Integer.valueOf(info.getWeb_integral());
+			getCredite();
 		} else if (requestType == NetworkAction.centerF_user_card) {
 			cardDatas = responseWrapper.getCard();
 			for (int i = 0; i < cardDatas.size(); i++) {

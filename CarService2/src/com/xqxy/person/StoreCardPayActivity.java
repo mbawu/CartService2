@@ -46,7 +46,14 @@ public class StoreCardPayActivity extends BaseActivity implements
 		backImageView = (ImageView) findViewById(R.id.imageTopBack);
 		titleTextView = (TextView) findViewById(R.id.textTopTitle);
 		rightBtnTextView = (TextView) findViewById(R.id.textTopRightBtn);
-
+		backImageView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				finish();
+				
+			}
+		});
 		totalTxt = (TextView) findViewById(R.id.totalTxt);
 		alipay_client = (RadioButton) findViewById(R.id.alipay_client);
 		alipay_web = (RadioButton) findViewById(R.id.alipay_web);
