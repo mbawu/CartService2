@@ -91,8 +91,8 @@ public class PayCarInfoActivity extends BaseActivity implements
 	}
 	public void getCarInfo() {
 		sendDataByGet(new RequestWrapper(), NetworkAction.carF_brand);
-		sendDataByGet(new RequestWrapper(), NetworkAction.carF_series);
-		sendDataByGet(new RequestWrapper(), NetworkAction.carF_model);
+//		sendDataByGet(new RequestWrapper(), NetworkAction.carF_series);
+//		sendDataByGet(new RequestWrapper(), NetworkAction.carF_model);
 	}
 
 	@Override
@@ -161,13 +161,33 @@ public class PayCarInfoActivity extends BaseActivity implements
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position,
 			long id) {
+//		Object object = parent.getItemAtPosition(position);
+//		if (object instanceof Brand)
+//			bid = ((Brand) object).getBid();
+//		else if (object instanceof Series)
+//			sid = ((Series) object).getSid();
+//		else if (object instanceof Model)
+//			mid = ((Model) object).getMid();
 		Object object = parent.getItemAtPosition(position);
+		RequestWrapper request=new RequestWrapper();
 		if (object instanceof Brand)
+		{
 			bid = ((Brand) object).getBid();
+			request.setBid(bid);
+			sendDataByGet(request, NetworkAction.carF_series);
+		}
+		
 		else if (object instanceof Series)
+		{
 			sid = ((Series) object).getSid();
+			request.setSid(sid);
+			sendDataByGet(request, NetworkAction.carF_model);
+		}
+		
 		else if (object instanceof Model)
+		{
 			mid = ((Model) object).getMid();
+		}
 	}
 
 	@Override

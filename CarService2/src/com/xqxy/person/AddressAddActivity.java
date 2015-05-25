@@ -2,21 +2,21 @@ package com.xqxy.person;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.cn.hongwei.BaiduLoction;
+import com.cn.hongwei.BaiduLoction.LocationCallback;
 import com.cn.hongwei.BaseActivity;
 import com.cn.hongwei.DataFormatCheck;
 import com.cn.hongwei.MyApplication;
 import com.cn.hongwei.RequestWrapper;
 import com.cn.hongwei.ResponseWrapper;
-import com.cn.hongwei.BaiduLoction.LocationCallback;
 import com.xqxy.carservice.R;
 import com.xqxy.model.Address;
 
@@ -51,6 +51,7 @@ public class AddressAddActivity extends BaseActivity {
 		carNumTxt = (EditText) findViewById(R.id.add_car_num);
 		locationTxt = (EditText) findViewById(R.id.add_location);
 		locationDelTxt = (EditText) findViewById(R.id.add_location_detail);
+		
 		checkModel();
 		saveBtn = (TextView) findViewById(R.id.address_save);
 		saveBtn.setOnClickListener(new OnClickListener() {
@@ -115,10 +116,28 @@ public class AddressAddActivity extends BaseActivity {
 			
 			@Override
 			public void locationResult(BDLocation location) {
+				
+				final String temp=location.getProvince()+location.getCity()+location.getDistrict();
 				locationTxt.setText(location.getProvince()+location.getCity()+location.getDistrict());
+				locationTxt.setOnFocusChangeListener(new OnFocusChangeListener() {
+					
+					@Override
+					public void onFocusChange(View v, boolean hasFocus) {
+						if(hasFocus)
+							locationTxt.setText("");
+						else
+						{
+							if(locationTxt.getText().toString().equals("")
+									|| locationTxt.getText().toString().equals(temp))
+								locationTxt.setText(temp);
+						}
+						
+					}
+				});
 				locationDelTxt.setText(location.getStreet()+location.getStreetNumber());
 				lng=String.valueOf(location.getLongitude());
 				lat=String.valueOf(location.getLatitude());
+				BaiduLoction.getInstance().stopLocation();
 			}
 		});
 		

@@ -6,6 +6,7 @@
     android:orientation="vertical" >
 
     <LinearLayout
+        android:id="@+id/coupon_layout"
         style="@style/linearLayout_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
