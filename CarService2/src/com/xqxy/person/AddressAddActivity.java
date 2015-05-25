@@ -33,8 +33,9 @@ public class AddressAddActivity extends BaseActivity {
 	private RequestWrapper wrapper;
 	private String aid = "";
 	private Address address;
-	private String lng="0";
-	private String lat="0";
+	private String lng = "0";
+	private String lat = "0";
+	private String temp;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +46,13 @@ public class AddressAddActivity extends BaseActivity {
 	}
 
 	private void init() {
-		
+
 		nameTxt = (EditText) findViewById(R.id.add_name);
 		phoneTxt = (EditText) findViewById(R.id.add_phone);
 		carNumTxt = (EditText) findViewById(R.id.add_car_num);
 		locationTxt = (EditText) findViewById(R.id.add_location);
 		locationDelTxt = (EditText) findViewById(R.id.add_location_detail);
-		
+
 		checkModel();
 		saveBtn = (TextView) findViewById(R.id.address_save);
 		saveBtn.setOnClickListener(new OnClickListener() {
@@ -77,7 +78,7 @@ public class AddressAddActivity extends BaseActivity {
 				}
 
 				wrapper = new RequestWrapper();
-				if(aid!=null)
+				if (aid != null)
 					wrapper.setAid(aid);
 				wrapper.setName(name);
 				wrapper.setPhone(phone);
@@ -87,7 +88,7 @@ public class AddressAddActivity extends BaseActivity {
 				wrapper.setLng(lng);
 				wrapper.setLat(lat);
 				wrapper.setIdentity(MyApplication.identity);
-				 sendData(wrapper, NetworkAction.centerF_add_address);
+				sendData(wrapper, NetworkAction.centerF_add_address);
 
 			}
 		});
@@ -96,51 +97,39 @@ public class AddressAddActivity extends BaseActivity {
 	private void checkModel() {
 		Intent intent = getIntent();
 		aid = intent.getStringExtra(ADDRESS_ID);
-		if (aid!=null) {
+		if (aid != null) {
 			address = (Address) intent.getSerializableExtra("address");
 			nameTxt.setText(address.getName());
 			phoneTxt.setText(address.getPhone());
 			carNumTxt.setText(address.getCar_num());
 			locationTxt.setText(address.getAddress());
 			locationDelTxt.setText(address.getDetailed());
-		}
-		else
-		{
+		} else {
 			getLocation();
 		}
 	}
 
 	private void getLocation() {
-		BaiduLoction.getInstance().startLocation();
-		BaiduLoction.getInstance().setLocationCallback(new LocationCallback() {
-			
+		temp = MyApplication.address;
+		locationTxt.setText(MyApplication.address);
+		locationTxt.setOnFocusChangeListener(new OnFocusChangeListener() {
+
 			@Override
-			public void locationResult(BDLocation location) {
-				
-				final String temp=location.getProvince()+location.getCity()+location.getDistrict();
-				locationTxt.setText(location.getProvince()+location.getCity()+location.getDistrict());
-				locationTxt.setOnFocusChangeListener(new OnFocusChangeListener() {
-					
-					@Override
-					public void onFocusChange(View v, boolean hasFocus) {
-						if(hasFocus)
-							locationTxt.setText("");
-						else
-						{
-							if(locationTxt.getText().toString().equals("")
-									|| locationTxt.getText().toString().equals(temp))
-								locationTxt.setText(temp);
-						}
-						
-					}
-				});
-				locationDelTxt.setText(location.getStreet()+location.getStreetNumber());
-				lng=String.valueOf(location.getLongitude());
-				lat=String.valueOf(location.getLatitude());
-				BaiduLoction.getInstance().stopLocation();
+			public void onFocusChange(View v, boolean hasFocus) {
+				if (hasFocus)
+					locationTxt.setText("");
+				else {
+					if (locationTxt.getText().toString().equals("")
+							|| locationTxt.getText().toString().equals(temp))
+						locationTxt.setText(temp);
+				}
+
 			}
 		});
-		
+		locationDelTxt.setText(MyApplication.detail);
+		lng = String.valueOf(MyApplication.lng);
+		lat = String.valueOf(MyApplication.lat);
+
 	}
 
 	@Override
@@ -148,21 +137,20 @@ public class AddressAddActivity extends BaseActivity {
 			NetworkAction requestType) {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
-		if (requestType==(NetworkAction.centerF_add_address)) {
-			MyApplication.refresh=true;
-			String msg="";
-			if(aid==null)
-				msg="添加成功";
+		if (requestType == (NetworkAction.centerF_add_address)) {
+			MyApplication.refresh = true;
+			String msg = "";
+			if (aid == null)
+				msg = "添加成功";
 			else
-				msg="修改成功";
-			Toast.makeText(this, msg, Toast.LENGTH_SHORT)
-					.show();
+				msg = "修改成功";
+			Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 			finish();
 		}
-//		else if (requestType.equals(NetworkAction.userF_login)) {
-//			MyApplication.identity = responseWrapper.getIdentity().get(0)
-//					.getIdentity();
-//		}
+		// else if (requestType.equals(NetworkAction.userF_login)) {
+		// MyApplication.identity = responseWrapper.getIdentity().get(0)
+		// .getIdentity();
+		// }
 	}
 
 	public void btnOnClick(View view) {
