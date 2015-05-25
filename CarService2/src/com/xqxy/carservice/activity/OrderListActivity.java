@@ -128,7 +128,12 @@ public class OrderListActivity extends BaseActivity implements
 						if ((tt - System.currentTimeMillis()) < 60 * 60 * 1000) {
 							ConfirmDialog dlg = new ConfirmDialog(this);
 							dlg.setTitle("提示");
-							dlg.setMessage("离订单服务时间已不足1小时，此时取消订单将收取10%的违约费.确定取消吗？");
+							if("1".equals(order.getPay_mode())){
+								dlg.setMessage("离订单服务时间已不足1小时，此时取消订单将收取10%的违约费.确定取消吗？");
+							}else{
+								dlg.setMessage("离订单服务时间已不足1小时，此时取消订单将会记录您不良使用记录1次.确定取消吗？");
+							}
+							
 							dlg.setPositiveButton("取消订单",
 									new ConfirmDialog.OnClickListener() {
 

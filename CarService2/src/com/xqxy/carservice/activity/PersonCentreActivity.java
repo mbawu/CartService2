@@ -40,9 +40,9 @@ public class PersonCentreActivity extends BaseActivity implements
 	public static int REQUEST_CODE_PHOTO = 1;
 	public static int REQUEST_CODE_MSG = 1001;
 	private LinearLayout layoutUser;
-	private ImageView backImageView;
+	private ImageView finishImageView;
 	private TextView titleTextView;
-	private TextView rightBtnTextView;
+	private ImageView phoneImageView;
 	private TextView order;
 	private TextView coupon;
 	private TextView storedcard;
@@ -94,12 +94,11 @@ public class PersonCentreActivity extends BaseActivity implements
 		 * sendData(wrapper, NetworkAction.userF_login);
 		 */
 
-		backImageView = (ImageView) findViewById(R.id.imageTopBack);
+		finishImageView = (ImageView) findViewById(R.id.imgFinish);
 		titleTextView = (TextView) findViewById(R.id.textTopTitle);
-		rightBtnTextView = (TextView) findViewById(R.id.textTopRightBtn);
+		phoneImageView = (ImageView) findViewById(R.id.imgPhone);
 		titleTextView.setText("个人中心");
-		rightBtnTextView.setBackgroundResource(R.drawable.call_bg);
-		rightBtnTextView.setOnClickListener(new OnClickListener() {
+		phoneImageView.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -126,7 +125,7 @@ public class PersonCentreActivity extends BaseActivity implements
 		layoutUser = (LinearLayout) findViewById(R.id.layout_user);
 		textSex = (TextView) findViewById(R.id.textPersonCenterSex);
 		headImg.setOnClickListener(this);
-		backImageView.setOnClickListener(this);
+		finishImageView.setOnClickListener(this);
 		order.setOnClickListener(this);
 		coupon.setOnClickListener(this);
 		storedcard.setOnClickListener(this);
@@ -242,7 +241,7 @@ public class PersonCentreActivity extends BaseActivity implements
 	@Override
 	public void onClick(View v) {
 		Intent intent = null;
-		if(v.getId() ==  R.id.imageTopBack)
+		if(v.getId() ==  R.id.imgFinish)
 		{
 			finish();
 			return;
