@@ -127,12 +127,12 @@ public class OrderListActivity extends BaseActivity implements
 						if ((tt - System.currentTimeMillis()) < 60 * 60 * 1000) {
 							ConfirmDialog dlg = new ConfirmDialog(this);
 							dlg.setTitle("提示");
-							if("1".equals(order.getPay_mode())){
+							if ("1".equals(order.getPay_mode())) {
 								dlg.setMessage("离订单服务时间已不足1小时，此时取消订单将收取10%的违约费.确定取消吗？");
-							}else{
+							} else {
 								dlg.setMessage("离订单服务时间已不足1小时，此时取消订单将会记录您不良使用记录1次.确定取消吗？");
 							}
-							
+
 							dlg.setPositiveButton("取消订单",
 									new ConfirmDialog.OnClickListener() {
 
@@ -155,8 +155,33 @@ public class OrderListActivity extends BaseActivity implements
 										}
 									});
 							dlg.show();
-						}else{
-							sendData(request, NetworkAction.centerF_cancel_order);
+						} else {
+
+							ConfirmDialog dlg = new ConfirmDialog(this);
+							dlg.setTitle("提示");
+							dlg.setMessage("该操作不可恢复，确定取消吗？");
+							dlg.setPositiveButton("取消订单",
+									new ConfirmDialog.OnClickListener() {
+
+										@Override
+										public void onClick(Dialog dialog,
+												View view) {
+											sendData(
+													request,
+													NetworkAction.centerF_cancel_order);
+										}
+									});
+
+							dlg.setNegativeButton("暂不取消",
+									new ConfirmDialog.OnClickListener() {
+
+										@Override
+										public void onClick(Dialog dialog,
+												View view) {
+
+										}
+									});
+							dlg.show();
 						}
 					} catch (Exception e) {
 						sendData(request, NetworkAction.centerF_cancel_order);
@@ -166,9 +191,55 @@ public class OrderListActivity extends BaseActivity implements
 				}
 
 			} else if (btnTxt.equals(getString(R.string.order_btn_delete))) {
-				sendData(request, NetworkAction.centerF_del_order);
+
+				ConfirmDialog dlg = new ConfirmDialog(this);
+				dlg.setTitle("提示");
+				dlg.setMessage("该操作不可恢复，确定删除吗？");
+				dlg.setPositiveButton("删除",
+						new ConfirmDialog.OnClickListener() {
+
+							@Override
+							public void onClick(Dialog dialog, View view) {
+								sendData(request,
+										NetworkAction.centerF_del_order);
+							}
+						});
+
+				dlg.setNegativeButton("暂不删除",
+						new ConfirmDialog.OnClickListener() {
+
+							@Override
+							public void onClick(Dialog dialog, View view) {
+
+							}
+						});
+				dlg.show();
+
 			} else if (btnTxt.equals(getString(R.string.order_btn_finish))) {
-				sendData(request, NetworkAction.centerF_affirm_order);
+
+				ConfirmDialog dlg = new ConfirmDialog(this);
+				dlg.setTitle("提示");
+				dlg.setMessage("请确认您已完成了服务，确定确认吗？");
+				dlg.setPositiveButton("确认",
+						new ConfirmDialog.OnClickListener() {
+
+							@Override
+							public void onClick(Dialog dialog, View view) {
+								sendData(request,
+										NetworkAction.centerF_affirm_order);
+							}
+						});
+
+				dlg.setNegativeButton("暂不确认",
+						new ConfirmDialog.OnClickListener() {
+
+							@Override
+							public void onClick(Dialog dialog, View view) {
+
+							}
+						});
+				dlg.show();
+
 			} else if (btnTxt.equals(getString(R.string.order_btn_evaluate))) {
 
 				Intent intent = new Intent(this, OrderEvaluateActivity.class);
