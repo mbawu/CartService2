@@ -125,6 +125,13 @@ public class CouponActivity extends BaseActivity implements
 		super.showResualt(responseWrapper, requestType);
 		if (requestType == NetworkAction.centerF_user_coupon) {
 			datas = responseWrapper.getCoupon();
+			if (datas.size() > 0) {
+				for (int i = 0; i < datas.size(); i++) {
+					Coupon c=datas.get(i);
+					c.setExpired();
+				}
+			}
+			
 			Log.i(Cst.TAG, " datas.size()-->" + datas.size() + "");
 			if (datas.size() > 0) {
 				nodata.setVisibility(View.GONE);
@@ -212,6 +219,10 @@ public class CouponActivity extends BaseActivity implements
 				}
 				viewHolder.coupon_status.setText(status);
 				viewHolder.coupon_date.setText(coupon.getOver_time());
+				if(coupon.isExpired())
+				{
+					viewHolder.coupon_expired.setVisibility(View.GONE);
+				}
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
