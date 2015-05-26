@@ -6,12 +6,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Note;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.DatePicker.OnDateChangedListener;
 import android.widget.EditText;
@@ -270,6 +273,8 @@ public class CallServiceActivity extends BaseActivity implements
 			break;
 		// 日期输入框
 		case R.id.call_date:
+			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);  
+			imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 			dateLayout.setVisibility(View.VISIBLE);
 			initTime();
 			break;
