@@ -123,12 +123,14 @@ public class CartDialog extends Dialog {
 						
 					}
 				});
-				if (i == 0) {
+//				if (i == 0) {
+//					radioBtn.setChecked(true);
+//					setAttr(attr);
+//				} else {
+//					radioBtn.setChecked(false);
+//				}
+				if(cart.getAttrname().equals(attr.getName()))
 					radioBtn.setChecked(true);
-					setAttr(attr);
-				} else {
-					radioBtn.setChecked(false);
-				}
 				attrGroup.addView(radioBtn);
 			}
 		}
