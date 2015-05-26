@@ -188,11 +188,11 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 
 			String code = codetTxt.getText().toString();
 			String pwd = pwdTxt.getText().toString();
-			if (countRequest != 3) {
-				error.setVisibility(View.VISIBLE);
-				error.setText("数据尚未加载结束，请稍候...");
-				return;
-			}
+//			if (countRequest != 3) {
+//				error.setVisibility(View.VISIBLE);
+//				error.setText("数据尚未加载结束，请稍候...");
+//				return;
+//			}
 			if (!agreeContract) {
 				error.setVisibility(View.VISIBLE);
 				error.setText("请勾选同意使用服务条款");
