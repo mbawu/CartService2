@@ -61,7 +61,7 @@
         SortId="1"
         AppKey="1171723501"
         AppSecret="a5992e683d1106e1bfecbf69e12a5fb2"
-        RedirectUrl="http://www.sharesdk.cn"
+        RedirectUrl="http://car.xinlingmingdeng.com/download/"
         ShareByAppClient="false"
         Enable="true" />
 
