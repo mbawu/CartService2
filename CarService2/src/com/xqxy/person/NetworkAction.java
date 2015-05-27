@@ -52,7 +52,8 @@ public enum NetworkAction {
 	orderF_pay_order,//订单付款
 	orderF_pay_defeated, //回滚支付操作
 	indexF_web_base, // 网站基本信息
-	centerF_location //定位
+	centerF_location, //定位
+	indexF_recommend //推荐
 	;
 
 	@Override
