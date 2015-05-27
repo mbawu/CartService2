@@ -13,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -31,6 +32,7 @@ import com.xqxy.carservice.R;
 import com.xqxy.model.Appraise;
 import com.xqxy.model.Car;
 import com.xqxy.model.Cart;
+import com.xqxy.model.Product;
 import com.xqxy.model.ProductAttr;
 import com.xqxy.model.ProductDetails;
 import com.xqxy.person.CallServiceActivity;
@@ -51,6 +53,7 @@ public class ServiceDetailActivity extends BaseActivity implements
 	private TextView textEvaluateNum;
 	private TextView textCarType;
 	private RadioGroup radioGroupAttr;
+	private LinearLayout recommendLayout;
 
 	private RelativeLayout layoutEva;
 	private TextView textEvaLevel;
@@ -104,7 +107,7 @@ public class ServiceDetailActivity extends BaseActivity implements
 		textEvaContent = (TextView) findViewById(R.id.text_evaluate_content);
 		textEvaData = (TextView) findViewById(R.id.text_evaluate_date);
 		textEvaTime = (TextView) findViewById(R.id.text_evaluate_time);
-
+		recommendLayout = (LinearLayout) findViewById(R.id.service_recommend_linearlayout);
 		view1 = findViewById(R.id.view_service_1);
 		view2 = findViewById(R.id.view_service_2);
 
@@ -114,14 +117,15 @@ public class ServiceDetailActivity extends BaseActivity implements
 		findViewById(R.id.layout_service_evaluate).setOnClickListener(this);
 		textEvaluateNum = (TextView) findViewById(R.id.text_service_evaluate_num);
 		webview = (WebView) findViewById(R.id.webviw);
-		WebSettings settings = webview.getSettings();  
-		settings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN); 
-		//settings.setUseWideViewPort(true);
+		WebSettings settings = webview.getSettings();
+		settings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
+		// settings.setUseWideViewPort(true);
 		settings.setLoadWithOverviewMode(true);
 		if (pid != null && !"".equals(pid)) {
 			RequestWrapper request = new RequestWrapper();
 			request.setPid(pid);
 			sendDataByGet(request, NetworkAction.indexF_product_details);
+			sendDataByGet(request, NetworkAction.indexF_recommend);
 
 			if ("2".equals(flag)) {
 				textCarType.setVisibility(View.GONE);
@@ -304,8 +308,17 @@ public class ServiceDetailActivity extends BaseActivity implements
 				} else {
 					layoutEva.setVisibility(View.GONE);
 				}
+			} else if (requestType == NetworkAction.indexF_recommend) {
+				List<Product> recs = responseWrapper.getRecommend();
+				if (recs != null && recs.size() > 0) {
+					for (Product p : recs) {
+						
+						// recommendLayout
+					}
+				}
+
 			}
-			if (respCount == 3) {
+			if (respCount == 4) {
 				myProgressDialog.dismiss();
 			}
 		}
@@ -392,48 +405,39 @@ public class ServiceDetailActivity extends BaseActivity implements
 
 	private void share() {
 
-	
 		OnekeyShare oks = new OnekeyShare();
-		//oks.disableSSOWhenAuthorize();
-	/*	// 关闭sso授权
-		oks.disableSSOWhenAuthorize();
+		// oks.disableSSOWhenAuthorize();
+		/*
+		 * // 关闭sso授权 oks.disableSSOWhenAuthorize();
+		 * 
+		 * // 分享时Notification的图标和文字 2.5.9以后的版本不调用此方法 //
+		 * oks.setNotification(R.drawable.ic_launcher, //
+		 * getString(R.string.app_name)); // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
+		 * oks.setTitle(getString(R.string.share)); //
+		 * titleUrl是标题的网络链接，仅在人人网和QQ空间使用 oks.setTitleUrl("http://sharesdk.cn");
+		 * // text是分享文本，所有平台都需要这个字段 oks.setText("我是分享文本"); //
+		 * imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+		 * oks.setImagePath("/sdcard/test.jpg");// 确保SDcard下面存在此张图片 //
+		 * url仅在微信（包括好友和朋友圈）中使用 oks.setUrl("http://sharesdk.cn"); //
+		 * comment是我对这条分享的评论，仅在人人网和QQ空间使用 oks.setComment("我是测试评论文本"); //
+		 * site是分享此内容的网站名称，仅在QQ空间使用 oks.setSite(getString(R.string.app_name));
+		 * // siteUrl是分享此内容的网站地址，仅在QQ空间使用 oks.setSiteUrl("http://sharesdk.cn");
+		 */
 
-		// 分享时Notification的图标和文字 2.5.9以后的版本不调用此方法
-		// oks.setNotification(R.drawable.ic_launcher,
-		// getString(R.string.app_name));
-		// title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
-		oks.setTitle(getString(R.string.share));
-		// titleUrl是标题的网络链接，仅在人人网和QQ空间使用
-		oks.setTitleUrl("http://sharesdk.cn");
-		// text是分享文本，所有平台都需要这个字段
-		oks.setText("我是分享文本");
-		// imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-		oks.setImagePath("/sdcard/test.jpg");// 确保SDcard下面存在此张图片
-		// url仅在微信（包括好友和朋友圈）中使用
-		oks.setUrl("http://sharesdk.cn");
-		// comment是我对这条分享的评论，仅在人人网和QQ空间使用
-		oks.setComment("我是测试评论文本");
-		// site是分享此内容的网站名称，仅在QQ空间使用
-		oks.setSite(getString(R.string.app_name));
-		// siteUrl是分享此内容的网站地址，仅在QQ空间使用
-		oks.setSiteUrl("http://sharesdk.cn");*/
-
-		
-		
 		oks.setTitle(getString(R.string.app_name));
 		oks.setTitleUrl("http://car.xinlingmingdeng.com/download/");
 		oks.setText(product.getName() + "------来自"
 				+ getString(R.string.app_name));
 		oks.setImageUrl(product.getPic());
 		oks.setUrl("http://car.xinlingmingdeng.com/download/");
-		//oks.setTitle("分享标题--Title");
+		// oks.setTitle("分享标题--Title");
 
-		//oks.setTitleUrl("http://mob.com");
+		// oks.setTitleUrl("http://mob.com");
 
-		//oks.setText("分享测试文--Text");
+		// oks.setText("分享测试文--Text");
 
-		//oks.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
-		
+		// oks.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
+
 		oks.show(this);
 
 	}

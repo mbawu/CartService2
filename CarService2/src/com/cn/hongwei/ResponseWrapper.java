@@ -80,6 +80,8 @@ public class ResponseWrapper {
 	private ArrayList<Banner> banner;
 
 	private ArrayList<Product> product;
+	
+	private ArrayList<Product> recommend;
 
 	private ArrayList<Category> column;
 
@@ -371,6 +373,14 @@ public class ResponseWrapper {
 
 	public void setHtml(String html) {
 		this.html = html;
+	}
+
+	public ArrayList<Product> getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(ArrayList<Product> recommend) {
+		this.recommend = recommend;
 	}
 
 	
