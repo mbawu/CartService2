@@ -116,7 +116,8 @@ public class ServiceDetailActivity extends BaseActivity implements
 		webview = (WebView) findViewById(R.id.webviw);
 		WebSettings settings = webview.getSettings();  
 		settings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN); 
-		
+		//settings.setUseWideViewPort(true);
+		settings.setLoadWithOverviewMode(true);
 		if (pid != null && !"".equals(pid)) {
 			RequestWrapper request = new RequestWrapper();
 			request.setPid(pid);
