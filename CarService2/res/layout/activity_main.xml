@@ -17,12 +17,14 @@
 
             <ImageView
                 android:id="@+id/imageTopBack"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
                 android:onClick="btnOnClick"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:src="@drawable/homepage_category_img" />
 
             <TextView
@@ -37,12 +39,14 @@
 
             <ImageView
                 android:id="@+id/textTopRightBtn"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
                 android:onClick="btnOnClick"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:src="@drawable/homepage_person_img" />
         </RelativeLayout>
 
