@@ -81,12 +81,12 @@ public class MainActivity extends BaseActivity {
 				startActivity(intent);
 			}
 		});
-		AutoLogin a=app.getAutoLogin() ;
+		AutoLogin a = app.getAutoLogin();
 		if (app.getAutoLogin() != null && app.getAutoLogin().isLoginState()) {
-				RequestWrapper wrapper = new RequestWrapper();
-				wrapper.setPhone(app.getAutoLogin().getUsername());
-				wrapper.setPassword(app.getAutoLogin().getPassword());
-				sendData(wrapper, NetworkAction.userF_login);
+			RequestWrapper wrapper = new RequestWrapper();
+			wrapper.setPhone(app.getAutoLogin().getUsername());
+			wrapper.setPassword(app.getAutoLogin().getPassword());
+			sendData(wrapper, NetworkAction.userF_login);
 		}
 
 		sendRequest();
@@ -101,35 +101,34 @@ public class MainActivity extends BaseActivity {
 
 	@Override
 	protected void onResume() {
-		
+
 		super.onResume();
 		imgBottomCar.postDelayed(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				imgBottomCar.requestFocus();
 			}
 		}, 100);
-		
+
 	}
-	
+
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
 		super.showResualt(responseWrapper, requestType);
-		if(requestType == NetworkAction.userF_login){
+		if (requestType == NetworkAction.userF_login) {
 			MyApplication.loginStat = true;
 			MyApplication.identity = responseWrapper.getIdentity().get(0)
 					.getIdentity();
-			if(MyApplication.getUserInfo()==null)
-			{
+			if (MyApplication.getUserInfo() == null) {
 				RequestWrapper request = new RequestWrapper();
 				request.setIdentity(responseWrapper.getIdentity().get(0)
 						.getIdentity());
 				sendData(request, NetworkAction.centerF_user);
 			}
-		
-		}else{
+
+		} else {
 			respCount++;
 			if (requestType == NetworkAction.indexF_banner) {
 				banners = responseWrapper.getBanner();
@@ -147,11 +146,10 @@ public class MainActivity extends BaseActivity {
 				myProgressDialog.dismiss();
 			}
 		}
-		if(requestType == NetworkAction.centerF_user)
-		{
+		if (requestType == NetworkAction.centerF_user) {
 			MyApplication.setUserInfo(responseWrapper.getUser());
 		}
-		
+
 	}
 
 	public void btnOnClick(View view) {
@@ -175,9 +173,18 @@ public class MainActivity extends BaseActivity {
 
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(Intent.ACTION_VIEW);
-					intent.setData(Uri.parse(url));
-					startActivity(intent);
+					if (url == null || "".equals(url)) {
+						Toast.makeText(MainActivity.this, "暂无链接地址",
+								Toast.LENGTH_SHORT).show();
+					} else {
+						try {
+							Intent intent = new Intent(Intent.ACTION_VIEW);
+							intent.setData(Uri.parse(url));
+							startActivity(intent);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
 				}
 			});
 			carouseImageViews.add(imageView);
@@ -234,23 +241,24 @@ public class MainActivity extends BaseActivity {
 		});
 
 	}
-	
-	
+
 	private long exitTime = 0;
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-	    if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){   
-	        if((System.currentTimeMillis()-exitTime) > 2000){  
-	            Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();                                
-	            exitTime = System.currentTimeMillis();   
-	        } else {
-	            finish();
-	            System.exit(0);
-	        }
-	        return true;   
-	    }
-	    return super.onKeyDown(keyCode, event);
+		if (keyCode == KeyEvent.KEYCODE_BACK
+				&& event.getAction() == KeyEvent.ACTION_DOWN) {
+			if ((System.currentTimeMillis() - exitTime) > 2000) {
+				Toast.makeText(getApplicationContext(), "再按一次退出程序",
+						Toast.LENGTH_SHORT).show();
+				exitTime = System.currentTimeMillis();
+			} else {
+				finish();
+				System.exit(0);
+			}
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 	class ProductAdapter extends CarBaseAdapter<Product> {
@@ -292,7 +300,7 @@ public class MainActivity extends BaseActivity {
 					R.string.product_price, product.getOld_price() + ""));
 			viewHolder.textServicePriceOld.getPaint().setFlags(
 					Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
-			
+
 			convertView.setOnClickListener(new OnClickListener() {
 
 				@Override
