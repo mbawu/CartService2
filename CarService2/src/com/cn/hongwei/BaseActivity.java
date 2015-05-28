@@ -192,7 +192,6 @@ public class BaseActivity extends Activity {
 			}
 		}
 
-	
 		Log.i(Cst.TAG, response.toString());
 		// 如果数据返回正确的时候正常执行showResualt
 		if (done) {
@@ -212,16 +211,16 @@ public class BaseActivity extends Activity {
 		else {
 			// 提示网络异常
 			// DialogUtil.showToast(BaseActivity.this, msg);
-			//如果msg为1001表示用户在其他终端登陆
-			if(msg.equals("1001"))
-			{
-				MyApplication.loginStat=false;
-				MyApplication myApp=(MyApplication) getApplicationContext();
+			// 如果msg为1001表示用户在其他终端登陆
+			if (msg.equals("1001")) {
+				MyApplication.loginStat = false;
+				MyApplication myApp = (MyApplication) getApplicationContext();
 				myApp.setCar(null);
-				AutoLogin a=myApp.getAutoLogin();
+				AutoLogin a = myApp.getAutoLogin();
 				a.setLoginState(false);
 				myApp.setAutoLogin(a);
-				Toast.makeText(BaseActivity.this, "用户在其他地方登录", Toast.LENGTH_SHORT).show();
+				Toast.makeText(BaseActivity.this, "用户在其他地方登录",
+						Toast.LENGTH_SHORT).show();
 				finish();
 				return;
 			}
@@ -260,7 +259,13 @@ public class BaseActivity extends Activity {
 
 	//
 	public ResponseWrapper jsonToClass(String json) {
-		return JsonUtil.fromJson(json, ResponseWrapper.class);
+		ResponseWrapper resp = JsonUtil.fromJson(json, ResponseWrapper.class);
+		if (resp != null) {
+			return resp;
+		} else {
+			return new ResponseWrapper();
+		}
+
 	}
 
 	//

@@ -312,8 +312,46 @@ public class ServiceDetailActivity extends BaseActivity implements
 				List<Product> recs = responseWrapper.getRecommend();
 				if (recs != null && recs.size() > 0) {
 					for (Product p : recs) {
-						
-						// recommendLayout
+						LinearLayout layout = (LinearLayout) getLayoutInflater()
+								.inflate(R.layout.recommend_service_item,
+										recommendLayout, false);
+						CarImageView img = (CarImageView) layout
+								.findViewById(R.id.img_service_photo);
+						TextView textName = (TextView) layout
+								.findViewById(R.id.text_service_name);
+						img.loadImage(p.getPic());
+						textName.setText(p.getName());
+						recommendLayout.addView(layout);
+						img.setOnClickListener(new OnClickListener() {
+
+							@Override
+							public void onClick(View v) {
+								Intent intent = new Intent();
+								intent.putExtra("pid", product.getPid());
+								intent.putExtra("flag", product.getFlag());
+								if ("2".equals(product.getFlag())) {// 其他类，直接打开
+									intent.setClass(ServiceDetailActivity.this,
+											ServiceDetailActivity.class);
+									startActivity(intent);
+								} else {
+									if (app.getCar() == null) {
+										intent.setClass(
+												ServiceDetailActivity.this,
+												CarActivity.class);
+										startActivity(intent);
+									} else {
+										intent.setClass(
+												ServiceDetailActivity.this,
+												ServiceDetailActivity.class);
+										startActivity(intent);
+									}
+								}
+								if (pid.equals(product.getPid())) {
+									finish();
+								}
+
+							}
+						});
 					}
 				}
 

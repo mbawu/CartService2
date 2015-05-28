@@ -163,7 +163,7 @@ public class MainActivity extends BaseActivity {
 	}
 
 	private void initCarouselViewPager() {
-
+		boolean repat = true;
 		for (int i = 0; i < banners.size(); i++) {
 			CarImageView imageView = new CarImageView(this);
 			final String url = banners.get(i).getUrl();
@@ -181,6 +181,10 @@ public class MainActivity extends BaseActivity {
 				}
 			});
 			carouseImageViews.add(imageView);
+			if (banners.size() == 2 && i == 1 && repat) {
+				i = -1;
+				repat = false;
+			}
 		}
 		CarouselAdapter homeAdapter = new CarouselAdapter(this);
 		homeAdapter.setArrayList(carouseImageViews);
