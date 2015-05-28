@@ -93,12 +93,14 @@
                 android:text="已驾公里"
                 android:textColor="@color/litill_gray" />
 
-<!--             <EditText
+            <!--
+                 <EditText
                 android:id="@+id/edit_car_lc"
                 style="@style/editStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberSigned" /> -->
+                android:inputType="numberSigned" />
+            -->
 
             <Spinner
                 android:id="@+id/rst_lc"
@@ -123,7 +125,7 @@
                 android:text="保养频率"
                 android:textColor="@color/litill_gray" />
 
-                       <Spinner
+            <Spinner
                 android:id="@+id/rst_bypl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -137,17 +139,11 @@
 
         <TextView
             android:id="@+id/btn_car_save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            style="@style/personOtherItemStyle"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
             android:layout_marginTop="40dp"
-            android:background="@drawable/ok_btn_bg"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="保存"
-            android:textColor="@color/wihte"
-            android:textSize="20sp" />
+            android:text="保存" />
     </LinearLayout>
 
 </LinearLayout>

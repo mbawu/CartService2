@@ -31,16 +31,9 @@
 
     <TextView
         android:id="@+id/text_car_list_add"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@drawable/style_btn_bg"
-        android:gravity="center"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
+        style="@style/personOtherItemStyle"
+        android:layout_marginTop="20dp"
         android:text="+      新增爱车"
-        android:textColor="@color/wihte"
-        android:textSize="20sp"
         android:visibility="visible" />
 
 </LinearLayout>

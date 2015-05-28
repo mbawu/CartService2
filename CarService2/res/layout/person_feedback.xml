@@ -25,8 +25,6 @@
     <TextView
         android:id="@+id/personCommit"
         style="@style/personOtherItemStyle"
-        android:background="@drawable/style_btn_bg"
-        android:textColor="@color/wihte"
         android:layout_marginTop="40dp"
         android:text="提交" />
 </LinearLayout>

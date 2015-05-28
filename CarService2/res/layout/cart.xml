@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,6 +12,7 @@
         android:id="@+id/nodataTxt"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/include1"
         android:gravity="center"
         android:text="暂无记录"
         android:textSize="22sp"
@@ -20,8 +21,8 @@
     <ListView
         android:id="@+id/listview"
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="9"
+        android:layout_height="match_parent"
+        android:layout_below="@id/include1"
         android:layout_margin="10dp"
         android:divider="@null"
         android:visibility="visible" >
@@ -30,15 +31,9 @@
     <TextView 
         android:id="@+id/cart_call"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+		android:layout_alignParentBottom="true"
         android:text="立即预约"
-        android:textColor="@color/wihte"
-        android:textSize="18sp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:background="@drawable/style_btn_bg"
+         style="@style/personOtherItemStyle"
+         android:layout_marginBottom="15dp"
         android:visibility="visible"/>
-</LinearLayout>
+</RelativeLayout>
