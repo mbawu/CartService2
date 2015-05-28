@@ -213,12 +213,7 @@ public class BaseActivity extends Activity {
 			// DialogUtil.showToast(BaseActivity.this, msg);
 			// 如果msg为1001表示用户在其他终端登陆
 			if (msg.equals("1001")) {
-				MyApplication.loginStat = false;
-				MyApplication myApp = (MyApplication) getApplicationContext();
-				myApp.setCar(null);
-				AutoLogin a = myApp.getAutoLogin();
-				a.setLoginState(false);
-				myApp.setAutoLogin(a);
+				loginOut();
 				Toast.makeText(BaseActivity.this, "用户在其他地方登录",
 						Toast.LENGTH_SHORT).show();
 				finish();
@@ -453,6 +448,19 @@ public class BaseActivity extends Activity {
 			e.printStackTrace();
 		}
 		return map;
+	}
+	
+	public void loginOut()
+	{
+		MyApplication.loginStat = false;
+		MyApplication.identity = "";
+		MyApplication myApp = (MyApplication) getApplicationContext();
+		myApp.setCar(null);
+		AutoLogin a = myApp.getAutoLogin();
+		a.setLoginState(false);
+		myApp.setAutoLogin(a);
+		MyApplication.ed.putString("address","");
+		MyApplication.ed.commit();
 	}
 
 }

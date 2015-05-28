@@ -379,8 +379,8 @@ public class CallServiceActivity extends BaseActivity implements
 		// TODO Auto-generated method stub
 		super.onResume();
 		
-		String addString=MyApplication.sp.getString("address", null);
-		if(addString!=null)
+		String addString=MyApplication.sp.getString("address", "");
+		if(!addString.equals(""))
 		{
 			address=JsonUtil.fromJson(addString, Address.class);
 		}

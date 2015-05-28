@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cn.hongwei.BaseActivity;
+import com.cn.hongwei.JsonUtil;
 import com.cn.hongwei.MyApplication;
 import com.xqxy.carservice.R;
 import com.xqxy.carservice.activity.WebActivity;
@@ -100,16 +101,9 @@ public class OtherActivity extends BaseActivity implements OnClickListener {
 			break;
 
 		case R.id.personLoginOut:
-			MyApplication.loginStat = false;
-			MyApplication.identity = "";
-			// ((MyApplication) getApplication()).setAutoLogin(null);
 			Toast.makeText(OtherActivity.this, "退出登录成功", Toast.LENGTH_SHORT)
 					.show();
-			MyApplication myApp=(MyApplication) getApplicationContext();
-			myApp.setCar(null);
-			AutoLogin a=myApp.getAutoLogin();
-			a.setLoginState(false);
-			myApp.setAutoLogin(a);
+			loginOut();
 			finish();
 			break;
 		}
