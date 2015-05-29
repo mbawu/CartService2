@@ -311,7 +311,7 @@ public class ServiceDetailActivity extends BaseActivity implements
 			} else if (requestType == NetworkAction.indexF_recommend) {
 				List<Product> recs = responseWrapper.getRecommend();
 				if (recs != null && recs.size() > 0) {
-					for (Product p : recs) {
+					for (final Product p : recs) {
 						LinearLayout layout = (LinearLayout) getLayoutInflater()
 								.inflate(R.layout.recommend_service_item,
 										recommendLayout, false);
@@ -327,8 +327,8 @@ public class ServiceDetailActivity extends BaseActivity implements
 							@Override
 							public void onClick(View v) {
 								Intent intent = new Intent();
-								intent.putExtra("pid", product.getPid());
-								intent.putExtra("flag", product.getFlag());
+								intent.putExtra("pid", p.getPid());
+								intent.putExtra("flag", p.getFlag());
 								if ("2".equals(product.getFlag())) {// 其他类，直接打开
 									intent.setClass(ServiceDetailActivity.this,
 											ServiceDetailActivity.class);
@@ -346,7 +346,7 @@ public class ServiceDetailActivity extends BaseActivity implements
 										startActivity(intent);
 									}
 								}
-								if (pid.equals(product.getPid())) {
+								if (pid.equals(p.getPid())) {
 									finish();
 								}
 
