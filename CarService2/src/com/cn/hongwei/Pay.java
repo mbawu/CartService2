@@ -38,6 +38,7 @@ import com.alipay.sdk.app.PayTask;
 import com.android.volley.VolleyError;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
+import com.xqxy.carservice.activity.OrderListActivity;
 import com.xqxy.person.Cst;
 import com.xqxy.person.NetworkAction;
 
@@ -77,6 +78,9 @@ public class Pay {
 				if (TextUtils.equals(resultStatus, "9000")) {
 					
 					Toast.makeText(activity, "支付成功", Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent();
+					intent.setClass(activity, OrderListActivity.class);
+					activity.startActivity(intent);
 //					Intent mIntent = new Intent(Constants.APP_BORADCASTRECEIVER); 
 //					activity.sendBroadcast(mIntent); 
 				} else {
