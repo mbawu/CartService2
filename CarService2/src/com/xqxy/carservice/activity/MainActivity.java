@@ -174,8 +174,8 @@ public class MainActivity extends BaseActivity {
 				@Override
 				public void onClick(View v) {
 					if (url == null || "".equals(url)) {
-						Toast.makeText(MainActivity.this, "暂无链接地址",
-								Toast.LENGTH_SHORT).show();
+//						Toast.makeText(MainActivity.this, "暂无链接地址",
+//								Toast.LENGTH_SHORT).show();
 					} else {
 						try {
 							Intent intent = new Intent(Intent.ACTION_VIEW);
