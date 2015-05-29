@@ -80,12 +80,13 @@ public class MyApplication extends Application {
 
 			@Override
 			public void locationResult(BDLocation location) {
-				if (loginStat) {
+			
 					address = location.getProvince() + location.getCity()
 							+ location.getDistrict();
 					detail = location.getStreet() + location.getStreetNumber();
 					lng = String.valueOf(location.getLongitude());
 					lat = String.valueOf(location.getLatitude());
+					if (loginStat) {
 					HashMap<String, String> pramer = new HashMap<String, String>();
 					pramer.put("identity", identity);
 					pramer.put("lng", lng);

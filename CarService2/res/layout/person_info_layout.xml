@@ -38,9 +38,9 @@
                 android:id="@+id/img_person_info_head"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:background="@drawable/head_default"
+                android:scaleType="fitXY"
                 android:layout_alignParentRight="true"
-              />
+                android:background="@drawable/head_default" />
         </RelativeLayout>
 
         <View
@@ -66,26 +66,15 @@
             android:layout_height="1dp"
             android:background="@color/line_bg_color" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="70dp" >
-
-            <Button
-                android:id="@+id/btn_person_info_exit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/white_btn_bg"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:text="退出登录"
-                android:textColor="@color/blue"
-                android:textSize="20sp" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/btn_person_info_exit"
+            style="@style/personOtherItemStyle"
+            android:layout_marginTop="230dp"
+            android:background="@drawable/white_btn_bg"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:text="退出登录"
+            android:textColor="@color/style_color" />
     </LinearLayout>
 
 </LinearLayout>

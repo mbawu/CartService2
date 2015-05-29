@@ -81,25 +81,25 @@
 
     <TextView
         android:id="@+id/personCenterItemOrder"
-        style="@style/personCenterItemStyle"
+        style="@style/personOtherItemStyle"
         android:drawableLeft="@drawable/person_order"
         android:text="我的订单" />
 
     <TextView
         android:id="@+id/personCenterItemCoupon"
-        style="@style/personCenterItemStyle"
+        style="@style/personOtherItemStyle"
         android:drawableLeft="@drawable/person_coupon"
         android:text="优惠券" />
 
     <TextView
         android:id="@+id/personCenterItemStoredcard"
-        style="@style/personCenterItemStyle"
+        style="@style/personOtherItemStyle"
         android:drawableLeft="@drawable/person_storedcard"
         android:text="我的储值卡" />
 
     <TextView
         android:id="@+id/personCenterItemAddress"
-        style="@style/personCenterItemStyle"
+        style="@style/personOtherItemStyle"
         android:drawableLeft="@drawable/person_address"
         android:text="常用地址" />
 
@@ -112,8 +112,8 @@
         android:layout_marginRight="50dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/person_item_border_normal"
-        android:paddingBottom="4dp"
-        android:paddingTop="4dp" >
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp" >
 
         <TextView
             android:layout_width="match_parent"
@@ -140,7 +140,7 @@
 
     <TextView
         android:id="@+id/personCenterItemOther"
-        style="@style/personCenterItemStyle"
+        style="@style/personOtherItemStyle"
         android:drawableLeft="@drawable/person_other"
         android:text="其他" />
 
