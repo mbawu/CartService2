@@ -465,9 +465,10 @@ public class ServiceDetailActivity extends BaseActivity implements
 		oks.setTitle(getString(R.string.app_name));
 		oks.setTitleUrl("http://car.xinlingmingdeng.com/download/");
 		oks.setText(product.getName() + "------来自"
-				+ getString(R.string.app_name));
+				+ getString(R.string.app_name)+"http://car.xinlingmingdeng.com/download/");
 		oks.setImageUrl(product.getPic());
 		oks.setUrl("http://car.xinlingmingdeng.com/download/");
+		
 		// oks.setTitle("分享标题--Title");
 
 		// oks.setTitleUrl("http://mob.com");
