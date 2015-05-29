@@ -222,7 +222,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="20dp"
                 android:gravity="top"
-                android:hint="备注爱车详细信息，如颜色可以帮助服务人员快速找到您的爱车；或者您有任何需求都备注信息~"
+                android:hint="备注爱车详细信息，如颜色可以帮助服务人员快速找到您的爱车；如需发票请备注说明抬头，或者您有任何需求都备注信息~"
                 android:minLines="4" />
 
             <LinearLayout
