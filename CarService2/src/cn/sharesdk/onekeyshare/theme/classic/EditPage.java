@@ -18,6 +18,8 @@ import static cn.sharesdk.framework.utils.R.getStringRes;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.xqxy.carservice.R;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -176,15 +178,15 @@ public class EditPage extends EditPageFakeActivity implements OnClickListener, T
 	// title bar
 	private TitleLayout getPageTitle() {
 		llTitle = new TitleLayout(getContext());
-		llTitle.setId(1);
+		llTitle.setId(3);
 //		int resId = getBitmapRes(activity, "title_back");
 //		if (resId > 0) {
-//			llTitle.setBackgroundResource(resId);
+			llTitle.setBackgroundResource(R.color.blank);
 //		}
 		llTitle.getBtnBack().setOnClickListener(this);
 		int resId = getStringRes(activity, "multi_share");
 		if (resId > 0) {
-			llTitle.getTvTitle().setText(resId);
+			llTitle.getTvTitle().setText("新浪分享");
 		}
 		llTitle.getBtnRight().setVisibility(View.VISIBLE);
 		resId = getStringRes(activity, "share");
