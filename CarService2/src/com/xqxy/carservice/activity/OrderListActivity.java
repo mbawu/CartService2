@@ -35,7 +35,7 @@ public class OrderListActivity extends BaseActivity implements
 	private ListView listView;
 	private OrderListAdapter adapter;
 	private List<Order> orderList;
-
+	public static boolean EVALUATE_SUCCESS = false;
 	private String page = "1";
 	private String status = "0";
 	private static final String ORDER_STATUS_ACCEPT = "1"; // 等待服务
@@ -76,6 +76,16 @@ public class OrderListActivity extends BaseActivity implements
 		getOrder();
 	}
 
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if(EVALUATE_SUCCESS){
+			EVALUATE_SUCCESS = false;
+			getOrder();
+		}
+	}
+	
 	private void getOrder() {
 		RequestWrapper request = new RequestWrapper();
 		request.setShowDialog(true);

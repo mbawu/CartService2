@@ -73,6 +73,7 @@ public class OrderEvaluateActivity extends PhotoActivity implements
 		super.showResualt(responseWrapper, requestType);
 		if (requestType == NetworkAction.centerF_appraise) {
 			Toast.makeText(this, "评价成功", Toast.LENGTH_SHORT).show();
+			OrderListActivity.EVALUATE_SUCCESS = true;
 			finish();
 		}
 	}
