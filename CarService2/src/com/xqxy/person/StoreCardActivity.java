@@ -115,9 +115,9 @@ public class StoreCardActivity extends BaseActivity {
 					Bundle b = new Bundle();
 					b.putSerializable("data", card);
 					intent.putExtras(b);
-					if(select.equals("1"))
+					if (select.equals("1"))
 						setResult(OrderPayActivity.GET_CLEANCARD, intent);
-					else if(select.equals("2"))
+					else if (select.equals("2"))
 						setResult(OrderPayActivity.GET_STORECARD, intent);
 					finish();
 				}
@@ -197,6 +197,15 @@ public class StoreCardActivity extends BaseActivity {
 				viewHolder.scard_cash.setVisibility(View.VISIBLE);
 				viewHolder.scard_cash.setText(getString(
 						R.string.storecard_cash, card.getBalance()));
+				viewHolder.scard_top_layout
+						.setBackgroundResource(R.drawable.storecard_yellow_top);
+				viewHolder.scard_btm_layout
+						.setBackgroundResource(R.drawable.storecard_yellow_btm);
+			} else {
+				viewHolder.scard_top_layout
+						.setBackgroundResource(R.drawable.storecard_green_top);
+				viewHolder.scard_btm_layout
+						.setBackgroundResource(R.drawable.storecard_green_btm);
 			}
 
 			// if(position==1 || (position>1 && position%2!=0))
@@ -204,19 +213,19 @@ public class StoreCardActivity extends BaseActivity {
 			// viewHolder.scard_top_layout.setBackgroundResource(R.drawable.storecard_green_top);
 			// viewHolder.scard_btm_layout.setBackgroundResource(R.drawable.storecard_green_btm);
 			// }
-			if (position == 0) {
-				viewHolder.scard_top_layout
-						.setBackgroundResource(R.drawable.storecard_yellow_top);
-				viewHolder.scard_btm_layout
-						.setBackgroundResource(R.drawable.storecard_yellow_btm);
-			}
-
-			if (position == 1 || (position > 1 && position % 2 != 0)) {
-				viewHolder.scard_top_layout
-						.setBackgroundResource(R.drawable.storecard_green_top);
-				viewHolder.scard_btm_layout
-						.setBackgroundResource(R.drawable.storecard_green_btm);
-			}
+			// if (position == 0) {
+			// viewHolder.scard_top_layout
+			// .setBackgroundResource(R.drawable.storecard_yellow_top);
+			// viewHolder.scard_btm_layout
+			// .setBackgroundResource(R.drawable.storecard_yellow_btm);
+			// }
+			//
+			// if (position == 1 || (position > 1 && position % 2 != 0)) {
+			// viewHolder.scard_top_layout
+			// .setBackgroundResource(R.drawable.storecard_green_top);
+			// viewHolder.scard_btm_layout
+			// .setBackgroundResource(R.drawable.storecard_green_btm);
+			// }
 			return convertView;
 		}
 	}

@@ -3,6 +3,7 @@ package com.xqxy.person;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
@@ -32,6 +33,7 @@ import com.cn.hongwei.MyApplication;
 import com.cn.hongwei.RequestWrapper;
 import com.cn.hongwei.ResponseWrapper;
 import com.xqxy.carservice.R;
+import com.xqxy.carservice.activity.WebActivity;
 import com.xqxy.carservice.adapter.CarInfoAdapter;
 import com.xqxy.model.AutoLogin;
 import com.xqxy.model.Brand;
@@ -111,6 +113,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 		rbLady.setOnCheckedChangeListener(this);
 		contract.setOnCheckedChangeListener(this);
 		openPwdBtn.setOnClickListener(this);
+		findViewById(R.id.rst_txt).setOnClickListener(this);
 		app=(MyApplication) getApplicationContext();
 	}
 
@@ -231,6 +234,12 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
 	            mbDisplayFlg = !mbDisplayFlg;  
 	            pwdTxt.postInvalidate();  
 	        
+			break;
+		case R.id.rst_txt:
+			Intent intent1 = new Intent();
+			intent1.setClass(this, WebActivity.class);
+			intent1.putExtra("name", "agreement");
+			startActivity(intent1);
 			break;
 		}
 

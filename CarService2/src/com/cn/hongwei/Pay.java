@@ -222,7 +222,7 @@ public class Pay {
 		orderInfo += "&seller_id=" + "\"" + SELLER + "\"";
 
 		// 商户网站唯一订单号
-		orderInfo += "&out_trade_no=" + "\""+"123456" + "\"";
+		orderInfo += "&out_trade_no=" + "\""+getOutTradeNo() + "\"";
 
 		// 商品名称
 		orderInfo += "&subject=" + "\"" + subject + "\"";
