@@ -61,20 +61,26 @@
             android:textColor="@color/blank"
             android:textSize="16sp" />
 
-        <RadioGroup
-            android:id="@+id/attr_group"
+        <LinearLayout
+             android:id="@+id/attr_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/cart_time"
-            android:layout_margin="10dp"
-            android:gravity="left"
-            android:orientation="vertical" />
+             android:layout_below="@id/cart_time"
+            android:gravity="center" >
+
+            <com.cn.hongwei.FlowRadioGroup
+                android:id="@+id/attr_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="left"/>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/cart_confirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/attr_group"
+            android:layout_below="@id/attr_layout"
             android:layout_weight="1"
             android:background="@drawable/ok_btn_bg"
             android:gravity="center"
