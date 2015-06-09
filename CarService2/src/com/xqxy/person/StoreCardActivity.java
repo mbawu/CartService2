@@ -197,7 +197,7 @@ public class StoreCardActivity extends BaseActivity {
 					card.getEnd_time()));
 			viewHolder.scard_num.setVisibility(View.VISIBLE);
 			viewHolder.scard_num.setText(getString(R.string.storecard_num,
-					card.getCid()));
+					card.getCode()));
 			// 1 储值卡 2 增值卡
 			if (card.getFlag().equals("2")) {
 				viewHolder.scard_cash.setVisibility(View.VISIBLE);

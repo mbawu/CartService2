@@ -24,10 +24,16 @@ public class StoreCard implements Serializable {
 	private String end_time;
 	private String state;
 	private String car_num;
+	private String code;
 	
 	
 	
-	
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
 	public String getId() {
 		return id;
 	}

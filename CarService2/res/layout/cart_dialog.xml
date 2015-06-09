@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/cart_time"
             android:layout_margin="10dp"
-            android:gravity="center"
+            android:gravity="left"
             android:orientation="vertical" />
 
         <TextView
