@@ -22,20 +22,13 @@
     <ListView
         android:id="@+id/listview"
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:divider="@null"
         android:scrollbars="none"
         android:visibility="visible">
     </ListView>
     
-    <View 
-        android:id="@+id/scard_line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/more_gray"
-        android:layout_margin="10dp"
-        android:visibility="visible"/>
     <WebView 
         android:id="@+id/scard_content"
         android:layout_height="match_parent"

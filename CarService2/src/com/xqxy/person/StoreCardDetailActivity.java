@@ -33,7 +33,7 @@ public class StoreCardDetailActivity extends BaseActivity {
 	private TextView titleTextView;
 	private TextView rightBtnTextView;
 
-	private View line;
+//	private View line;
 	private WebView content;
 	private ListView listView;
 	private StoreCardAdapter adapter;
@@ -98,13 +98,13 @@ public class StoreCardDetailActivity extends BaseActivity {
 		listView = (ListView) findViewById(R.id.listview);
 		adapter = new StoreCardAdapter(this);
 		listView.setAdapter(adapter);
-		line = findViewById(R.id.scard_line);
+//		line = findViewById(R.id.scard_line);
 		content = (WebView) findViewById(R.id.scard_content);
 		WebSettings settings = content.getSettings();
 		settings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
 		// settings.setUseWideViewPort(true);
 		settings.setLoadWithOverviewMode(true);
-		line.setVisibility(View.VISIBLE);
+//		line.setVisibility(View.VISIBLE);
 		content.setVisibility(View.VISIBLE);
 		getCard();
 	}
