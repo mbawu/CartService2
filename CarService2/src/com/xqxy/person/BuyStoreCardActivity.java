@@ -40,7 +40,13 @@ public class BuyStoreCardActivity extends BaseActivity {
 		setContentView(R.layout.person_storecard);
 		init();
 	}
-
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		if(MyApplication.buyStoreCardSuc)
+			finish();
+	}
 	private void init() {
 		backImageView = (ImageView) findViewById(R.id.imageTopBack);
 		backImageView.setOnClickListener(new OnClickListener() {

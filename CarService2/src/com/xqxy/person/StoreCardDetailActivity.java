@@ -50,6 +50,13 @@ public class StoreCardDetailActivity extends BaseActivity {
 		init();
 	}
 
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		if(MyApplication.buyStoreCardSuc)
+			finish();
+	}
 	private void init() {
 
 		backImageView = (ImageView) findViewById(R.id.imageTopBack);
