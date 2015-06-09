@@ -111,6 +111,7 @@ public class CartDialog extends Dialog {
 				radioBtn.setTag(attr);
 				radioBtn.setId(i);
 				radioBtn.setText(attr.getName());
+				radioBtn.setPadding(0, 10, 0, 10);
 				radioBtn.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 					
 					@Override

@@ -196,7 +196,7 @@ public class StoreCardDetailActivity extends BaseActivity {
 				viewHolder.scard_date.setText(getString(
 						R.string.storecard_date, card.getEnd_time()));
 				viewHolder.scard_num.setText(getString(R.string.storecard_num,
-						card.getCid()));
+						card.getCode()));
 			} else {
 				if (card.getFlag().equals("2")) {
 					viewHolder.scard_worth.setVisibility(View.VISIBLE);
