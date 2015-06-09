@@ -356,7 +356,7 @@ public class CallServiceActivity extends BaseActivity implements
 		if(requestType==NetworkAction.orderF_index
 				||requestType==NetworkAction.cartF_cart_order )
 		{
-			Toast.makeText(this, "生成订单成功", Toast.LENGTH_SHORT).show();
+//			Toast.makeText(this, "生成订单成功", Toast.LENGTH_SHORT).show();
 			//跳转到支付页面
 			Intent intent=new Intent();
 			intent.setClass(this, OrderPayActivity.class);

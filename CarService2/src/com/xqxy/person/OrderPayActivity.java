@@ -1,6 +1,7 @@
 package com.xqxy.person;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -247,9 +248,14 @@ public class OrderPayActivity extends BaseActivity implements
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == GET_COUPON) {
+			if(coupon2!=null)
+			{
+				coupon.setChecked(false);
+			}
 			coupon2 = (Coupon) data.getSerializableExtra("data");
 			coupon.setText(coupon2.getPrice() + "元" + coupon2.getName() + "优惠券");
 			coupon.setChecked(true);
+//			couponPriceUse=0.0;
 		} else if (resultCode == GET_CLEANCARD) {
 			cleanCard = (StoreCard) data.getSerializableExtra("data");
 			cleancard_cb.setText(cleanCard.getName());
@@ -495,9 +501,9 @@ public class OrderPayActivity extends BaseActivity implements
 			}
 
 		}
-
+		DecimalFormat    df   = new DecimalFormat("0.00");   
 		if (acTotal > 0)
-			priceAcTxt.setText("￥" + acTotal);
+			priceAcTxt.setText("￥" + df.format(acTotal));
 		else
 			priceAcTxt.setText("￥" + "0.0");
 
@@ -608,6 +614,13 @@ public class OrderPayActivity extends BaseActivity implements
 
 			for (int i = 0; i < datas.size(); i++) {
 				Coupon coupon = datas.get(i);
+				if( coupon.getColoumnid().equals("0"))
+				{
+					couponData.add(coupon);
+					continue;
+				}
+				
+				
 				for (int j = 0; j < carts.size(); j++) {
 					Cart cart = carts.get(j);
 					if (cart.getPid().equals(coupon.getPid())) {
