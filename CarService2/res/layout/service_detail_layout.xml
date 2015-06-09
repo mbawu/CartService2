@@ -135,10 +135,8 @@
 
                     <RadioGroup
                         android:id="@+id/radiogroup_service_attr"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:gravity="left"
                         android:orientation="vertical" >
                     </RadioGroup>
                 </LinearLayout>
