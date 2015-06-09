@@ -76,11 +76,13 @@ public class Pay {
 
 				// 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
 				if (TextUtils.equals(resultStatus, "9000")) {
-					
 					Toast.makeText(activity, "支付成功", Toast.LENGTH_SHORT).show();
-					Intent intent = new Intent();
-					intent.setClass(activity, OrderListActivity.class);
-					activity.startActivity(intent);
+					if(oid!=null)
+					{
+						Intent intent = new Intent();
+						intent.setClass(activity, OrderListActivity.class);
+						activity.startActivity(intent);
+					}
 //					Intent mIntent = new Intent(Constants.APP_BORADCASTRECEIVER); 
 //					activity.sendBroadcast(mIntent); 
 				} else {
@@ -94,10 +96,14 @@ public class Pay {
 					} else {
 						Toast.makeText(activity, "支付失败", Toast.LENGTH_SHORT)
 								.show();
-						RequestWrapper wrapper=new RequestWrapper();
-						wrapper.setIdentity(MyApplication.identity);
-						wrapper.setOid(oid);
-						sendData(wrapper, NetworkAction.orderF_pay_defeated);
+						if(oid!=null)
+						{
+							RequestWrapper wrapper=new RequestWrapper();
+							wrapper.setIdentity(MyApplication.identity);
+							wrapper.setOid(oid);
+							sendData(wrapper, NetworkAction.orderF_pay_defeated);
+						}
+					
 					}
 				}
 				break;
@@ -144,6 +150,7 @@ public class Pay {
 	 * 
 	 */
 	public void alipay(String subject, String body, String price) {
+		Log.i("test", body);
 		String orderInfo = getOrderInfo(subject, body, price);
 		String sign = sign(orderInfo);
 		try {

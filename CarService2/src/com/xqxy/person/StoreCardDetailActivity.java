@@ -115,7 +115,15 @@ public class StoreCardDetailActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
 		if (requestType == NetworkAction.orderF_buy_card) {
-			// 跳转至支付页面
+			Intent intent = new Intent();
+			intent.setClass(StoreCardDetailActivity.this,
+					StoreCardPayActivity.class);
+			StoreCard card = datas.get(0);
+			card.setCid(responseWrapper.getCid());
+			Bundle mBundle = new Bundle();
+			mBundle.putSerializable(StoreCardDetailActivity.DATA, card);
+			intent.putExtras(mBundle);
+			StoreCardDetailActivity.this.startActivity(intent);
 		}
 	}
 
@@ -130,8 +138,7 @@ public class StoreCardDetailActivity extends BaseActivity {
 		StoreCard card = (StoreCard) intent.getSerializableExtra(DATA);
 		datas = new ArrayList<StoreCard>();
 		datas.add(card);
-		content.loadData(card.getContent(),
-				"text/html; charset=UTF-8", null);
+		content.loadData(card.getContent(), "text/html; charset=UTF-8", null);
 		adapter.setDataList(datas);
 		adapter.notifyDataSetChanged();
 	}
@@ -182,7 +189,7 @@ public class StoreCardDetailActivity extends BaseActivity {
 			viewHolder.scard_buynow.setVisibility(View.GONE);
 			final StoreCard card = getItem(position);
 			viewHolder.scard_name.setText(card.getName());
-			
+
 			if (!buyModule) {
 				viewHolder.scard_date.setVisibility(View.VISIBLE);
 				viewHolder.scard_num.setVisibility(View.VISIBLE);

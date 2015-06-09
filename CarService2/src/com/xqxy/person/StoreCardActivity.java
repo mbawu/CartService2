@@ -62,6 +62,14 @@ public class StoreCardActivity extends BaseActivity {
 		adapter = new StoreCardAdapter(this);
 		listView.setAdapter(adapter);
 		getData();
+		
+
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
 		if (!selectM) {
 			getCard();
 			listView.setOnItemClickListener(new OnItemClickListener() {
@@ -94,9 +102,7 @@ public class StoreCardActivity extends BaseActivity {
 				}
 			});
 		}
-
 	}
-
 	private void getData() {
 		final String select = getIntent().getStringExtra("select");
 		if (select != null) {

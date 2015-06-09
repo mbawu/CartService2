@@ -60,22 +60,23 @@
         </LinearLayout>
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
         <View
             android:layout_width="0.5dp"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
             android:background="#d2d2d2" />
 
         <TextView
             android:id="@+id/scard_num"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginLeft="23dp"
-            android:layout_marginTop="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:text="@string/storecard_num"
             android:textColor="@color/blank"
             android:visibility="gone" />
@@ -83,9 +84,8 @@
         <View
             android:layout_width="0.5dp"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
             android:background="#d2d2d2" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/scard_buy_layout"
