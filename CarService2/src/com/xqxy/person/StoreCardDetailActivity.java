@@ -9,6 +9,9 @@ import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebSettings.LayoutAlgorithm;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -30,8 +33,8 @@ public class StoreCardDetailActivity extends BaseActivity {
 	private TextView titleTextView;
 	private TextView rightBtnTextView;
 
-	private View line;
-	private TextView content;
+//	private View line;
+	private WebView content;
 	private ListView listView;
 	private StoreCardAdapter adapter;
 	private ArrayList<StoreCard> datas;
@@ -95,9 +98,13 @@ public class StoreCardDetailActivity extends BaseActivity {
 		listView = (ListView) findViewById(R.id.listview);
 		adapter = new StoreCardAdapter(this);
 		listView.setAdapter(adapter);
-		line = findViewById(R.id.scard_line);
-		content = (TextView) findViewById(R.id.scard_content);
-		line.setVisibility(View.VISIBLE);
+//		line = findViewById(R.id.scard_line);
+		content = (WebView) findViewById(R.id.scard_content);
+		WebSettings settings = content.getSettings();
+		settings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
+		// settings.setUseWideViewPort(true);
+		settings.setLoadWithOverviewMode(true);
+//		line.setVisibility(View.VISIBLE);
 		content.setVisibility(View.VISIBLE);
 		getCard();
 	}
@@ -108,7 +115,15 @@ public class StoreCardDetailActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
 		if (requestType == NetworkAction.orderF_buy_card) {
-			// 跳转至支付页面
+			Intent intent = new Intent();
+			intent.setClass(StoreCardDetailActivity.this,
+					StoreCardPayActivity.class);
+			StoreCard card = datas.get(0);
+			card.setCid(responseWrapper.getCid());
+			Bundle mBundle = new Bundle();
+			mBundle.putSerializable(StoreCardDetailActivity.DATA, card);
+			intent.putExtras(mBundle);
+			StoreCardDetailActivity.this.startActivity(intent);
 		}
 	}
 
@@ -123,6 +138,7 @@ public class StoreCardDetailActivity extends BaseActivity {
 		StoreCard card = (StoreCard) intent.getSerializableExtra(DATA);
 		datas = new ArrayList<StoreCard>();
 		datas.add(card);
+		content.loadData(card.getContent(), "text/html; charset=UTF-8", null);
 		adapter.setDataList(datas);
 		adapter.notifyDataSetChanged();
 	}
@@ -162,7 +178,7 @@ public class StoreCardDetailActivity extends BaseActivity {
 						.findViewById(R.id.scard_btm_layout);
 				viewHolder.scard_price_layout = (LinearLayout) convertView
 						.findViewById(R.id.scard_price_layout);
-				viewHolder.scard_buy_layout = (RelativeLayout) convertView
+				viewHolder.scard_buy_layout = (LinearLayout) convertView
 						.findViewById(R.id.scard_buy_layout);
 				convertView.setTag(viewHolder);
 
@@ -174,7 +190,6 @@ public class StoreCardDetailActivity extends BaseActivity {
 			final StoreCard card = getItem(position);
 			viewHolder.scard_name.setText(card.getName());
 
-			content.setText(Html.fromHtml(card.getContent()));
 			if (!buyModule) {
 				viewHolder.scard_date.setVisibility(View.VISIBLE);
 				viewHolder.scard_num.setVisibility(View.VISIBLE);
@@ -232,7 +247,7 @@ public class StoreCardDetailActivity extends BaseActivity {
 		LinearLayout scard_top_layout;
 		LinearLayout scard_btm_layout;
 		LinearLayout scard_price_layout;
-		RelativeLayout scard_buy_layout;
+		LinearLayout scard_buy_layout;
 	}
 
 }

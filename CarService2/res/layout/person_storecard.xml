@@ -22,21 +22,19 @@
     <ListView
         android:id="@+id/listview"
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:divider="@null"
         android:scrollbars="none"
         android:visibility="visible">
     </ListView>
     
-    <View 
-        android:id="@+id/scard_line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/more_gray"
-        android:layout_margin="10dp"
-        android:visibility="gone"/>
-    <TextView 
+    <WebView 
+        android:id="@+id/scard_content"
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:visibility="visible"/>
+<!--   <TextView 
          android:id="@+id/scard_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,5 +43,5 @@
         android:gravity="center"
         android:visibility="gone"
         android:textColor="@color/nomarl_gray"
-        android:text="储值卡简介"/>
+        android:text="储值卡简介"/> --> 
 </LinearLayout>

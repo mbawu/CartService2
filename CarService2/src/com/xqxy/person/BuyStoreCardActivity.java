@@ -121,7 +121,7 @@ public class BuyStoreCardActivity extends BaseActivity {
 						.findViewById(R.id.scard_btm_layout);
 				viewHolder.scard_price_layout = (LinearLayout) convertView
 						.findViewById(R.id.scard_price_layout);
-				viewHolder.scard_buy_layout = (RelativeLayout) convertView
+				viewHolder.scard_buy_layout = (LinearLayout) convertView
 						.findViewById(R.id.scard_buy_layout);
 				convertView.setTag(viewHolder);
 
@@ -172,20 +172,31 @@ public class BuyStoreCardActivity extends BaseActivity {
 			}
 			else
 				viewHolder.scard_worth.setVisibility(View.GONE);
-
-			if (position == 0) {
-				viewHolder.scard_top_layout
-						.setBackgroundResource(R.drawable.storecard_yellow_top);
-				viewHolder.scard_btm_layout
-						.setBackgroundResource(R.drawable.storecard_yellow_btm);
-			}
-
-			if (position == 1 || (position > 1 && position % 2 != 0)) {
-				viewHolder.scard_top_layout
-						.setBackgroundResource(R.drawable.storecard_green_top);
-				viewHolder.scard_btm_layout
-						.setBackgroundResource(R.drawable.storecard_green_btm);
-			}
+			// 1 储值卡 2 增值卡
+						if (card.getFlag().equals("2")) {
+							viewHolder.scard_top_layout
+									.setBackgroundResource(R.drawable.storecard_yellow_top);
+							viewHolder.scard_btm_layout
+									.setBackgroundResource(R.drawable.storecard_yellow_btm);
+						} else {
+							viewHolder.scard_top_layout
+									.setBackgroundResource(R.drawable.storecard_green_top);
+							viewHolder.scard_btm_layout
+									.setBackgroundResource(R.drawable.storecard_green_btm);
+						}
+//			if (position == 0) {
+//				viewHolder.scard_top_layout
+//						.setBackgroundResource(R.drawable.storecard_yellow_top);
+//				viewHolder.scard_btm_layout
+//						.setBackgroundResource(R.drawable.storecard_yellow_btm);
+//			}
+//
+//			if (position == 1 || (position > 1 && position % 2 != 0)) {
+//				viewHolder.scard_top_layout
+//						.setBackgroundResource(R.drawable.storecard_green_top);
+//				viewHolder.scard_btm_layout
+//						.setBackgroundResource(R.drawable.storecard_green_btm);
+//			}
 			return convertView;
 		}
 	}
@@ -203,7 +214,7 @@ public class BuyStoreCardActivity extends BaseActivity {
 		LinearLayout scard_top_layout;
 		LinearLayout scard_btm_layout;
 		LinearLayout scard_price_layout;
-		RelativeLayout scard_buy_layout;
+		LinearLayout scard_buy_layout;
 	}
 
 }

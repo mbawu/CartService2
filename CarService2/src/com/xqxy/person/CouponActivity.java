@@ -181,12 +181,12 @@ public class CouponActivity extends BaseActivity implements
 			try {
 
 				final Coupon coupon = getItem(position);
-				DecimalFormat decimalFormat = new DecimalFormat("#");
+				DecimalFormat decimalFormat = new DecimalFormat("0.00");
 				String price = decimalFormat.format(Double.valueOf(coupon
 						.getPrice()));
 				viewHolder.coupon_price.setText(price + "元");
 				String name = coupon.getName();
-				if (name == null)
+				if (name == null|| name.equals(""))
 					name = price + "元优惠券全场使用";
 				else
 					name = price + "元优惠券限" + name + "使用";
@@ -219,10 +219,11 @@ public class CouponActivity extends BaseActivity implements
 				}
 				viewHolder.coupon_status.setText(status);
 				viewHolder.coupon_date.setText(coupon.getOver_time());
-				if(coupon.isExpired())
+				if(coupon.isExpired() || selectModule)
 				{
 					viewHolder.coupon_expired.setVisibility(View.GONE);
 				}
+				
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
