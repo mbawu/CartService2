@@ -89,6 +89,13 @@ public class StoreCardPayActivity extends BaseActivity implements
 	}
 
 	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		if(MyApplication.buyStoreCardSuc)
+			finish();
+	}
+	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
 		// TODO Auto-generated method stub

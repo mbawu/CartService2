@@ -37,6 +37,7 @@ public class MyApplication extends Application {
 	public static Editor ed; // 本地存储编辑器Editor
 
 	public static String identity;
+	public static boolean buyStoreCardSuc=false;//储值卡购买成功后跳转页面
 	public static boolean loginStat = false;
 	public static boolean refresh = false; // 是否需要刷新
 	public static NotificationManager mNotificationManager;

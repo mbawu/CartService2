@@ -82,7 +82,8 @@ public class Pay {
 						Intent intent = new Intent();
 						intent.setClass(activity, OrderListActivity.class);
 						activity.startActivity(intent);
-					}
+					}else
+						MyApplication.buyStoreCardSuc=true;
 //					Intent mIntent = new Intent(Constants.APP_BORADCASTRECEIVER); 
 //					activity.sendBroadcast(mIntent); 
 				} else {

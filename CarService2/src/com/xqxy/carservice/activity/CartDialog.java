@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
+import com.cn.hongwei.FlowRadioGroup;
 import com.cn.hongwei.JsonUtil;
 import com.cn.hongwei.MyApplication;
 import com.cn.hongwei.RequestWrapper;
@@ -48,7 +49,7 @@ public class CartDialog extends Dialog {
 	TextView cart_time;
 	TextView cart_confirm;
 	Context context;
-	RadioGroup attrGroup;
+	FlowRadioGroup attrGroup;
 
 	ProductAttr attrSelect;
 	
@@ -87,7 +88,7 @@ public class CartDialog extends Dialog {
 			}
 
 		});
-		attrGroup = (RadioGroup) findViewById(R.id.attr_group);
+		attrGroup = (FlowRadioGroup) findViewById(R.id.attr_group);
 		getAttr(cart.getPid());
 	}
 
@@ -111,7 +112,7 @@ public class CartDialog extends Dialog {
 				radioBtn.setTag(attr);
 				radioBtn.setId(i);
 				radioBtn.setText(attr.getName());
-				radioBtn.setPadding(0, 10, 0, 10);
+				radioBtn.setPadding(0, 10, 10, 10);
 				radioBtn.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 					
 					@Override

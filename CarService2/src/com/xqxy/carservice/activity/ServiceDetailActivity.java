@@ -251,7 +251,7 @@ public class ServiceDetailActivity extends BaseActivity implements
 						RadioButton radioBtn = (RadioButton) getLayoutInflater()
 								.inflate(R.layout.product_dretail_attr_item,
 										radioGroupAttr, false);
-						radioBtn.setPadding(0, 7, 0, 7);
+						radioBtn.setPadding(0, 7, 10, 7);
 						radioBtn.setTag(attr);
 						radioBtn.setId(i);
 						radioBtn.setText(attr.getName());

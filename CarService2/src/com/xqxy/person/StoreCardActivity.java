@@ -70,6 +70,8 @@ public class StoreCardActivity extends BaseActivity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		if(MyApplication.buyStoreCardSuc)
+			MyApplication.buyStoreCardSuc=false;
 		if (!selectM) {
 			getCard();
 			listView.setOnItemClickListener(new OnItemClickListener() {
