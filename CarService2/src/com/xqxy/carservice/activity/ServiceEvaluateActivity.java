@@ -1,11 +1,17 @@
 package com.xqxy.carservice.activity;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioGroup;
@@ -13,6 +19,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
 import com.cn.hongwei.BaseActivity;
+import com.cn.hongwei.CarImageView;
 import com.cn.hongwei.RequestWrapper;
 import com.cn.hongwei.ResponseWrapper;
 import com.cn.hongwei.TopTitleView;
@@ -114,12 +121,16 @@ public class ServiceEvaluateActivity extends BaseActivity {
 						.findViewById(R.id.text_evaluate_answer);
 				viewHolder.layoutEaluateAnswer = (LinearLayout) convertView
 						.findViewById(R.id.layout_evaluate_answer);
+				viewHolder.imgLinearLayout = (LinearLayout) convertView
+						.findViewById(R.id.goods_evaluate_image_linearlayout);
+				viewHolder.hScrollView = (HorizontalScrollView) convertView
+						.findViewById(R.id.goods_evaluate_image_scrollview);
 				convertView.setTag(viewHolder);
 
 			} else {
 				viewHolder = (ViewHolder) convertView.getTag();
 			}
-
+			viewHolder.hScrollView.scrollTo(0, 0);
 			Appraise eva = getDataList().get(position);
 			if ("1".equals(eva.getFlag())) {
 				viewHolder.textEvaluateLevel
@@ -157,8 +168,38 @@ public class ServiceEvaluateActivity extends BaseActivity {
 			} else {
 				viewHolder.layoutEaluateAnswer.setVisibility(View.GONE);
 			}
+			viewHolder.imgLinearLayout.removeAllViews();
+			setEvaluateImage(viewHolder.imgLinearLayout, eva.getPic());
 			return convertView;
 		}
+	}
+
+	private void setEvaluateImage(LinearLayout imgLinearLayout,
+			final ArrayList<String> imgUrls) {
+		// imgUrl = itemUrls;
+		if (imgUrls != null && imgUrls.size() > 0) {
+			CarImageView imgView;
+			for (int i = 0; i < imgUrls.size(); i++) {
+				final int index = i;
+				imgView = (CarImageView) getLayoutInflater().inflate(
+						R.layout.goods_evaluate_img, imgLinearLayout, false);
+				imgLinearLayout.addView(imgView);
+				imgView.loadImage(imgUrls.get(i));
+				imgView.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(
+								ServiceEvaluateActivity.this,
+								ImageDisplayActivity.class);
+						intent.putStringArrayListExtra("imgUrls", imgUrls);
+						intent.putExtra("imgIndex", index);
+						ServiceEvaluateActivity.this.startActivity(intent);
+					}
+				});
+			}
+		}
+
 	}
 
 	class ViewHolder {
@@ -169,5 +210,7 @@ public class ServiceEvaluateActivity extends BaseActivity {
 		TextView textEvaluateTime;
 		TextView textEvaluateAnswer;
 		LinearLayout layoutEaluateAnswer;
+		LinearLayout imgLinearLayout;
+		HorizontalScrollView hScrollView;
 	}
 }

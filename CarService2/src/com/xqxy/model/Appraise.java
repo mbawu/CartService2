@@ -1,5 +1,7 @@
 package com.xqxy.model;
 
+import java.util.ArrayList;
+
 public class Appraise {
 	private String flag;
 	private String content;
@@ -7,6 +9,7 @@ public class Appraise {
 	private String reply;
 	private String reply_time;
 	private String phone;
+	private ArrayList<String> pic;
 	public String getFlag() {
 		return flag;
 	}
@@ -42,6 +45,12 @@ public class Appraise {
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	public ArrayList<String> getPic() {
+		return pic;
+	}
+	public void setPic(ArrayList<String> pic) {
+		this.pic = pic;
 	}
 	
 	

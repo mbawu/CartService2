@@ -275,36 +275,42 @@ public class ServiceDetailActivity extends BaseActivity implements
 				if (responseWrapper.getAppraise() != null
 						&& responseWrapper.getAppraise().size() > 0) {
 					Appraise appraise = responseWrapper.getAppraise().get(0);
-					if ("1".equals(appraise.getFlag())) {
-						textEvaLevel
-								.setText(getString(R.string.evaluate_level_good));
-					} else {
-						textEvaLevel
-								.setText(getString(R.string.evaluate_level_bad));
-					}
+					if (appraise != null) {
 
-					if (appraise.getPhone() != null) {
-						if (appraise.getPhone().length() == 11) {
-							textEvaUser
-									.setText(appraise.getPhone()
-											.substring(0, 3)
-											+ "****"
-											+ appraise.getPhone().substring(7));
+						if ("1".equals(appraise.getFlag())) {
+							textEvaLevel
+									.setText(getString(R.string.evaluate_level_good));
 						} else {
-							textEvaUser.setText(appraise.getPhone());
+							textEvaLevel
+									.setText(getString(R.string.evaluate_level_bad));
+						}
+
+						if (appraise.getPhone() != null) {
+							if (appraise.getPhone().length() == 11) {
+								textEvaUser.setText(appraise.getPhone()
+										.substring(0, 3)
+										+ "****"
+										+ appraise.getPhone().substring(7));
+							} else {
+								textEvaUser.setText(appraise.getPhone());
+							}
+						}
+
+						if (appraise.getContent() != null) {
+							textEvaContent.setText(appraise.getContent());
+						}
+						if (appraise.getCreate_time() != null) {
+							try {
+								textEvaData.setText(appraise.getCreate_time()
+										.substring(0, 10));
+								textEvaTime.setText(appraise.getCreate_time()
+										.substring(10));
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
 					}
-
-					if (appraise.getContent() != null) {
-						textEvaContent.setText(appraise.getContent());
-					}
-					if (appraise.getCreate_time() != null) {
-						textEvaData.setText(appraise.getCreate_time()
-								.substring(0, 10));
-						textEvaTime.setText(appraise.getCreate_time()
-								.substring(10));
-					}
-
 					layoutEva.setVisibility(View.VISIBLE);
 				} else {
 					layoutEva.setVisibility(View.GONE);
@@ -466,10 +472,11 @@ public class ServiceDetailActivity extends BaseActivity implements
 		oks.setTitle(getString(R.string.app_name));
 		oks.setTitleUrl("http://car.xinlingmingdeng.com/download/");
 		oks.setText(product.getName() + "------来自"
-				+ getString(R.string.app_name)+"http://car.xinlingmingdeng.com/download/");
+				+ getString(R.string.app_name)
+				+ "http://car.xinlingmingdeng.com/download/");
 		oks.setImageUrl(product.getPic());
 		oks.setUrl("http://car.xinlingmingdeng.com/download/");
-		
+
 		// oks.setTitle("分享标题--Title");
 
 		// oks.setTitleUrl("http://mob.com");
