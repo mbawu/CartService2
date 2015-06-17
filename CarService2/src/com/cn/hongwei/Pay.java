@@ -95,6 +95,7 @@ public class Pay {
 								.show();
 
 					} else {
+						activity.finish();
 						Toast.makeText(activity, "支付失败", Toast.LENGTH_SHORT)
 								.show();
 						if(oid!=null)
