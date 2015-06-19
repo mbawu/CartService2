@@ -274,7 +274,10 @@
                     android:textColor="#646464"
                     android:textSize="@dimen/font_size_26px" />
             </RelativeLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line_bg_color" />
             <WebView
                 android:id="@+id/webviw"
                 android:layout_width="match_parent"
