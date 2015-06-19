@@ -88,6 +88,7 @@ public class ImageDisplayActivity extends Activity {
 			});
 		}
 		pagerAdapter.setArrayList(ViewArrayList);
+		pagerAdapter.notifyDataSetChanged();
 		viewPager.setCurrentItem(imgIndex);
 		imgNumTextView.setText((imgIndex + 1) + " / " + imgUrls.size());
 	}
