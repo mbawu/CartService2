@@ -79,7 +79,7 @@ public class ServiceEvaluateActivity extends BaseActivity {
 		request.setShowDialog(true);
 		request.setFlag(flag);
 		request.setPid(pid);
-		// request.setLimit("10000");
+		 request.setLimit("10000");
 		sendDataByGet(request, NetworkAction.indexF_appraise);
 	}
 
