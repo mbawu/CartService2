@@ -330,6 +330,13 @@ public class OrderPayActivity extends BaseActivity implements
 			if (((StoreCard) ob).getFlag().equals("1")) {
 				cleancard_cb.setVisibility(View.VISIBLE);
 				if (cleancard_cb.isChecked()) {
+					if (offlineB&& cleancard_cb.isChecked()) {
+						cleancardB = false;
+						cleancard_cb.setChecked(false);
+						Toast.makeText(this, "线下支付不可使用储值卡和增值卡", Toast.LENGTH_SHORT)
+								.show();
+						return;
+					}
 					if (crediteB || couponB) {
 						cleancardB = false;
 						cleancard_cb.setChecked(false);
@@ -359,6 +366,13 @@ public class OrderPayActivity extends BaseActivity implements
 			else if (((StoreCard) ob).getFlag().equals("2")) {
 				storecard_cb.setVisibility(View.VISIBLE);
 				if (storecard_cb.isChecked()) {
+					if (offlineB && storecard_cb.isChecked()) {
+						storecardB = false;
+						storecard_cb.setChecked(false);
+						Toast.makeText(this, "线下支付不可使用储值卡和增值卡", Toast.LENGTH_SHORT)
+								.show();
+						return;
+					}
 					if (crediteB || couponB) {
 						storecardB = false;
 						storecard_cb.setChecked(false);
@@ -372,11 +386,9 @@ public class OrderPayActivity extends BaseActivity implements
 						if (storeCard.getColid().equals("0")) {
 							for (int i = 0; i < carts.size(); i++) {
 								Cart cartTemp = carts.get(i);
-								if (cleancart != null && cleancardB)
-									continue;
-								else {
+
 									storecardCarts.add(cartTemp);
-								}
+								
 							}
 						} else {
 							for (int i = 0; i < carts.size(); i++) {
@@ -424,11 +436,11 @@ public class OrderPayActivity extends BaseActivity implements
 				} else {
 					creditePriceUse = price;
 				}
-				acTotal = acTotal - price;
+				acTotal = acTotal - creditePriceUse;
 			} else {
 				if (creditePriceUse == 0.0)
 					return;
-				acTotal = acTotal + price;
+				acTotal = acTotal + creditePriceUse;
 				creditePriceUse = 0.0;
 			}
 		} else if (type == PayType.优惠券) {
@@ -446,16 +458,18 @@ public class OrderPayActivity extends BaseActivity implements
 				} else {
 					couponPriceUse = price;
 				}
-				acTotal = acTotal - price;
+				acTotal = acTotal - couponPriceUse;
 			} else {
 				if (couponPriceUse == 0.0)
 					return;
-				acTotal = acTotal + price;
+				acTotal = acTotal + couponPriceUse;
 				couponPriceUse = 0.0;
 			}
 		} else if (type == PayType.储值卡) {
 			if (ischeck) {
+				Log.i("test", "acTotal-->"+acTotal);
 				if (acTotal <= 0) {
+					
 					Toast.makeText(this, "无需使用储值卡了", Toast.LENGTH_SHORT).show();
 					cleancard_cb.setChecked(false);
 					cleancardB = false;
@@ -469,11 +483,11 @@ public class OrderPayActivity extends BaseActivity implements
 					cleancardPriceUse = price;
 				}
 				// cleancardPriceUse = price;
-				acTotal = acTotal - price;
+				acTotal = acTotal - cleancardPriceUse;
 			} else {
 				if (cleancardPriceUse == 0.0)
 					return;
-				acTotal = acTotal + price;
+				acTotal = acTotal + cleancardPriceUse;
 				cleancardPriceUse = 0.0;
 			}
 
@@ -492,11 +506,11 @@ public class OrderPayActivity extends BaseActivity implements
 					storecardPriceUse = price;
 				}
 				// storecardPriceUse = price;
-				acTotal = acTotal - price;
+				acTotal = acTotal - storecardPriceUse;
 			} else {
 				if (storecardPriceUse == 0.0)
 					return;
-				acTotal = acTotal + price;
+				acTotal = acTotal + storecardPriceUse;
 				storecardPriceUse = 0.0;
 			}
 
@@ -507,7 +521,7 @@ public class OrderPayActivity extends BaseActivity implements
 		else
 			priceAcTxt.setText("￥" + "0.0");
 
-		Log.i("test", "实际使用积分：" + creditePriceUse * credtiIntegral);
+		Log.i("test", "实际使用积分：" + creditePriceUse);
 		Log.i("test", "实际优惠金额：" + couponPriceUse);
 		Log.i("test", "实际储值卡扣减金额：" + cleancardPriceUse);
 		Log.i("test", "实际增值卡扣减金额：" + storecardPriceUse);
@@ -607,8 +621,6 @@ public class OrderPayActivity extends BaseActivity implements
 				}
 
 			}
-		} else if (requestType == null) {
-			Toast.makeText(this, "获取信息失败，请重试", Toast.LENGTH_SHORT).show();
 		} else if (requestType == NetworkAction.centerF_user_coupon) {
 			datas = responseWrapper.getCoupon();
 
@@ -628,7 +640,7 @@ public class OrderPayActivity extends BaseActivity implements
 							for (int k = 0; k < couponData.size(); k++) {
 								Coupon couponTemp = datas.get(k);
 								if (!couponTemp.getCid()
-										.equals(coupon.getCid()))
+										.equals(coupon.getCid()) && couponTemp.getFlag().equals("1"))
 									couponData.add(coupon);
 							}
 						} else
@@ -767,9 +779,12 @@ public class OrderPayActivity extends BaseActivity implements
 			if (isChecked) {
 				coupon.setChecked(false);
 				credite.setChecked(false);
+				storecard_cb.setChecked(false);
+				cleancard_cb.setChecked(false);
 			}
 			break;
 		case R.id.credite:
+			
 			// acTotal = acTotal - creditePrice;
 			// priceAcTxt.setText("￥" + acTotal);
 			getNewPrice(creditePrice);
@@ -786,6 +801,8 @@ public class OrderPayActivity extends BaseActivity implements
 					coupon.setChecked(false);
 				if (cleancardB)
 					credite.setChecked(false);
+//				if(cleancard_cb.isChecked())
+//					cleancard_cb.setChecked(false);
 			}
 			getNewPrice(storeCard);
 			break;
@@ -797,6 +814,8 @@ public class OrderPayActivity extends BaseActivity implements
 					coupon.setChecked(false);
 				if (cleancardB)
 					credite.setChecked(false);
+//				if(storecard_cb.isChecked())
+//					storecard_cb.setChecked(false);
 			}
 			getNewPrice(cleanCard);
 			break;
