@@ -88,7 +88,10 @@
         <activity android:name="com.xqxy.carservice.activity.PersonCentreActivity" />
         <activity android:name="com.xqxy.carservice.activity.ServiceDetailActivity" />
         <activity android:name="com.xqxy.carservice.activity.ServiceEvaluateActivity" />
-        <activity android:name="com.xqxy.carservice.activity.OrderEvaluateActivity" />
+        <activity
+            android:name="com.xqxy.carservice.activity.OrderEvaluateActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name="com.xqxy.carservice.activity.WebActivity" />
         <activity android:name="com.xqxy.carservice.activity.ImageDisplayActivity" />
         <activity
