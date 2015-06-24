@@ -210,6 +210,7 @@ public class StoreCardActivity extends BaseActivity {
 				viewHolder.scard_btm_layout
 						.setBackgroundResource(R.drawable.storecard_yellow_btm);
 			} else {
+				viewHolder.scard_cash.setVisibility(View.GONE);
 				viewHolder.scard_top_layout
 						.setBackgroundResource(R.drawable.storecard_green_top);
 				viewHolder.scard_btm_layout
