@@ -40,6 +40,11 @@ import com.xqxy.person.CartActivity;
 import com.xqxy.person.Cst;
 import com.xqxy.person.NetworkAction;
 
+/**
+ * 购物车编辑对话框
+ * @author Administrator
+ *
+ */
 public class CartDialog extends Dialog {
 
 	private Cart cart;
@@ -53,6 +58,11 @@ public class CartDialog extends Dialog {
 
 	ProductAttr attrSelect;
 	
+	/**
+	 * 构造方法
+	 * @param context 上下文
+	 * @param cart 购物车
+	 */
 	public CartDialog(final Context context, final Cart cart) {
 		super(context, R.style.confirmDialog);
 		this.setContentView(R.layout.cart_dialog);
@@ -92,6 +102,10 @@ public class CartDialog extends Dialog {
 		getAttr(cart.getPid());
 	}
 
+	/**
+	 * 根据服务ID获取属性
+	 * @param pid 服务ID
+	 */
 	private void getAttr(String pid) {
 		RequestWrapper wrapper = new RequestWrapper();
 		wrapper.setPid(pid);
@@ -99,6 +113,11 @@ public class CartDialog extends Dialog {
 
 	}
 
+	/**
+	 * 解析属性数据
+	 * @param responseWrappe 服务端返回的数据
+	 * @param requestType 请求类型
+	 */
 	public void showAttr(ResponseWrapper responseWrappe,NetworkAction requestType) {
 		if(requestType==NetworkAction.indexF_product_attr)
 		{
@@ -145,6 +164,10 @@ public class CartDialog extends Dialog {
 
 	}
 
+	/**
+	 * 设置属性
+	 * @param attr 服务属性
+	 */
 	private void setAttr(ProductAttr attr) {
 		if (attr != null) {
 			cart_real_price.setText(context.getString(R.string.product_price,
@@ -154,6 +177,11 @@ public class CartDialog extends Dialog {
 	}
 	
 
+	/**
+	 * 发送请求
+	 * @param requestWrapper 请求参数
+	 * @param requestType 请求类型
+	 */
 	public void sendData(RequestWrapper requestWrapper,
 			final NetworkAction requestType) {
 		String url = Cst.HOST;
@@ -180,8 +208,8 @@ public class CartDialog extends Dialog {
 	/**
 	 * get请求方式
 	 * 
-	 * @param requestWrapper
-	 * @param requestType
+	 * @param requestWrapper 请求参数
+	 * @param requestType 请求类型
 	 */
 	public void sendDataByGet(RequestWrapper requestWrapper,
 			final NetworkAction requestType) {
@@ -206,6 +234,11 @@ public class CartDialog extends Dialog {
 				});
 	}
 
+	/**
+	 * 解析数据
+	 * @param thisObj
+	 * @return
+	 */
 	public static HashMap<String, String> getMap(Object thisObj) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		Class c;
@@ -249,6 +282,11 @@ public class CartDialog extends Dialog {
 		return map;
 	}
 
+	/**
+	 * 接受服务端返回的数据并处理
+	 * @param response 数据内容
+	 * @param requestType 请求类型
+	 */
 	public void onResponseEvent(JSONObject response, NetworkAction requestType) {
 
 		boolean done = false;
@@ -272,6 +310,11 @@ public class CartDialog extends Dialog {
 
 	}
 
+	/**
+	 * json数据转化
+	 * @param json
+	 * @return
+	 */
 	public ResponseWrapper jsonToClass(String json) {
 		return JsonUtil.fromJson(json, ResponseWrapper.class);
 	}

@@ -27,20 +27,24 @@ import com.xqxy.model.Journey;
 import com.xqxy.model.Model;
 import com.xqxy.model.Series;
 import com.xqxy.person.NetworkAction;
-
+/**
+ * 汽车维护界面
+ * @author Administrator
+ *
+ */
 public class CarActivity extends BaseActivity implements OnClickListener,
 		OnItemSelectedListener {
 
-	private Spinner brandSpinner;
+	private Spinner brandSpinner;//品牌
 	private CarInfoAdapter brandAdapter;
-	private Spinner seriesSpinner;
+	private Spinner seriesSpinner;//车系
 	private CarInfoAdapter seriesAdapter;
-	private Spinner modelSpinner;
+	private Spinner modelSpinner;//车型
 	private CarInfoAdapter modelAdapter;
 
-	private Spinner lcSpinner;
+	private Spinner lcSpinner;//里程
 	private CarInfoAdapter lcAdapter;
-	private Spinner byplSpinner;
+	private Spinner byplSpinner;//保养频率
 
 	private MyApplication app;
 	private Dialog myProgressDialog;
@@ -52,6 +56,9 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 
 	private String[] upkeeps;
 
+	/**
+	 * 界面初始化
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -88,7 +95,7 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 		sendDataByGet(new RequestWrapper(), NetworkAction.indexF_journey);
 		byplSpinner.setAdapter(new ArrayAdapter<String>(this,
 				R.layout.car_info_adapter, R.id.textView, upkeeps));
-
+		//初始化保养平率
 		if (car.getId() != null && car.getUpkeep() != null
 				&& !"".equals(car.getUpkeep())) {
 			try {
@@ -103,11 +110,14 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 		}
 	}
 
+	/**
+	 * 数据解析方法
+	 */
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
 		super.showResualt(responseWrapper, requestType);
-
+		//根据请求类型解析数据
 		if (requestType == (NetworkAction.centerF_add_car)) {
 			if (pid == null || "".equals(pid)) {// 返回爱车列表
 				this.setResult(RESULT_OK);
@@ -183,6 +193,7 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 					}
 				}
 			}
+			//请求全部结束，关闭进度条
 			if (respCount == 4) {
 				myProgressDialog.dismiss();
 			}
@@ -190,6 +201,9 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 
 	}
 
+	/**
+	 * 车系选择
+	 */
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position,
 			long id) {
@@ -226,6 +240,9 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 
 	}
 
+	/**
+	 * 数据提交
+	 */
 	@Override
 	public void onClick(View v) {
 
@@ -274,6 +291,9 @@ public class CarActivity extends BaseActivity implements OnClickListener,
 
 	}
 
+	/**
+	 * 返回服务详情界面
+	 */
 	private void goServiceDetaile() {
 		app.setCar(car);
 		Intent intent = new Intent(this, ServiceDetailActivity.class);

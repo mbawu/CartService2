@@ -42,21 +42,29 @@ import com.xqxy.person.CartActivity;
 import com.xqxy.person.LoginActivity;
 import com.xqxy.person.NetworkAction;
 
+/**
+ * 主界面
+ * @author Administrator
+ *
+ */
 public class MainActivity extends BaseActivity {
 
-	private RadioGroup radioGroup;
-	private ViewPager viewPager;
-	private ArrayList<View> carouseImageViews = new ArrayList<View>();
-	private Timer timer;
-	private ListView listView;
-	private ImageView imgBottomCar;
-	private ProductAdapter productAdapter;
-	private List<Banner> banners;
-	private List<Product> products;
+	private RadioGroup radioGroup;//轮播图标
+	private ViewPager viewPager;//轮播容器
+	private ArrayList<View> carouseImageViews = new ArrayList<View>();//轮播数据源
+	private Timer timer;//轮播定时器
+	private ListView listView;//服务列表
+	private ImageView imgBottomCar;//购物车图标
+	private ProductAdapter productAdapter;//服务列表适配器
+	private List<Banner> banners;//轮播数据源
+	private List<Product> products;//服务数据源
 	private Dialog myProgressDialog;
 
 	private MyApplication app;
 
+	/**
+	 * 界面初始化
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -92,6 +100,9 @@ public class MainActivity extends BaseActivity {
 		sendRequest();
 	}
 
+	/**
+	 * 发送轮播和服务列表请求
+	 */
 	public void sendRequest() {
 		myProgressDialog = createDialog();
 		myProgressDialog.show();
@@ -99,6 +110,9 @@ public class MainActivity extends BaseActivity {
 		sendData(new RequestWrapper(), NetworkAction.indexF_product);
 	}
 
+	/**
+	 * 强制购物车获取焦点
+	 */
 	@Override
 	protected void onResume() {
 
@@ -113,6 +127,9 @@ public class MainActivity extends BaseActivity {
 
 	}
 
+	/**
+	 * 解析数据
+	 */
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
@@ -142,7 +159,7 @@ public class MainActivity extends BaseActivity {
 					productAdapter.notifyDataSetChanged();
 				}
 			}
-			if (respCount == 2) {
+			if (respCount == 2) {//请求全部返回，关闭进度条
 				myProgressDialog.dismiss();
 			}
 		}
@@ -152,6 +169,10 @@ public class MainActivity extends BaseActivity {
 
 	}
 
+	/**
+	 * 类别按钮点击事件
+	 * @param view 点击的控件
+	 */
 	public void btnOnClick(View view) {
 		if (view.getId() == R.id.imageTopBack) {
 			startActivity(new Intent(this, CategoryActivity.class));
@@ -160,6 +181,9 @@ public class MainActivity extends BaseActivity {
 		}
 	}
 
+	/**
+	 * 初始化轮播组件
+	 */
 	private void initCarouselViewPager() {
 		boolean repat = true;
 		for (int i = 0; i < banners.size(); i++) {
@@ -244,6 +268,9 @@ public class MainActivity extends BaseActivity {
 
 	private long exitTime = 0;
 
+	/**
+	 * 退出程序监听
+	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK
@@ -261,6 +288,11 @@ public class MainActivity extends BaseActivity {
 		return super.onKeyDown(keyCode, event);
 	}
 
+	/**
+	 * 服务列表适配器
+	 * @author Administrator
+	 *
+	 */
 	class ProductAdapter extends CarBaseAdapter<Product> {
 
 		public ProductAdapter(Activity activity) {
@@ -328,6 +360,11 @@ public class MainActivity extends BaseActivity {
 		}
 	}
 
+	/**
+	 * 服务列表item控件
+	 * @author Administrator
+	 *
+	 */
 	class ViewHolder {
 		CarImageView imgServicePhoto;
 		TextView textServiceName;

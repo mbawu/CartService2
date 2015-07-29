@@ -17,15 +17,23 @@ import com.cn.hongwei.CarImageView;
 import com.xqxy.carservice.R;
 import com.xqxy.carservice.adapter.GoodsDetailsViewPagerAdapter;
 
+/**
+ * 评论图片放大显示界面
+ * @author Administrator
+ *
+ */
 public class ImageDisplayActivity extends Activity {
 
-	private ViewPager viewPager;
-	private TextView imgNumTextView;
+	private ViewPager viewPager;//图片容器
+	private TextView imgNumTextView;//图片数量
 	private Intent intent;
-	private ArrayList<String> imgUrls;
-	private GoodsDetailsViewPagerAdapter pagerAdapter;
-	private ArrayList<View> ViewArrayList = new ArrayList<View>();
+	private ArrayList<String> imgUrls;//图片URL
+	private GoodsDetailsViewPagerAdapter pagerAdapter;//容器适配器
+	private ArrayList<View> ViewArrayList = new ArrayList<View>();//图片数据源
 
+	/**
+	 * 界面初始化
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,6 +69,9 @@ public class ImageDisplayActivity extends Activity {
 		setImage();
 	}
 
+	/**
+	 * 动态加载图片
+	 */
 	private void setImage() {
 		int imgIndex = intent.getIntExtra("imgIndex", 0);
 		imgUrls = intent.getStringArrayListExtra("imgUrls");
@@ -75,7 +86,7 @@ public class ImageDisplayActivity extends Activity {
 			imageView.setScaleType(ScaleType.FIT_CENTER);
 			imageView.loadImage(url);
 			ViewArrayList.add(imageView);
-			if (imgUrls.size() == 2 && i == 1 && repat) {
+			if (imgUrls.size() == 2 && i == 1 && repat) {//处理图片只有2张的特殊情况
 				i = -1;
 				repat = false;
 			}

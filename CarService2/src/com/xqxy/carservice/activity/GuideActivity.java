@@ -16,12 +16,19 @@ import cn.jpush.android.api.JPushInterface;
 
 import com.cn.hongwei.MyApplication;
 import com.xqxy.carservice.R;
-
+/**
+ * 引导页界面
+ * @author Administrator
+ *
+ */
 public class GuideActivity extends Activity {
 	private MyApplication app;
-	private ViewPager viewPager;
-	private List<View> views = new ArrayList<View>();
+	private ViewPager viewPager; //图片容器
+	private List<View> views = new ArrayList<View>(); //数据源
 
+	/**
+	 * 界面初始化
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -47,12 +54,18 @@ public class GuideActivity extends Activity {
 
 	}
 
+	/**
+	 * 初始化推送组件
+	 */
 	@Override
 	protected void onResume() {
 		super.onResume();
 		JPushInterface.onResume(this);
 	}
 
+	/**
+	 * 暂停推送
+	 */
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -65,6 +78,9 @@ public class GuideActivity extends Activity {
 		finish();
 	}
 
+	/**
+	 * 引导页适配器
+	 */
 	PagerAdapter mPagerAdapter = new PagerAdapter() {
 
 		@Override

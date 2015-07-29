@@ -26,19 +26,26 @@ import com.xqxy.carservice.R;
 import com.xqxy.carservice.adapter.CarBaseAdapter;
 import com.xqxy.model.Car;
 import com.xqxy.person.NetworkAction;
-
+/**
+ * 爱车列表界面
+ * @author Administrator
+ *
+ */
 public class CarListActivity extends BaseActivity {
-	private TopTitleView topTitleView;
-	private SlideListView listView;
-	private TextView nodata;
-	private TextView textCarAdd;
-	private CarAdapter adapter;
-	private List<Car> carList;
+	private TopTitleView topTitleView;//标题
+	private SlideListView listView;//爱车列表
+	private TextView nodata;//无数据时的提示
+	private TextView textCarAdd;//增加
+	private CarAdapter adapter;//列表适配器
+	private List<Car> carList;//爱车数据源
 	private MyApplication app;
-	private Car delCar;
+	private Car delCar; //删除爱车的缓存数据
 	private String[] upkeeps;
 	private String pid;
 
+	/**
+	 * 界面初始化
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -89,6 +96,9 @@ public class CarListActivity extends BaseActivity {
 		});
 	}
 
+	/**
+	 * 向服务端请求爱车数据
+	 */
 	private void getCarList() {
 		RequestWrapper request = new RequestWrapper();
 		request.setShowDialog(true);
@@ -96,6 +106,9 @@ public class CarListActivity extends BaseActivity {
 		sendData(request, NetworkAction.centerF_user_car);
 	}
 
+	/**
+	 * 数据解析
+	 */
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
@@ -119,6 +132,9 @@ public class CarListActivity extends BaseActivity {
 		}
 	}
 
+	/**
+	 * 从爱车维护界面返回
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -127,6 +143,10 @@ public class CarListActivity extends BaseActivity {
 		}
 	}
 
+	/**
+	 * 删除爱车
+	 * @param car 将要删除的爱车
+	 */
 	private void deleteCar(Car car) {
 		delCar = car;
 		RequestWrapper request = new RequestWrapper();
@@ -135,6 +155,11 @@ public class CarListActivity extends BaseActivity {
 		sendData(request, NetworkAction.centerF_del_car);
 	}
 
+	/**
+	 * 爱车列表适配器
+	 * @author Administrator
+	 *
+	 */
 	class CarAdapter extends CarBaseAdapter<Car> {
 
 		public CarAdapter(Activity activity) {
@@ -244,6 +269,11 @@ public class CarListActivity extends BaseActivity {
 
 	}
 
+	/**
+	 * 数据模型
+	 * @author Administrator
+	 *
+	 */
 	class ViewHolder {
 		TextView textDelete;
 		TextView textPP;

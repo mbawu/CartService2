@@ -28,19 +28,26 @@ import com.xqxy.carservice.adapter.CarBaseAdapter;
 import com.xqxy.model.Category;
 import com.xqxy.model.CategoryProduct;
 import com.xqxy.person.NetworkAction;
-
+/**
+ * 服务类型界面
+ * @author Administrator
+ *
+ */
 public class CategoryActivity extends BaseActivity implements
 		AdapterView.OnItemClickListener {
 
-	private ListView listView;
-	private ListView listViewProduct;
-	private TopTitleView topTitleView;
+	private ListView listView;//服务类型列表
+	private ListView listViewProduct;//服务列表
+	private TopTitleView topTitleView;//标题
 
-	private List<Category> categorys;
-	private CategoryAdapter categoryAdapter;
-	private CategoryProductAdapter cpAdapter;
+	private List<Category> categorys;//类别数据源
+	private CategoryAdapter categoryAdapter;//服务类型适配器
+	private CategoryProductAdapter cpAdapter;//服务列表适配器
 	private MyApplication app;
 
+	/**
+	 * 界面初始化
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,10 +69,13 @@ public class CategoryActivity extends BaseActivity implements
 		sendData(request, NetworkAction.indexF_column);
 	}
 
+	/**
+	 * 列表点击响应事件
+	 */
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view,
 			final int position, long id) {
-		if (parent == listView) {
+		if (parent == listView) {//类别列表
 			categoryAdapter.setSelectedIndex(position);
 			categoryAdapter.notifyDataSetChanged();
 			String cid = categoryAdapter.getDataList().get(position).getCid()
@@ -74,7 +84,7 @@ public class CategoryActivity extends BaseActivity implements
 				getCategoryProduct(cid);
 			}
 
-		} else if (parent == listViewProduct) {
+		} else if (parent == listViewProduct) {//服务列表
 			CategoryProduct cp = cpAdapter.getItem(position);
 			cpAdapter.setSelectedIndex(position);
 			cpAdapter.notifyDataSetChanged();
@@ -97,6 +107,9 @@ public class CategoryActivity extends BaseActivity implements
 
 	}
 
+	/**
+	 * 数据解析并显示
+	 */
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
 		if (requestType == NetworkAction.indexF_column) {
@@ -118,6 +131,10 @@ public class CategoryActivity extends BaseActivity implements
 		}
 	}
 
+	/**
+	 * 根据列表获取服务
+	 * @param cid 类别ID
+	 */
 	private void getCategoryProduct(String cid) {
 		RequestWrapper request = new RequestWrapper();
 		request.setShowDialog(true);
@@ -125,11 +142,17 @@ public class CategoryActivity extends BaseActivity implements
 		sendDataByGet(request, NetworkAction.indexF_column_product);
 	}
 
+	//类别图标数组
 	public int iconIds[] = new int[] { R.drawable.category_1,
 			R.drawable.category_2, R.drawable.category_3,
 			R.drawable.category_4, R.drawable.category_5,
 			R.drawable.category_6, R.drawable.category_7, R.drawable.category_8 };
 
+	/**
+	 * 类别适配器
+	 * @author Administrator
+	 *
+	 */
 	class CategoryAdapter extends CarBaseAdapter<Category> {
 
 		private int selectedIndex = 0;
@@ -184,6 +207,11 @@ public class CategoryActivity extends BaseActivity implements
 		}
 	}
 
+	/**
+	 * 服务适配器
+	 * @author Administrator
+	 *
+	 */
 	class CategoryProductAdapter extends CarBaseAdapter<CategoryProduct> {
 
 		private int selectedIndex = 0;

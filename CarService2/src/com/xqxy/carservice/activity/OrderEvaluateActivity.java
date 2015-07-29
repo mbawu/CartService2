@@ -28,7 +28,11 @@ import com.xqxy.carservice.adapter.CarBaseAdapter;
 import com.xqxy.model.OrderProduct;
 import com.xqxy.person.Cst;
 import com.xqxy.person.NetworkAction;
-
+/**
+ * 订单评价界面
+ * @author Administrator
+ *
+ */
 public class OrderEvaluateActivity extends PhotoActivity implements
 		View.OnClickListener {
 	private TopTitleView topTitleView;
