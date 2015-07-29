@@ -19,6 +19,11 @@ import com.xqxy.carservice.R;
 import com.xqxy.model.PayModel;
 import com.xqxy.model.StoreCard;
 
+/**
+ * 储值卡支付页面
+ * @author Administrator
+ *
+ */
 public class StoreCardPayActivity extends BaseActivity implements
 		OnCheckedChangeListener {
 	private ImageView backImageView;

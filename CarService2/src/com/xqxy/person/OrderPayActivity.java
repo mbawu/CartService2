@@ -44,57 +44,62 @@ import com.xqxy.model.StoreCard;
 import com.xqxy.model.UserInfo;
 import com.xqxy.model.WebInfo;
 
+/**
+ * 生成订单并支付的页面
+ * @author Administrator
+ *
+ */
 public class OrderPayActivity extends BaseActivity implements
 		OnCheckedChangeListener {
 
-	public static int GET_COUPON = 1001;
-	public static int GET_CLEANCARD = 1002;
-	public static int GET_STORECARD = 1003;
-	private ImageView backImageView;
-	private TextView titleTextView;
-	private TextView rightBtnTextView;
+	public static int GET_COUPON = 1001;//选择优惠券返回code
+	public static int GET_CLEANCARD = 1002;//选择洗车卡返回code
+	public static int GET_STORECARD = 1003;//选择增值卡返回code
+	private ImageView backImageView; //显示图片的控件
+	private TextView titleTextView; //标题栏
+	private TextView rightBtnTextView; //标题右边的内容
 
-	private CartAdapter adapter;
-	private ListView listView;
-	private ArrayList<Cart> carts;
-	private double total = 0.0;
-	private double acTotal = 0.0;
-	private double creditePrice = 0.0;
+	private CartAdapter adapter;//数据源
+	private ListView listView;//适配器
+	private ArrayList<Cart> carts;//商品列表
+	private double total = 0.0; //总金额
+	private double acTotal = 0.0; //实际金额
+	private double creditePrice = 0.0; //积分价格
 	private double creditePriceUse = 0.0;// 实际消耗的积分金额
 	private double couponPriceUse = 0.0;// 实际消耗的优惠金额
-	private double cleancardPriceUse = 0.0;
-	private double storecardPriceUse = 0.0;
+	private double cleancardPriceUse = 0.0;//洗车卡实际消费金额
+	private double storecardPriceUse = 0.0;//增值卡实际消费金额
 	private double storecardPriceTotal = 0.0;// 使用增值卡的服务的集合的总金额
 
-	private TextView priceTxt;
-	private TextView priceAcTxt;
+	private TextView priceTxt;//价格文本框
+	private TextView priceAcTxt;//实际价格文本框
 	private int payMethod = 1;// 1.支付宝客户端 2.支付宝网页 3. 线下支付
-	private RadioButton alipayClient;
-	private RadioButton alipayWeb;
-	private RadioButton offline;
-	private Button payBtn;
-	private String oid;
-	private LinearLayout couponLayout;
-	private TextView couponSelect;
-	private TextView couponNum;
-	private LinearLayout storecardLayout;
-	private TextView storecardSelect;
-	private TextView storecardNum;
-	private LinearLayout clearcardLayout;
-	private TextView clearcardSelect;
-	private TextView clearcardNum;
-	private View line1;
-	private View line2;
-	private View line3;
-	private ArrayList<Coupon> datas;
-	private ArrayList<StoreCard> cardDatas;
-	private ArrayList<Coupon> couponData;
-	private ArrayList<StoreCard> cleancardDatas;
-	private ArrayList<StoreCard> storecardDatas;
-	private CheckBox coupon;
-	private CheckBox storecard_cb;
-	private CheckBox cleancard_cb;
-	private CheckBox credite;
+	private RadioButton alipayClient;//支付方式
+	private RadioButton alipayWeb;//支付方式
+	private RadioButton offline;//线下支付
+	private Button payBtn;//支付按钮
+	private String oid;//接口所需参数
+	private LinearLayout couponLayout; //优惠券容器
+	private TextView couponSelect; //优惠券选择的内容 
+	private TextView couponNum; //优惠券编号
+	private LinearLayout storecardLayout; //增值卡容器
+	private TextView storecardSelect; //选择的增值卡
+	private TextView storecardNum; //增值卡编号
+	private LinearLayout clearcardLayout;//洗车卡容器
+	private TextView clearcardSelect; //洗车卡选择的
+	private TextView clearcardNum;//洗车卡编号
+	private View line1; //第一条线
+	private View line2;//第二条线
+	private View line3;//第三条线
+	private ArrayList<Coupon> datas;//优惠券数据源
+	private ArrayList<StoreCard> cardDatas;//增值卡数据源
+	private ArrayList<Coupon> couponData;//优惠券数据源
+	private ArrayList<StoreCard> cleancardDatas;//洗车卡数据源
+	private ArrayList<StoreCard> storecardDatas;//储值卡数据源
+	private CheckBox coupon; //选择的支付方式优惠券
+	private CheckBox storecard_cb;//选择的支付方式储值卡
+	private CheckBox cleancard_cb;//选择的支付方式洗车卡
+	private CheckBox credite; //选择的支付方式积分
 	private Coupon coupon2 = null;
 	private StoreCard cleanCard = null;
 	private StoreCard storeCard = null;
@@ -108,8 +113,8 @@ public class OrderPayActivity extends BaseActivity implements
 	private ArrayList<Cart> storecardCarts;// 使用增值卡的服务集合
 
 	private boolean step1 = true;// 支付第一步
-	private Pay payClass;
-	private int credtiIntegral = 10;
+	private Pay payClass; //支付实体类
+	private int credtiIntegral = 10; //积分兑换比例
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -589,6 +594,9 @@ public class OrderPayActivity extends BaseActivity implements
 
 	}
 
+	/**
+	 * 获取优惠券信息
+	 */
 	public void getCoupon() {
 		RequestWrapper requestWrapper = new RequestWrapper();
 		requestWrapper.setIdentity(MyApplication.identity);

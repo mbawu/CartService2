@@ -40,6 +40,11 @@ import com.xqxy.model.Brand;
 import com.xqxy.model.Model;
 import com.xqxy.model.Series;
 
+/**
+ * 注册页面
+ * @author Administrator
+ *
+ */
 public class RegisterActivity extends BaseActivity implements OnClickListener,
 		OnCheckedChangeListener, OnItemSelectedListener {
 

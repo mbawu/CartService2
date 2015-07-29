@@ -26,14 +26,19 @@ import com.xqxy.model.Message;
 import com.xqxy.person.CreditActivity.CreditAdapter;
 import com.xqxy.person.CreditActivity.ViewHolder;
 
+/**
+ * 我的消息页面
+ * @author Administrator
+ *
+ */
 public class MessageActivity extends BaseActivity {
-	private ImageView backImageView;
-	private TextView titleTextView;
-	private TextView rightBtnTextView;
-	private ListView listView;
-	private MessageAdapter adapter;
-	private ArrayList<Message> datas;
-	private TextView nodata;
+	private ImageView backImageView;//显示图片的控件
+	private TextView titleTextView; //标题栏
+	private TextView rightBtnTextView; //标题右边的内容
+	private ListView listView;//listview控件
+	private MessageAdapter adapter;//适配器
+	private ArrayList<Message> datas;//数据源
+	private TextView nodata;//无数据时候显示的控件
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +95,9 @@ public class MessageActivity extends BaseActivity {
 		}
 	}
 
+	/**
+	 * 获取消息列表
+	 */
 	public void getMsg() {
 		RequestWrapper requestWrapper = new RequestWrapper();
 		requestWrapper.setIdentity(MyApplication.identity);

@@ -17,15 +17,20 @@ import com.cn.hongwei.ResponseWrapper;
 import com.xqxy.carservice.R;
 import com.xqxy.model.AutoLogin;
 
+/**
+ * 登录页面
+ * @author Administrator
+ *
+ */
 public class LoginActivity extends BaseActivity implements OnClickListener {
 
-	private ImageView finishBtn;
-	private EditText userNameTxt;
-	private EditText pwdTxt;
-	private TextView loginBtn;
-	private TextView forgotBtn;
-	private TextView registerBtn;
-	private MyApplication app;
+	private ImageView finishBtn; //返回按钮
+	private EditText userNameTxt; //用户名输入框
+	private EditText pwdTxt; //密码输入框
+	private TextView loginBtn; //登录按钮
+	private TextView forgotBtn; //忘记密码
+	private TextView registerBtn; //注册按钮
+	private MyApplication app; //获取application实体类
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -29,13 +29,13 @@ import com.xqxy.model.AutoLogin;
  */
 public class ForgotActivity extends BaseActivity implements OnClickListener {
 
-	private ImageView finishBtn;
-	private EditText phoneTxt;
-	private EditText codeTxt;
-	private TextView getCode;
-	private EditText pwdTxt;
-	private FrameLayout openPwdBtn;
-	private TextView commit;
+	private ImageView finishBtn;//返回按钮
+	private EditText phoneTxt; //电话输入框
+	private EditText codeTxt; //验证码文本框
+	private TextView getCode; //获取验证码按钮
+	private EditText pwdTxt; //密码输入框
+	private FrameLayout openPwdBtn; //打开可视化模式
+	private TextView commit; //确认按钮
 	private MyApplication app;
 	
 	private int defaultCount = 60;// 默认多长时间(秒)重复获取验证码

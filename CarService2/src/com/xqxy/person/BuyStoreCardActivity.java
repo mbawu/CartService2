@@ -24,16 +24,24 @@ import com.xqxy.carservice.adapter.CarBaseAdapter;
 
 import com.xqxy.model.StoreCard;
 
+/**
+ * 购买储值卡页面
+ * @author Administrator
+ *
+ */
 public class BuyStoreCardActivity extends BaseActivity {
-	private ImageView backImageView;
-	private TextView titleTextView;
-	private TextView rightBtnTextView;
+	private ImageView backImageView; //显示图片的控件
+	private TextView titleTextView; //标题栏
+	private TextView rightBtnTextView; //标题右边的内容
 
-	private ListView listView;
-	private StoreCardAdapter adapter;
-	private ArrayList<StoreCard> datas;
-	private TextView nodata;
+	private ListView listView;//listview控件
+	private StoreCardAdapter adapter;//适配器
+	private ArrayList<StoreCard> datas;//数据源
+	private TextView nodata; //无数据时候显示的控件
 
+	/**
+	 * activity的初始化方法
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -47,6 +55,10 @@ public class BuyStoreCardActivity extends BaseActivity {
 		if(MyApplication.buyStoreCardSuc)
 			finish();
 	}
+	
+	/**
+	 * 初始化控件以及数据
+	 */
 	private void init() {
 		backImageView = (ImageView) findViewById(R.id.imageTopBack);
 		backImageView.setOnClickListener(new OnClickListener() {
@@ -67,6 +79,10 @@ public class BuyStoreCardActivity extends BaseActivity {
 		getCard();
 	}
 
+	
+	/**
+	 * 解析数据类
+	 */
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
@@ -87,6 +103,9 @@ public class BuyStoreCardActivity extends BaseActivity {
 		}
 	}
 
+	/**
+	 * 获取卡片信息
+	 */
 	public void getCard() {
 		RequestWrapper requestWrapper = new RequestWrapper();
 		requestWrapper.setIdentity(MyApplication.identity);
@@ -94,6 +113,11 @@ public class BuyStoreCardActivity extends BaseActivity {
 		sendDataByGet(requestWrapper, NetworkAction.indexF_card);
 	}
 
+	/**
+	 * 卡片适配器
+	 * @author Administrator
+	 *
+	 */
 	class StoreCardAdapter extends CarBaseAdapter<StoreCard> {
 
 		public StoreCardAdapter(Activity activity) {

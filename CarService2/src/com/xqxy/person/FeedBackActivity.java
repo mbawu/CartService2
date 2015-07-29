@@ -14,12 +14,17 @@ import com.cn.hongwei.RequestWrapper;
 import com.cn.hongwei.ResponseWrapper;
 import com.xqxy.carservice.R;
 
+/**
+ * 反馈信息页面
+ * @author Administrator
+ *
+ */
 public class FeedBackActivity extends BaseActivity {
-	private ImageView backImageView;
-	private TextView titleTextView;
-	private TextView rightBtnTextView;
-	private EditText personFeedBack;
-	private TextView personCommit;
+	private ImageView backImageView;//显示图片的控件
+	private TextView titleTextView; //标题栏
+	private TextView rightBtnTextView; //标题右边的内容
+	private EditText personFeedBack; //反馈信息
+	private TextView personCommit; //提交按钮
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

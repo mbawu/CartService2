@@ -25,6 +25,11 @@ import com.xqxy.carservice.adapter.CarBaseAdapter;
 import com.xqxy.model.Coupon;
 import com.xqxy.model.StoreCard;
 
+/**
+ * 储值卡页面
+ * @author Administrator
+ *
+ */
 public class StoreCardActivity extends BaseActivity {
 	private ImageView backImageView;
 	private TextView titleTextView;

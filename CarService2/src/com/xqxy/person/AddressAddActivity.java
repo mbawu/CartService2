@@ -20,23 +20,31 @@ import com.cn.hongwei.ResponseWrapper;
 import com.xqxy.carservice.R;
 import com.xqxy.model.Address;
 
+/**
+ * 添加地址类
+ * @author Administrator
+ *
+ */
 public class AddressAddActivity extends BaseActivity {
 
-	public static String ADDRESS_ID = "addressid";
+	public static String ADDRESS_ID = "addressid";//地址ID
 
-	private EditText nameTxt;
-	private EditText phoneTxt;
-	private EditText carNumTxt;
-	private EditText locationTxt;
-	private EditText locationDelTxt;
-	private TextView saveBtn;
-	private RequestWrapper wrapper;
-	private String aid = "";
-	private Address address;
-	private String lng = "0";
-	private String lat = "0";
-	private String temp;
+	private EditText nameTxt; //姓名文本框
+	private EditText phoneTxt; //电话输入框
+	private EditText carNumTxt; //车牌号输入框
+	private EditText locationTxt; //地址输入框
+	private EditText locationDelTxt; //详细地址输入框
+	private TextView saveBtn; //保存按钮
+	private RequestWrapper wrapper; //发请求实体类
+	private String aid = ""; //地址ID
+	private Address address; //地址实体类
+	private String lng = "0"; //坐标经纬度
+	private String lat = "0"; //坐标经纬度
+	private String temp; //临时参数
 
+	/**
+	 * activity的初始化方法
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -45,6 +53,9 @@ public class AddressAddActivity extends BaseActivity {
 		init();
 	}
 
+	/**
+	 * 初始化控件以及数据
+	 */
 	private void init() {
 
 		nameTxt = (EditText) findViewById(R.id.add_name);
@@ -94,6 +105,9 @@ public class AddressAddActivity extends BaseActivity {
 		});
 	}
 
+	/**
+	 * 检查模式
+	 */
 	private void checkModel() {
 		Intent intent = getIntent();
 		aid = intent.getStringExtra(ADDRESS_ID);
@@ -109,6 +123,9 @@ public class AddressAddActivity extends BaseActivity {
 		}
 	}
 
+	/**
+	 * 获取定位地址
+	 */
 	private void getLocation() {
 		temp = MyApplication.address;
 		locationTxt.setText(MyApplication.address);
@@ -132,6 +149,9 @@ public class AddressAddActivity extends BaseActivity {
 
 	}
 
+	/**
+	 * 解析数据类
+	 */
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
@@ -153,6 +173,10 @@ public class AddressAddActivity extends BaseActivity {
 		// }
 	}
 
+	/**
+	 * 按钮点击事件
+	 * @param view
+	 */
 	public void btnOnClick(View view) {
 		finish();
 	}

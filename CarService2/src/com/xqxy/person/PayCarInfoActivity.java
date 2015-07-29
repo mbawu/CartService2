@@ -37,6 +37,11 @@ import com.xqxy.model.Model;
 import com.xqxy.model.Series;
 import com.xqxy.model.StoreCard;
 
+/**
+ * 支付车牌信息页面
+ * @author Administrator
+ *
+ */
 public class PayCarInfoActivity extends BaseActivity implements
 		OnClickListener, OnItemSelectedListener {
 

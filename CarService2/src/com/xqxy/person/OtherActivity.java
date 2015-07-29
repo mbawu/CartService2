@@ -18,6 +18,11 @@ import com.xqxy.carservice.R;
 import com.xqxy.carservice.activity.WebActivity;
 import com.xqxy.model.AutoLogin;
 
+/**
+ * 其他的页面
+ * @author Administrator
+ *
+ */
 public class OtherActivity extends BaseActivity implements OnClickListener {
 
 	private ImageView backImageView;

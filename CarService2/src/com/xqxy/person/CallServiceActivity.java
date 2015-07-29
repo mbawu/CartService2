@@ -34,39 +34,48 @@ import com.xqxy.carservice.R;
 import com.xqxy.model.Address;
 import com.xqxy.model.Cart;
 
+
+/**
+ * 立即预约页面
+ * @author Administrator
+ *
+ */
 public class CallServiceActivity extends BaseActivity implements
 		OnClickListener {
 
-	private ImageView backImageView;
-	private TextView titleTextView;
-	private TextView rightBtnTextView;
+	private ImageView backImageView; //显示图片的控件
+	private TextView titleTextView; //标题栏
+	private TextView rightBtnTextView; //标题右边的内容
 
-	private Calendar calendar;
-	private DatePicker datePicker;
-	private TimePicker timePicker;
-	private LinearLayout dateLayout;
-	private TextView cancelBtn;
-	private TextView confirmBtn;
-	private TextView submitBtn;
-	private LinearLayout addBtn;
-	private TextView dateTxt;
-	private LinearLayout addressLayout;
-	private TextView nameTxt;
-	private TextView phoneTxt;
-	private TextView car_numTxt;
-	private TextView address_locationTxt;
-	private TextView address_location_detailTxt;
-	private TextView changeTxt;
-	private EditText noteTxt;
-	
-	private Address address;
-	private String pid;
-	private String paid;
-	private boolean cartModule=false;
-	private String cartJson;
+	private Calendar calendar; //日历
+	private DatePicker datePicker; //日期选择器
+	private TimePicker timePicker; //时间选择器
+	private LinearLayout dateLayout; //时间容器
+	private TextView cancelBtn; //取消按钮
+	private TextView confirmBtn; //确认按钮
+	private TextView submitBtn; //提交按钮
+	private LinearLayout addBtn; //添加按钮
+	private TextView dateTxt; //日期文本框
+	private LinearLayout addressLayout; //地址容器
+	private TextView nameTxt; //姓名文本框
+	private TextView phoneTxt; //电话文本框
+	private TextView car_numTxt; //车牌号文本框
+	private TextView address_locationTxt; //地址输入框
+	private TextView address_location_detailTxt; //详细地址输入框
+	private TextView changeTxt; //修改按钮
+	private EditText noteTxt; //备注文本框
+	 
+	private Address address; //地址实体类 
+	private String pid; //接口所需参数
+	private String paid; //接口所需参数
+	private boolean cartModule=false; //是从商品详情页面预约还是从购物车页面预约
+	private String cartJson; //拼凑的json字符串
 	
 	private ArrayList<Cart> datas;
-	
+
+	/**
+	 * activity的初始化方法
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -75,6 +84,9 @@ public class CallServiceActivity extends BaseActivity implements
 		init();
 	}
 
+	/**
+	 * 初始化控件以及数据
+	 */
 	private void init() {
 		
 		check();
@@ -155,6 +167,7 @@ public class CallServiceActivity extends BaseActivity implements
 		dateTxt.setText(getDate());
 	}
 
+	
 	@SuppressWarnings("unchecked")
 	private void check() {
 		datas=(ArrayList<Cart>) getIntent().getSerializableExtra("data");
@@ -234,7 +247,10 @@ public class CallServiceActivity extends BaseActivity implements
 	}
 
 
-
+	/**
+	 * 按钮点击事件
+	 * @param view
+	 */
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -348,6 +364,10 @@ public class CallServiceActivity extends BaseActivity implements
 	
 	}
 
+	
+	/**
+	 * 解析数据类
+	 */
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {

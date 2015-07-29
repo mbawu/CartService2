@@ -37,19 +37,27 @@ import com.xqxy.model.ProductAttr;
 import com.xqxy.person.CouponActivity.CouponAdapter;
 import com.xqxy.person.CouponActivity.ViewHolder;
 
+/**
+ * 购物车页面
+ * @author Administrator
+ *
+ */
 public class CartActivity extends BaseActivity implements OnClickListener {
-	private ImageView backImageView;
-	private TextView titleTextView;
-	private TextView rightBtnTextView;
-	private ListView listView;
-	private CartAdapter adapter;
-	private ArrayList<Cart> datas;
-	private TextView nodata;
-	private TextView callBtn;
-	private RequestWrapper cartWrapper;
-	private RequestWrapper delWrapper;
+	private ImageView backImageView;//显示图片的控件
+	private TextView titleTextView; //标题栏
+	private TextView rightBtnTextView; //标题右边的内容
+	private ListView listView;//listview控件
+	private CartAdapter adapter;//适配器
+	private ArrayList<Cart> datas;//数据源
+	private TextView nodata; //无数据时候显示的控件
+	private TextView callBtn;//预约按钮
+	private RequestWrapper cartWrapper; //购物车请求实体类
+	private RequestWrapper delWrapper; //删除请求实体类
 //	private Cart cartSelect;
 
+	/**
+	 * activity的初始化方法
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -58,7 +66,10 @@ public class CartActivity extends BaseActivity implements OnClickListener {
 		init();
 
 	}
-
+	
+	/**
+	 * 初始化控件以及数据
+	 */
 	private void init() {
 		backImageView = (ImageView) findViewById(R.id.imageTopBack);
 		backImageView.setOnClickListener(this);
@@ -79,6 +90,9 @@ public class CartActivity extends BaseActivity implements OnClickListener {
 		
 	}
 
+	/**
+	 * 解析数据类
+	 */
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
@@ -107,6 +121,10 @@ public class CartActivity extends BaseActivity implements OnClickListener {
 
 	}
 
+	/**
+	 * 按钮点击事件
+	 * @param view
+	 */
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {

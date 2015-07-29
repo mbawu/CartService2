@@ -36,23 +36,32 @@ import com.xqxy.model.Message;
 import com.xqxy.person.CreditActivity.CreditAdapter;
 import com.xqxy.person.CreditActivity.ViewHolder;
 
+/**
+ * 优惠券页面
+ * @author Administrator
+ *
+ */
 public class CouponActivity extends BaseActivity implements
 		OnCheckedChangeListener {
-	private ImageView backImageView;
-	private TextView titleTextView;
-	private TextView rightBtnTextView;
-	private ListView listView;
-	private CouponAdapter adapter;
-	private ArrayList<Coupon> datas;
-	private TextView nodata;
-	private RequestWrapper requestWrapper;
-	private RadioButton noUse;
-	private RadioButton used;
-	private RadioButton expired;
-	private boolean selectModule = false;
+	private ImageView backImageView;//显示图片的控件
+	private TextView titleTextView; //标题栏
+	private TextView rightBtnTextView; //标题右边的内容
+	private ListView listView;//listview控件
+	private CouponAdapter adapter;//适配器
+	private ArrayList<Coupon> datas;//数据源
+	private TextView nodata;//无数据时候显示的控件
+	private RequestWrapper requestWrapper;//请求实体类
+	private RadioButton noUse; //未使用
+	private RadioButton used;//已使用
+	private RadioButton expired; //已过期
+	private boolean selectModule = false; //模式
 	private View line;
 	int statu = 1;
 
+
+	/**
+	 * activity的初始化方法
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -60,6 +69,9 @@ public class CouponActivity extends BaseActivity implements
 		init();
 	}
 
+	/**
+	 * 初始化控件以及数据
+	 */
 	private void init() {
 		// datas=new ArrayList<Coupon>();
 		line = findViewById(R.id.line);
@@ -118,6 +130,9 @@ public class CouponActivity extends BaseActivity implements
 			noUse.setChecked(true);
 	}
 
+	/**
+	 * 解析数据类
+	 */
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {

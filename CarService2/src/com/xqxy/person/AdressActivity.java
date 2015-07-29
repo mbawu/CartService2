@@ -30,14 +30,23 @@ import com.xqxy.carservice.activity.ConfirmDialog;
 import com.xqxy.carservice.adapter.CarBaseAdapter;
 import com.xqxy.model.Address;
 
+/**
+ * 地址管理页面
+ * @author Administrator
+ *
+ */
 public class AdressActivity extends BaseActivity {
 
-	private SlideListView listView;
-	private AddressAdapter adapter;
-	private ArrayList<Address> datas;
-	private TextView addBtn;
-	private RequestWrapper wrapper;
-	private boolean selectAddress=false;
+	private SlideListView listView; //listview控件
+	private AddressAdapter adapter; //适配器
+	private ArrayList<Address> datas; //数据源
+	private TextView addBtn; //添加按钮
+	private RequestWrapper wrapper;//发请求实体类
+	private boolean selectAddress=false; //是否是选择地址的模式
+
+	/**
+	 * activity的初始化方法
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -47,6 +56,9 @@ public class AdressActivity extends BaseActivity {
 		init();
 	}
 
+	/**
+	 * 初始化控件以及数据
+	 */
 	private void init() {
 		// Log.i(Cst.TAG, "init");
 		// // 登录
@@ -108,6 +120,9 @@ public class AdressActivity extends BaseActivity {
 		sendData(wrapper, NetworkAction.centerF_user_address);
 	}
 
+	/**
+	 * 检查是选择模式还是管理模式
+	 */
 	private void check() {
 		Intent intent=getIntent();
 		String select=intent.getStringExtra("select");
@@ -118,6 +133,10 @@ public class AdressActivity extends BaseActivity {
 		
 	}
 
+	
+	/**
+	 * 解析数据类
+	 */
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
@@ -160,10 +179,19 @@ public class AdressActivity extends BaseActivity {
 			MyApplication.refresh=false;
 		}
 	}
+	
+	/**
+	 * 按钮点击事件
+	 * @param view
+	 */
 	public void btnOnClick(View view) {
 		finish();
 	}
 
+	/**
+	 * 删除地址
+	 * @param address
+	 */
 	public void deleteAddress(Address address)
 	{
 		RequestWrapper wrapper = new RequestWrapper();
@@ -172,6 +200,12 @@ public class AdressActivity extends BaseActivity {
 		wrapper.setShowDialog(true);
 		sendData(wrapper, NetworkAction.centerF_del_address);
 	}
+	
+	/**
+	 * 地址适配器
+	 * @author Administrator
+	 *
+	 */
 	class AddressAdapter extends CarBaseAdapter<Address> {
 
 		public AddressAdapter(Activity activity) {

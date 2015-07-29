@@ -21,13 +21,20 @@ import com.xqxy.carservice.adapter.CarBaseAdapter;
 import com.xqxy.model.Credit;
 
 
+/**
+ * 积分页面
+ * @author Administrator
+ *
+ */
 public class CreditActivity extends BaseActivity {
 
-	private ListView listView;
-	private CreditAdapter adapter;
-	private ArrayList<Credit> datas;
-	private TextView nodata;
-
+	private ListView listView;//listview控件
+	private CreditAdapter adapter;//适配器
+	private ArrayList<Credit> datas;//数据源
+	private TextView nodata;//无数据时候显示的控件
+	/**
+	 * activity的初始化方法
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -35,7 +42,9 @@ public class CreditActivity extends BaseActivity {
 		setContentView(R.layout.person_credit);
 		init();
 	}
-
+	/**
+	 * 初始化控件以及数据
+	 */
 	private void init() {
 //		RequestWrapper wrapper = new RequestWrapper();
 //		wrapper.setPhone("13466899985");
@@ -49,7 +58,9 @@ public class CreditActivity extends BaseActivity {
 		wrapper.setIdentity(MyApplication.identity);
 		sendData(wrapper, NetworkAction.centerF_user_integral);
 	}
-
+	/**
+	 * 解析数据类
+	 */
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {

@@ -28,6 +28,11 @@ import com.xqxy.carservice.adapter.CarBaseAdapter;
 
 import com.xqxy.model.StoreCard;
 
+/**
+ * 储值卡详情页面
+ * @author Administrator
+ *
+ */
 public class StoreCardDetailActivity extends BaseActivity {
 	private ImageView backImageView;
 	private TextView titleTextView;
