@@ -12,6 +12,7 @@
 	<classpathentry kind="lib" path="libs/alipaysecsdk.jar"/>
 	<classpathentry kind="lib" path="libs/alipayutdid.jar"/>
 	<classpathentry kind="lib" path="libs/locSDK_5.01.jar"/>
+	<classpathentry kind="lib" path="libs/lib.jar"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
