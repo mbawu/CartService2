@@ -35,11 +35,16 @@ import com.xqxy.person.NetworkAction;
 import com.xqxy.person.OtherActivity;
 import com.xqxy.person.StoreCardActivity;
 
+/**
+ * 个人中心界面
+ * @author Administrator
+ *
+ */
 public class PersonCentreActivity extends BaseActivity implements
 		OnClickListener {
-	public static int REQUEST_CODE_PHOTO = 1;
-	public static int REQUEST_CODE_MSG = 1001;
-	private LinearLayout layoutUser;
+	public static int REQUEST_CODE_PHOTO = 1;//上传头像
+	public static int REQUEST_CODE_MSG = 1001;//刷新消息
+	private LinearLayout layoutUser;//用户头像布局
 	private ImageView finishImageView;
 	private TextView titleTextView;
 	private ImageView phoneImageView;
@@ -60,6 +65,9 @@ public class PersonCentreActivity extends BaseActivity implements
 	private UserInfo user;
 	private String phoneNum="";
 	
+	/**
+	 * 界面初始化
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,6 +75,9 @@ public class PersonCentreActivity extends BaseActivity implements
 		init();
 	}
 
+	/**
+	 * 更新用户信息
+	 */
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -86,6 +97,9 @@ public class PersonCentreActivity extends BaseActivity implements
 		}
 	}
 
+	/**
+	 * 绑定控件
+	 */
 	private void init() {
 		// 登录
 		/*
@@ -143,7 +157,9 @@ public class PersonCentreActivity extends BaseActivity implements
 		sendDataByGet(new RequestWrapper(), NetworkAction.indexF_web_base);
 	}
 
-
+	/**
+	 * 解析服务端数据
+	 */
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
@@ -207,6 +223,7 @@ public class PersonCentreActivity extends BaseActivity implements
 		 }
 	}
 
+	//刷新消息的广播
 	private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
@@ -218,6 +235,9 @@ public class PersonCentreActivity extends BaseActivity implements
 
 	};
 
+	/**
+	 * 注册消息广播
+	 */
 	public void registerBoradcastReceiver() {
 		IntentFilter myIntentFilter = new IntentFilter();
 		myIntentFilter.addAction(Cst.GET_RECEIVE);
@@ -225,6 +245,9 @@ public class PersonCentreActivity extends BaseActivity implements
 		registerReceiver(mBroadcastReceiver, myIntentFilter);
 	}
 
+	/**
+	 * 销毁界面，解除广播
+	 */
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
@@ -232,12 +255,18 @@ public class PersonCentreActivity extends BaseActivity implements
 		unregisterReceiver(mBroadcastReceiver);
 	}
 
+	/**
+	 * 发送获取消息的请求
+	 */
 	public void getMsg() {
 		RequestWrapper requestWrapper = new RequestWrapper();
 		requestWrapper.setIdentity(MyApplication.identity);
 		sendData(requestWrapper, NetworkAction.centerF_user_msg);
 	}
 
+	/**
+	 * 条目点击事件
+	 */
 	@Override
 	public void onClick(View v) {
 		Intent intent = null;
@@ -301,6 +330,9 @@ public class PersonCentreActivity extends BaseActivity implements
 
 	}
 
+	/**
+	 * 头像上传成功后，刷新界面
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);

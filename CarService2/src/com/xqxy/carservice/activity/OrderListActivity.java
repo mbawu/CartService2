@@ -27,6 +27,11 @@ import com.xqxy.model.Order;
 import com.xqxy.model.OrderProduct;
 import com.xqxy.person.NetworkAction;
 
+/**
+ * 订单列表界面
+ * @author Administrator
+ *
+ */
 public class OrderListActivity extends BaseActivity implements
 		View.OnClickListener {
 	private TopTitleView topTitleView;
@@ -43,6 +48,9 @@ public class OrderListActivity extends BaseActivity implements
 	private static final String ORDER_STATUS_FINISH = "3"; // 已完成
 	private static final String ORDER_STATUS_CANCEL = "4"; // 已取消
 
+	/**
+	 * 界面初始化
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -76,7 +84,9 @@ public class OrderListActivity extends BaseActivity implements
 		getOrder();
 	}
 
-	
+	/**
+	 * 评价成功后重新刷新订单列表
+	 */
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -86,6 +96,9 @@ public class OrderListActivity extends BaseActivity implements
 		}
 	}
 	
+	/**
+	 * 向后台发送订单列表请求
+	 */
 	private void getOrder() {
 		RequestWrapper request = new RequestWrapper();
 		request.setShowDialog(true);
@@ -95,6 +108,9 @@ public class OrderListActivity extends BaseActivity implements
 		sendDataByGet(request, NetworkAction.centerF_user_order);
 	}
 
+	/**
+	 * 解析服务端数据
+	 */
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
@@ -115,6 +131,9 @@ public class OrderListActivity extends BaseActivity implements
 		}
 	}
 
+	/**
+	 * 订单操作点击响应事件
+	 */
 	@Override
 	public void onClick(View v) {
 		if (v instanceof TextView) {
@@ -262,6 +281,11 @@ public class OrderListActivity extends BaseActivity implements
 		}
 	}
 
+	/**
+	 * 订单列表适配器
+	 * @author Administrator
+	 *
+	 */
 	class OrderListAdapter extends CarBaseAdapter<Order> {
 
 		public OrderListAdapter(Activity activity) {

@@ -18,6 +18,11 @@ import android.widget.ImageButton;
 import com.cn.hongwei.PhotoActivity;
 import com.xqxy.carservice.R;
 
+/**
+ * 图片选择对话框
+ * @author Administrator
+ *
+ */
 public class PhotoSelectDialog extends Dialog implements
 		android.view.View.OnClickListener {
 	private Activity activity;
@@ -26,6 +31,11 @@ public class PhotoSelectDialog extends Dialog implements
 	public Button btnCancel;
 	private String imgPath;
 
+	/**
+	 * 界面初始化
+	 * @param context 上下文
+	 * @param imgPath 裁剪后保存在本地的图片路径
+	 */
 	public PhotoSelectDialog(Context context, String imgPath) {
 		super(context, R.style.MyProgressDialog);
 		setContentView(R.layout.photo_select_layout);
@@ -47,6 +57,9 @@ public class PhotoSelectDialog extends Dialog implements
 
 	}
 
+	/**
+	 * 选择、拍照按钮点击事件
+	 */
 	@Override
 	public void onClick(View v) {
 		File vFile = new File(imgPath);
@@ -75,10 +88,18 @@ public class PhotoSelectDialog extends Dialog implements
 		this.dismiss();
 	}
 
+	/**
+	 * 获取保存的图片路径
+	 * @return
+	 */
 	public String getImgPath() {
 		return imgPath;
 	}
 
+	/**
+	 * 设置保存图片的路径
+	 * @param imgPath
+	 */
 	public void setImgPath(String imgPath) {
 		this.imgPath = imgPath;
 	}

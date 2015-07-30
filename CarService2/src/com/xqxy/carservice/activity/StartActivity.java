@@ -10,11 +10,19 @@ import cn.jpush.android.api.JPushInterface;
 import com.cn.hongwei.MyApplication;
 import com.xqxy.carservice.R;
 
+/**
+ * 启动页界面
+ * @author Administrator
+ *
+ */
 public class StartActivity extends Activity {
 
 	private View view;
 	private MyApplication app;
 
+	/**
+	 * 界面初始化
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -24,6 +32,9 @@ public class StartActivity extends Activity {
 		view = findViewById(R.id.view);
 	}
 
+	/**
+	 * 启动页的跳转逻辑,初始化推送组件
+	 */
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -47,6 +58,9 @@ public class StartActivity extends Activity {
 
 	}
 
+	/**
+	 * 暂停推送组件
+	 */
 	@Override
 	protected void onPause() {
 		super.onPause();

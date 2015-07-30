@@ -40,6 +40,11 @@ import com.xqxy.person.CartActivity;
 import com.xqxy.person.LoginActivity;
 import com.xqxy.person.NetworkAction;
 
+/**
+ * 服务详情界面
+ * @author Administrator
+ *
+ */
 public class ServiceDetailActivity extends BaseActivity implements
 		OnClickListener {
 
@@ -76,6 +81,9 @@ public class ServiceDetailActivity extends BaseActivity implements
 	private Car car;
 	private Dialog myProgressDialog;
 
+	/**
+	 * 界面初始化
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -192,6 +200,9 @@ public class ServiceDetailActivity extends BaseActivity implements
 				});
 	}
 
+	/**
+	 * 选择爱车后刷新详情界面
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -213,6 +224,9 @@ public class ServiceDetailActivity extends BaseActivity implements
 		}
 	}
 
+	/**
+	 * 解析商品数据
+	 */
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
@@ -369,6 +383,10 @@ public class ServiceDetailActivity extends BaseActivity implements
 		}
 	}
 
+	/**
+	 * 设置商品属性
+	 * @param attr
+	 */
 	private void setAttr(ProductAttr attr) {
 		if (attr != null) {
 			productAttr = attr;
@@ -384,6 +402,9 @@ public class ServiceDetailActivity extends BaseActivity implements
 		}
 	}
 
+	/**
+	 * 商品操作按钮点击事件
+	 */
 	@Override
 	public void onClick(View v) {
 
@@ -448,6 +469,9 @@ public class ServiceDetailActivity extends BaseActivity implements
 
 	}
 
+	/**
+	 * 商品分享
+	 */
 	private void share() {
 
 		OnekeyShare oks = new OnekeyShare();

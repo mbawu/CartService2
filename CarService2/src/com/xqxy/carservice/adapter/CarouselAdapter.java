@@ -14,10 +14,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+/**
+ * 轮播适配器
+ * @author Administrator
+ *
+ */
 public class CarouselAdapter extends PagerAdapter {
 	private Context context;
 	private ArrayList<View> arrayList;
 
+	/**
+	 * 构造方法
+	 * @param context 上下文
+	 */
 	public CarouselAdapter(Context context) {
 		this.context = context;
 	}
@@ -73,6 +82,10 @@ public class CarouselAdapter extends PagerAdapter {
 
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Context getContext() {
 		return context;
 	}

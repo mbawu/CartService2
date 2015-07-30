@@ -21,6 +21,11 @@ import com.xqxy.model.Model;
 import com.xqxy.model.Series;
 import com.xqxy.person.NetworkAction;
 
+/**
+ * 车型、车系、品牌适配器
+ * @author Administrator
+ *
+ */
 public class CarInfoAdapter extends BaseAdapter {
 	private Context context;
 	private ArrayList<Brand> brands;
@@ -31,6 +36,12 @@ public class CarInfoAdapter extends BaseAdapter {
 	private LayoutInflater inflater;
 	private ViewHolder holder;
 
+	/**
+	 * 初始化
+	 * @param context 上下文
+	 * @param type 类型
+	 * @param data 填充的列表数据
+	 */
 	@SuppressWarnings("unchecked")
 	public <T> CarInfoAdapter(Context context,NetworkAction type,ArrayList<T> data) {
 		this.context = context;
@@ -46,6 +57,9 @@ public class CarInfoAdapter extends BaseAdapter {
 		this.inflater = LayoutInflater.from(context);
 	}
 
+	/**
+	 * 获取总行数
+	 */
 	@Override
 	public int getCount() {
 		if(type.equals(NetworkAction.carF_brand))
@@ -64,15 +78,25 @@ public class CarInfoAdapter extends BaseAdapter {
 
 
 	
-
+	/**
+	 * 获取上下文
+	 * @return
+	 */
 	public Context getContext() {
 		return context;
 	}
 
+	/**
+	 * 设置上下文
+	 * @param context 上下文
+	 */
 	public void setContext(Context context) {
 		this.context = context;
 	}
 
+	/**
+	 * 获取列表item
+	 */
 	@Override
 	public Object getItem(int position) {
 		if(type.equals(NetworkAction.carF_brand))
@@ -91,6 +115,9 @@ public class CarInfoAdapter extends BaseAdapter {
 		return position;
 	}
 
+	/**
+	 * 获取item视图
+	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if(convertView==null)

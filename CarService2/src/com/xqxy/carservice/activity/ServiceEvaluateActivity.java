@@ -28,6 +28,11 @@ import com.xqxy.carservice.adapter.CarBaseAdapter;
 import com.xqxy.model.Appraise;
 import com.xqxy.person.NetworkAction;
 
+/**
+ * 服务评价列表界面
+ * @author Administrator
+ *
+ */
 public class ServiceEvaluateActivity extends BaseActivity {
 	private TopTitleView topTitleView;
 
@@ -37,6 +42,9 @@ public class ServiceEvaluateActivity extends BaseActivity {
 	private String pid;
 	private String flag = "0";
 
+	/**
+	 * 界面初始化
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,6 +82,9 @@ public class ServiceEvaluateActivity extends BaseActivity {
 		getEvaDate();
 	}
 
+	/**
+	 * 向服务端发送获取评价列表的请求
+	 */
 	private void getEvaDate() {
 		RequestWrapper request = new RequestWrapper();
 		request.setShowDialog(true);
@@ -83,6 +94,9 @@ public class ServiceEvaluateActivity extends BaseActivity {
 		sendDataByGet(request, NetworkAction.indexF_appraise);
 	}
 
+	/**
+	 * 解析服务端返回的评价数据
+	 */
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
@@ -95,6 +109,11 @@ public class ServiceEvaluateActivity extends BaseActivity {
 
 	}
 
+	/**
+	 * 评价列表适配器
+	 * @author Administrator
+	 *
+	 */
 	class EvaluateAdapter extends CarBaseAdapter<Appraise> {
 
 		public EvaluateAdapter(Activity activity) {
@@ -174,6 +193,11 @@ public class ServiceEvaluateActivity extends BaseActivity {
 		}
 	}
 
+	/**
+	 * 动态组装评价的图片
+	 * @param imgLinearLayout 布局容器
+	 * @param imgUrls 图片数组
+	 */
 	private void setEvaluateImage(LinearLayout imgLinearLayout,
 			final ArrayList<String> imgUrls) {
 		// imgUrl = itemUrls;

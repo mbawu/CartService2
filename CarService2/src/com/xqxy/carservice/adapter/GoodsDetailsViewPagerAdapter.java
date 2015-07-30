@@ -15,8 +15,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 /**
- * @author KingKong·HE
- * @Time 2014-1-6 下午12:06:09
+ * 评价图片，大图适配器
+ * @author Administrator
+ *
  */
 public class GoodsDetailsViewPagerAdapter extends PagerAdapter{
 	private Context context;

@@ -19,6 +19,11 @@ import com.xqxy.person.Cst;
 import com.xqxy.person.NetworkAction;
 import com.xqxy.person.OtherActivity;
 
+/**
+ * 个人信息界面
+ * @author Administrator
+ *
+ */
 public class PersonInfoActivity extends PhotoActivity implements
 		OnClickListener {
 
@@ -28,6 +33,9 @@ public class PersonInfoActivity extends PhotoActivity implements
 
 	private String src;
 
+	/**
+	 * 界面初始化
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,6 +54,9 @@ public class PersonInfoActivity extends PhotoActivity implements
 
 	boolean isInit = false;
 
+	/**
+	 * 加载头像
+	 */
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -64,6 +75,9 @@ public class PersonInfoActivity extends PhotoActivity implements
 		}
 	}
 
+	/**
+	 * 头像、爱车点击事件
+	 */
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -84,6 +98,9 @@ public class PersonInfoActivity extends PhotoActivity implements
 		}
 	}
 
+	/**
+	 * 解析服务端数据
+	 */
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
@@ -100,6 +117,9 @@ public class PersonInfoActivity extends PhotoActivity implements
 		}
 	}
 
+	/**
+	 * 上传头像
+	 */
 	public void uploadImg(String imagePath) {
 
 		try {

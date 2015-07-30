@@ -12,12 +12,20 @@ import com.cn.hongwei.TopTitleView;
 import com.xqxy.carservice.R;
 import com.xqxy.person.NetworkAction;
 
+/**
+ * 用户协议、关于我们界面
+ * @author Administrator
+ *
+ */
 public class WebActivity extends BaseActivity {
 	private TopTitleView topTitleView;
 	private WebView webView;
 
 	private String name;
 
+	/**
+	 * 界面初始化
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,6 +48,9 @@ public class WebActivity extends BaseActivity {
 
 	}
 
+	/**
+	 * 解析服务端数据，加载html
+	 */
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
